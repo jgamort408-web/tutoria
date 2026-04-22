@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creador de Rutinas - Técnicas de Estudio</title>
+    <style>
+        :root {
+            --primary: #0F766E; /* Teal profundo */
+            --secondary: #0D9488; /* Teal más claro */
+            --accent: #EAB308; /* Amarillo Mostaza */
+            --bg-color: transparent;
+            --text-main: #374151;
+            --text-light: #6B7280;
+            --white: #FFFFFF;
+            --slot-empty: #F3F4F6;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            line-height: 1.8;
+            flex-direction: column !important;
+            align-items: center !important;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 1000px;
+            padding: 40px 20px;
+        }
+
+        /* --- CABECERA --- */
+        .header-section { text-align: center; margin-bottom: 40px; }
+        
+        h1 {
+            font-family: 'Georgia', serif; color: var(--primary); font-size: 2.8rem;
+            margin-bottom: 10px; line-height: 1.2;
+        }
+        .main-title::after {
+            content: ''; display: block; width: 60px; height: 4px;
+            background: var(--accent); margin: 15px auto 0; border-radius: 2px;
+        }
+        .context-text { font-size: 1.15rem; color: var(--text-main); max-width: 750px; margin: 0 auto; }
+
+        /* --- CONTENEDOR PRINCIPAL (2 COLUMNAS) --- */
+        .planner-layout {
+            display: flex; gap: 30px; align-items: flex-start;
+            flex-direction: column;
+        }
+        @media (min-width: 768px) { .planner-layout { flex-direction: row; } }
+
+        /* --- COLUMNA 1: HORARIO --- */
+        .schedule-container {
+            flex: 1; width: 100%; background-color: var(--white);
+            border-radius: 16px; padding: 30px 20px;
+            box-shadow: 0 10px 30px rgba(15, 118, 110, 0.08); border: 2px solid #CCFBF1;
+        }
+
+        .schedule-title {
+            font-family: 'Arial Black', sans-serif; color: var(--primary);
+            text-align: center; text-transform: uppercase; margin-bottom: 20px;
+        }
+
+        .time-slot {
+            display: flex; align-items: center; gap: 15px; margin-bottom: 15px;
+        }
+
+        .time-label {
+            font-weight: bold; color: var(--text-light); width: 110px;
+            text-align: right; font-size: 1.1rem;
+        }
+
+        .activity-box {
+            flex: 1; min-height: 60px; background-color: var(--slot-empty);
+            border: 2px dashed #D1D5DB; border-radius: 12px;
+            display: flex; justify-content: center; align-items: center;
+            cursor: pointer; transition: all 0.2s; font-weight: bold; color: var(--text-light);
+            font-size: 1.1rem; gap: 10px;
+        }
+
+        .activity-box:hover {
+            border-color: var(--secondary); background-color: #F0FDFA; color: var(--secondary);
+        }
+
+        /* --- COLUMNA 2: EVALUADOR --- */
+        .evaluator-container {
+            flex: 1; width: 100%; background-color: #111827; color: white;
+            border-radius: 16px; padding: 30px; border: 4px solid #374151;
+            position: sticky; top: 20px;
+        }
+
+        .evaluator-title {
+            color: var(--accent); font-family: 'Georgia', serif; font-size: 1.5rem;
+            margin-bottom: 20px; border-bottom: 1px solid #374151; padding-bottom: 10px;
+        }
+
+        .feedback-item {
+            background-color: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px;
+            margin-bottom: 15px; display: flex; gap: 15px; align-items: flex-start;
+            animation: fadeIn 0.4s;
+        }
+
+        .feedback-icon { font-size: 1.5rem; }
+        .feedback-text { font-size: 1.05rem; line-height: 1.4; }
+
+        .progress-bar-container { margin-top: 30px; }
+        .progress-label { display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 0.9rem; }
+        .progress-track { width: 100%; height: 10px; background-color: #374151; border-radius: 5px; overflow: hidden; }
+        .progress-fill { height: 100%; width: 0%; transition: width 0.4s ease; }
+        
+        .fill-study { background-color: #0F766E; }
+        .fill-leisure { background-color: #DC2626; }
+
+        /* --- MODAL DE SELECCIÓN DE ACTIVIDAD --- */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(0,0,0,0.6); z-index: 100; justify-content: center; align-items: center;
+        }
+
+        .modal-content {
+            background-color: white; padding: 30px; border-radius: 16px; max-width: 500px; width: 90%;
+            animation: popIn 0.3s ease-out;
+        }
+
+        .modal-title { color: var(--primary); margin-bottom: 20px; text-align: center; }
+
+        .activities-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px;
+        }
+
+        .act-btn {
+            border: 2px solid #E5E7EB; border-radius: 12px; padding: 15px 10px;
+            background-color: white; cursor: pointer; transition: all 0.2s;
+            display: flex; flex-direction: column; align-items: center; gap: 5px;
+            font-family: inherit; font-weight: bold; font-size: 0.9rem; color: var(--text-main);
+        }
+
+        .act-btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+
+        /* Actividades específicas */
+        .act-study { border-color: #0F766E; } .act-study:hover { background-color: #F0FDFA; }
+        .act-leisure { border-color: #DC2626; } .act-leisure:hover { background-color: #FEF2F2; }
+        .act-sport { border-color: #16A34A; } .act-sport:hover { background-color: #F0FDF4; }
+        .act-chores { border-color: #8B5CF6; } .act-chores:hover { background-color: #F5F3FF; }
+        .act-break { border-color: #EAB308; } .act-break:hover { background-color: #FEFCE8; }
+
+        .act-icon { font-size: 2rem; }
+        
+        .btn-clear {
+            width: 100%; margin-top: 20px; padding: 10px; background-color: #F3F4F6;
+            border: none; border-radius: 8px; cursor: pointer; color: var(--text-light); font-weight: bold;
+        }
+        .btn-clear:hover { background-color: #E5E7EB; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes popIn { 0% { opacity: 0; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1); } }
+
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        
+        <div class="header-section">
+            <h1 class="main-title">Diseña tu Tarde Perfecta</h1>
+            <p class="context-text">
+                Toca cada hueco del horario para añadir una actividad. Tu objetivo es crear una rutina equilibrada. Nuestro "Asistente Virtual" analizará tu horario y te avisará si te estás pasando de ocio o si estudias demasiado tarde.
+            </p>
+        </div>
+
+        <div class="planner-layout">
+            
+            <div class="schedule-container">
+                <div class="schedule-title">Mi Horario</div>
+                
+                <div class="time-slot">
+                    <div class="time-label">16:00 - 17:00</div>
+                    <div class="activity-box" id="slot-0" onclick="openModal(0)">➕ Añadir actividad</div>
+                </div>
+                <div class="time-slot">
+                    <div class="time-label">17:00 - 18:00</div>
+                    <div class="activity-box" id="slot-1" onclick="openModal(1)">➕ Añadir actividad</div>
+                </div>
+                <div class="time-slot">
+                    <div class="time-label">18:00 - 19:00</div>
+                    <div class="activity-box" id="slot-2" onclick="openModal(2)">➕ Añadir actividad</div>
+                </div>
+                <div class="time-slot">
+                    <div class="time-label">19:00 - 20:00</div>
+                    <div class="activity-box" id="slot-3" onclick="openModal(3)">➕ Añadir actividad</div>
+                </div>
+                <div class="time-slot">
+                    <div class="time-label">20:00 - 21:00</div>
+                    <div class="activity-box" id="slot-4" onclick="openModal(4)">➕ Añadir actividad</div>
+                </div>
+                <div class="time-slot">
+                    <div class="time-label">21:00 - 22:00</div>
+                    <div class="activity-box" id="slot-5" onclick="openModal(5)">➕ Añadir actividad</div>
+                </div>
+            </div>
+
+            <div class="evaluator-container">
+                <div class="evaluator-title">🤖 Evaluador de Rutinas</div>
+                
+                <div id="feedback-list">
+                    <div class="feedback-item" style="opacity: 0.7;">
+                        <span class="feedback-icon">⏳</span>
+                        <span class="feedback-text">Añade actividades al horario de la izquierda para que empiece a analizar tu tarde.</span>
+                    </div>
+                </div>
+
+                <div class="progress-bar-container">
+                    <div class="progress-label"><span>📚 Estudio / Deberes</span> <span id="val-study">0h</span></div>
+                    <div class="progress-track"><div class="progress-fill fill-study" id="bar-study"></div></div>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-label"><span>🎮 Ocio / Pantallas</span> <span id="val-leisure">0h</span></div>
+                    <div class="progress-track"><div class="progress-fill fill-leisure" id="bar-leisure"></div></div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="modal-overlay" id="modal">
+        <div class="modal-content">
+            <h3 class="modal-title">¿Qué vas a hacer a esta hora?</h3>
+            <div class="activities-grid">
+                <button class="act-btn act-study" onclick="assignActivity('study')">
+                    <span class="act-icon">📚</span><span>Estudio / Deberes</span>
+                </button>
+                <button class="act-btn act-leisure" onclick="assignActivity('leisure')">
+                    <span class="act-icon">🎮</span><span>Pantallas / TV</span>
+                </button>
+                <button class="act-btn act-sport" onclick="assignActivity('sport')">
+                    <span class="act-icon">⚽</span><span>Deporte / Amigos</span>
+                </button>
+                <button class="act-btn act-break" onclick="assignActivity('break')">
+                    <span class="act-icon">🥪</span><span>Merienda / Descanso</span>
+                </button>
+                <button class="act-btn act-chores" onclick="assignActivity('chores')">
+                    <span class="act-icon">🛀</span><span>Ducha / Tareas Casa</span>
+                </button>
+                <button class="act-btn act-break" onclick="assignActivity('dinner')">
+                    <span class="act-icon">🍽️</span><span>Cena Familiar</span>
+                </button>
+            </div>
+            <button class="btn-clear" onclick="assignActivity(null)">❌ Vaciar este hueco</button>
+        </div>
+    </div>
+
+    <script>
+        // Datos de las actividades
+        const actData = {
+            study: { icon: '📚', name: 'Estudio / Deberes', bg: '#F0FDFA', border: '#0F766E', color: '#0F766E' },
+            leisure: { icon: '🎮', name: 'Pantallas / TV', bg: '#FEF2F2', border: '#DC2626', color: '#DC2626' },
+            sport: { icon: '⚽', name: 'Deporte / Amigos', bg: '#F0FDF4', border: '#16A34A', color: '#16A34A' },
+            break: { icon: '🥪', name: 'Merienda / Descanso', bg: '#FEFCE8', border: '#EAB308', color: '#B45309' },
+            chores: { icon: '🛀', name: 'Ducha / Tareas Casa', bg: '#F5F3FF', border: '#8B5CF6', color: '#6D28D9' },
+            dinner: { icon: '🍽️', name: 'Cena Familiar', bg: '#FEFCE8', border: '#EAB308', color: '#B45309' }
+        };
+
+        // Estado del horario (6 bloques)
+        let schedule = [null, null, null, null, null, null];
+        let currentSlot = 0;
+
+        const modal = document.getElementById('modal');
+        const feedbackList = document.getElementById('feedback-list');
+
+        // Cerrar modal al hacer clic fuera
+        modal.onclick = function(e) {
+            if (e.target === modal) modal.style.display = 'none';
+        }
+
+        function openModal(slotIndex) {
+            currentSlot = slotIndex;
+            modal.style.display = 'flex';
+        }
+
+        function assignActivity(type) {
+            schedule[currentSlot] = type;
+            const box = document.getElementById(`slot-${currentSlot}`);
+            
+            if (type) {
+                const data = actData[type];
+                box.innerHTML = `<span style="font-size: 1.5rem;">${data.icon}</span> ${data.name}`;
+                box.style.backgroundColor = data.bg;
+                box.style.borderColor = data.border;
+                box.style.color = data.color;
+                box.style.borderStyle = 'solid';
+            } else {
+                box.innerHTML = `➕ Añadir actividad`;
+                box.style.backgroundColor = 'var(--slot-empty)';
+                box.style.borderColor = '#D1D5DB';
+                box.style.color = 'var(--text-light)';
+                box.style.borderStyle = 'dashed';
+            }
+            
+            modal.style.display = 'none';
+            evaluateRoutine();
+        }
+
+        function evaluateRoutine() {
+            // Contar actividades
+            let counts = { study: 0, leisure: 0, sport: 0, break: 0, chores: 0, dinner: 0 };
+            let isFull = true;
+            
+            schedule.forEach(item => {
+                if (item) counts[item]++;
+                else isFull = false;
+            });
+
+            // Actualizar barras
+            document.getElementById('val-study').innerText = counts.study + 'h';
+            document.getElementById('bar-study').style.width = (counts.study * 20) + '%';
+            
+            document.getElementById('val-leisure').innerText = counts.leisure + 'h';
+            document.getElementById('bar-leisure').style.width = (counts.leisure * 20) + '%';
+
+            // Generar Feedback
+            let feedbacks = [];
+
+            // 1. Falta de Estudio
+            if (counts.study === 0 && !isFull) {
+                feedbacks.push({ icon: '⚠️', text: 'Aún no has planificado tiempo para hacer los deberes o estudiar.', color: '#EAB308' });
+            } else if (counts.study === 0 && isFull) {
+                feedbacks.push({ icon: '❌', text: '¡Rutina peligrosa! No has puesto nada de estudio. Los suspensos están garantizados.', color: '#DC2626' });
+            }
+
+            // 2. Exceso de Estudio
+            if (counts.study >= 4) {
+                feedbacks.push({ icon: '🤯', text: '¡Demasiado estudio! Nadie aguanta tantas horas seguidas. Necesitas descansar el cerebro.', color: '#DC2626' });
+            }
+
+            // 3. Exceso de Pantallas
+            if (counts.leisure >= 3) {
+                feedbacks.push({ icon: '📱', text: 'Muchas horas de pantallas te quitarán el sueño por la noche y te restan tiempo de estudio.', color: '#DC2626' });
+            }
+
+            // 4. Empezar a buena hora (Recomendación del PDF)
+            if (schedule[0] === 'study' || schedule[1] === 'study') {
+                feedbacks.push({ icon: '✅', text: '¡Genial! Empezar a estudiar a las 16:00 o 17:00 es lo mejor porque estás menos cansado.', color: '#16A34A' });
+            }
+
+            // 5. Estudiar tarde
+            if (schedule[4] === 'study' || schedule[5] === 'study') {
+                feedbacks.push({ icon: '🥱', text: 'Estudiar a partir de las 20:00 o 21:00 es muy poco eficaz. A esa hora el cerebro ya está agotado.', color: '#EAB308' });
+            }
+
+            // 6. Equilibrio (La rutina perfecta)
+            if (isFull && counts.study >= 1 && counts.study <= 3 && counts.leisure <= 2 && (counts.sport > 0 || counts.leisure > 0) && (schedule[4] !== 'study' && schedule[5] !== 'study')) {
+                feedbacks.push({ icon: '🏆', text: '¡TARDE PERFECTA! Tienes un equilibrio ideal entre obligaciones y tiempo libre. Así se triunfa en la ESO.', color: '#16A34A' });
+            }
+
+            // Mostrar feedback
+            if (feedbacks.length === 0 && !isFull) {
+                feedbacks.push({ icon: '⏳', text: 'Sigue añadiendo actividades para ver los consejos...', color: '#9CA3AF' });
+            }
+
+            feedbackList.innerHTML = '';
+            feedbacks.forEach(fb => {
+                feedbackList.innerHTML += `
+                    <div class="feedback-item" style="border-left: 4px solid ${fb.color}">
+                        <span class="feedback-icon">${fb.icon}</span>
+                        <span class="feedback-text">${fb.text}</span>
+                    </div>
+                `;
+            });
+        }
+    </script>
+    
+    <script src="https://jgamort408-web.github.io/profesor/tutoria/footer_8m.js?v=4"></script>
+</body>
+</html>
