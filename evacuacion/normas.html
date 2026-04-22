@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocolo de Evacuación - Reglas de Oro</title>
+    <style>
+        :root {
+            /* Paleta de Emergencia y Seguridad */
+            --primary: #B91C1C; /* Rojo Carmesí (Alerta) */
+            --secondary: #EA580C; /* Naranja (Atención/Acción) */
+            --accent: #16A34A; /* Verde (Seguridad) */
+            --bg-color: transparent;
+            --text-main: #1F2937;
+            --text-light: #4B5563;
+            --white: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            line-height: 1.8;
+            flex-direction: column !important;
+            align-items: center !important;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 1000px;
+            padding: 40px 20px;
+        }
+
+        /* --- CABECERA DE EMERGENCIA --- */
+        .emergency-header {
+            text-align: center;
+            margin-bottom: 50px;
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 25px rgba(185, 28, 28, 0.1);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid #FEE2E2;
+        }
+
+        /* Cinta de peligro superior e inferior */
+        .emergency-header::before, .emergency-header::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 12px;
+            background: repeating-linear-gradient(
+                45deg,
+                var(--primary),
+                var(--primary) 15px,
+                #ffffff 15px,
+                #ffffff 30px
+            );
+        }
+        .emergency-header::before { top: 0; }
+        .emergency-header::after { bottom: 0; }
+
+        .bell-icon {
+            font-size: 4rem;
+            animation: ring 2s ease-in-out infinite;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        @keyframes ring {
+            0% { transform: rotate(0deg); }
+            10% { transform: rotate(15deg); }
+            20% { transform: rotate(-15deg); }
+            30% { transform: rotate(10deg); }
+            40% { transform: rotate(-10deg); }
+            50% { transform: rotate(0deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        h1 {
+            font-family: 'Arial Black', Impact, sans-serif;
+            color: var(--primary);
+            font-size: 2.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .context-text {
+            font-size: 1.2rem;
+            color: var(--text-main);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .highlight {
+            color: var(--primary);
+            font-weight: bold;
+            background-color: #FEF2F2;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        /* --- CUADRÍCULA DE NORMAS (EFECTO FLIP 3D) --- */
+        .instruction-title {
+            text-align: center;
+            font-size: 1.8rem;
+            color: var(--text-main);
+            margin-bottom: 30px;
+            font-family: 'Georgia', serif;
+        }
+
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .action-card {
+            background-color: transparent;
+            perspective: 1000px;
+            min-height: 250px;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .action-card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            padding: 25px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            border: 2px solid #E5E7EB;
+        }
+
+        /* Cara frontal (El Qué) */
+        .card-front {
+            background-color: var(--white);
+            transition: border-color 0.3s ease;
+        }
+
+        .action-card:hover .card-front {
+            border-color: var(--secondary);
+        }
+
+        .action-icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+        }
+
+        .action-text {
+            font-size: 1.3rem;
+            line-height: 1.3;
+            color: var(--primary);
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .flip-hint {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            margin-top: 20px;
+            background-color: #F3F4F6;
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+
+        /* Cara trasera (El Porqué - Seguridad) */
+        .card-back {
+            background-color: #F0FDF4; /* Fondo verde muy claro */
+            color: var(--text-main);
+            transform: rotateY(180deg);
+            border-color: var(--accent);
+        }
+
+        .back-title {
+            font-family: 'Arial Black', sans-serif;
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .example-text {
+            font-size: 1.05rem;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        /* Excepción para la norma de NO VOLVER ATRÁS (Roja) */
+        .card-back.danger-back {
+            background-color: #FEF2F2;
+            border-color: var(--primary);
+        }
+        .card-back.danger-back .back-title {
+            color: var(--primary);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        
+        <div class="emergency-header">
+            <div class="bell-icon">🔔</div>
+            <h1>Alarma 5 Toques</h1>
+            <p class="context-text">
+                Cuando el timbre suena <span class="highlight">5 veces seguidas</span> (un toque no habitual), significa que debemos evacuar el edificio. No es un juego. Actuar rápido, en silencio y con cabeza puede salvar vidas.
+            </p>
+        </div>
+
+        <h2 class="instruction-title">Las Reglas de Oro (Toca para descubrir por qué)</h2>
+
+        <div class="actions-grid" id="actions-grid">
+            </div>
+
+    </div>
+
+    <script>
+        // Array con las normas extraídas del PDF de Instrucciones del Alumnado
+        const safetyRules = [
+            { 
+                icon: "🎒", 
+                text: "DEJA TUS COSAS",
+                type: "safe",
+                reasonTitle: "Mochilas a la mesa",
+                reason: "¡No recojas nada! Pon tu mochila encima de tu mesa (nunca en el suelo). Así evitamos tropezarnos en los pasillos si hay humo. Tu vida vale más que un estuche."
+            },
+            { 
+                icon: "🤫", 
+                text: "SILENCIO TOTAL",
+                type: "safe",
+                reasonTitle: "Escucha las órdenes",
+                reason: "Todos los movimientos deben hacerse en absoluto silencio. Si hablamos o gritamos, no podremos escuchar las instrucciones vitales del profesorado o los bomberos."
+            },
+            { 
+                icon: "🚶‍♂️", 
+                text: "NO CORRAS",
+                type: "safe",
+                reasonTitle: "Rápido pero en orden",
+                reason: "Camina rápido pero sin correr ni empujar. Si alguien se cae por ir corriendo, puede provocar un tapón en la escalera y bloquear a toda la clase."
+            },
+            { 
+                icon: "🔙", 
+                text: "NUNCA VUELVAS",
+                type: "danger", /* Esta tarjeta tendrá el reverso en rojo */
+                reasonTitle: "Prohibido retroceder",
+                reason: "¡NUNCA SE VUELVE ATRÁS! Da igual si te has dejado el móvil o si te has equivocado de camino. Retroceder contra la marea de gente es extremadamente peligroso."
+            },
+            { 
+                icon: "🚾", 
+                text: "¿ESTÁS EN EL BAÑO?",
+                type: "safe",
+                reasonTitle: "Únete al más cercano",
+                reason: "Si la alarma suena y estás en el pasillo o en el baño, NO vayas a buscar a tu clase. Únete al primer grupo que veas salir y avisa a ese profesor/a."
+            },
+            { 
+                icon: "🔗", 
+                text: "MANTÉN EL GRUPO",
+                type: "safe",
+                reasonTitle: "No adelantes a nadie",
+                reason: "Manteneos unidos en una sola fila. No adelantéis a otras clases aunque vayan más lentos. Esto es vital para que el profesor haga el recuento al llegar al patio."
+            }
+        ];
+
+        const grid = document.getElementById('actions-grid');
+
+        // Generar las tarjetas Flip 3D
+        safetyRules.forEach((rule) => {
+            const card = document.createElement('div');
+            card.className = 'action-card';
+            
+            // Clase adicional si es una advertencia de peligro (roja en el reverso)
+            const backClass = rule.type === 'danger' ? 'card-back danger-back' : 'card-back';
+            
+            card.innerHTML = `
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="action-icon">${rule.icon}</div>
+                        <div class="action-text">${rule.text}</div>
+                        <div class="flip-hint">¿Por qué? ➔</div>
+                    </div>
+                    
+                    <div class="${backClass}">
+                        <div class="back-title">${rule.reasonTitle}</div>
+                        <div class="example-text">"${rule.reason}"</div>
+                    </div>
+                </div>
+            `;
+            
+            // Función para dar la vuelta al hacer clic
+            card.onclick = () => {
+                card.classList.toggle('flipped');
+            };
+            
+            grid.appendChild(card);
+        });
+    </script>
+    
+    <script src="https://jgamort408-web.github.io/profesor/tutoria/footer_8m.js?v=3"></script>
+</body>
+</html>
