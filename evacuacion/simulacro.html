@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocolo de Evacuación - Contrarreloj</title>
+    <style>
+        :root {
+            --primary: #B91C1C; /* Rojo Carmesí */
+            --secondary: #EA580C; /* Naranja Intenso */
+            --accent: #16A34A; /* Verde Seguridad */
+            --accent-fail: #DC2626; /* Rojo Error */
+            --bg-color: transparent;
+            --text-main: #1F2937;
+            --text-light: #6B7280;
+            --white: #FFFFFF;
+            --panel-bg: #111827; /* Gris muy oscuro para el panel */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            line-height: 1.8;
+            flex-direction: column !important;
+            align-items: center !important;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 800px;
+            padding: 40px 20px;
+        }
+
+        /* --- CABECERA --- */
+        .header-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-family: 'Arial Black', Impact, sans-serif;
+            color: var(--primary);
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .context-text {
+            font-size: 1.15rem;
+            color: var(--text-main);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* --- PANEL DEL CUESTIONARIO --- */
+        .quiz-panel {
+            background-color: var(--panel-bg);
+            border-radius: 16px;
+            padding: 40px 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            border: 4px solid var(--text-main);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* Luces de emergencia del panel */
+        .emergency-light {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            box-shadow: 0 0 10px var(--primary);
+            animation: blink 1s infinite alternate;
+        }
+
+        @keyframes blink {
+            from { opacity: 0.4; }
+            to { opacity: 1; box-shadow: 0 0 20px var(--primary); }
+        }
+
+        .situation-tag {
+            background-color: var(--secondary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .question-text {
+            font-size: 1.5rem;
+            line-height: 1.4;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .option-btn {
+            background-color: rgba(255,255,255,0.1);
+            color: var(--white);
+            border: 2px solid rgba(255,255,255,0.2);
+            padding: 18px 20px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .option-btn:hover {
+            background-color: rgba(255,255,255,0.2);
+            border-color: var(--white);
+            transform: translateX(5px);
+        }
+
+        /* --- FEEDBACK --- */
+        .feedback-box {
+            margin-top: 25px;
+            padding: 20px;
+            border-radius: 8px;
+            display: none;
+            animation: fadeIn 0.4s;
+        }
+
+        .feedback-title {
+            font-family: 'Arial Black', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .feedback-text {
+            font-size: 1.05rem;
+            line-height: 1.5;
+        }
+
+        .btn-next {
+            background-color: var(--white);
+            color: var(--panel-bg);
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 25px;
+            display: none;
+            transition: transform 0.2s;
+            text-transform: uppercase;
+        }
+
+        .btn-next:hover {
+            transform: scale(1.05);
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        
+        <div class="header-section">
+            <h1>Simulacro a Contrarreloj</h1>
+            <p class="context-text">
+                En una emergencia real, los nervios nos pueden traicionar. Lee la situación, piensa rápido y elige la mejor decisión. Un solo error puede poner en peligro a todo tu grupo.
+            </p>
+        </div>
+
+        <div class="quiz-panel" id="quiz-panel">
+            <div class="emergency-light" id="e-light"></div>
+            
+            <div class="situation-tag" id="q-tag">Situación 1</div>
+            <div class="question-text" id="q-text">Cargando...</div>
+            
+            <div class="options-container" id="options-container">
+                </div>
+
+            <div class="feedback-box" id="feedback-box">
+                <div class="feedback-title" id="feedback-title"></div>
+                <div class="feedback-text" id="feedback-text"></div>
+            </div>
+            
+            <button class="btn-next" id="next-btn" onclick="nextQuestion()">Siguiente Situación ➔</button>
+        </div>
+
+        <div class="progress-text" id="progress"></div>
+
+    </div>
+
+    <script>
+        const questions = [
+            {
+                tag: "La Mochila",
+                text: "Suenan los 5 toques. Tienes tu móvil nuevo y un estuche muy caro en la mesa. ¿Qué haces con tu mochila?",
+                options: [
+                    { text: "A) La recojo rápido y me la pongo en la espalda.", correct: false },
+                    { text: "B) La pongo encima de mi mesa y la dejo ahí.", correct: true }
+                ],
+                feedbackCorrect: "¡Perfecto! El protocolo dice claramente que NO se recogen objetos personales. Las mochilas van encima de la mesa (no en el suelo) para evitar que tropecemos si la visibilidad es mala.",
+                feedbackIncorrect: "¡ERROR GRAVE! Demorarte en recoger cosas te pone en peligro. Además, llevar mochilas puede atascar las puertas y pasillos. Tu vida vale más que un móvil."
+            },
+            {
+                tag: "En el baño",
+                text: "Estabas en el baño lavándote las manos cuando suena la alarma. Sales al pasillo y ves pasar a la clase de 2º de la ESO.",
+                options: [
+                    { text: "A) Voy corriendo a buscar a mi clase (1º ESO) para ir con mi tutor.", correct: false },
+                    { text: "B) Me uno a esa clase de 2º y aviso a su profesor/a de que estoy ahí.", correct: true }
+                ],
+                feedbackCorrect: "¡Gran decisión! El protocolo exige que te incorpores 'al grupo más cercano'. Si vas a buscar a tu clase puedes cruzarte con otros grupos y crear el caos. En el patio ya buscarás a tu profe.",
+                feedbackIncorrect: "¡PELIGRO! Nunca debes deambular solo por el instituto en una emergencia ni ir a contracorriente. Debes unirte al primer profesor o grupo que veas."
+            },
+            {
+                tag: "En la Escalera",
+                text: "Vuestra clase está bajando las escaleras, pero el grupo de delante va muy lento y estáis perdiendo tiempo.",
+                options: [
+                    { text: "A) Mantenemos nuestra fila detrás de ellos, a su ritmo, sin adelantar.", correct: true },
+                    { text: "B) Los adelantamos por la izquierda todos juntos para salir rápido.", correct: false }
+                ],
+                feedbackCorrect: "¡Excelente! La norma dice: 'Permanecerán siempre unidos sin disgregarse ni adelantar a otros'. Adelantar en una escalera puede provocar caídas múltiples y avalanchas.",
+                feedbackIncorrect: "¡CUIDADO! Adelantar a otra clase en unas escaleras puede provocar una avalancha, caídas y un bloqueo total de la salida. Siempre hay que mantener la fila a su ritmo."
+            },
+            {
+                tag: "Saliendo del Aula",
+                text: "Eres el último o la última de la fila al salir de tu clase hacia el pasillo.",
+                options: [
+                    { text: "A) Salgo corriendo para alcanzar a mi profe, que va el primero.", correct: false },
+                    { text: "B) Cierro la puerta del aula detrás de mí.", correct: true }
+                ],
+                feedbackCorrect: "¡Bien hecho! Cerrar la puerta del aula (¡sin echar la llave!) evita que, si hay un incendio, el humo se extienda por los pasillos o entre más oxígeno en la clase.",
+                feedbackIncorrect: "¡Te has saltado un paso! El protocolo especifica que el último alumno debe cerrar la puerta del aula. Esto es vital para frenar la expansión del humo o del fuego."
+            },
+            {
+                tag: "El Olvido",
+                text: "Hace muchísimo frío. Ya estáis en el pasillo, pero recuerdas que tu abrigo está en el respaldo de la silla. Tardarías 5 segundos en cogerlo.",
+                options: [
+                    { text: "A) Vuelvo rápidamente a clase a por él antes de que bajemos las escaleras.", correct: false },
+                    { text: "B) Me aguanto el frío y sigo en la fila. Ya me prestarán algo fuera.", correct: true }
+                ],
+                feedbackCorrect: "¡Supervivencia al 100%! La norma más estricta es: 'En ningún caso ningún alumno ni alumna deberá volver atrás'. Si vas a contracorriente puedes chocar y caer.",
+                feedbackIncorrect: "¡DECISIÓN FATAL! Las normas dicen: 'En ningún caso se deberá volver atrás'. Ir en dirección contraria a cientos de personas que intentan salir es la causa de los peores accidentes."
+            }
+        ];
+
+        let currentIndex = 0;
+        let score = 0;
+
+        const qTag = document.getElementById('q-tag');
+        const qText = document.getElementById('q-text');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackBox = document.getElementById('feedback-box');
+        const feedbackTitle = document.getElementById('feedback-title');
+        const feedbackText = document.getElementById('feedback-text');
+        const nextBtn = document.getElementById('next-btn');
+        const progressEl = document.getElementById('progress');
+        const eLight = document.getElementById('e-light');
+        const quizPanel = document.getElementById('quiz-panel');
+
+        function loadQuestion() {
+            const q = questions[currentIndex];
+            qTag.innerText = q.tag;
+            qText.innerText = q.text;
+            
+            // Reset UI
+            feedbackBox.style.display = 'none';
+            nextBtn.style.display = 'none';
+            optionsContainer.innerHTML = '';
+            quizPanel.style.borderColor = 'var(--text-main)';
+            eLight.style.backgroundColor = 'var(--primary)';
+            eLight.style.boxShadow = '0 0 10px var(--primary)';
+
+            q.options.forEach((opt) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerText = opt.text;
+                btn.onclick = () => checkAnswer(opt.correct, btn);
+                optionsContainer.appendChild(btn);
+            });
+
+            progressEl.innerText = `Situación ${currentIndex + 1} de ${questions.length}`;
+        }
+
+        function checkAnswer(isCorrect, selectedBtn) {
+            const q = questions[currentIndex];
+            
+            // Disable buttons
+            const allBtns = optionsContainer.querySelectorAll('.option-btn');
+            allBtns.forEach(btn => {
+                btn.style.pointerEvents = 'none';
+                btn.style.opacity = '0.5';
+            });
+            
+            selectedBtn.style.opacity = '1';
+
+            if (isCorrect) {
+                score++;
+                selectedBtn.style.backgroundColor = 'rgba(22, 163, 74, 0.3)'; /* Green */
+                selectedBtn.style.borderColor = 'var(--accent)';
+                quizPanel.style.borderColor = 'var(--accent)';
+                eLight.style.backgroundColor = 'var(--accent)';
+                eLight.style.boxShadow = '0 0 20px var(--accent)';
+                
+                feedbackBox.style.backgroundColor = 'rgba(22, 163, 74, 0.1)';
+                feedbackTitle.style.color = 'var(--accent)';
+                feedbackTitle.innerText = '✅ ACCIÓN SEGURA';
+                feedbackText.innerText = q.feedbackCorrect;
+            } else {
+                selectedBtn.style.backgroundColor = 'rgba(220, 38, 38, 0.3)'; /* Red */
+                selectedBtn.style.borderColor = 'var(--accent-fail)';
+                quizPanel.style.borderColor = 'var(--accent-fail)';
+                eLight.style.backgroundColor = 'var(--accent-fail)';
+                eLight.style.boxShadow = '0 0 20px var(--accent-fail)';
+                
+                feedbackBox.style.backgroundColor = 'rgba(220, 38, 38, 0.1)';
+                feedbackTitle.style.color = 'var(--accent-fail)';
+                feedbackTitle.innerText = '❌ PELIGRO';
+                feedbackText.innerText = q.feedbackIncorrect;
+            }
+            
+            feedbackBox.style.display = 'block';
+            
+            if (currentIndex < questions.length - 1) {
+                nextBtn.style.display = 'block';
+            } else {
+                nextBtn.innerText = 'Ver Informe Final';
+                nextBtn.style.display = 'block';
+                nextBtn.onclick = showFinalScreen;
+            }
+        }
+
+        function nextQuestion() {
+            currentIndex++;
+            loadQuestion();
+        }
+
+        function showFinalScreen() {
+            qTag.innerText = "INFORME DE SIMULACRO";
+            qTag.style.backgroundColor = 'var(--accent)';
+            
+            let message = "";
+            if (score === questions.length) {
+                message = "¡Perfecto! Tienes unos reflejos excelentes y conoces las normas. Eres una garantía de seguridad para tu clase.";
+                quizPanel.style.borderColor = 'var(--accent)';
+                eLight.style.backgroundColor = 'var(--accent)';
+            } else if (score >= 3) {
+                message = "Bien hecho, pero cuidado. Has cometido algunos errores que en la vida real podrían causar problemas. Repasa las reglas de oro.";
+            } else {
+                message = "¡Alerta! Necesitas repasar urgentemente el protocolo. Una evacuación requiere conocer las normas al milímetro para no ponerte en peligro a ti ni a los demás.";
+            }
+
+            qText.innerText = `Has sobrevivido tomando ${score} decisiones seguras de ${questions.length}.`;
+            optionsContainer.style.display = 'none';
+            
+            feedbackBox.style.backgroundColor = 'rgba(255,255,255,0.1)';
+            feedbackTitle.style.color = 'var(--white)';
+            feedbackTitle.innerText = 'EVALUACIÓN DEL TUTOR/A:';
+            feedbackText.innerText = message;
+            
+            nextBtn.style.display = 'none';
+            progressEl.innerText = "Módulo Completado";
+        }
+
+        // Iniciar
+        loadQuestion();
+    </script>
+    
+    <script src="https://jgamort408-web.github.io/profesor/tutoria/footer_8m.js?v=3"></script>
+</body>
+</html>
