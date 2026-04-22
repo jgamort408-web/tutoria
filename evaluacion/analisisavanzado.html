@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Panel de EvaluaciÃ³n AcadÃ©mica v2</title>
+<title>Panel de Evaluación Académica v2</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
@@ -545,7 +545,7 @@ tbody tr:last-child { border-bottom: none; }
 <header>
   <div class="header-logo">
     <span class="dot"></span>
-    Panel de <span style="color:var(--accent); margin-left:4px">EvaluaciÃ³n</span>
+    Panel de <span style="color:var(--accent); margin-left:4px">Evaluación</span>
   </div>
   <div class="header-actions" id="header-actions-upload">
     <!-- filled by JS -->
@@ -553,35 +553,35 @@ tbody tr:last-child { border-bottom: none; }
 </header>
 
 <!-- TOAST -->
-<div class="copy-toast" id="copy-toast">âœ“ Copiado al portapapeles</div>
+<div class="copy-toast" id="copy-toast">✓ Copiado al portapapeles</div>
 
 <!-- UPLOAD MODAL -->
 <div class="modal-overlay" id="upload-modal">
   <div class="modal" style="position:relative; max-width:500px">
-    <button class="modal-close" onclick="closeModal('upload-modal')">âœ•</button>
-    <div style="font-family:'Syne',sans-serif; font-size:1.3rem; font-weight:800; margin-bottom:16px">ðŸ“ Cargar evaluaciÃ³n</div>
+    <button class="modal-close" onclick="closeModal('upload-modal')">✕</button>
+    <div style="font-family:'Syne',sans-serif; font-size:1.3rem; font-weight:800; margin-bottom:16px">📁 Cargar evaluación</div>
     <p style="color:var(--text-muted); font-size:13px; margin-bottom:16px">Selecciona el trimestre al que corresponde este archivo CSV.</p>
     <div class="trim-selector">
       <div class="trim-option" onclick="selectTrim(1)" id="opt-1">
-        <div class="opt-icon">1ï¸âƒ£</div>
-        <div class="opt-label">1Âª EvaluaciÃ³n</div>
-        <div class="opt-sub">Sep â€“ Dic</div>
+        <div class="opt-icon">1️⃣</div>
+        <div class="opt-label">1ª Evaluación</div>
+        <div class="opt-sub">Sep – Dic</div>
       </div>
       <div class="trim-option" onclick="selectTrim(2)" id="opt-2">
-        <div class="opt-icon">2ï¸âƒ£</div>
-        <div class="opt-label">2Âª EvaluaciÃ³n</div>
-        <div class="opt-sub">Ene â€“ Mar</div>
+        <div class="opt-icon">2️⃣</div>
+        <div class="opt-label">2ª Evaluación</div>
+        <div class="opt-sub">Ene – Mar</div>
       </div>
       <div class="trim-option" onclick="selectTrim(3)" id="opt-3">
-        <div class="opt-icon">3ï¸âƒ£</div>
-        <div class="opt-label">3Âª EvaluaciÃ³n</div>
-        <div class="opt-sub">Abr â€“ Jun</div>
+        <div class="opt-icon">3️⃣</div>
+        <div class="opt-label">3ª Evaluación</div>
+        <div class="opt-sub">Abr – Jun</div>
       </div>
     </div>
     <div style="margin-top:20px; text-align:center">
       <label style="display:inline-block; padding:12px 24px; background:var(--surface2); border:2px dashed var(--border); border-radius:10px; cursor:pointer; transition:all 0.2s" id="modal-file-label">
         <input type="file" accept=".csv" id="modal-file-input" onchange="handleModalUpload(event)" style="display:none">
-        ðŸ“ Seleccionar archivo CSV
+        📁 Seleccionar archivo CSV
       </label>
       <div id="modal-file-name" style="margin-top:8px; font-size:12px; color:var(--text-muted)"></div>
     </div>
@@ -599,23 +599,23 @@ tbody tr:last-child { border-bottom: none; }
 <!-- CONFIG MODAL -->
 <div class="modal-overlay" id="config-modal">
   <div class="modal" style="position:relative; max-width:600px" id="config-modal-content">
-    <button class="modal-close" onclick="closeModal('config-modal')">âœ•</button>
-    <div style="font-family:'Syne',sans-serif; font-size:1.3rem; font-weight:800; margin-bottom:20px">âš™ï¸ ConfiguraciÃ³n</div>
+    <button class="modal-close" onclick="closeModal('config-modal')">✕</button>
+    <div style="font-family:'Syne',sans-serif; font-size:1.3rem; font-weight:800; margin-bottom:20px">⚙️ Configuración</div>
 
     <div class="config-section">
       <h4>Pesos por trimestre en nota final (%)</h4>
       <div class="config-row">
-        <span class="config-label"><span class="trimestre-badge t1">1Âª EvaluaciÃ³n</span></span>
+        <span class="config-label"><span class="trimestre-badge t1">1ª Evaluación</span></span>
         <input type="number" class="config-input" id="cfg-w1" value="30" min="0" max="100" onchange="updateConfig()">
         <span style="color:var(--text-muted); font-size:12px">%</span>
       </div>
       <div class="config-row">
-        <span class="config-label"><span class="trimestre-badge t2">2Âª EvaluaciÃ³n</span></span>
+        <span class="config-label"><span class="trimestre-badge t2">2ª Evaluación</span></span>
         <input type="number" class="config-input" id="cfg-w2" value="30" min="0" max="100" onchange="updateConfig()">
         <span style="color:var(--text-muted); font-size:12px">%</span>
       </div>
       <div class="config-row">
-        <span class="config-label"><span class="trimestre-badge t3">3Âª EvaluaciÃ³n</span></span>
+        <span class="config-label"><span class="trimestre-badge t3">3ª Evaluación</span></span>
         <input type="number" class="config-input" id="cfg-w3" value="40" min="0" max="100" onchange="updateConfig()">
         <span style="color:var(--text-muted); font-size:12px">%</span>
       </div>
@@ -623,9 +623,9 @@ tbody tr:last-child { border-bottom: none; }
     </div>
 
     <div class="config-section">
-      <h4>ParÃ¡metros de riesgo</h4>
+      <h4>Parámetros de riesgo</h4>
       <div class="config-row">
-        <span class="config-label">CaÃ­da de media que activa alerta (puntos)</span>
+        <span class="config-label">Caída de media que activa alerta (puntos)</span>
         <input type="number" class="config-input" id="cfg-drop" value="2" min="0.5" max="10" step="0.5" onchange="updateConfig()">
       </div>
       <div class="config-row">
@@ -654,35 +654,35 @@ tbody tr:last-child { border-bottom: none; }
 <!-- UPLOAD SECTION -->
 <div id="upload-section">
   <div class="upload-hero">
-    <h2>Panel de<br><span class="accent">EvaluaciÃ³n</span> AcadÃ©mica</h2>
-    <p>Carga los archivos CSV de cada evaluaciÃ³n para analizar resultados, comparar progresos y preparar la sesiÃ³n de junta de evaluaciÃ³n.</p>
+    <h2>Panel de<br><span class="accent">Evaluación</span> Académica</h2>
+    <p>Carga los archivos CSV de cada evaluación para analizar resultados, comparar progresos y preparar la sesión de junta de evaluación.</p>
 
     <div class="upload-cards">
       <div class="upload-card" id="card-1">
         <input type="file" accept=".csv" onchange="handleFileUpload(event, 1)">
-        <div class="trim-icon">1ï¸âƒ£</div>
-        <div class="trim-label">1Âª EvaluaciÃ³n</div>
+        <div class="trim-icon">1️⃣</div>
+        <div class="trim-label">1ª Evaluación</div>
         <div class="trim-status" id="status-1">Clic para cargar</div>
       </div>
       <div class="upload-card" id="card-2">
         <input type="file" accept=".csv" onchange="handleFileUpload(event, 2)">
-        <div class="trim-icon">2ï¸âƒ£</div>
-        <div class="trim-label">2Âª EvaluaciÃ³n</div>
+        <div class="trim-icon">2️⃣</div>
+        <div class="trim-label">2ª Evaluación</div>
         <div class="trim-status" id="status-2">Clic para cargar</div>
       </div>
       <div class="upload-card" id="card-3">
         <input type="file" accept=".csv" onchange="handleFileUpload(event, 3)">
-        <div class="trim-icon">3ï¸âƒ£</div>
-        <div class="trim-label">3Âª EvaluaciÃ³n</div>
+        <div class="trim-icon">3️⃣</div>
+        <div class="trim-label">3ª Evaluación</div>
         <div class="trim-status" id="status-3">Clic para cargar</div>
       </div>
     </div>
 
     <div id="start-btn-wrap" style="display:none; margin-top:24px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap">
       <button class="btn btn-primary" id="start-btn" onclick="buildDashboard()" disabled style="font-size:14px; padding:10px 28px">
-        â–¶ Abrir Panel
+        ▶ Abrir Panel
       </button>
-      <button class="btn btn-ghost" onclick="loadDemo()">ðŸŽ² Demo</button>
+      <button class="btn btn-ghost" onclick="loadDemo()">🎲 Demo</button>
     </div>
   </div>
 </div>
@@ -694,27 +694,27 @@ tbody tr:last-child { border-bottom: none; }
     <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px; flex-wrap:wrap; justify-content:space-between">
       <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap">
         <span style="color:var(--text-dim); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px">Cargado:</span>
-        <span class="trimestre-badge t1" id="loaded-t1" style="display:none">âœ“ 1Âª Eval.</span>
-        <span class="trimestre-badge t2" id="loaded-t2" style="display:none">âœ“ 2Âª Eval.</span>
-        <span class="trimestre-badge t3" id="loaded-t3" style="display:none">âœ“ 3Âª Eval.</span>
+        <span class="trimestre-badge t1" id="loaded-t1" style="display:none">✓ 1ª Eval.</span>
+        <span class="trimestre-badge t2" id="loaded-t2" style="display:none">✓ 2ª Eval.</span>
+        <span class="trimestre-badge t3" id="loaded-t3" style="display:none">✓ 3ª Eval.</span>
         <div id="risk-summary-header"></div>
       </div>
       <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap">
         <div class="zoom-controls no-print">
-          <button class="zoom-btn" onclick="changeZoom(-10)">âˆ’</button>
+          <button class="zoom-btn" onclick="changeZoom(-10)">−</button>
           <span class="zoom-label" id="zoom-label">100%</span>
           <button class="zoom-btn" onclick="changeZoom(10)">+</button>
-          <button class="zoom-btn" onclick="resetZoom()" title="Resetear">â†º</button>
+          <button class="zoom-btn" onclick="resetZoom()" title="Resetear">↺</button>
         </div>
-        <button class="btn btn-secondary btn-sm no-print" onclick="openSessionMode()">ðŸŽ“ SesiÃ³n</button>
-        <button class="btn btn-secondary btn-sm no-print" onclick="openConfigModal()">âš™ï¸ Config</button>
+        <button class="btn btn-secondary btn-sm no-print" onclick="openSessionMode()">🎓 Sesión</button>
+        <button class="btn btn-secondary btn-sm no-print" onclick="openConfigModal()">⚙️ Config</button>
         <button class="btn btn-secondary btn-sm no-print" onclick="openUploadModal()">+ Cargar</button>
         <div style="display:flex; gap:6px" class="no-print">
-          <button class="btn btn-ghost btn-sm" onclick="exportTxt()">ðŸ“„ TXT</button>
-          <button class="btn btn-ghost btn-sm" onclick="exportPDF()">ðŸ–¨ PDF</button>
+          <button class="btn btn-ghost btn-sm" onclick="exportTxt()">📄 TXT</button>
+          <button class="btn btn-ghost btn-sm" onclick="exportPDF()">🖨 PDF</button>
           <button class="btn btn-ghost btn-sm" onclick="exportFailsPDF()">âš  PDF Suspensos</button>
-          <button class="btn btn-ghost btn-sm" onclick="saveSession()">ðŸ’¾ SesiÃ³n</button>
-          <label class="btn btn-ghost btn-sm" style="cursor:pointer">ðŸ“‚ Restaurar <input type="file" accept=".json" onchange="restoreSession(event)" style="display:none"></label>
+          <button class="btn btn-ghost btn-sm" onclick="saveSession()">💾 Sesión</button>
+          <label class="btn btn-ghost btn-sm" style="cursor:pointer">📂 Restaurar <input type="file" accept=".json" onchange="restoreSession(event)" style="display:none"></label>
         </div>
       </div>
     </div>
@@ -724,13 +724,13 @@ tbody tr:last-child { border-bottom: none; }
 
     <!-- TABS -->
     <div class="tabs no-print">
-      <button class="tab-btn active" onclick="switchTab('tabla')" data-tab="tabla">ðŸ“‹ Tabla</button>
-      <button class="tab-btn" onclick="switchTab('heatmap')" data-tab="heatmap">ðŸŒ¡ Mapa de Calor</button>
-      <button class="tab-btn" onclick="switchTab('materias')" data-tab="materias">ðŸ“š Materias</button>
-      <button class="tab-btn" onclick="switchTab('alumnos')" data-tab="alumnos">ðŸ‘¤ Alumnos</button>
-      <button class="tab-btn" onclick="switchTab('progresion')" data-tab="progresion">ðŸ“ˆ ProgresiÃ³n</button>
-      <button class="tab-btn" onclick="switchTab('graficos')" data-tab="graficos">ðŸ“Š GrÃ¡ficos</button>
-      <button class="tab-btn" onclick="switchTab('riesgo')" data-tab="riesgo">ðŸš¨ Riesgo</button>
+      <button class="tab-btn active" onclick="switchTab('tabla')" data-tab="tabla">📋 Tabla</button>
+      <button class="tab-btn" onclick="switchTab('heatmap')" data-tab="heatmap">🌡 Mapa de Calor</button>
+      <button class="tab-btn" onclick="switchTab('materias')" data-tab="materias">📚 Materias</button>
+      <button class="tab-btn" onclick="switchTab('alumnos')" data-tab="alumnos">👤 Alumnos</button>
+      <button class="tab-btn" onclick="switchTab('progresion')" data-tab="progresion">📈 Progresión</button>
+      <button class="tab-btn" onclick="switchTab('graficos')" data-tab="graficos">📊 Gráficos</button>
+      <button class="tab-btn" onclick="switchTab('riesgo')" data-tab="riesgo">🚨 Riesgo</button>
     </div>
 
     <!-- TAB: TABLA -->
@@ -749,10 +749,10 @@ tbody tr:last-child { border-bottom: none; }
         <div class="filter-group">
           <span class="filter-label">Trimestre</span>
           <select id="filter-trim" onchange="applyFilters()">
-            <option value="last">Ãšltimo</option>
-            <option value="1">1Âª</option>
-            <option value="2">2Âª</option>
-            <option value="3">3Âª</option>
+            <option value="last">Último</option>
+            <option value="1">1ª</option>
+            <option value="2">2ª</option>
+            <option value="3">3ª</option>
           </select>
         </div>
         <div class="filter-group">
@@ -774,10 +774,10 @@ tbody tr:last-child { border-bottom: none; }
         <div class="filter-group">
           <span class="filter-label">Trimestre</span>
           <select id="filter-trim-heat" onchange="renderHeatmap()">
-            <option value="last">Ãšltimo</option>
-            <option value="1">1Âª</option>
-            <option value="2">2Âª</option>
-            <option value="3">3Âª</option>
+            <option value="last">Último</option>
+            <option value="1">1ª</option>
+            <option value="2">2ª</option>
+            <option value="3">3ª</option>
           </select>
         </div>
       </div>
@@ -790,10 +790,10 @@ tbody tr:last-child { border-bottom: none; }
         <div class="filter-group">
           <span class="filter-label">Trimestre</span>
           <select id="filter-trim-mat" onchange="renderSubjectCards()">
-            <option value="last">Ãšltimo</option>
-            <option value="1">1Âª</option>
-            <option value="2">2Âª</option>
-            <option value="3">3Âª</option>
+            <option value="last">Último</option>
+            <option value="1">1ª</option>
+            <option value="2">2ª</option>
+            <option value="3">3ª</option>
           </select>
         </div>
       </div>
@@ -811,10 +811,10 @@ tbody tr:last-child { border-bottom: none; }
           <span class="filter-label">Ordenar</span>
           <select id="sort-students" onchange="renderStudentList()">
             <option value="name">Nombre</option>
-            <option value="avg-asc">Media â†‘</option>
-            <option value="avg-desc">Media â†“</option>
-            <option value="fails-desc">MÃ¡s suspensos</option>
-            <option value="wavg-desc">Media ponderada â†“</option>
+            <option value="avg-asc">Media ↑</option>
+            <option value="avg-desc">Media ↓</option>
+            <option value="fails-desc">Más suspensos</option>
+            <option value="wavg-desc">Media ponderada ↓</option>
           </select>
         </div>
       </div>
@@ -832,28 +832,28 @@ tbody tr:last-child { border-bottom: none; }
       <div id="progression-wrap"></div>
     </div>
 
-    <!-- TAB: GRÃFICOS -->
+    <!-- TAB: GRÁFICOS -->
     <div id="tab-graficos" class="tab-content">
       <div class="charts-row">
         <div class="chart-container">
-          <div class="chart-title">ðŸ“ˆ EvoluciÃ³n de la media del grupo</div>
+          <div class="chart-title">📈 Evolución de la media del grupo</div>
           <canvas id="chart-group-evolution" height="200"></canvas>
         </div>
         <div class="chart-container">
-          <div class="chart-title">ðŸ“Š DistribuciÃ³n de notas</div>
+          <div class="chart-title">📊 Distribución de notas</div>
           <canvas id="chart-distribution" height="200"></canvas>
         </div>
       </div>
       <div class="chart-container">
-        <div class="chart-title">ðŸ“š Media por materia</div>
+        <div class="chart-title">📚 Media por materia</div>
         <div class="filters-bar" style="margin-bottom:0; padding:8px 12px">
           <div class="filter-group">
             <span class="filter-label">Trimestre</span>
             <select id="filter-trim-chart" onchange="renderCharts()">
-              <option value="last">Ãšltimo</option>
-              <option value="1">1Âª</option>
-              <option value="2">2Âª</option>
-              <option value="3">3Âª</option>
+              <option value="last">Último</option>
+              <option value="1">1ª</option>
+              <option value="2">2ª</option>
+              <option value="3">3ª</option>
             </select>
           </div>
         </div>
@@ -873,25 +873,25 @@ tbody tr:last-child { border-bottom: none; }
 <div id="session-mode">
   <div class="session-header">
     <div>
-      <div style="font-family:'Syne',sans-serif; font-weight:800; font-size:1rem">ðŸŽ“ Modo SesiÃ³n de EvaluaciÃ³n</div>
+      <div style="font-family:'Syne',sans-serif; font-weight:800; font-size:1rem">🎓 Modo Sesión de Evaluación</div>
       <div class="session-counter" id="session-counter"></div>
     </div>
     <div style="display:flex; gap:10px; align-items:center">
-      <button class="btn btn-ghost" onclick="window.print()">ðŸ–¨ Imprimir</button>
-      <button class="btn btn-danger" onclick="closeSessionMode()">âœ• Salir</button>
+      <button class="btn btn-ghost" onclick="window.print()">🖨 Imprimir</button>
+      <button class="btn btn-danger" onclick="closeSessionMode()">✕ Salir</button>
     </div>
   </div>
   <div class="session-body">
     <div class="session-card" id="session-card-content"></div>
   </div>
   <div class="session-footer">
-    <button class="btn btn-secondary" onclick="sessionNav(-1)" id="sess-prev">â† Anterior</button>
+    <button class="btn btn-secondary" onclick="sessionNav(-1)" id="sess-prev">← Anterior</button>
     <div style="flex:1">
       <div class="session-progress">
         <div class="session-progress-fill" id="sess-progress"></div>
       </div>
     </div>
-    <button class="btn btn-primary" onclick="sessionNav(1)" id="sess-next">Siguiente â†’</button>
+    <button class="btn btn-primary" onclick="sessionNav(1)" id="sess-next">Siguiente →</button>
   </div>
 </div>
 
@@ -989,7 +989,7 @@ function handleFileUpload(e, trim) {
     if (!parsed) { alert('Error al leer el archivo'); return; }
     state.trims[trim] = parsed;
     document.getElementById('card-' + trim).classList.add('loaded');
-    document.getElementById('status-' + trim).textContent = `âœ“ ${parsed.students.length} alumnos`;
+    document.getElementById('status-' + trim).textContent = `✓ ${parsed.students.length} alumnos`;
     checkStartButton();
   });
 }
@@ -1145,28 +1145,28 @@ function gradeClass(g) {
 }
 
 function gradeDisplay(g) {
-  if (!g || g.type === 'absent') return '<span class="grade-cell grade-absent">â€”</span>';
+  if (!g || g.type === 'absent') return '<span class="grade-cell grade-absent">—</span>';
   if (g.type === 'np') return '<span class="grade-cell grade-np">NP</span>';
   const v = g.value;
   const cls = gradeClass(g);
-  const icon = v < 5 ? 'âœ—' : (v >= 9 ? 'â˜…' : '');
+  const icon = v < 5 ? '✗' : (v >= 9 ? '★' : '');
   return `<span class="grade-cell ${cls}">${icon}${v % 1 === 0 ? v : v.toFixed(1)}</span>`;
 }
 
 function gradeShort(g) {
-  if (!g || g.type === 'absent') return 'â€”';
+  if (!g || g.type === 'absent') return '—';
   if (g.type === 'np') return 'NP';
   return g.value % 1 === 0 ? g.value : g.value.toFixed(1);
 }
 
 function getTrend(avgs) {
   const valid = avgs.filter(a => a !== null);
-  if (valid.length < 2) return { icon: 'â†’', label: 'sin datos', class: 'trend-flat' };
+  if (valid.length < 2) return { icon: '→', label: 'sin datos', class: 'trend-flat' };
   const first = valid[0], last = valid[valid.length - 1];
   const diff = last - first;
-  if (diff > 0.5) return { icon: 'â†‘', label: `+${diff.toFixed(1)}`, class: 'trend-up' };
-  if (diff < -0.5) return { icon: 'â†“', label: diff.toFixed(1), class: 'trend-down' };
-  return { icon: 'â†’', label: 'estable', class: 'trend-flat' };
+  if (diff > 0.5) return { icon: '↑', label: `+${diff.toFixed(1)}`, class: 'trend-up' };
+  if (diff < -0.5) return { icon: '↓', label: diff.toFixed(1), class: 'trend-down' };
+  return { icon: '→', label: 'estable', class: 'trend-flat' };
 }
 
 function escHtml(str) {
@@ -1192,7 +1192,7 @@ function detectRisk(name) {
     for (let i = 1; i < avgs.length; i++) {
       const drop = avgs[i-1] - avgs[i];
       if (drop >= state.config.dropAlert) {
-        reasons.push(`â¬‡ CaÃ­da de ${drop.toFixed(1)} pts (${loadedTrims[i-1]}Âªâ†’${loadedTrims[i]}Âª eval.)`);
+        reasons.push(`⬇ Caída de ${drop.toFixed(1)} pts (${loadedTrims[i-1]}ª→${loadedTrims[i]}ª eval.)`);
       }
     }
 
@@ -1211,7 +1211,7 @@ function detectRisk(name) {
       });
     });
     if (maxConsec >= state.config.consecAlert) {
-      reasons.push(`ðŸ” ${maxConsec} suspensos consecutivos en la misma materia`);
+      reasons.push(`🔁 ${maxConsec} suspensos consecutivos en la misma materia`);
     }
   }
 
@@ -1219,14 +1219,14 @@ function detectRisk(name) {
   const lastStudent = lastTrim.students.find(x => x.name === name);
   if (lastStudent) {
     const fails = getStudentFails(lastStudent, true);
-    if (fails >= 4) reasons.push(`âš  ${fails} materias suspensas en Ãºltimo trimestre`);
+    if (fails >= 4) reasons.push(`âš  ${fails} materias suspensas en último trimestre`);
   }
 
   return reasons;
 }
 
 // ============================================================
-//  NOTA MÃNIMA 3Âª EVALUACIÃ“N
+//  NOTA MÍNIMA 3ª EVALUACIÓN
 // ============================================================
 function calcNotaMinima(name, sub) {
   if (!state.trims[1] || !state.trims[2]) return null;
@@ -1251,7 +1251,7 @@ function renderStats() {
   const trimData = state.trims[getLastTrim()];
   if (!trimData) return;
   const avgs = trimData.students.map(s => getStudentAvg(s, trimData, true)).filter(v => v !== null);
-  const groupAvg = avgs.length ? (avgs.reduce((a,b)=>a+b,0)/avgs.length).toFixed(2) : 'â€”';
+  const groupAvg = avgs.length ? (avgs.reduce((a,b)=>a+b,0)/avgs.length).toFixed(2) : '—';
   const passing = trimData.students.filter(s => getStudentFails(s,true) === 0).length;
   const passRate = ((passing / trimData.students.length) * 100).toFixed(0);
   const totalFails = trimData.students.reduce((acc, s) => acc + getStudentFails(s,true), 0);
@@ -1260,32 +1260,32 @@ function renderStats() {
 
   document.getElementById('stats-grid').innerHTML = `
     <div class="stat-card" style="border-left-color:var(--accent)">
-      <div class="stat-label">ðŸ‘¨â€ðŸŽ“ Total alumnos</div>
+      <div class="stat-label">👨‍🎓 Total alumnos</div>
       <div class="stat-value">${trimData.students.length}</div>
       <div class="stat-sub">${loadedTrims} evaluacion${loadedTrims!==1?'es':''} cargada${loadedTrims!==1?'s':''}</div>
     </div>
     <div class="stat-card" style="border-left-color:${avgColor(parseFloat(groupAvg))}">
-      <div class="stat-label">ðŸ“Š Media del grupo</div>
+      <div class="stat-label">📊 Media del grupo</div>
       <div class="stat-value" style="color:${avgColor(parseFloat(groupAvg))}">${groupAvg}</div>
-      <div class="stat-sub">Ãšltimo trimestre (sin optativas)</div>
+      <div class="stat-sub">Último trimestre (sin optativas)</div>
     </div>
     <div class="stat-card" style="border-left-color:${parseFloat(passRate)>=50?'var(--green)':'var(--red)'}">
-      <div class="stat-label">âœ… Todo aprobado</div>
+      <div class="stat-label">✅ Todo aprobado</div>
       <div class="stat-value" style="color:${parseFloat(passRate)>=50?'var(--green)':'var(--red)'}">${passRate}%</div>
-      <div class="stat-sub">${passing} sin ningÃºn suspenso</div>
+      <div class="stat-sub">${passing} sin ningún suspenso</div>
     </div>
     <div class="stat-card" style="border-left-color:var(--red)">
-      <div class="stat-label">âŒ Total suspensos</div>
+      <div class="stat-label">❌ Total suspensos</div>
       <div class="stat-value" style="color:var(--red)">${totalFails}</div>
-      <div class="stat-sub">en Ãºltimo trimestre</div>
+      <div class="stat-sub">en último trimestre</div>
     </div>
     <div class="stat-card" style="border-left-color:var(--cyan)">
-      <div class="stat-label">ðŸ“š Materias</div>
+      <div class="stat-label">📚 Materias</div>
       <div class="stat-value">${state.subjects.filter(s=>!state.config.optativas.has(s)).length}</div>
       <div class="stat-sub">${state.config.optativas.size} optativa${state.config.optativas.size!==1?'s':''}</div>
     </div>
     <div class="stat-card" style="border-left-color:${riskCount>0?'var(--red)':'var(--green)'}">
-      <div class="stat-label">ðŸš¨ En riesgo</div>
+      <div class="stat-label">🚨 En riesgo</div>
       <div class="stat-value" style="color:${riskCount>0?'var(--red)':'var(--green)'}">${riskCount}</div>
       <div class="stat-sub">alumnos detectados</div>
     </div>
@@ -1294,13 +1294,13 @@ function renderStats() {
   const riskH = document.getElementById('risk-summary-header');
   if (riskH) {
     riskH.innerHTML = riskCount > 0
-      ? `<span class="risk-badge">ðŸš¨ ${riskCount} alumnos en riesgo</span>`
+      ? `<span class="risk-badge">🚨 ${riskCount} alumnos en riesgo</span>`
       : '';
   }
 }
 
 function loadedTrimLabels() {
-  const l = []; [1,2,3].forEach(t => { if (state.trims[t]) l.push(t+'Âª'); });
+  const l = []; [1,2,3].forEach(t => { if (state.trims[t]) l.push(t+'ª'); });
   return l.join(', ') + ' eval.';
 }
 
@@ -1376,7 +1376,7 @@ function renderMainTable() {
     groupSubAvg[sub] = vals.length ? vals.reduce((a,b)=>a+b,0)/vals.length : null;
   });
 
-  const si = col => tableSort.col === col ? `<span class="sort-icon">${tableSort.dir==='asc'?'â†‘':'â†“'}</span>` : '<span class="sort-icon">â†•</span>';
+  const si = col => tableSort.col === col ? `<span class="sort-icon">${tableSort.dir==='asc'?'↑':'↓'}</span>` : '<span class="sort-icon">↕</span>';
 
   let html = `<table><thead><tr>
     <th onclick="sortTable('name')" class="${tableSort.col==='name'?'sorted':''}">Alumno/a ${si('name')}</th>
@@ -1404,20 +1404,20 @@ function renderMainTable() {
     const risks = detectRisk(student.name);
     const isRisk = risks.length > 0;
     const wAvg = getWeightedAvg(student.name);
-    const avgDisp = avg !== null ? avg.toFixed(1) : 'â€”';
+    const avgDisp = avg !== null ? avg.toFixed(1) : '—';
     const avgCls = avgColor(avg);
 
     html += `<tr class="${isRisk?'risk-row':''}">
       <td>
         <span class="name-cell" onclick="openStudentModal('${escHtml(student.name)}')">${escHtml(student.name)}</span>
-        ${state.comments[student.name] ? '<span title="Tiene notas" style="color:var(--yellow); font-size:11px; margin-left:4px">ðŸ“</span>' : ''}
+        ${state.comments[student.name] ? '<span title="Tiene notas" style="color:var(--yellow); font-size:11px; margin-left:4px">📝</span>' : ''}
       </td>
       <td>
         <span class="avg-inline" style="background:rgba(0,0,0,0.3); color:${avgCls}">${avgDisp}</span>
-        ${wAvg !== null && [1,2,3].filter(t=>state.trims[t]).length > 1 ? `<span style="font-size:10px; color:var(--text-muted); margin-left:4px" title="Media ponderada">âŠ¡${wAvg.toFixed(1)}</span>` : ''}
+        ${wAvg !== null && [1,2,3].filter(t=>state.trims[t]).length > 1 ? `<span style="font-size:10px; color:var(--text-muted); margin-left:4px" title="Media ponderada">⊡${wAvg.toFixed(1)}</span>` : ''}
       </td>
-      <td>${fails > 0 ? `<span class="fail-pill">âš  ${fails}</span>` : '<span class="pass-pill">âœ“</span>'}</td>
-      <td>${isRisk ? `<span class="risk-badge" title="${risks.join('\n')}">ðŸš¨</span>` : '<span style="color:var(--text-dim)">â€”</span>'}</td>`;
+      <td>${fails > 0 ? `<span class="fail-pill">âš  ${fails}</span>` : '<span class="pass-pill">✓</span>'}</td>
+      <td>${isRisk ? `<span class="risk-badge" title="${risks.join('\n')}">🚨</span>` : '<span style="color:var(--text-dim)">—</span>'}</td>`;
 
     subjects.forEach(sub => {
       const g = student.grades[sub] || { type: 'absent', value: null };
@@ -1425,8 +1425,8 @@ function renderMainTable() {
       let vsGroup = '';
       if (g.type === 'grade' && gAvg !== null) {
         const diff = g.value - gAvg;
-        if (diff > 0.5) vsGroup = `<span style="font-size:9px; color:var(--green); margin-left:2px">â†‘</span>`;
-        else if (diff < -0.5) vsGroup = `<span style="font-size:9px; color:var(--red); margin-left:2px">â†“</span>`;
+        if (diff > 0.5) vsGroup = `<span style="font-size:9px; color:var(--green); margin-left:2px">↑</span>`;
+        else if (diff < -0.5) vsGroup = `<span style="font-size:9px; color:var(--red); margin-left:2px">↓</span>`;
       }
       html += `<td style="text-align:center">${gradeDisplay(g)}${vsGroup}</td>`;
     });
@@ -1459,7 +1459,7 @@ function renderHeatmap() {
     html += `<tr><td><span class="name-cell" onclick="openStudentModal('${escHtml(student.name)}')">${escHtml(student.name)}</span></td>`;
     subjects.forEach(sub => {
       const g = student.grades[sub];
-      let bg = 'rgba(37,45,69,0.3)', color = 'var(--text-dim)', txt = 'â€”';
+      let bg = 'rgba(37,45,69,0.3)', color = 'var(--text-dim)', txt = '—';
       if (g && g.type === 'grade') {
         const v = g.value;
         txt = v % 1 === 0 ? v : v.toFixed(1);
@@ -1502,7 +1502,7 @@ function renderSubjectCards() {
     const pass = grades.filter(g => g.value >= 5).length;
     const fail = grades.filter(g => g.value < 5).length;
     const np = trimData.students.filter(s => s.grades[sub]?.type === 'np').length;
-    const avg = grades.length ? (grades.reduce((a,g)=>a+g.value,0)/grades.length).toFixed(2) : 'â€”';
+    const avg = grades.length ? (grades.reduce((a,g)=>a+g.value,0)/grades.length).toFixed(2) : '—';
     const passRate = grades.length ? ((pass/grades.length)*100).toFixed(0) : 0;
     const passColor = parseFloat(passRate) >= 70 ? 'var(--green)' : parseFloat(passRate) >= 50 ? 'var(--yellow)' : 'var(--red)';
 
@@ -1519,8 +1519,8 @@ function renderSubjectCards() {
           if (gPrev.value >= 5 && gNow.value < 5) worsened++;
         }
       });
-      if (recovered > 0) recoverHtml += `<span style="font-size:10px; color:var(--green); background:rgba(61,214,140,0.1); border-radius:4px; padding:1px 6px; margin-right:4px">â†‘ ${recovered} recuperan</span>`;
-      if (worsened > 0) recoverHtml += `<span style="font-size:10px; color:var(--red); background:rgba(242,99,122,0.1); border-radius:4px; padding:1px 6px">â†“ ${worsened} empeoran</span>`;
+      if (recovered > 0) recoverHtml += `<span style="font-size:10px; color:var(--green); background:rgba(61,214,140,0.1); border-radius:4px; padding:1px 6px; margin-right:4px">↑ ${recovered} recuperan</span>`;
+      if (worsened > 0) recoverHtml += `<span style="font-size:10px; color:var(--red); background:rgba(242,99,122,0.1); border-radius:4px; padding:1px 6px">↓ ${worsened} empeoran</span>`;
     }
 
     const dist = [0,1,2,3,4,5,6,7,8,9,10].map(n => grades.filter(g => Math.round(g.value) === n).length);
@@ -1571,10 +1571,10 @@ function renderStudentList() {
   else students.sort((a,b) => a.name.localeCompare(b.name));
 
   const grid = document.getElementById('student-list-grid');
-  if (!students.length) { grid.innerHTML = '<div class="empty-state"><div class="icon">ðŸ”</div><p>Sin resultados</p></div>'; return; }
+  if (!students.length) { grid.innerHTML = '<div class="empty-state"><div class="icon">🔍</div><p>Sin resultados</p></div>'; return; }
 
   grid.innerHTML = students.map(s => {
-    const avgDisp = s.avg !== null ? s.avg.toFixed(1) : 'â€”';
+    const avgDisp = s.avg !== null ? s.avg.toFixed(1) : '—';
     const avgC = avgColor(s.avg);
     const failSubs = Object.entries(s.grades).filter(([,g]) => g.type==='grade' && g.value<5).map(([sub]) => sub);
     const risks = detectRisk(s.name);
@@ -1588,9 +1588,9 @@ function renderStudentList() {
         const prevAvg = getStudentAvg(prev, prevTd, true);
         if (prevAvg !== null && s.avg !== null) {
           const diff = s.avg - prevAvg;
-          if (diff > 0.3) trend = `<span class="trend-up">â†‘ +${diff.toFixed(1)}</span>`;
-          else if (diff < -0.3) trend = `<span class="trend-down">â†“ ${diff.toFixed(1)}</span>`;
-          else trend = `<span class="trend-flat">â†’ estable</span>`;
+          if (diff > 0.3) trend = `<span class="trend-up">↑ +${diff.toFixed(1)}</span>`;
+          else if (diff < -0.3) trend = `<span class="trend-down">↓ ${diff.toFixed(1)}</span>`;
+          else trend = `<span class="trend-flat">→ estable</span>`;
         }
       }
     }
@@ -1599,11 +1599,11 @@ function renderStudentList() {
       <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:10px">
         <div>
           <div style="font-weight:700; font-size:14px">${escHtml(s.name)}</div>
-          <div style="font-size:11px; color:var(--text-muted); margin-top:2px">${trend} ${risks.length ? '<span class="risk-badge" style="font-size:9px">ðŸš¨</span>' : ''}</div>
+          <div style="font-size:11px; color:var(--text-muted); margin-top:2px">${trend} ${risks.length ? '<span class="risk-badge" style="font-size:9px">🚨</span>' : ''}</div>
         </div>
         <div class="avg-badge" style="border-color:${avgC}; color:${avgC}">${avgDisp}</div>
       </div>
-      ${failSubs.length>0 ? `<div style="margin-bottom:8px">${failSubs.slice(0,4).map(sub=>`<span style="font-size:10px; background:rgba(242,99,122,0.08); color:var(--red); border-radius:4px; padding:2px 6px; margin:1px; display:inline-block">âœ— ${getSubjectName(sub)}</span>`).join('')}${failSubs.length>4?`<span style="font-size:10px; color:var(--text-muted)"> +${failSubs.length-4}</span>`:''}</div>` : '<div style="margin-bottom:8px; font-size:11px; color:var(--green)">âœ“ Sin suspensos</div>'}
+      ${failSubs.length>0 ? `<div style="margin-bottom:8px">${failSubs.slice(0,4).map(sub=>`<span style="font-size:10px; background:rgba(242,99,122,0.08); color:var(--red); border-radius:4px; padding:2px 6px; margin:1px; display:inline-block">✗ ${getSubjectName(sub)}</span>`).join('')}${failSubs.length>4?`<span style="font-size:10px; color:var(--text-muted)"> +${failSubs.length-4}</span>`:''}</div>` : '<div style="margin-bottom:8px; font-size:11px; color:var(--green)">✓ Sin suspensos</div>'}
       <div class="sparkline">
         ${trimData.subjects.slice(0,12).map(sub => {
           const g = s.grades[sub];
@@ -1626,7 +1626,7 @@ function renderProgression() {
   if (!loadedTrims.length) return;
 
   if (loadedTrims.length === 1) {
-    document.getElementById('progression-wrap').innerHTML = `<div class="empty-state"><div class="icon">ðŸ“Š</div><p>Carga al menos 2 evaluaciones para ver la progresiÃ³n comparativa.<br><span style="font-size:12px">Tienes cargada solo la ${loadedTrims[0]}Âª evaluaciÃ³n.</span></p></div>`;
+    document.getElementById('progression-wrap').innerHTML = `<div class="empty-state"><div class="icon">📊</div><p>Carga al menos 2 evaluaciones para ver la progresión comparativa.<br><span style="font-size:12px">Tienes cargada solo la ${loadedTrims[0]}ª evaluación.</span></p></div>`;
     return;
   }
 
@@ -1634,7 +1634,7 @@ function renderProgression() {
   let students = refTrim.students.filter(s => !search || s.name.toLowerCase().includes(search));
   const wrap = document.getElementById('progression-wrap');
 
-  let html = `<div class="section-title">EvoluciÃ³n por alumno <span style="font-size:12px; font-family:'Inter',sans-serif; font-weight:400; color:var(--text-muted)">${students.length} alumnos</span></div>`;
+  let html = `<div class="section-title">Evolución por alumno <span style="font-size:12px; font-family:'Inter',sans-serif; font-weight:400; color:var(--text-muted)">${students.length} alumnos</span></div>`;
 
   students.forEach(refStudent => {
     const name = refStudent.name;
@@ -1649,9 +1649,9 @@ function renderProgression() {
 
     html += `<div style="background:var(--surface); border:1px solid ${risks.length?'rgba(242,99,122,0.25)':'var(--border)'}; border-radius:12px; padding:16px; margin-bottom:12px; cursor:pointer" onclick="openStudentModal('${escHtml(name)}')">
       <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; flex-wrap:wrap; gap:8px">
-        <div style="font-weight:700; font-size:14px">${escHtml(name)} ${risks.length ? '<span class="risk-badge" style="font-size:9px; margin-left:6px">ðŸš¨</span>' : ''}</div>
+        <div style="font-weight:700; font-size:14px">${escHtml(name)} ${risks.length ? '<span class="risk-badge" style="font-size:9px; margin-left:6px">🚨</span>' : ''}</div>
         <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap">
-          ${loadedTrims.map((t,i) => `<span class="trimestre-badge t${t}">${t}Âª: <strong>${trimAvgs[i] !== null ? trimAvgs[i].toFixed(1) : 'â€”'}</strong></span>`).join('')}
+          ${loadedTrims.map((t,i) => `<span class="trimestre-badge t${t}">${t}ª: <strong>${trimAvgs[i] !== null ? trimAvgs[i].toFixed(1) : '—'}</strong></span>`).join('')}
           <span class="${trend.class}" style="font-weight:700; font-size:12px">${trend.icon} ${trend.label}</span>
         </div>
       </div>
@@ -1667,7 +1667,7 @@ function renderProgression() {
           const ci = subjectColorIdx(sub); const color = getSubjectColor(ci);
           return `<div style="display:flex; align-items:center; gap:3px; background:var(--surface2); border-radius:5px; padding:3px 7px">
             <span style="font-size:10px; color:${color}; font-weight:700">${getSubjectName(sub)}</span>
-            ${subTrims.map((x,i) => `${i>0?'<span style="color:var(--border)">â†’</span>':''}${gradeDisplay(x.g)}`).join('')}
+            ${subTrims.map((x,i) => `${i>0?'<span style="color:var(--border)">→</span>':''}${gradeDisplay(x.g)}`).join('')}
           </div>`;
         }).join('')}
       </div>
@@ -1696,7 +1696,7 @@ function renderGroupEvolution() {
   const loadedTrims = [1,2,3].filter(t => state.trims[t]);
   if (!loadedTrims.length) return;
 
-  const labels = loadedTrims.map(t => `${t}Âª EvaluaciÃ³n`);
+  const labels = loadedTrims.map(t => `${t}ª Evaluación`);
   const data = loadedTrims.map(t => {
     const td = state.trims[t];
     const avgs = td.students.map(s => getStudentAvg(s,td,true)).filter(v => v!==null);
@@ -1737,7 +1737,7 @@ function renderDistribution() {
   const trimData = getTrimData(document.getElementById('filter-trim-chart')?.value || 'last');
   if (!trimData) return;
 
-  const labels = ['0â€“1','2â€“3','4 (susp)','5â€“6','7â€“8','9â€“10'];
+  const labels = ['0–1','2–3','4 (susp)','5–6','7–8','9–10'];
   const ranges = [[0,1.99],[2,3.99],[4,4.99],[5,6.99],[7,8.99],[9,10]];
   const allGrades = trimData.students.flatMap(s => Object.values(s.grades)).filter(g => g?.type==='grade').map(g => g.value);
   const data = ranges.map(([lo,hi]) => allGrades.filter(v => v>=lo && v<=hi).length);
@@ -1799,16 +1799,16 @@ function renderSubjectAvgChart() {
 // ============================================================
 function renderRiskTab() {
   const trimData = state.trims[getLastTrim()];
-  if (!trimData) { document.getElementById('risk-wrap').innerHTML = '<div class="empty-state"><div class="icon">âœ…</div><p>No hay datos cargados</p></div>'; return; }
+  if (!trimData) { document.getElementById('risk-wrap').innerHTML = '<div class="empty-state"><div class="icon">✅</div><p>No hay datos cargados</p></div>'; return; }
 
   const riskStudents = trimData.students.map(s => ({ ...s, risks: detectRisk(s.name) })).filter(s => s.risks.length > 0);
 
   if (!riskStudents.length) {
-    document.getElementById('risk-wrap').innerHTML = '<div class="empty-state"><div class="icon">âœ…</div><p>No se han detectado alumnos en riesgo con la configuraciÃ³n actual.</p></div>';
+    document.getElementById('risk-wrap').innerHTML = '<div class="empty-state"><div class="icon">✅</div><p>No se han detectado alumnos en riesgo con la configuración actual.</p></div>';
     return;
   }
 
-  let html = `<div class="section-title">ðŸš¨ Alumnos en riesgo <span style="font-size:12px; font-family:'Inter',sans-serif; font-weight:400; color:var(--text-muted)">${riskStudents.length} detectados</span></div>`;
+  let html = `<div class="section-title">🚨 Alumnos en riesgo <span style="font-size:12px; font-family:'Inter',sans-serif; font-weight:400; color:var(--text-muted)">${riskStudents.length} detectados</span></div>`;
   html += `<div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:12px">`;
 
   riskStudents.forEach(s => {
@@ -1816,7 +1816,7 @@ function renderRiskTab() {
     html += `<div style="background:var(--surface); border:1px solid rgba(242,99,122,0.25); border-radius:12px; padding:16px; cursor:pointer" onclick="openStudentModal('${escHtml(s.name)}')">
       <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px">
         <div style="font-weight:700; font-size:14px">${escHtml(s.name)}</div>
-        <span style="color:${avgColor(avg)}; font-family:'Syne',sans-serif; font-weight:800; font-size:1.2rem">${avg?.toFixed(1)??'â€”'}</span>
+        <span style="color:${avgColor(avg)}; font-family:'Syne',sans-serif; font-weight:800; font-size:1.2rem">${avg?.toFixed(1)??'—'}</span>
       </div>
       <div style="display:flex; flex-direction:column; gap:5px">
         ${s.risks.map(r => `<div style="font-size:12px; color:var(--red); background:rgba(242,99,122,0.06); border-radius:6px; padding:5px 10px">${r}</div>`).join('')}
@@ -1825,9 +1825,9 @@ function renderRiskTab() {
   });
   html += '</div>';
 
-  // Nota mÃ­nima table for 3Âª eval (if 2 trims loaded)
+  // Nota mínima table for 3ª eval (if 2 trims loaded)
   if (state.trims[1] && state.trims[2] && !state.trims[3]) {
-    html += `<div class="section-title" style="margin-top:24px">ðŸŽ¯ Nota mÃ­nima en 3Âª evaluaciÃ³n para aprobar</div>`;
+    html += `<div class="section-title" style="margin-top:24px">🎯 Nota mínima en 3ª evaluación para aprobar</div>`;
     html += `<p style="color:var(--text-muted); font-size:12px; margin-bottom:12px">Basado en los pesos configurados (${state.config.weights[1]}% / ${state.config.weights[2]}% / ${state.config.weights[3]}%)</p>`;
     html += '<div class="table-wrap"><table><thead><tr><th>Alumno/a</th>';
     state.subjects.filter(s=>!state.config.optativas.has(s)).forEach(sub => {
@@ -1840,12 +1840,12 @@ function renderRiskTab() {
       html += `<tr><td><span class="name-cell" onclick="openStudentModal('${escHtml(s.name)}')">${escHtml(s.name)}</span></td>`;
       state.subjects.filter(sub=>!state.config.optativas.has(sub)).forEach(sub => {
         const min = calcNotaMinima(s.name, sub);
-        if (min === null) { html += `<td style="text-align:center"><span class="grade-cell grade-absent">â€”</span></td>`; return; }
+        if (min === null) { html += `<td style="text-align:center"><span class="grade-cell grade-absent">—</span></td>`; return; }
         const g2 = state.trims[2].students.find(x=>x.name===s.name)?.grades[sub];
         const alreadyPass = g2?.type==='grade' && g2.value >= 5;
-        if (min <= 0) { html += `<td style="text-align:center"><span class="grade-cell grade-10">âœ“</span></td>`; return; }
+        if (min <= 0) { html += `<td style="text-align:center"><span class="grade-cell grade-10">✓</span></td>`; return; }
         const color = min > 10 ? 'var(--red)' : min > 7 ? 'var(--yellow)' : 'var(--green)';
-        html += `<td style="text-align:center"><span class="grade-cell" style="background:rgba(0,0,0,0.3); color:${color}; font-size:11px">${min > 10 ? 'âœ—' : min.toFixed(1)}</span></td>`;
+        html += `<td style="text-align:center"><span class="grade-cell" style="background:rgba(0,0,0,0.3); color:${color}; font-size:11px">${min > 10 ? '✗' : min.toFixed(1)}</span></td>`;
       });
       html += '</tr>';
     });
@@ -1932,15 +1932,15 @@ function renderStudentModal() {
   });
 
   let html = `
-    <button class="modal-close" onclick="closeModal('student-modal')">âœ•</button>
+    <button class="modal-close" onclick="closeModal('student-modal')">✕</button>
 
     <div class="student-nav">
-      <button class="nav-arrow" onclick="navStudent(-1)" ${idx<=0?'disabled':''}>â† Anterior</button>
+      <button class="nav-arrow" onclick="navStudent(-1)" ${idx<=0?'disabled':''}>← Anterior</button>
       <select class="nav-select" onchange="navStudentSelect(this)">${navOptions}</select>
-      <button class="nav-arrow" onclick="navStudent(1)" ${idx>=allStudents.length-1?'disabled':''}>Siguiente â†’</button>
+      <button class="nav-arrow" onclick="navStudent(1)" ${idx>=allStudents.length-1?'disabled':''}>Siguiente →</button>
       <span class="nav-counter">${idx+1} / ${allStudents.length}</span>
-      <button class="btn btn-ghost btn-sm" onclick="copyStudentRow('${escHtml(name)}')" title="Copiar fila" style="margin-left:auto">ðŸ“‹ Copiar</button>
-      <button class="btn btn-ghost btn-sm" onclick="exportStudentPDF('${escHtml(name)}')" title="PDF individual">ðŸ–¨ PDF</button>
+      <button class="btn btn-ghost btn-sm" onclick="copyStudentRow('${escHtml(name)}')" title="Copiar fila" style="margin-left:auto">📋 Copiar</button>
+      <button class="btn btn-ghost btn-sm" onclick="exportStudentPDF('${escHtml(name)}')" title="PDF individual">🖨 PDF</button>
     </div>
 
     <div class="modal-header">
@@ -1949,14 +1949,14 @@ function renderStudentModal() {
           <div class="student-name">${escHtml(name)}</div>
           <div class="student-badges">
             ${avg !== null ? `<span class="badge ${avg>=5?'badge-green':'badge-red'}">Media: ${avg.toFixed(2)}</span>` : ''}
-            ${fails > 0 ? `<span class="badge badge-red">âš  ${fails} suspenso${fails>1?'s':''}</span>` : '<span class="badge badge-green">âœ“ Sin suspensos</span>'}
+            ${fails > 0 ? `<span class="badge badge-red">âš  ${fails} suspenso${fails>1?'s':''}</span>` : '<span class="badge badge-green">✓ Sin suspensos</span>'}
             <span class="badge badge-blue ${trend.class}">${trend.icon} ${trend.label}</span>
             <span class="badge badge-purple">${trimData.length} eval.</span>
-            ${wAvg !== null ? `<span class="badge badge-cyan">âŠ¡ Pond: ${wAvg.toFixed(2)}</span>` : ''}
-            ${risks.length ? `<span class="badge badge-red">ðŸš¨ En riesgo</span>` : ''}
+            ${wAvg !== null ? `<span class="badge badge-cyan">⊡ Pond: ${wAvg.toFixed(2)}</span>` : ''}
+            ${risks.length ? `<span class="badge badge-red">🚨 En riesgo</span>` : ''}
           </div>
         </div>
-        <div class="avg-badge" style="border-color:${avgColor(avg)}; color:${avgColor(avg)}">${avg !== null ? avg.toFixed(1) : 'â€”'}</div>
+        <div class="avg-badge" style="border-color:${avgColor(avg)}; color:${avgColor(avg)}">${avg !== null ? avg.toFixed(1) : '—'}</div>
       </div>
     </div>
 
@@ -1964,15 +1964,15 @@ function renderStudentModal() {
       ${risks.map(r => `<div style="font-size:12px; color:var(--red); margin:3px 0">${r}</div>`).join('')}
     </div>` : ''}`;
 
-  // Nota mÃ­nima 3Âª eval
+  // Nota mínima 3ª eval
   if (state.trims[1] && state.trims[2] && !state.trims[3]) {
     const critSubs = state.subjects.filter(sub => {
       const min = calcNotaMinima(name, sub);
       return min !== null && min > 0;
     });
     if (critSubs.length) {
-      html += `<div class="nota-minima"><span class="icon">ðŸŽ¯</span><div>
-        <strong>Nota mÃ­nima en 3Âª evaluaciÃ³n para aprobar:</strong><br>
+      html += `<div class="nota-minima"><span class="icon">🎯</span><div>
+        <strong>Nota mínima en 3ª evaluación para aprobar:</strong><br>
         ${critSubs.map(sub => {
           const min = calcNotaMinima(name, sub);
           const color = min > 10 ? 'var(--red)' : min > 7 ? 'var(--yellow)' : 'var(--green)';
@@ -1984,23 +1984,23 @@ function renderStudentModal() {
 
   // Comments
   html += `<div style="margin-bottom:16px">
-    <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; color:var(--text-dim); margin-bottom:6px">ðŸ“ Notas / Comentarios</div>
-    <textarea class="comment-area" id="comment-${escHtml(name)}" placeholder="AÃ±ade notas sobre este alumno/a..." onchange="saveComment('${escHtml(name)}')">${escHtml(comment)}</textarea>
+    <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; color:var(--text-dim); margin-bottom:6px">📝 Notas / Comentarios</div>
+    <textarea class="comment-area" id="comment-${escHtml(name)}" placeholder="Añade notas sobre este alumno/a..." onchange="saveComment('${escHtml(name)}')">${escHtml(comment)}</textarea>
   </div>`;
 
   // Subject evolution
   html += `<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; flex-wrap:wrap; gap:8px">
-    <div class="section-title" style="font-size:1rem; margin-bottom:0">EvoluciÃ³n por materia</div>
+    <div class="section-title" style="font-size:1rem; margin-bottom:0">Evolución por materia</div>
     <div style="display:flex; gap:8px; align-items:center">
       <span style="font-size:11px; color:var(--text-muted)">${subjectsToShow.length} materia${subjectsToShow.length!==1?'s':''}</span>
       <button class="toggle-btn ${showOnlyFails?'active':''}" onclick="toggleFailsOnly()">
-        <span class="dot"></span>${showOnlyFails ? 'âš  Solo suspensos' : 'ðŸ“š Todas'}
+        <span class="dot"></span>${showOnlyFails ? 'âš  Solo suspensos' : '📚 Todas'}
       </button>
     </div>
   </div>`;
 
   if (subjectsToShow.length === 0) {
-    html += `<div style="text-align:center; padding:20px; color:var(--green); font-size:14px">âœ“ No hay materias suspensas en ninguna evaluaciÃ³n</div>`;
+    html += `<div style="text-align:center; padding:20px; color:var(--green); font-size:14px">✓ No hay materias suspensas en ninguna evaluación</div>`;
   } else {
     html += `<div class="evolution-grid">`;
     subjectsToShow.forEach(sub => {
@@ -2013,16 +2013,16 @@ function renderStudentModal() {
       let vsGroup = '';
       if (lastG?.type==='grade' && gAvg !== null) {
         const diff = lastG.value - gAvg;
-        vsGroup = diff > 0.5 ? `<span style="font-size:9px; color:var(--green)">â†‘grupo</span>` : diff < -0.5 ? `<span style="font-size:9px; color:var(--red)">â†“grupo</span>` : '';
+        vsGroup = diff > 0.5 ? `<span style="font-size:9px; color:var(--green)">↑grupo</span>` : diff < -0.5 ? `<span style="font-size:9px; color:var(--red)">↓grupo</span>` : '';
       }
 
       html += `<div class="evo-card" style="border-left:3px solid ${color}; ${hasAnyFail?'background:rgba(242,99,122,0.03)':''}">
-        <div class="subject-name" style="color:${color}">${getSubjectName(sub)} ${hasAnyFail?'<span style="font-size:9px;color:var(--red)">â—</span>':''} ${vsGroup}</div>
+        <div class="subject-name" style="color:${color}">${getSubjectName(sub)} ${hasAnyFail?'<span style="font-size:9px;color:var(--red)">●</span>':''} ${vsGroup}</div>
         <div class="evo-grades">
           ${subGrades.map((x,i) => `<div class="evo-grade">
-            <span class="trimestre-badge t${x.trim}" style="font-size:9px">${x.trim}Âª</span>
+            <span class="trimestre-badge t${x.trim}" style="font-size:9px">${x.trim}ª</span>
             ${gradeDisplay(x.grade || {type:'absent',value:null})}
-          </div>${i<subGrades.length-1?'<span style="color:var(--border)">â†’</span>':''}`).join('')}
+          </div>${i<subGrades.length-1?'<span style="color:var(--border)">→</span>':''}`).join('')}
           <span class="trend-arrow ${subTrend.class}">${subTrend.icon}</span>
         </div>
       </div>`;
@@ -2032,15 +2032,15 @@ function renderStudentModal() {
 
   // Per-trim summary
   if (trimData.length > 1) {
-    html += `<div class="section-title" style="font-size:1rem; margin-top:20px">Resumen por evaluaciÃ³n</div>
+    html += `<div class="section-title" style="font-size:1rem; margin-top:20px">Resumen por evaluación</div>
       <div style="display:flex; gap:10px; flex-wrap:wrap">`;
     trimData.forEach(x => {
       const a = getStudentAvg(x.student, state.trims[x.trim], true);
       const f = getStudentFails(x.student, true);
       html += `<div style="background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:12px; flex:1; min-width:130px; text-align:center">
-        <span class="trimestre-badge t${x.trim}" style="margin-bottom:8px; display:inline-block">${x.trim}Âª EvaluaciÃ³n</span>
-        <div style="font-size:1.5rem; font-weight:800; font-family:'Syne',sans-serif; color:${avgColor(a)}; margin:6px 0">${a !== null ? a.toFixed(1) : 'â€”'}</div>
-        <div style="font-size:12px; color:${f>0?'var(--red)':'var(--green)'}">${f > 0 ? `âš  ${f} susp.` : 'âœ“ Todo aprobado'}</div>
+        <span class="trimestre-badge t${x.trim}" style="margin-bottom:8px; display:inline-block">${x.trim}ª Evaluación</span>
+        <div style="font-size:1.5rem; font-weight:800; font-family:'Syne',sans-serif; color:${avgColor(a)}; margin:6px 0">${a !== null ? a.toFixed(1) : '—'}</div>
+        <div style="font-size:12px; color:${f>0?'var(--red)':'var(--green)'}">${f > 0 ? `âš  ${f} susp.` : '✓ Todo aprobado'}</div>
       </div>`;
     });
     html += '</div>';
@@ -2108,10 +2108,10 @@ function renderSessionCard() {
     <div class="session-name">${escHtml(name)}</div>
     <div class="student-badges" style="margin-bottom:24px">
       ${avg !== null ? `<span class="badge ${avg>=5?'badge-green':'badge-red'}" style="font-size:13px; padding:5px 14px">Media: ${avg.toFixed(2)}</span>` : ''}
-      ${fails > 0 ? `<span class="badge badge-red" style="font-size:13px; padding:5px 14px">âš  ${fails} suspenso${fails>1?'s':''}</span>` : '<span class="badge badge-green" style="font-size:13px; padding:5px 14px">âœ“ Sin suspensos</span>'}
+      ${fails > 0 ? `<span class="badge badge-red" style="font-size:13px; padding:5px 14px">âš  ${fails} suspenso${fails>1?'s':''}</span>` : '<span class="badge badge-green" style="font-size:13px; padding:5px 14px">✓ Sin suspensos</span>'}
       <span class="badge badge-blue ${trend.class}" style="font-size:13px; padding:5px 14px">${trend.icon} ${trend.label}</span>
-      ${wAvg !== null ? `<span class="badge badge-cyan" style="font-size:13px; padding:5px 14px">âŠ¡ Ponderada: ${wAvg.toFixed(2)}</span>` : ''}
-      ${risks.length ? `<span class="badge badge-red" style="font-size:13px; padding:5px 14px">ðŸš¨ En riesgo</span>` : ''}
+      ${wAvg !== null ? `<span class="badge badge-cyan" style="font-size:13px; padding:5px 14px">⊡ Ponderada: ${wAvg.toFixed(2)}</span>` : ''}
+      ${risks.length ? `<span class="badge badge-red" style="font-size:13px; padding:5px 14px">🚨 En riesgo</span>` : ''}
     </div>
 
     ${risks.length ? `<div style="background:rgba(242,99,122,0.06); border:1px solid rgba(242,99,122,0.2); border-radius:10px; padding:12px 16px; margin-bottom:20px">
@@ -2126,9 +2126,9 @@ function renderSessionCard() {
         const a = getStudentAvg(s,td,true);
         const f = getStudentFails(s,true);
         return `<div style="background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:14px 20px; text-align:center; min-width:120px">
-          <span class="trimestre-badge t${t}">${t}Âª EvaluaciÃ³n</span>
-          <div style="font-size:2rem; font-weight:800; font-family:'Syne',sans-serif; color:${avgColor(a)}; margin:8px 0">${a?.toFixed(1)??'â€”'}</div>
-          <div style="font-size:12px; color:${f>0?'var(--red)':'var(--green)'}">${f>0?`âš  ${f} susp.`:'âœ“ OK'}</div>
+          <span class="trimestre-badge t${t}">${t}ª Evaluación</span>
+          <div style="font-size:2rem; font-weight:800; font-family:'Syne',sans-serif; color:${avgColor(a)}; margin:8px 0">${a?.toFixed(1)??'—'}</div>
+          <div style="font-size:12px; color:${f>0?'var(--red)':'var(--green)'}">${f>0?`âš  ${f} susp.`:'✓ OK'}</div>
         </div>`;
       }).join('')}
     </div>
@@ -2163,7 +2163,7 @@ function renderSessionCard() {
     </div>
 
     <div>
-      <div style="font-size:12px; font-weight:700; color:var(--text-dim); margin-bottom:6px; text-transform:uppercase; letter-spacing:0.5px">ðŸ“ Comentarios</div>
+      <div style="font-size:12px; font-weight:700; color:var(--text-dim); margin-bottom:6px; text-transform:uppercase; letter-spacing:0.5px">📝 Comentarios</div>
       <textarea class="comment-area" style="min-height:60px" placeholder="Notas sobre este alumno/a..." onchange="saveComment('${escHtml(name)}')">${escHtml(comment)}</textarea>
     </div>
   `;
@@ -2240,7 +2240,7 @@ function copyStudentRow(name) {
   const student = lastTrim.students.find(s => s.name === name);
   if (!student) return;
   const avg = getStudentAvg(student, lastTrim, true);
-  let txt = `${name}\t${avg?.toFixed(2)??'â€”'}\t`;
+  let txt = `${name}\t${avg?.toFixed(2)??'—'}\t`;
   lastTrim.subjects.forEach(sub => {
     const g = student.grades[sub];
     txt += `${gradeShort(g || {type:'absent'})}\t`;
@@ -2261,26 +2261,26 @@ function exportTxt() {
   const loadedTrims = [1,2,3].filter(t => state.trims[t]);
   if (!loadedTrims.length) return;
 
-  let txt = '='.repeat(60) + '\n  ACTA DE EVALUACIÃ“N ACADÃ‰MICA\n' + '='.repeat(60) + '\n\n';
-  txt += `Evaluaciones: ${loadedTrims.map(t=>t+'Âª').join(', ')}\n\n`;
+  let txt = '='.repeat(60) + '\n  ACTA DE EVALUACIÓN ACADÉMICA\n' + '='.repeat(60) + '\n\n';
+  txt += `Evaluaciones: ${loadedTrims.map(t=>t+'ª').join(', ')}\n\n`;
 
   loadedTrims.forEach(t => {
     const td = state.trims[t];
-    txt += `\n${'â”€'.repeat(50)}\n${t}Âª EVALUACIÃ“N\n${'â”€'.repeat(50)}\n`;
+    txt += `\n${'─'.repeat(50)}\n${t}ª EVALUACIÓN\n${'─'.repeat(50)}\n`;
     td.students.forEach(s => {
       const avg = getStudentAvg(s,td,true);
       const fails = getStudentFails(s,true);
-      txt += `\n${s.name}\n  Media: ${avg?.toFixed(2)??'â€”'}  |  Suspensos: ${fails}`;
+      txt += `\n${s.name}\n  Media: ${avg?.toFixed(2)??'—'}  |  Suspensos: ${fails}`;
       const wAvg = getWeightedAvg(s.name);
       if (wAvg !== null) txt += `  |  Media ponderada: ${wAvg.toFixed(2)}`;
       const risks = detectRisk(s.name);
-      if (risks.length) txt += `\n  ðŸš¨ RIESGO: ${risks.join(' | ')}`;
+      if (risks.length) txt += `\n  🚨 RIESGO: ${risks.join(' | ')}`;
       const comment = state.comments[s.name];
-      if (comment) txt += `\n  ðŸ“ Notas: ${comment}`;
+      if (comment) txt += `\n  📝 Notas: ${comment}`;
       txt += '\n  ';
       td.subjects.forEach(sub => {
         const g = s.grades[sub];
-        const d = !g||g.type==='absent' ? 'â€”' : g.type==='np' ? 'NP' : g.value;
+        const d = !g||g.type==='absent' ? '—' : g.type==='np' ? 'NP' : g.value;
         txt += `${getSubjectName(sub)}:${d}  `;
       });
       txt += '\n';
@@ -2289,7 +2289,7 @@ function exportTxt() {
     td.subjects.forEach(sub => {
       const grades = td.students.map(s=>s.grades[sub]).filter(g=>g?.type==='grade');
       const pass = grades.filter(g=>g.value>=5).length;
-      const avg = grades.length ? (grades.reduce((a,g)=>a+g.value,0)/grades.length).toFixed(2) : 'â€”';
+      const avg = grades.length ? (grades.reduce((a,g)=>a+g.value,0)/grades.length).toFixed(2) : '—';
       txt += `  ${getSubjectName(sub)}: ${pass}/${grades.length} apr. (${grades.length?((pass/grades.length)*100).toFixed(0):0}%) | Media: ${avg}\n`;
     });
   });
@@ -2307,9 +2307,9 @@ function exportPDF() {
   const td = state.trims[getLastTrim()];
 
   doc.setFont('helvetica','bold'); doc.setFontSize(16);
-  doc.text('Acta de EvaluaciÃ³n AcadÃ©mica', 14, 16);
+  doc.text('Acta de Evaluación Académica', 14, 16);
   doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(100);
-  doc.text(`Evaluaciones: ${loadedTrims.map(t=>t+'Âª').join(', ')} | ${new Date().toLocaleDateString('es-ES')}`, 14, 22);
+  doc.text(`Evaluaciones: ${loadedTrims.map(t=>t+'ª').join(', ')} | ${new Date().toLocaleDateString('es-ES')}`, 14, 22);
   doc.setTextColor(0);
 
   const cols = ['Alumno/a','Media','Pond.','Susp.','Riesgo',...td.subjects.map(s=>getSubjectName(s).substring(0,6))];
@@ -2318,10 +2318,10 @@ function exportPDF() {
     const fails = getStudentFails(s,true);
     const wAvg = getWeightedAvg(s.name);
     const risks = detectRisk(s.name);
-    const cells = [s.name, avg?.toFixed(1)??'â€”', wAvg?.toFixed(1)??'â€”', fails.toString(), risks.length?'ðŸš¨':''];
+    const cells = [s.name, avg?.toFixed(1)??'—', wAvg?.toFixed(1)??'—', fails.toString(), risks.length?'🚨':''];
     td.subjects.forEach(sub => {
       const g = s.grades[sub];
-      if (!g||g.type==='absent') cells.push('â€”');
+      if (!g||g.type==='absent') cells.push('—');
       else if (g.type==='np') cells.push('NP');
       else cells.push(g.value%1===0?g.value.toString():g.value.toFixed(1));
     });
@@ -2340,7 +2340,7 @@ function exportPDF() {
           else if (v>=9) data.cell.styles.textColor=[80,200,100];
         }
       }
-      if (data.section==='body' && data.column.index===4 && data.cell.raw==='ðŸš¨') {
+      if (data.section==='body' && data.column.index===4 && data.cell.raw==='🚨') {
         data.cell.styles.textColor=[220,80,80];
       }
     }
@@ -2355,8 +2355,8 @@ function exportPDF() {
     const grades = td.students.map(s=>s.grades[sub]).filter(g=>g?.type==='grade');
     const pass = grades.filter(g=>g.value>=5).length;
     const fail = grades.filter(g=>g.value<5).length;
-    const avg = grades.length ? (grades.reduce((a,g)=>a+g.value,0)/grades.length).toFixed(2) : 'â€”';
-    const pct = grades.length ? ((pass/grades.length)*100).toFixed(0)+'%' : 'â€”';
+    const avg = grades.length ? (grades.reduce((a,g)=>a+g.value,0)/grades.length).toFixed(2) : '—';
+    const pct = grades.length ? ((pass/grades.length)*100).toFixed(0)+'%' : '—';
     return [getSubjectName(sub), grades.length.toString(), pass.toString(), fail.toString(), avg, pct];
   });
   doc.autoTable({
@@ -2382,7 +2382,7 @@ function exportFailsPDF() {
 
   const failStudents = td.students.filter(s => getStudentFails(s,true) > 0);
   doc.setFont('helvetica','bold'); doc.setFontSize(14);
-  doc.text('Lista de Apoyo/Refuerzo â€” Alumnos con Suspensos', 14, 16);
+  doc.text('Lista de Apoyo/Refuerzo — Alumnos con Suspensos', 14, 16);
   doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(100);
   doc.text(`${new Date().toLocaleDateString('es-ES')} | ${failStudents.length} alumnos`, 14, 22);
   doc.setTextColor(0);
@@ -2390,11 +2390,11 @@ function exportFailsPDF() {
   const rows = failStudents.map(s => {
     const avg = getStudentAvg(s,td,true);
     const failSubs = Object.entries(s.grades).filter(([,g])=>g.type==='grade'&&g.value<5).map(([sub])=>getSubjectName(sub));
-    return [s.name, avg?.toFixed(1)??'â€”', failSubs.length.toString(), failSubs.join(', ')];
+    return [s.name, avg?.toFixed(1)??'—', failSubs.length.toString(), failSubs.join(', ')];
   });
 
   doc.autoTable({
-    head:[['Alumno/a','Media','NÂº Susp.','Materias suspensas']],
+    head:[['Alumno/a','Media','Nº Susp.','Materias suspensas']],
     body:rows, startY:28,
     styles:{fontSize:9, cellPadding:2},
     headStyles:{fillColor:[24,29,44], textColor:[200,210,255]},
@@ -2409,7 +2409,7 @@ function exportStudentPDF(name) {
   const loadedTrims = [1,2,3].filter(t => state.trims[t]);
 
   doc.setFont('helvetica','bold'); doc.setFontSize(16);
-  doc.text(`Informe de EvaluaciÃ³n: ${name}`, 14, 16);
+  doc.text(`Informe de Evaluación: ${name}`, 14, 16);
   doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(100);
   doc.text(new Date().toLocaleDateString('es-ES'), 14, 22);
   doc.setTextColor(0);
@@ -2423,11 +2423,11 @@ function exportStudentPDF(name) {
     const fails = getStudentFails(student,true);
 
     doc.setFont('helvetica','bold'); doc.setFontSize(11);
-    doc.text(`${t}Âª EvaluaciÃ³n â€” Media: ${avg?.toFixed(2)??'â€”'} â€” Suspensos: ${fails}`, 14, y); y+=5;
+    doc.text(`${t}ª Evaluación — Media: ${avg?.toFixed(2)??'—'} — Suspensos: ${fails}`, 14, y); y+=5;
 
     const rows = td.subjects.map(sub => {
       const g = student.grades[sub];
-      return [getSubjectName(sub), !g||g.type==='absent'?'â€”':g.type==='np'?'NP':(g.value%1===0?g.value.toString():g.value.toFixed(1))];
+      return [getSubjectName(sub), !g||g.type==='absent'?'—':g.type==='np'?'NP':(g.value%1===0?g.value.toString():g.value.toFixed(1))];
     });
     doc.autoTable({ head:[['Materia','Nota']], body:rows, startY:y, styles:{fontSize:8,cellPadding:2}, headStyles:{fillColor:[24,29,44],textColor:[200,210,255]},
       didParseCell:(data) => { if (data.section==='body'&&data.column.index===1) { const v=parseFloat(data.cell.raw); if(!isNaN(v)&&v<5){data.cell.styles.textColor=[220,80,80];data.cell.styles.fontStyle='bold';} } } });
@@ -2478,7 +2478,7 @@ function restoreSession(e) {
         state.config.optativas = new Set(data.config.optativas || []);
       }
       buildDashboard();
-    } catch(err) { alert('Error al restaurar la sesiÃ³n: ' + err.message); }
+    } catch(err) { alert('Error al restaurar la sesión: ' + err.message); }
   };
   reader.readAsText(file);
 }
@@ -2533,7 +2533,7 @@ document.getElementById('start-btn-wrap').style.display = 'flex';
 // ============================================================
 window.loadDemo = function() {
   const subjects = ['BYG','EFI','EPV','GEH','LCL','MAT','MUS','ING','FRA','2CY','ROY','DDI','IAA','EDU','REL','RIS'];
-  const names = ['SofÃ­a GarcÃ­a LÃ³pez','Carlos MartÃ­nez Ruiz','MarÃ­a LÃ³pez SÃ¡nchez','Juan RodrÃ­guez GÃ³mez','Ana FernÃ¡ndez Torres','Pablo GonzÃ¡lez DÃ­az','Laura SÃ¡nchez Herrero','Diego Torres Moreno','Elena Ruiz JimÃ©nez','Marcos DÃ­az Navarro','Valentina Herrero Castro','AdriÃ¡n Moreno Blanco','LucÃ­a JimÃ©nez Vega','Sergio Navarro Ortega','Isabel Castro Flores'];
+  const names = ['Sofía García López','Carlos Martínez Ruiz','María López Sánchez','Juan Rodríguez Gómez','Ana Fernández Torres','Pablo González Díaz','Laura Sánchez Herrero','Diego Torres Moreno','Elena Ruiz Jiménez','Marcos Díaz Navarro','Valentina Herrero Castro','Adrián Moreno Blanco','Lucía Jiménez Vega','Sergio Navarro Ortega','Isabel Castro Flores'];
   function rnd(min,max) { return Math.round((Math.random()*(max-min)+min)*10)/10; }
   function genGrades(base, trend=0) {
     const g = {};
@@ -2553,7 +2553,7 @@ window.loadDemo = function() {
       subjects
     };
     document.getElementById('card-'+t).classList.add('loaded');
-    document.getElementById('status-'+t).textContent = `âœ“ Demo â€“ ${names.length} alumnos`;
+    document.getElementById('status-'+t).textContent = `✓ Demo – ${names.length} alumnos`;
   }
   checkStartButton();
 };

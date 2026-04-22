@@ -29,7 +29,7 @@
         .scenario-tag { color: var(--light-yellow); font-weight: bold; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; font-size: 0.9rem; }
         .scenario-text { font-size: 1.5rem; font-family: 'Georgia', serif; line-height: 1.4; }
 
-        /* --- BOTONES DE DECISIÃ“N --- */
+        /* --- BOTONES DE DECISIÓN --- */
         .decision-panel { display: flex; flex-direction: column; gap: 15px; width: 100%; max-width: 700px; }
         @media (min-width: 600px) { .decision-panel { flex-direction: row; } }
 
@@ -65,23 +65,23 @@
     <div class="main-container">
         <div class="header">
             <h1>Teatro de Decisiones</h1>
-            <p class="subtitle">Cada vez que alguien te provoca, te estÃ¡ poniendo a prueba. Eres tÃº quien decide si le regalas tu poder o si mantienes el control. Analiza las consecuencias.</p>
-            <div class="mantra-badge">ðŸ‘‰ Parar no es perder â€” es elegir.</div>
+            <p class="subtitle">Cada vez que alguien te provoca, te está poniendo a prueba. Eres tú quien decide si le regalas tu poder o si mantienes el control. Analiza las consecuencias.</p>
+            <div class="mantra-badge">👉 Parar no es perder — es elegir.</div>
         </div>
 
         <div class="theater-stage">
             
             <div class="scenario-box">
                 <div class="scenario-tag" id="scene-counter">Escena 1 de 3</div>
-                <div class="scenario-text" id="scene-text">Cargando situaciÃ³n...</div>
+                <div class="scenario-text" id="scene-text">Cargando situación...</div>
             </div>
 
             <div class="decision-panel" id="decision-panel">
                 <button class="btn-decision btn-impulsive" onclick="playReaction('impulsive')">
-                    <span class="btn-icon">ðŸŒ‹</span> REACCIÃ“N IMPULSIVA<br><span style="font-size: 0.9rem; font-weight: normal;">(Explotar)</span>
+                    <span class="btn-icon">🌋</span> REACCIÓN IMPULSIVA<br><span style="font-size: 0.9rem; font-weight: normal;">(Explotar)</span>
                 </button>
                 <button class="btn-decision btn-control" onclick="playReaction('control')">
-                    <span class="btn-icon">ðŸ§ </span> AUTOCONTROL<br><span style="font-size: 0.9rem; font-weight: normal;">(Frenar)</span>
+                    <span class="btn-icon">??</span> AUTOCONTROL<br><span style="font-size: 0.9rem; font-weight: normal;">(Frenar)</span>
                 </button>
             </div>
 
@@ -90,7 +90,7 @@
 
             <div id="conclusion" class="conclusion-box"></div>
             
-            <button class="btn-next" id="btn-next" onclick="nextScene()">Siguiente Escena âž”</button>
+            <button class="btn-next" id="btn-next" onclick="nextScene()">Siguiente Escena ➔</button>
 
         </div>
     </div>
@@ -98,55 +98,55 @@
     <script>
         const scenes = [
             {
-                text: "EstÃ¡s en el pasillo. Un compaÃ±ero te da un empujÃ³n fuerte 'sin querer' y se rÃ­e en tu cara delante de sus amigos.",
+                text: "Estás en el pasillo. Un compañero te da un empujón fuerte 'sin querer' y se ríe en tu cara delante de sus amigos.",
                 impulsive: [
-                    "Te giras y le devuelves el empujÃ³n mucho mÃ¡s fuerte.",
-                    "Ã‰l se encara contigo y empezÃ¡is a gritaros e insultaros.",
+                    "Te giras y le devuelves el empujón mucho más fuerte.",
+                    "Él se encara contigo y empezáis a gritaros e insultaros.",
                     "Aparece el Jefe de Estudios y os manda a los dos a Jefatura.",
-                    "Te ponen un parte disciplinario y tus padres te castigan sin mÃ³vil el fin de semana."
+                    "Te ponen un parte disciplinario y tus padres te castigan sin móvil el fin de semana."
                 ],
                 control: [
-                    "Haces la pausa de 10 segundos. Respiras hondo y aprietas los puÃ±os, pero no haces nada.",
+                    "Haces la pausa de 10 segundos. Respiras hondo y aprietas los puños, pero no haces nada.",
                     "Le miras fijamente, niegas con la cabeza y sigues caminando hacia tu grupo.",
-                    "Ã‰l se queda buscando pelea, pero al no hacerle caso, queda en ridÃ­culo delante de todos.",
-                    "Un profesor que lo ha visto todo le llama la atenciÃ³n a Ã©l por su actitud."
+                    "Él se queda buscando pelea, pero al no hacerle caso, queda en ridículo delante de todos.",
+                    "Un profesor que lo ha visto todo le llama la atención a él por su actitud."
                 ],
-                conclusionRed: "âŒ Ã‰l se ha reÃ­do y tÃº te has llevado un parte y te has quedado sin mÃ³vil. Le has regalado el poder de arruinarte la tarde. TÃš PIERDES.",
-                conclusionGreen: "âœ… Has mantenido el control. Ã‰l se ha llevado la bronca y tÃº conservas tu libertad y tu mÃ³vil. TÃš GANAS."
+                conclusionRed: "❌ Él se ha reído y tú te has llevado un parte y te has quedado sin móvil. Le has regalado el poder de arruinarte la tarde. TÚ PIERDES.",
+                conclusionGreen: "✅ Has mantenido el control. Él se ha llevado la bronca y tú conservas tu libertad y tu móvil. TÚ GANAS."
             },
             {
-                text: "EstÃ¡s jugando un partido en el patio. El Ã¡rbitro (un alumno) pita una falta en tu contra que es totalmente injusta.",
+                text: "Estás jugando un partido en el patio. El árbitro (un alumno) pita una falta en tu contra que es totalmente injusta.",
                 impulsive: [
-                    "Le gritas que es un tramposo y tiras el balÃ³n lejos con rabia.",
-                    "Tus compaÃ±eros te dicen que te calmes, pero te encaras con ellos tambiÃ©n.",
+                    "Le gritas que es un tramposo y tiras el balón lejos con rabia.",
+                    "Tus compañeros te dicen que te calmes, pero te encaras con ellos también.",
                     "El profesor de guardia te expulsa del partido.",
                     "Te pasas el resto del recreo solo, enfadado y castigado en la pared."
                 ],
                 control: [
                     "Te da mucha rabia. Aprietas los dientes, pero te alejas de la jugada.",
                     "Respiras hondo y te dices a ti mismo: 'Solo es un patio, no pasa nada'.",
-                    "Vuelves a tu posiciÃ³n en el campo y sigues jugando a tope.",
-                    "Marcas un golazo dos minutos despuÃ©s y tu equipo lo celebra contigo."
+                    "Vuelves a tu posición en el campo y sigues jugando a tope.",
+                    "Marcas un golazo dos minutos después y tu equipo lo celebra contigo."
                 ],
-                conclusionRed: "âŒ Por una falta tonta, te has quedado sin jugar y te has enfadado con tus amigos. TÃš PIERDES.",
-                conclusionGreen: "âœ… Tragaste tu rabia un segundo y pudiste seguir disfrutando de tu recreo y tus amigos. TÃš GANAS."
+                conclusionRed: "❌ Por una falta tonta, te has quedado sin jugar y te has enfadado con tus amigos. TÚ PIERDES.",
+                conclusionGreen: "✅ Tragaste tu rabia un segundo y pudiste seguir disfrutando de tu recreo y tus amigos. TÚ GANAS."
             },
             {
-                text: "El profesor te llama la atenciÃ³n en clase por hablar, pero en realidad era el compaÃ±ero de atrÃ¡s quien estaba hablando.",
+                text: "El profesor te llama la atención en clase por hablar, pero en realidad era el compañero de atrás quien estaba hablando.",
                 impulsive: [
-                    "Te levantas de la silla gritando: 'Â¡YO NO HE SIDO, SIEMPRE VAS A POR MÃ!'.",
+                    "Te levantas de la silla gritando: '¡YO NO HE SIDO, SIEMPRE VAS A POR MÍ!'.",
                     "El profesor te dice que no le faltes al respeto con esos tonos.",
-                    "TÃº sigues discutiendo y contestando de mala manera.",
+                    "Tú sigues discutiendo y contestando de mala manera.",
                     "Te expulsa de clase y te manda a Jefatura con una nota roja."
                 ],
                 control: [
-                    "Te muerdes la lengua aunque te parezca sÃºper injusto.",
+                    "Te muerdes la lengua aunque te parezca súper injusto.",
                     "Dices en tono normal: 'Perdone profe, pero yo no estaba hablando'.",
-                    "El profe te pide que te calles igualmente, y tÃº asientes y sigues copiando.",
-                    "Al final de la clase te acercas a hablarlo con Ã©l tranquilamente y Ã©l te da la razÃ³n."
+                    "El profe te pide que te calles igualmente, y tú asientes y sigues copiando.",
+                    "Al final de la clase te acercas a hablarlo con él tranquilamente y él te da la razón."
                 ],
-                conclusionRed: "âŒ TenÃ­as razÃ³n, pero al perder las formas, perdiste la razÃ³n y te llevaste un castigo. TÃš PIERDES.",
-                conclusionGreen: "âœ… Mantuviste la calma, evitaste el parte y al final demostraste que eras inocente. TÃš GANAS."
+                conclusionRed: "❌ Tenías razón, pero al perder las formas, perdiste la razón y te llevaste un castigo. TÚ PIERDES.",
+                conclusionGreen: "✅ Mantuviste la calma, evitaste el parte y al final demostraste que eras inocente. TÚ GANAS."
             }
         ];
 
@@ -179,7 +179,7 @@
 
             consequencesContainer.innerHTML = '';
             
-            // Mostrar los pasos como un efecto dominÃ³ (uno tras otro)
+            // Mostrar los pasos como un efecto dominó (uno tras otro)
             steps.forEach((stepText, index) => {
                 const stepEl = document.createElement('div');
                 stepEl.className = 'step';
@@ -191,17 +191,17 @@
                 }, 800 * (index + 1)); // Delay progresivo
             });
 
-            // Mostrar la conclusiÃ³n final y el botÃ³n de siguiente
+            // Mostrar la conclusión final y el botón de siguiente
             setTimeout(() => {
                 conclusionBox.innerText = conclusion;
                 conclusionBox.classList.add(conclusionClass);
                 conclusionBox.style.display = 'block';
                 
                 if (currentScene < scenes.length - 1) {
-                    btnNext.innerText = "Siguiente Escena âž”";
+                    btnNext.innerText = "Siguiente Escena ➔";
                     btnNext.style.display = 'block';
                 } else {
-                    btnNext.innerText = "Finalizar Entrenamiento âž”";
+                    btnNext.innerText = "Finalizar Entrenamiento ➔";
                     btnNext.style.display = 'block';
                     btnNext.onclick = finishTraining;
                 }
@@ -219,7 +219,7 @@
         function finishTraining() {
             sceneCounter.innerText = "ENTRENAMIENTO COMPLETADO";
             sceneCounter.style.color = "var(--light-green)";
-            sceneText.innerText = "Has entendido perfectamente cÃ³mo funciona tu cerebro. TÃº tienes el poder de elegir el resultado de tus problemas.";
+            sceneText.innerText = "Has entendido perfectamente cómo funciona tu cerebro. Tú tienes el poder de elegir el resultado de tus problemas.";
             decisionPanel.style.display = 'none';
             consequencesContainer.innerHTML = '';
             conclusionBox.style.display = 'none';

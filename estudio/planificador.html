@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creador de Rutinas - TÃ©cnicas de Estudio</title>
+    <title>Creador de Rutinas - Técnicas de Estudio</title>
     <style>
         :root {
             --primary: #0F766E; /* Teal profundo */
-            --secondary: #0D9488; /* Teal mÃ¡s claro */
+            --secondary: #0D9488; /* Teal más claro */
             --accent: #EAB308; /* Amarillo Mostaza */
             --bg-color: transparent;
             --text-main: #374151;
@@ -154,7 +154,7 @@
         .fill-study { background-color: #0F766E; }
         .fill-leisure { background-color: #DC2626; }
 
-        /* --- MODAL DE SELECCIÃ“N DE ACTIVIDAD --- */
+        /* --- MODAL DE SELECCIÓN DE ACTIVIDAD --- */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             background-color: rgba(0,0,0,0.6); z-index: 100; justify-content: center; align-items: center;
@@ -180,7 +180,7 @@
 
         .act-btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
 
-        /* Actividades especÃ­ficas */
+        /* Actividades específicas */
         .act-study { border-color: #0F766E; } .act-study:hover { background-color: #F0FDFA; }
         .act-leisure { border-color: #DC2626; } .act-leisure:hover { background-color: #FEF2F2; }
         .act-sport { border-color: #16A34A; } .act-sport:hover { background-color: #F0FDF4; }
@@ -206,9 +206,9 @@
     <div class="main-container">
         
         <div class="header-section">
-            <h1 class="main-title">DiseÃ±a tu Tarde Perfecta</h1>
+            <h1 class="main-title">Diseña tu Tarde Perfecta</h1>
             <p class="context-text">
-                Toca cada hueco del horario para aÃ±adir una actividad. Tu objetivo es crear una rutina equilibrada. Nuestro "Asistente Virtual" analizarÃ¡ tu horario y te avisarÃ¡ si te estÃ¡s pasando de ocio o si estudias demasiado tarde.
+                Toca cada hueco del horario para añadir una actividad. Tu objetivo es crear una rutina equilibrada. Nuestro "Asistente Virtual" analizará tu horario y te avisará si te estás pasando de ocio o si estudias demasiado tarde.
             </p>
         </div>
 
@@ -229,46 +229,46 @@
                 
                 <div class="time-slot">
                     <div class="time-label">16:00 - 17:00</div>
-                    <div class="activity-box" id="slot-0" onclick="openModal(0)">âž• AÃ±adir actividad</div>
+                    <div class="activity-box" id="slot-0" onclick="openModal(0)">➕ Añadir actividad</div>
                 </div>
                 <div class="time-slot">
                     <div class="time-label">17:00 - 18:00</div>
-                    <div class="activity-box" id="slot-1" onclick="openModal(1)">âž• AÃ±adir actividad</div>
+                    <div class="activity-box" id="slot-1" onclick="openModal(1)">➕ Añadir actividad</div>
                 </div>
                 <div class="time-slot">
                     <div class="time-label">18:00 - 19:00</div>
-                    <div class="activity-box" id="slot-2" onclick="openModal(2)">âž• AÃ±adir actividad</div>
+                    <div class="activity-box" id="slot-2" onclick="openModal(2)">➕ Añadir actividad</div>
                 </div>
                 <div class="time-slot">
                     <div class="time-label">19:00 - 20:00</div>
-                    <div class="activity-box" id="slot-3" onclick="openModal(3)">âž• AÃ±adir actividad</div>
+                    <div class="activity-box" id="slot-3" onclick="openModal(3)">➕ Añadir actividad</div>
                 </div>
                 <div class="time-slot">
                     <div class="time-label">20:00 - 21:00</div>
-                    <div class="activity-box" id="slot-4" onclick="openModal(4)">âž• AÃ±adir actividad</div>
+                    <div class="activity-box" id="slot-4" onclick="openModal(4)">➕ Añadir actividad</div>
                 </div>
                 <div class="time-slot">
                     <div class="time-label">21:00 - 22:00</div>
-                    <div class="activity-box" id="slot-5" onclick="openModal(5)">âž• AÃ±adir actividad</div>
+                    <div class="activity-box" id="slot-5" onclick="openModal(5)">➕ Añadir actividad</div>
                 </div>
             </div>
 
             <div class="evaluator-container">
-                <div class="evaluator-title">ðŸ¤– Evaluador de Rutinas</div>
+                <div class="evaluator-title">🤖 Evaluador de Rutinas</div>
                 
                 <div id="feedback-list">
                     <div class="feedback-item" style="opacity: 0.7;">
-                        <span class="feedback-icon">â³</span>
-                        <span class="feedback-text">AÃ±ade actividades al horario de la izquierda para que empiece a analizar tu tarde.</span>
+                        <span class="feedback-icon">⏳</span>
+                        <span class="feedback-text">Añade actividades al horario de la izquierda para que empiece a analizar tu tarde.</span>
                     </div>
                 </div>
 
                 <div class="progress-bar-container">
-                    <div class="progress-label"><span>ðŸ“š Estudio / Deberes</span> <span id="val-study">0h</span></div>
+                    <div class="progress-label"><span>📚 Estudio / Deberes</span> <span id="val-study">0h</span></div>
                     <div class="progress-track"><div class="progress-fill fill-study" id="bar-study"></div></div>
                 </div>
                 <div class="progress-bar-container">
-                    <div class="progress-label"><span>ðŸŽ® Ocio / Pantallas</span> <span id="val-leisure">0h</span></div>
+                    <div class="progress-label"><span>🎮 Ocio / Pantallas</span> <span id="val-leisure">0h</span></div>
                     <div class="progress-track"><div class="progress-fill fill-leisure" id="bar-leisure"></div></div>
                 </div>
             </div>
@@ -288,40 +288,40 @@
 
     <div class="modal-overlay" id="modal">
         <div class="modal-content">
-            <h3 class="modal-title">Â¿QuÃ© vas a hacer a esta hora?</h3>
+            <h3 class="modal-title">¿Qué vas a hacer a esta hora?</h3>
             <div class="activities-grid">
                 <button class="act-btn act-study" onclick="assignActivity('study')">
-                    <span class="act-icon">ðŸ“š</span><span>Estudio / Deberes</span>
+                    <span class="act-icon">📚</span><span>Estudio / Deberes</span>
                 </button>
                 <button class="act-btn act-leisure" onclick="assignActivity('leisure')">
-                    <span class="act-icon">ðŸŽ®</span><span>Pantallas / TV</span>
+                    <span class="act-icon">🎮</span><span>Pantallas / TV</span>
                 </button>
                 <button class="act-btn act-sport" onclick="assignActivity('sport')">
-                    <span class="act-icon">âš½</span><span>Deporte / Amigos</span>
+                    <span class="act-icon">⚽</span><span>Deporte / Amigos</span>
                 </button>
                 <button class="act-btn act-break" onclick="assignActivity('break')">
-                    <span class="act-icon">ðŸ¥ª</span><span>Merienda / Descanso</span>
+                    <span class="act-icon">🥪</span><span>Merienda / Descanso</span>
                 </button>
                 <button class="act-btn act-chores" onclick="assignActivity('chores')">
-                    <span class="act-icon">ðŸ›€</span><span>Ducha / Tareas Casa</span>
+                    <span class="act-icon">🛀</span><span>Ducha / Tareas Casa</span>
                 </button>
                 <button class="act-btn act-break" onclick="assignActivity('dinner')">
-                    <span class="act-icon">ðŸ½ï¸</span><span>Cena Familiar</span>
+                    <span class="act-icon">🍽️</span><span>Cena Familiar</span>
                 </button>
             </div>
-            <button class="btn-clear" onclick="assignActivity(null)">âŒ Vaciar este hueco</button>
+            <button class="btn-clear" onclick="assignActivity(null)">❌ Vaciar este hueco</button>
         </div>
     </div>
 
     <script>
         // Datos de las actividades
         const actData = {
-            study: { icon: 'ðŸ“š', name: 'Estudio / Deberes', bg: '#F0FDFA', border: '#0F766E', color: '#0F766E' },
-            leisure: { icon: 'ðŸŽ®', name: 'Pantallas / TV', bg: '#FEF2F2', border: '#DC2626', color: '#DC2626' },
-            sport: { icon: 'âš½', name: 'Deporte / Amigos', bg: '#F0FDF4', border: '#16A34A', color: '#16A34A' },
-            break: { icon: 'ðŸ¥ª', name: 'Merienda / Descanso', bg: '#FEFCE8', border: '#EAB308', color: '#B45309' },
-            chores: { icon: 'ðŸ›€', name: 'Ducha / Tareas Casa', bg: '#F5F3FF', border: '#8B5CF6', color: '#6D28D9' },
-            dinner: { icon: 'ðŸ½ï¸', name: 'Cena Familiar', bg: '#FEFCE8', border: '#EAB308', color: '#B45309' }
+            study: { icon: '📚', name: 'Estudio / Deberes', bg: '#F0FDFA', border: '#0F766E', color: '#0F766E' },
+            leisure: { icon: '🎮', name: 'Pantallas / TV', bg: '#FEF2F2', border: '#DC2626', color: '#DC2626' },
+            sport: { icon: '⚽', name: 'Deporte / Amigos', bg: '#F0FDF4', border: '#16A34A', color: '#16A34A' },
+            break: { icon: '🥪', name: 'Merienda / Descanso', bg: '#FEFCE8', border: '#EAB308', color: '#B45309' },
+            chores: { icon: '🛀', name: 'Ducha / Tareas Casa', bg: '#F5F3FF', border: '#8B5CF6', color: '#6D28D9' },
+            dinner: { icon: '🍽️', name: 'Cena Familiar', bg: '#FEFCE8', border: '#EAB308', color: '#B45309' }
         };
 
         // Estado del horario (6 bloques)
@@ -353,7 +353,7 @@
                 box.style.color = data.color;
                 box.style.borderStyle = 'solid';
             } else {
-                box.innerHTML = `âž• AÃ±adir actividad`;
+                box.innerHTML = `➕ Añadir actividad`;
                 box.style.backgroundColor = 'var(--slot-empty)';
                 box.style.borderColor = '#D1D5DB';
                 box.style.color = 'var(--text-light)';
@@ -386,39 +386,39 @@
 
             // 1. Falta de Estudio
             if (counts.study === 0 && !isFull) {
-                feedbacks.push({ icon: 'âš ï¸', text: 'AÃºn no has planificado tiempo para hacer los deberes o estudiar.', color: '#EAB308' });
+                feedbacks.push({ icon: 'âš ï¸', text: 'Aún no has planificado tiempo para hacer los deberes o estudiar.', color: '#EAB308' });
             } else if (counts.study === 0 && isFull) {
-                feedbacks.push({ icon: 'âŒ', text: 'Â¡Rutina peligrosa! No has puesto nada de estudio. Los suspensos estÃ¡n garantizados.', color: '#DC2626' });
+                feedbacks.push({ icon: '❌', text: '¡Rutina peligrosa! No has puesto nada de estudio. Los suspensos están garantizados.', color: '#DC2626' });
             }
 
             // 2. Exceso de Estudio
             if (counts.study >= 4) {
-                feedbacks.push({ icon: 'ðŸ¤¯', text: 'Â¡Demasiado estudio! Nadie aguanta tantas horas seguidas. Necesitas descansar el cerebro.', color: '#DC2626' });
+                feedbacks.push({ icon: '🤯', text: '¡Demasiado estudio! Nadie aguanta tantas horas seguidas. Necesitas descansar el cerebro.', color: '#DC2626' });
             }
 
             // 3. Exceso de Pantallas
             if (counts.leisure >= 3) {
-                feedbacks.push({ icon: 'ðŸ“±', text: 'Muchas horas de pantallas te quitarÃ¡n el sueÃ±o por la noche y te restan tiempo de estudio.', color: '#DC2626' });
+                feedbacks.push({ icon: '📱', text: 'Muchas horas de pantallas te quitarán el sueño por la noche y te restan tiempo de estudio.', color: '#DC2626' });
             }
 
-            // 4. Empezar a buena hora (RecomendaciÃ³n del PDF)
+            // 4. Empezar a buena hora (Recomendación del PDF)
             if (schedule[0] === 'study' || schedule[1] === 'study') {
-                feedbacks.push({ icon: 'âœ…', text: 'Â¡Genial! Empezar a estudiar a las 16:00 o 17:00 es lo mejor porque estÃ¡s menos cansado.', color: '#16A34A' });
+                feedbacks.push({ icon: '✅', text: '¡Genial! Empezar a estudiar a las 16:00 o 17:00 es lo mejor porque estás menos cansado.', color: '#16A34A' });
             }
 
             // 5. Estudiar tarde
             if (schedule[4] === 'study' || schedule[5] === 'study') {
-                feedbacks.push({ icon: 'ðŸ¥±', text: 'Estudiar a partir de las 20:00 o 21:00 es muy poco eficaz. A esa hora el cerebro ya estÃ¡ agotado.', color: '#EAB308' });
+                feedbacks.push({ icon: '🥱', text: 'Estudiar a partir de las 20:00 o 21:00 es muy poco eficaz. A esa hora el cerebro ya está agotado.', color: '#EAB308' });
             }
 
             // 6. Equilibrio (La rutina perfecta)
             if (isFull && counts.study >= 1 && counts.study <= 3 && counts.leisure <= 2 && (counts.sport > 0 || counts.leisure > 0) && (schedule[4] !== 'study' && schedule[5] !== 'study')) {
-                feedbacks.push({ icon: 'ðŸ†', text: 'Â¡TARDE PERFECTA! Tienes un equilibrio ideal entre obligaciones y tiempo libre. AsÃ­ se triunfa en la ESO.', color: '#16A34A' });
+                feedbacks.push({ icon: '🏆', text: '¡TARDE PERFECTA! Tienes un equilibrio ideal entre obligaciones y tiempo libre. Así se triunfa en la ESO.', color: '#16A34A' });
             }
 
             // Mostrar feedback
             if (feedbacks.length === 0 && !isFull) {
-                feedbacks.push({ icon: 'â³', text: 'Sigue aÃ±adiendo actividades para ver los consejos...', color: '#9CA3AF' });
+                feedbacks.push({ icon: '⏳', text: 'Sigue añadiendo actividades para ver los consejos...', color: '#9CA3AF' });
             }
 
             feedbackList.innerHTML = '';

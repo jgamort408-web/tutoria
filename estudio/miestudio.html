@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RadiografÃ­a de mi estudio - TÃ©cnicas</title>
+    <title>Radiografía de mi estudio - Técnicas</title>
     <style>
         :root {
             --primary: #0F766E; /* Azul Cerceta / Teal profundo */
-            --secondary: #0D9488; /* Teal mÃ¡s claro */
+            --secondary: #0D9488; /* Teal más claro */
             --accent: #EAB308; /* Amarillo Mostaza */
             --accent-hover: #CA8A04; /* Mostaza oscuro */
             --bg-color: transparent;
@@ -156,7 +156,7 @@
             color: var(--secondary);
         }
 
-        /* Estados de selecciÃ³n */
+        /* Estados de selección */
         .option-btn.selected-yes {
             background-color: var(--primary);
             border-color: var(--primary);
@@ -257,7 +257,7 @@
         }
 
         .tips-list li::before {
-            content: 'ðŸ’¡';
+            content: '💡';
             position: absolute;
             left: 0;
             top: 2px;
@@ -290,9 +290,9 @@
     <div class="main-container">
         
         <div class="header-section">
-            <h1 class="main-title">RadiografÃ­a de mi estudio</h1>
+            <h1 class="main-title">Radiografía de mi estudio</h1>
             <p class="context-text">
-                Â¿QuÃ© tal estudiante eres? Responde con total sinceridad a estas 10 preguntas para descubrir tu perfil. No hay notas, solo pistas para hacerte la vida mucho mÃ¡s fÃ¡cil este curso.
+                ¿Qué tal estudiante eres? Responde con total sinceridad a estas 10 preguntas para descubrir tu perfil. No hay notas, solo pistas para hacerte la vida mucho más fácil este curso.
             </p>
         </div>
 
@@ -311,14 +311,14 @@
                 </div>
             
             <button class="submit-btn" id="submit-btn" onclick="calculateResult()" disabled>
-                Revelar mi RadiografÃ­a âž”
+                Revelar mi Radiografía ➔
             </button>
         </div>
 
         <div class="result-container" id="result-container">
-            <div class="profile-icon" id="profile-icon">ðŸ†</div>
-            <div class="profile-title" id="profile-title">Estudiante Ã‰lite</div>
-            <div class="profile-desc" id="profile-desc">Â¡Enhorabuena! Tienes unos hÃ¡bitos geniales.</div>
+            <div class="profile-icon" id="profile-icon">🏆</div>
+            <div class="profile-title" id="profile-title">Estudiante Élite</div>
+            <div class="profile-desc" id="profile-desc">¡Enhorabuena! Tienes unos hábitos geniales.</div>
             
             <div class="tips-container" id="tips-container">
                 <div class="tips-title">Tu Plan de Mejora Personalizado:</div>
@@ -341,18 +341,18 @@
     </div>
 
     <script>
-        // Preguntas extraÃ­das del cuestionario oficial y su respuesta "correcta" o ideal
+        // Preguntas extraídas del cuestionario oficial y su respuesta "correcta" o ideal
         const questions = [
-            { id: 1, text: "Â¿Estudias siempre en el mismo lugar?", ideal: "SÃ", tip: "Busca un lugar fijo. Estudiar cada dÃ­a en un sitio distinto desconcentra." },
-            { id: 2, text: "Â¿Dejas para el Ãºltimo dÃ­a la preparaciÃ³n de los exÃ¡menes?", ideal: "NO", tip: "No dejes los exÃ¡menes para el Ãºltimo dÃ­a. Divide el temario en los dÃ­as previos." },
-            { id: 3, text: "Â¿Tienes un horario fijo para estudiar todos los dÃ­as?", ideal: "SÃ", tip: "Crea una rutina. Estudia y haz los deberes todos los dÃ­as a la misma hora." },
-            { id: 4, text: "Â¿Estudias en un lugar alejado de ruidos y con la TV/MÃ³vil apagados?", ideal: "SÃ", tip: "Apaga la tele y aleja el mÃ³vil. Los ruidos de fondo hacen que tardes el doble en estudiar." },
-            { id: 5, text: "Â¿Estudias acostado/a en la cama o recostado en el sofÃ¡?", ideal: "NO", tip: "Â¡Sal de la cama! Estudiar tumbado le manda seÃ±ales a tu cerebro de que es hora de dormir." },
-            { id: 6, text: "Â¿Preguntas al profesor/a cuando no entiendes algo en clase?", ideal: "SÃ", tip: "No te lleves las dudas a casa. Preguntar en clase te ahorrarÃ¡ horas de frustraciÃ³n." },
-            { id: 7, text: "Â¿Sueles apuntar siempre las tareas y exÃ¡menes en la AGENDA?", ideal: "SÃ", tip: "No te fÃ­es de tu memoria. Apunta absolutamente todo en la agenda." },
-            { id: 8, text: "Â¿Pides prestados los apuntes para copiarlos porque no los tienes?", ideal: "NO", tip: "Toma tus propios apuntes. Copiar lo de otros te quita autonomÃ­a y no te ayuda a memorizar." },
-            { id: 9, text: "Â¿Haces esquemas o resÃºmenes de las lecciones que estudias?", ideal: "SÃ", tip: "Haz un estudio activo: subraya, resume y haz esquemas. Leer como un loro no funciona." },
-            { id: 10, text: "Â¿Duermes unas 8 horas diarias y te acuestas temprano?", ideal: "SÃ", tip: "El sueÃ±o es clave. Si no duermes tus 8 horas, lo que estudiaste ayer se borrarÃ¡ de tu mente." }
+            { id: 1, text: "¿Estudias siempre en el mismo lugar?", ideal: "SÍ", tip: "Busca un lugar fijo. Estudiar cada día en un sitio distinto desconcentra." },
+            { id: 2, text: "¿Dejas para el último día la preparación de los exámenes?", ideal: "NO", tip: "No dejes los exámenes para el último día. Divide el temario en los días previos." },
+            { id: 3, text: "¿Tienes un horario fijo para estudiar todos los días?", ideal: "SÍ", tip: "Crea una rutina. Estudia y haz los deberes todos los días a la misma hora." },
+            { id: 4, text: "¿Estudias en un lugar alejado de ruidos y con la TV/Móvil apagados?", ideal: "SÍ", tip: "Apaga la tele y aleja el móvil. Los ruidos de fondo hacen que tardes el doble en estudiar." },
+            { id: 5, text: "¿Estudias acostado/a en la cama o recostado en el sofá?", ideal: "NO", tip: "¡Sal de la cama! Estudiar tumbado le manda señales a tu cerebro de que es hora de dormir." },
+            { id: 6, text: "¿Preguntas al profesor/a cuando no entiendes algo en clase?", ideal: "SÍ", tip: "No te lleves las dudas a casa. Preguntar en clase te ahorrará horas de frustración." },
+            { id: 7, text: "¿Sueles apuntar siempre las tareas y exámenes en la AGENDA?", ideal: "SÍ", tip: "No te fíes de tu memoria. Apunta absolutamente todo en la agenda." },
+            { id: 8, text: "¿Pides prestados los apuntes para copiarlos porque no los tienes?", ideal: "NO", tip: "Toma tus propios apuntes. Copiar lo de otros te quita autonomía y no te ayuda a memorizar." },
+            { id: 9, text: "¿Haces esquemas o resúmenes de las lecciones que estudias?", ideal: "SÍ", tip: "Haz un estudio activo: subraya, resume y haz esquemas. Leer como un loro no funciona." },
+            { id: 10, text: "¿Duermes unas 8 horas diarias y te acuestas temprano?", ideal: "SÍ", tip: "El sueño es clave. Si no duermes tus 8 horas, lo que estudiaste ayer se borrará de tu mente." }
         ];
 
         // Estado de respuestas del usuario
@@ -370,7 +370,7 @@
                 card.innerHTML = `
                     <div class="question-text">${index + 1}. ${q.text}</div>
                     <div class="btn-group">
-                        <button class="option-btn" id="btn-yes-${q.id}" onclick="selectOption(${q.id}, 'SÃ')">SÃ</button>
+                        <button class="option-btn" id="btn-yes-${q.id}" onclick="selectOption(${q.id}, 'SÍ')">SÍ</button>
                         <button class="option-btn" id="btn-no-${q.id}" onclick="selectOption(${q.id}, 'NO')">NO</button>
                     </div>
                 `;
@@ -378,7 +378,7 @@
             });
         }
 
-        // Manejar la selecciÃ³n de opciones
+        // Manejar la selección de opciones
         function selectOption(questionId, answer) {
             userAnswers[questionId] = answer;
 
@@ -386,7 +386,7 @@
             const btnYes = document.getElementById(`btn-yes-${questionId}`);
             const btnNo = document.getElementById(`btn-no-${questionId}`);
 
-            if (answer === 'SÃ') {
+            if (answer === 'SÍ') {
                 btnYes.classList.add('selected-yes');
                 btnNo.classList.remove('selected-no');
             } else {
@@ -397,11 +397,11 @@
             checkCompletion();
         }
 
-        // Comprobar si todas estÃ¡n respondidas para habilitar el botÃ³n
+        // Comprobar si todas están respondidas para habilitar el botón
         function checkCompletion() {
             if (Object.keys(userAnswers).length === questions.length) {
                 submitBtn.disabled = false;
-                submitBtn.innerText = "Revelar mi RadiografÃ­a âž”";
+                submitBtn.innerText = "Revelar mi Radiografía ➔";
             }
         }
 
@@ -434,22 +434,22 @@
 
             resultContainer.style.display = 'block';
 
-            // Asignar perfil segÃºn puntuaciÃ³n
+            // Asignar perfil según puntuación
             if (score >= 8) {
-                pIcon.innerText = "ðŸš€";
-                pTitle.innerText = "Estudiante Ã‰lite";
+                pIcon.innerText = "🚀";
+                pTitle.innerText = "Estudiante Élite";
                 pTitle.style.color = "var(--primary)";
-                pDesc.innerText = `Â¡PuntuaciÃ³n: ${score}/10! Tienes unos hÃ¡bitos de estudio geniales. Si mantienes esta rutina, la ESO serÃ¡ un paseo para ti.`;
+                pDesc.innerText = `¡Puntuación: ${score}/10! Tienes unos hábitos de estudio geniales. Si mantienes esta rutina, la ESO será un paseo para ti.`;
             } else if (score >= 5) {
-                pIcon.innerText = "ðŸŒ±";
+                pIcon.innerText = "🌱";
                 pTitle.innerText = "Estudiante Promesa";
                 pTitle.style.color = "var(--accent-hover)";
-                pDesc.innerText = `Â¡PuntuaciÃ³n: ${score}/10! EstÃ¡s en el buen camino, pero tienes algunos despistes que te roban tiempo y energÃ­a.`;
+                pDesc.innerText = `¡Puntuación: ${score}/10! Estás en el buen camino, pero tienes algunos despistes que te roban tiempo y energía.`;
             } else {
-                pIcon.innerText = "ðŸŽ¢";
+                pIcon.innerText = "🎢";
                 pTitle.innerText = "Estudiante Kamikaze";
                 pTitle.style.color = "#DC2626"; // Rojo alerta
-                pDesc.innerText = `Â¡PuntuaciÃ³n: ${score}/10! Â¡Alerta! EstÃ¡s estudiando en modo supervivencia. Necesitas aplicar los siguientes consejos cuanto antes para no agobiarte.`;
+                pDesc.innerText = `¡Puntuación: ${score}/10! ¡Alerta! Estás estudiando en modo supervivencia. Necesitas aplicar los siguientes consejos cuanto antes para no agobiarte.`;
             }
 
             // Mostrar consejos personalizados

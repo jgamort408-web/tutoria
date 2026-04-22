@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Arsenal del Estudiante - TÃ©cnicas</title>
+    <title>El Arsenal del Estudiante - Técnicas</title>
     <style>
         :root {
             --primary: #0F766E; /* Azul Cerceta / Teal profundo */
-            --secondary: #0D9488; /* Teal mÃ¡s claro */
+            --secondary: #0D9488; /* Teal más claro */
             --accent: #EAB308; /* Amarillo Mostaza */
             --accent-hover: #CA8A04; /* Mostaza oscuro */
             --bg-color: transparent;
@@ -79,7 +79,7 @@
             font-family: 'Georgia', serif;
         }
 
-        /* --- MÃ‰TODO POMODORO --- */
+        /* --- MÉTODO POMODORO --- */
         .pomodoro-container {
             background-color: var(--white);
             border: 2px solid #CCFBF1;
@@ -234,7 +234,7 @@
         }
 
         .tool-tips li::before {
-            content: 'âœ“';
+            content: '✓';
             color: var(--accent);
             font-weight: bold;
             position: absolute;
@@ -265,36 +265,36 @@
         <div class="header-section">
             <h1 class="main-title">El Arsenal del Estudiante</h1>
             <p class="context-text">
-                Leer un texto cinco veces seguidas esperando que se te quede grabado en la cabeza se llama "estudio pasivo", y es la forma mÃ¡s aburrida e inÃºtil de estudiar. Necesitas pasar a la acciÃ³n. Descubre aquÃ­ tus mejores herramientas.
+                Leer un texto cinco veces seguidas esperando que se te quede grabado en la cabeza se llama "estudio pasivo", y es la forma más aburrida e inútil de estudiar. Necesitas pasar a la acción. Descubre aquí tus mejores herramientas.
             </p>
         </div>
 
-        <h2 class="section-title">El Truco del Tiempo: MÃ©todo Pomodoro</h2>
+        <h2 class="section-title">El Truco del Tiempo: Método Pomodoro</h2>
         <div class="pomodoro-container">
-            <div class="tomato-icon" id="tomato">ðŸ…</div>
+            <div class="tomato-icon" id="tomato">🍅</div>
             <p style="font-size: 1.1rem; color: var(--text-main); max-width: 600px; margin: 0 auto;">
-                Nuestro cerebro no puede estar concentrado al 100% durante 2 horas seguidas. El mÃ©todo Pomodoro (Tomate) divide tu estudio en bloques para que tu mente no se "queme".
+                Nuestro cerebro no puede estar concentrado al 100% durante 2 horas seguidas. El método Pomodoro (Tomate) divide tu estudio en bloques para que tu mente no se "queme".
             </p>
             
             <div class="pomodoro-cycle">
                 <div class="pomo-block">
-                    â±ï¸ 25 MINUTOS<br>
-                    <span style="font-weight: normal; font-size: 0.9rem;">Estudio a tope. Sin mÃ³vil.</span>
+                    ⏱️ 25 MINUTOS<br>
+                    <span style="font-weight: normal; font-size: 0.9rem;">Estudio a tope. Sin móvil.</span>
                 </div>
-                <div class="pomo-arrow">âž”</div>
+                <div class="pomo-arrow">➔</div>
                 <div class="pomo-block pomo-break">
-                    ðŸŸ¢ 5 MINUTOS<br>
-                    <span style="font-weight: normal; font-size: 0.9rem;">Descanso real. LevÃ¡ntate.</span>
+                    🟢 5 MINUTOS<br>
+                    <span style="font-weight: normal; font-size: 0.9rem;">Descanso real. Levántate.</span>
                 </div>
-                <div class="pomo-arrow">âž”</div>
+                <div class="pomo-arrow">➔</div>
                 <div class="pomo-block" style="opacity: 0.7;">
-                    â±ï¸ 25 MINUTOS<br>
+                    ⏱️ 25 MINUTOS<br>
                     <span style="font-weight: normal; font-size: 0.9rem;">Vuelta a la carga.</span>
                 </div>
             </div>
             
             <p style="font-size: 0.95rem; color: var(--text-light); font-style: italic;">
-                *Si 25 minutos te parecen poco, puedes probar el ciclo de estudiantes mayores: 50 minutos de estudio y 10 minutos de descanso. Â¡Pero nunca te saltes los descansos!
+                *Si 25 minutos te parecen poco, puedes probar el ciclo de estudiantes mayores: 50 minutos de estudio y 10 minutos de descanso. ¡Pero nunca te saltes los descansos!
             </p>
         </div>
 
@@ -303,93 +303,93 @@
         <div class="toolkit-container">
             <div class="tabs-header">
                 <button class="tab-btn active" onclick="openTab('tab-subrayado', this)">
-                    <span class="tab-icon">ðŸ–ï¸</span> Subrayado
+                    <span class="tab-icon">🖍️</span> Subrayado
                 </button>
                 <button class="tab-btn" onclick="openTab('tab-esquema', this)">
-                    <span class="tab-icon">ðŸ—ºï¸</span> Esquema
+                    <span class="tab-icon">🗺️</span> Esquema
                 </button>
                 <button class="tab-btn" onclick="openTab('tab-resumen', this)">
-                    <span class="tab-icon">âœï¸</span> Resumen
+                    <span class="tab-icon">✍️</span> Resumen
                 </button>
                 <button class="tab-btn" onclick="openTab('tab-voz', this)">
-                    <span class="tab-icon">ðŸ—£ï¸</span> Voz Alta
+                    <span class="tab-icon">🗣️</span> Voz Alta
                 </button>
                 <button class="tab-btn" onclick="openTab('tab-escribir', this)">
-                    <span class="tab-icon">ðŸ“</span> Escribir
+                    <span class="tab-icon">📝</span> Escribir
                 </button>
             </div>
 
             <div id="tab-subrayado" class="tab-content active">
-                <h3 class="tool-title">ðŸ–ï¸ El Subrayado Inteligente</h3>
+                <h3 class="tool-title">🖍️ El Subrayado Inteligente</h3>
                 <p class="tool-desc">
-                    El libro de texto no es un cuaderno para colorear. Si pintas de amarillo fosforito toda la pÃ¡gina, tu cerebro verÃ¡ exactamente lo mismo que si no hubieras subrayado nada: un bloque enorme de informaciÃ³n.
+                    El libro de texto no es un cuaderno para colorear. Si pintas de amarillo fosforito toda la página, tu cerebro verá exactamente lo mismo que si no hubieras subrayado nada: un bloque enorme de información.
                 </p>
                 <div class="tool-tips">
-                    <h4>CÃ³mo hacerlo bien:</h4>
+                    <h4>Cómo hacerlo bien:</h4>
                     <ul>
-                        <li><strong>Regla de oro:</strong> NUNCA subrayes en la primera lectura. Lee el pÃ¡rrafo completo primero para saber quÃ© es importante.</li>
+                        <li><strong>Regla de oro:</strong> NUNCA subrayes en la primera lectura. Lee el párrafo completo primero para saber qué es importante.</li>
                         <li>Subraya solo las palabras clave (sustantivos y verbos importantes), no frases enteras.</li>
-                        <li>Si lees solo lo que has subrayado, la frase tiene que tener sentido por sÃ­ misma.</li>
+                        <li>Si lees solo lo que has subrayado, la frase tiene que tener sentido por sí misma.</li>
                     </ul>
                 </div>
             </div>
 
             <div id="tab-esquema" class="tab-content">
-                <h3 class="tool-title">ðŸ—ºï¸ El Mapa o Esquema</h3>
+                <h3 class="tool-title">🗺️ El Mapa o Esquema</h3>
                 <p class="tool-desc">
-                    Un esquema es como el "esqueleto" o la radiografÃ­a de un texto. Sirve para ver cÃ³mo se conectan las ideas principales con las secundarias de un solo vistazo rÃ¡pido.
+                    Un esquema es como el "esqueleto" o la radiografía de un texto. Sirve para ver cómo se conectan las ideas principales con las secundarias de un solo vistazo rápido.
                 </p>
                 <div class="tool-tips">
-                    <h4>CÃ³mo hacerlo bien:</h4>
+                    <h4>Cómo hacerlo bien:</h4>
                     <ul>
-                        <li>Usa llaves { }, flechas âž”, o cajas para conectar los conceptos.</li>
-                        <li>Utiliza muy pocas palabras. Un esquema no es copiar el libro con letra mÃ¡s pequeÃ±a.</li>
-                        <li>Es la herramienta perfecta para repasar el dÃ­a antes del examen: con un vistazo recordarÃ¡s toda la estructura del tema.</li>
+                        <li>Usa llaves { }, flechas ➔, o cajas para conectar los conceptos.</li>
+                        <li>Utiliza muy pocas palabras. Un esquema no es copiar el libro con letra más pequeña.</li>
+                        <li>Es la herramienta perfecta para repasar el día antes del examen: con un vistazo recordarás toda la estructura del tema.</li>
                     </ul>
                 </div>
             </div>
 
             <div id="tab-resumen" class="tab-content">
-                <h3 class="tool-title">âœï¸ El Resumen</h3>
+                <h3 class="tool-title">✍️ El Resumen</h3>
                 <p class="tool-desc">
-                    Resumir no es ir copiando trozos del libro saltÃ¡ndote palabras. Resumir es extraer la idea del texto y volver a contarla de forma mÃ¡s breve, pero usando tu propio lenguaje.
+                    Resumir no es ir copiando trozos del libro saltándote palabras. Resumir es extraer la idea del texto y volver a contarla de forma más breve, pero usando tu propio lenguaje.
                 </p>
                 <div class="tool-tips">
-                    <h4>CÃ³mo hacerlo bien:</h4>
+                    <h4>Cómo hacerlo bien:</h4>
                     <ul>
-                        <li>La clave estÃ¡ en <strong>tus propias palabras</strong>. Si usas palabras que ni tÃº mismo entiendes, te quedarÃ¡s en blanco en el examen.</li>
+                        <li>La clave está en <strong>tus propias palabras</strong>. Si usas palabras que ni tú mismo entiendes, te quedarás en blanco en el examen.</li>
                         <li>Un buen resumen debe ocupar aproximadamente un 25% (una cuarta parte) del texto original.</li>
-                        <li>Hazlo DESPUÃ‰S de haber leÃ­do y subrayado, no a la vez.</li>
+                        <li>Hazlo DESPUÉS de haber leído y subrayado, no a la vez.</li>
                     </ul>
                 </div>
             </div>
 
             <div id="tab-voz" class="tab-content">
-                <h3 class="tool-title">ðŸ—£ï¸ La TÃ©cnica del Profesor</h3>
+                <h3 class="tool-title">🗣️ La Técnica del Profesor</h3>
                 <p class="tool-desc">
                     Estudiar solo leyendo mentalmente es peligroso: crees que te lo sabes, pero en el examen no te salen las palabras. Al hablar en voz alta, obligas a tu cerebro a organizar las frases.
                 </p>
                 <div class="tool-tips">
-                    <h4>CÃ³mo hacerlo bien:</h4>
+                    <h4>Cómo hacerlo bien:</h4>
                     <ul>
                         <li>Imagina que eres el profesor/a y tienes que explicarle el tema a alguien que no sabe nada.</li>
-                        <li>ExplÃ­caselo a tu perro, a tu hermano pequeÃ±o, a un peluche o frente al espejo.</li>
-                        <li>Si te atascas o no sabes cÃ³mo explicar algo en voz alta, es la seÃ±al de que <strong>no lo has entendido bien todavÃ­a</strong>. Â¡Vuelve al libro!</li>
+                        <li>Explícaselo a tu perro, a tu hermano pequeño, a un peluche o frente al espejo.</li>
+                        <li>Si te atascas o no sabes cómo explicar algo en voz alta, es la señal de que <strong>no lo has entendido bien todavía</strong>. ¡Vuelve al libro!</li>
                     </ul>
                 </div>
             </div>
 
             <div id="tab-escribir" class="tab-content">
-                <h3 class="tool-title">ðŸ“ Memoria Muscular (La Chuleta Legal)</h3>
+                <h3 class="tool-title">📝 Memoria Muscular (La Chuleta Legal)</h3>
                 <p class="tool-desc">
                     El cerebro humano conecta el movimiento de la mano con la memoria. Escribir a mano hace que las ideas se "peguen" mucho mejor a tus neuronas que simplemente mirar un papel.
                 </p>
                 <div class="tool-tips">
-                    <h4>CÃ³mo hacerlo bien:</h4>
+                    <h4>Cómo hacerlo bien:</h4>
                     <ul>
-                        <li>La tÃ©cnica de "La Chuleta Legal": Intenta hacerte una chuleta minÃºscula con lo mÃ¡s difÃ­cil del tema. El esfuerzo de resumirlo tanto harÃ¡ que ya no necesites usarla.</li>
-                        <li>Para cosas muy difÃ­ciles (fechas, fÃ³rmulas matemÃ¡ticas, capitales), escrÃ­belas en un folio en sucio tres o cuatro veces.</li>
-                        <li>Escribir te prepara para el examen, que al final... Â¡es un ejercicio de escritura!</li>
+                        <li>La técnica de "La Chuleta Legal": Intenta hacerte una chuleta minúscula con lo más difícil del tema. El esfuerzo de resumirlo tanto hará que ya no necesites usarla.</li>
+                        <li>Para cosas muy difíciles (fechas, fórmulas matemáticas, capitales), escríbelas en un folio en sucio tres o cuatro veces.</li>
+                        <li>Escribir te prepara para el examen, que al final... ¡es un ejercicio de escritura!</li>
                     </ul>
                 </div>
             </div>
@@ -399,7 +399,7 @@
     </div>
 
     <script>
-        // LÃ³gica de las pestaÃ±as (Tabs)
+        // Lógica de las pestañas (Tabs)
         function openTab(tabId, btn) {
             // 1. Ocultar todos los contenidos
             const contents = document.querySelectorAll('.tab-content');
@@ -413,12 +413,12 @@
                 button.classList.remove('active');
             });
 
-            // 3. Mostrar el contenido seleccionado y activar su botÃ³n
+            // 3. Mostrar el contenido seleccionado y activar su botón
             document.getElementById(tabId).classList.add('active');
             btn.classList.add('active');
         }
 
-        // AnimaciÃ³n suave del tomate
+        // Animación suave del tomate
         const tomato = document.getElementById('tomato');
         setInterval(() => {
             tomato.style.transform = 'scale(1.1) rotate(5deg)';

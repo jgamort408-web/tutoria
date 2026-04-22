@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protocolo de EvacuaciÃ³n - Ruta Interactiva</title>
+    <title>Protocolo de Evacuación - Ruta Interactiva</title>
     <style>
         :root {
-            --primary: #B91C1C; /* Rojo CarmesÃ­ */
+            --primary: #B91C1C; /* Rojo Carmesí */
             --secondary: #EA580C; /* Naranja Intenso */
             --accent: #16A34A; /* Verde Seguridad */
             --bg-color: transparent;
@@ -63,7 +63,7 @@
             margin: 0 auto;
         }
 
-        /* --- LÃNEA DE TIEMPO / RUTA --- */
+        /* --- LÍNEA DE TIEMPO / RUTA --- */
         .timeline {
             position: relative;
             max-width: 600px;
@@ -71,7 +71,7 @@
             padding-left: 40px;
         }
 
-        /* La lÃ­nea vertical de fondo */
+        /* La línea vertical de fondo */
         .timeline::before {
             content: '';
             position: absolute;
@@ -88,7 +88,7 @@
             margin-bottom: 40px;
         }
 
-        /* El cÃ­rculo del nÃºmero */
+        /* El círculo del número */
         .step-number {
             position: absolute;
             left: -40px;
@@ -221,10 +221,10 @@
             display: block;
         }
         .step-container.completed .btn-complete {
-            display: none; /* Ocultar el botÃ³n una vez completado */
+            display: none; /* Ocultar el botón una vez completado */
         }
         
-        /* Efecto visual de "lÃ­nea completada" hacia el siguiente paso */
+        /* Efecto visual de "línea completada" hacia el siguiente paso */
         .step-container.completed::after {
             content: '';
             position: absolute;
@@ -237,7 +237,7 @@
             transition: height 0.5s ease;
         }
         .step-container:last-child::after {
-            display: none; /* El Ãºltimo no tiene lÃ­nea hacia abajo */
+            display: none; /* El último no tiene línea hacia abajo */
         }
 
         /* MENSAJE FINAL */
@@ -273,9 +273,9 @@
     <div class="main-container">
         
         <div class="header-section">
-            <h1>La Ruta de EvacuaciÃ³n</h1>
+            <h1>La Ruta de Evacuación</h1>
             <p class="context-text">
-                Una evacuaciÃ³n es un trabajo en equipo. Si un paso falla, toda la cadena se rompe. Lee detenidamente tu misiÃ³n en cada fase y pulsa <strong>"Paso completado"</strong> para avanzar por los pasillos hasta llegar al Punto de Encuentro.
+                Una evacuación es un trabajo en equipo. Si un paso falla, toda la cadena se rompe. Lee detenidamente tu misión en cada fase y pulsa <strong>"Paso completado"</strong> para avanzar por los pasillos hasta llegar al Punto de Encuentro.
             </p>
         </div>
 
@@ -285,17 +285,17 @@
                 <div class="step-number">1</div>
                 <div class="step-card">
                     <div class="step-header">
-                        <div class="step-icon">ðŸ“‹</div>
+                        <div class="step-icon">📋</div>
                         <div class="step-title">Recuento</div>
                     </div>
                     <div class="step-content">
-                        <p>El profesor o profesora debe saber exactamente cuÃ¡ntos somos antes de salir.</p>
+                        <p>El profesor o profesora debe saber exactamente cuántos somos antes de salir.</p>
                         <ul>
                             <li>Mochilas a las mesas.</li>
-                            <li>Formamos una <strong>Ãºnica fila</strong> en la clase de forma rÃ¡pida y en silencio.</li>
-                            <li>El/la profe se colocarÃ¡ el primero de la fila.</li>
+                            <li>Formamos una <strong>única fila</strong> en la clase de forma rápida y en silencio.</li>
+                            <li>El/la profe se colocará el primero de la fila.</li>
                         </ul>
-                        <button class="btn-complete" onclick="completeStep(1)">Paso Completado âœ”</button>
+                        <button class="btn-complete" onclick="completeStep(1)">Paso Completado ✔</button>
                     </div>
                 </div>
             </div>
@@ -304,16 +304,16 @@
                 <div class="step-number">2</div>
                 <div class="step-card">
                     <div class="step-header">
-                        <div class="step-icon">ðŸªŸ</div>
+                        <div class="step-icon">🪟</div>
                         <div class="step-title">Seguridad</div>
                     </div>
                     <div class="step-content">
-                        <p>Â¡AtenciÃ³n, alumnado responsable! Si estÃ¡s cerca de la ventana o de la puerta, esta es tu misiÃ³n:</p>
+                        <p>¡Atención, alumnado responsable! Si estás cerca de la ventana o de la puerta, esta es tu misión:</p>
                         <ul>
-                            <li><strong>Cierre de ventanas:</strong> Fundamental para que, si hay fuego, no entre oxÃ­geno que avive las llamas.</li>
+                            <li><strong>Cierre de ventanas:</strong> Fundamental para que, si hay fuego, no entre oxígeno que avive las llamas.</li>
                             <li><strong>Apagar las luces.</strong></li>
                         </ul>
-                        <button class="btn-complete" onclick="completeStep(2)">Paso Completado âœ”</button>
+                        <button class="btn-complete" onclick="completeStep(2)">Paso Completado ✔</button>
                     </div>
                 </div>
             </div>
@@ -322,16 +322,16 @@
                 <div class="step-number">3</div>
                 <div class="step-card">
                     <div class="step-header">
-                        <div class="step-icon">ðŸšª</div>
+                        <div class="step-icon">🚪</div>
                         <div class="step-title">Salida del Aula</div>
                     </div>
                     <div class="step-content">
-                        <p>El momento crÃ­tico. Salimos al pasillo manteniendo la fila Ãºnica.</p>
+                        <p>El momento crítico. Salimos al pasillo manteniendo la fila única.</p>
                         <ul>
-                            <li><strong>Esperamos instrucciones:</strong> Si estamos en la 1Âª o 2Âª planta, esperamos en la pared a que nos den la orden de bajar las escaleras.</li>
-                            <li>El Ãºltimo alumno o alumna en salir <strong>cierra la puerta de la clase</strong> (Â¡sin echar la llave!).</li>
+                            <li><strong>Esperamos instrucciones:</strong> Si estamos en la 1ª o 2ª planta, esperamos en la pared a que nos den la orden de bajar las escaleras.</li>
+                            <li>El último alumno o alumna en salir <strong>cierra la puerta de la clase</strong> (¡sin echar la llave!).</li>
                         </ul>
-                        <button class="btn-complete" onclick="completeStep(3)">Paso Completado âœ”</button>
+                        <button class="btn-complete" onclick="completeStep(3)">Paso Completado ✔</button>
                     </div>
                 </div>
             </div>
@@ -340,17 +340,17 @@
                 <div class="step-number">4</div>
                 <div class="step-card">
                     <div class="step-header">
-                        <div class="step-icon">ðŸ“</div>
+                        <div class="step-icon">📍</div>
                         <div class="step-title">Punto de Encuentro</div>
                     </div>
                     <div class="step-content">
                         <p>Hemos llegado al exterior, pero la emergencia no ha terminado.</p>
                         <ul>
                             <li>Debemos caminar sin correr y sin empujar hasta las <strong>PISTAS</strong>.</li>
-                            <li>Nos colocamos exactamente en el lugar seÃ±alado para nuestro grupo.</li>
+                            <li>Nos colocamos exactamente en el lugar señalado para nuestro grupo.</li>
                             <li>Seguimos en silencio y sin romper la fila.</li>
                         </ul>
-                        <button class="btn-complete" onclick="completeStep(4)">Paso Completado âœ”</button>
+                        <button class="btn-complete" onclick="completeStep(4)">Paso Completado ✔</button>
                     </div>
                 </div>
             </div>
@@ -359,16 +359,16 @@
                 <div class="step-number">5</div>
                 <div class="step-card">
                     <div class="step-header">
-                        <div class="step-icon">ðŸ“¢</div>
+                        <div class="step-icon">📢</div>
                         <div class="step-title">Informa</div>
                     </div>
                     <div class="step-content">
-                        <p>El Ãºltimo paso es para el profesorado, pero necesitamos tu colaboraciÃ³n manteniÃ©ndote en silencio.</p>
+                        <p>El último paso es para el profesorado, pero necesitamos tu colaboración manteniéndote en silencio.</p>
                         <ul>
-                            <li>El profe comunica al <strong>Jefe de Emergencia</strong> cuÃ¡ntos alumnos/as ha evacuado.</li>
+                            <li>El profe comunica al <strong>Jefe de Emergencia</strong> cuántos alumnos/as ha evacuado.</li>
                             <li>Se comprueba que no falta nadie de los que estaban hoy en clase.</li>
                         </ul>
-                        <button class="btn-complete" onclick="completeStep(5)">Finalizar EvacuaciÃ³n âœ”</button>
+                        <button class="btn-complete" onclick="completeStep(5)">Finalizar Evacuación ✔</button>
                     </div>
                 </div>
             </div>
@@ -376,8 +376,8 @@
         </div>
 
         <div class="success-message" id="success-message">
-            <h2>Â¡EvacuaciÃ³n Exitosa! ðŸ†</h2>
-            <p>HabÃ©is seguido los 5 pasos a la perfecciÃ³n. Conocer este recorrido y mantener la calma es la mejor herramienta para protegernos a todos y a todas.</p>
+            <h2>¡Evacuación Exitosa! 🏆</h2>
+            <p>Habéis seguido los 5 pasos a la perfección. Conocer este recorrido y mantener la calma es la mejor herramienta para protegernos a todos y a todas.</p>
         </div>
 
     </div>
@@ -399,7 +399,7 @@
                     nextStep.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }, 300);
             } else {
-                // Si no hay siguiente paso, mostrar el mensaje de Ã©xito
+                // Si no hay siguiente paso, mostrar el mensaje de éxito
                 const successMsg = document.getElementById('success-message');
                 successMsg.style.display = 'block';
                 setTimeout(() => {

@@ -59,8 +59,8 @@
     <div class="main-container">
         
         <div class="header">
-            <h1>TermÃ³metro de la Ira</h1>
-            <p class="subtitle">Un test confidencial y serio para evaluar tu nivel de autocontrol. SÃ© honesto contigo mismo: mentir en las respuestas solo sirve para autoengaÃ±arte.</p>
+            <h1>Termómetro de la Ira</h1>
+            <p class="subtitle">Un test confidencial y serio para evaluar tu nivel de autocontrol. Sé honesto contigo mismo: mentir en las respuestas solo sirve para autoengañarte.</p>
         </div>
 
         <div class="quiz-container" id="quiz-container">
@@ -71,25 +71,25 @@
         </div>
 
         <div class="quiz-container result-container" id="result-container">
-            <div class="result-icon" id="res-icon">ðŸŒ‹</div>
+            <div class="result-icon" id="res-icon">🌋</div>
             <div class="result-title" id="res-title">Perfil</div>
-            <div class="result-score" id="res-score">PuntuaciÃ³n: 0 / 24</div>
+            <div class="result-score" id="res-score">Puntuación: 0 / 24</div>
             
             <div class="diagnosis-box" id="diagnosis-box">
                 </div>
 
             <p style="color: #D1D5DB; margin-bottom: 20px;">Es el momento de empezar a entrenar tu mente.</p>
-            <button class="btn-action" onclick="window.location.href='general.html'">Entrar al Gimnasio Emocional âž”</button>
+            <button class="btn-action" onclick="window.location.href='general.html'">Entrar al Gimnasio Emocional ➔</button>
         </div>
 
     </div>
 
     <script>
-        // Base de datos de preguntas psicolÃ³gicas (1 = bajo riesgo, 2 = medio, 3 = alto riesgo)
-        // La pregunta 8 es de control positivo (estÃ¡ invertida en valores).
+        // Base de datos de preguntas psicológicas (1 = bajo riesgo, 2 = medio, 3 = alto riesgo)
+        // La pregunta 8 es de control positivo (está invertida en valores).
         const questions = [
             {
-                text: "Cuando me enfado muchÃ­simo, digo cosas muy crueles de las que luego me arrepiento.",
+                text: "Cuando me enfado muchísimo, digo cosas muy crueles de las que luego me arrepiento.",
                 options: [
                     { text: "Casi nunca.", value: 0 },
                     { text: "A veces, si me provocan mucho.", value: 1 },
@@ -101,53 +101,53 @@
                 options: [
                     { text: "Nunca.", value: 0 },
                     { text: "Alguna vez aislada.", value: 1 },
-                    { text: "SÃ­, mi cuerpo reacciona antes que mi cabeza.", value: 3 } // Vale 3 porque la agresiÃ³n fÃ­sica es un red flag mayor
+                    { text: "Sí, mi cuerpo reacciona antes que mi cabeza.", value: 3 } // Vale 3 porque la agresión física es un red flag mayor
                 ]
             },
             {
-                text: "Siento que paso de estar tranquilo a 'explotar' al 100% en cuestiÃ³n de un segundo, sin avisar.",
+                text: "Siento que paso de estar tranquilo a 'explotar' al 100% en cuestión de un segundo, sin avisar.",
                 options: [
                     { text: "No, suelo notar que me voy enfadando poco a poco.", value: 0 },
-                    { text: "Depende del dÃ­a o de la persona.", value: 1 },
-                    { text: "SÃ­. Es como si me encendieran un interruptor.", value: 2 }
+                    { text: "Depende del día o de la persona.", value: 1 },
+                    { text: "Sí. Es como si me encendieran un interruptor.", value: 2 }
                 ]
             },
             {
-                text: "Si un profesor me llama la atenciÃ³n o me riÃ±e en pÃºblico...",
+                text: "Si un profesor me llama la atención o me riñe en público...",
                 options: [
-                    { text: "Me callo (aunque me moleste) y hablo luego con Ã©l.", value: 0 },
+                    { text: "Me callo (aunque me moleste) y hablo luego con él.", value: 0 },
                     { text: "Pongo malas caras o murmuro por lo bajo.", value: 1 },
-                    { text: "Le contesto de forma desafiante automÃ¡ticamente.", value: 2 }
+                    { text: "Le contesto de forma desafiante automáticamente.", value: 2 }
                 ]
             },
             {
-                text: "Cuando me meto en un lÃ­o por haber gritado o insultado, suelo pensar que...",
+                text: "Cuando me meto en un lío por haber gritado o insultado, suelo pensar que...",
                 options: [
                     { text: "Fue mi culpa por perder los nervios.", value: 0 },
                     { text: "Ambos tuvimos parte de culpa.", value: 1 },
-                    { text: "Fue culpa suya. Si no me hubieran provocado, no habrÃ­a pasado.", value: 3 } // Locus de control externo = 3 puntos
+                    { text: "Fue culpa suya. Si no me hubieran provocado, no habría pasado.", value: 3 } // Locus de control externo = 3 puntos
                 ]
             },
             {
-                text: "La gente que me conoce bien (familia o amigos) me ha dicho alguna vez que tengo 'mal carÃ¡cter' o que a veces doy miedo.",
+                text: "La gente que me conoce bien (familia o amigos) me ha dicho alguna vez que tengo 'mal carácter' o que a veces doy miedo.",
                 options: [
                     { text: "Nunca me han dicho eso.", value: 0 },
                     { text: "Alguna vez me han dicho que me altero mucho.", value: 1 },
-                    { text: "SÃ­, me lo han dicho varias veces.", value: 2 }
+                    { text: "Sí, me lo han dicho varias veces.", value: 2 }
                 ]
             },
             {
                 text: "Si alguien me hace una broma pesada o me ofende...",
                 options: [
-                    { text: "Me enfado un rato pero se me pasa rÃ¡pido.", value: 0 },
+                    { text: "Me enfado un rato pero se me pasa rápido.", value: 0 },
                     { text: "Le pido explicaciones y me cuesta olvidarlo.", value: 1 },
-                    { text: "No lo perdono y busco la forma de devolvÃ©rsela (venganza).", value: 2 }
+                    { text: "No lo perdono y busco la forma de devolvérsela (venganza).", value: 2 }
                 ]
             },
             {
-                text: "Soy capaz de notar fÃ­sicamente mi enfado (calor, tensiÃ³n en las manos, respiraciÃ³n) ANTES de gritar o pelear.",
+                text: "Soy capaz de notar físicamente mi enfado (calor, tensión en las manos, respiración) ANTES de gritar o pelear.",
                 options: [
-                    { text: "SÃ­, siempre me doy cuenta.", value: 0 },
+                    { text: "Sí, siempre me doy cuenta.", value: 0 },
                     { text: "Solo a veces.", value: 1 },
                     { text: "No. Cuando me doy cuenta ya he explotado.", value: 2 }
                 ]
@@ -156,7 +156,7 @@
 
         let currentQuestion = 0;
         let totalScore = 0;
-        const maxScore = 18; // Suma de todos los valores mÃ¡ximos
+        const maxScore = 18; // Suma de todos los valores máximos
 
         const wrapper = document.getElementById('questions-wrapper');
         const progressBar = document.getElementById('progress');
@@ -170,7 +170,7 @@
                 
                 let optionsHtml = '';
                 q.options.forEach(opt => {
-                    optionsHtml += `<button class="btn-option" onclick="answerQuestion(${opt.value})">${opt.text} <span>âž”</span></button>`;
+                    optionsHtml += `<button class="btn-option" onclick="answerQuestion(${opt.value})">${opt.text} <span>➔</span></button>`;
                 });
 
                 card.innerHTML = `
@@ -219,25 +219,25 @@
             scoreText.innerText = `Nivel de riesgo: ${totalScore} puntos`;
 
             if (totalScore <= 4) {
-                icon.innerText = "ðŸ§ ";
+                icon.innerText = "??";
                 title.innerText = "Piloto Experto";
                 title.style.color = "var(--light-green)";
                 box.style.borderColor = "var(--light-green)";
-                box.innerHTML = "<strong>Tienes un excelente dominio de ti mismo.</strong> Sabes que enfadarse es normal, pero no dejas que la ira tome el control del volante. Eres capaz de parar, pensar y actuar con inteligencia. Entrar en el Gimnasio Emocional te servirÃ¡ para perfeccionar tus tÃ©cnicas y ayudar a otros compaÃ±eros que lo necesiten.";
+                box.innerHTML = "<strong>Tienes un excelente dominio de ti mismo.</strong> Sabes que enfadarse es normal, pero no dejas que la ira tome el control del volante. Eres capaz de parar, pensar y actuar con inteligencia. Entrar en el Gimnasio Emocional te servirá para perfeccionar tus técnicas y ayudar a otros compañeros que lo necesiten.";
             } 
             else if (totalScore >= 5 && totalScore <= 10) {
                 icon.innerText = "âš ï¸";
                 title.innerText = "Motor Sobrecargado";
                 title.style.color = "var(--light-yellow)";
                 box.style.borderColor = "var(--light-yellow)";
-                box.innerHTML = "<strong>EstÃ¡s en la zona de alerta.</strong> Generalmente te controlas, pero hay situaciones o personas que consiguen hacerte saltar. A veces dices o haces cosas de las que luego te arrepientes. Tu principal objetivo en el Gimnasio Emocional serÃ¡ aprender a hacer la 'Pausa de 10 segundos' antes de reaccionar impulsivamente.";
+                box.innerHTML = "<strong>Estás en la zona de alerta.</strong> Generalmente te controlas, pero hay situaciones o personas que consiguen hacerte saltar. A veces dices o haces cosas de las que luego te arrepientes. Tu principal objetivo en el Gimnasio Emocional será aprender a hacer la 'Pausa de 10 segundos' antes de reaccionar impulsivamente.";
             } 
             else {
-                icon.innerText = "ðŸŒ‹";
-                title.innerText = "El VolcÃ¡n Activo";
+                icon.innerText = "🌋";
+                title.innerText = "El Volcán Activo";
                 title.style.color = "var(--light-red)";
                 box.style.borderColor = "var(--light-red)";
-                box.innerHTML = "<strong>Alerta Roja. La ira te controla a ti, no tÃº a ella.</strong> Tu impulsividad te estÃ¡ haciendo daÃ±o: te metes en problemas, te ganas castigos y alejas a la gente. La culpa no es de los demÃ¡s por provocarte, es tuya por regalarles tu poder. Necesitas entrenar urgentemente en el Gimnasio Emocional para aprender a leer las seÃ±ales fÃ­sicas de tu cuerpo antes de explotar.";
+                box.innerHTML = "<strong>Alerta Roja. La ira te controla a ti, no tú a ella.</strong> Tu impulsividad te está haciendo daño: te metes en problemas, te ganas castigos y alejas a la gente. La culpa no es de los demás por provocarte, es tuya por regalarles tu poder. Necesitas entrenar urgentemente en el Gimnasio Emocional para aprender a leer las señales físicas de tu cuerpo antes de explotar.";
             }
         }
 

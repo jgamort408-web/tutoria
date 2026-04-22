@@ -1,4 +1,5 @@
 (function () {
+  const baseLanguage = "es";
   const folder = detectFolder();
   const depth = calculateDepth();
   const prefix = "../".repeat(depth);
@@ -29,6 +30,7 @@
   injectBreadcrumbs();
   injectFooter();
   wrapMain();
+  setupTranslator();
 
   function detectFolder() {
     const pathname = window.location.pathname.replace(/\\/g, "/").toLowerCase();
@@ -149,10 +151,66 @@
             <p>La estructura ya está preparada para crecer. Se pueden ir incorporando contenidos reales, secuencias de tutoría y materiales de los cuadernos sin rehacer la navegación.</p>
           </section>
         </div>
+        <div class="footer-lang">
+          <div class="footer-lang__copy">
+            <h3>Idioma de la página</h3>
+            <p>Cambio general mediante Google Translate para español, inglés y árabe.</p>
+            <p class="translator-note">Las traducciones son automáticas y pueden no reflejar exactamente el sentido pedagógico original.</p>
+          </div>
+          <div class="lang-buttons" aria-label="Selector de idioma">
+            <button class="lang-btn" type="button" data-lang="es">Español</button>
+            <button class="lang-btn" type="button" data-lang="en">English</button>
+            <button class="lang-btn" type="button" data-lang="ar">العربية</button>
+          </div>
+        </div>
+        <div class="footer-legal">
+          © Juan María Gámez Ortiz. Reproducción y uso permitidos únicamente con fines no comerciales y con atribución. Centro educativo: <a href="https://iesalandalus.org/joomla/" target="_blank" rel="noopener noreferrer">I.E.S. Al-Ándalus</a>.
+        </div>
+        <div id="google_translate_element" aria-hidden="true"></div>
       </div>
     `;
 
     document.body.appendChild(footer);
+  }
+
+  function setupTranslator() {
+    document.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-lang]");
+      if (!button) return;
+      setLanguage(button.dataset.lang);
+    });
+
+    if (!document.querySelector('script[data-google-translate="true"]')) {
+      const script = document.createElement("script");
+      script.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+      script.async = true;
+      script.dataset.googleTranslate = "true";
+      document.body.appendChild(script);
+    }
+
+    window.googleTranslateElementInit = function () {
+      if (!window.google || !window.google.translate) return;
+      const container = document.getElementById("google_translate_element");
+      if (!container || container.dataset.ready === "true") return;
+
+      new window.google.translate.TranslateElement(
+        {
+          pageLanguage: baseLanguage,
+          autoDisplay: false,
+          includedLanguages: "es,en,ar"
+        },
+        "google_translate_element"
+      );
+
+      container.dataset.ready = "true";
+    };
+  }
+
+  function setLanguage(lang) {
+    const value = `/${baseLanguage}/${lang}`;
+    document.cookie = `googtrans=${value};path=/;max-age=31536000`;
+    document.cookie = `googtrans=${value};path=/;domain=${window.location.hostname};max-age=31536000`;
+    window.location.reload();
   }
 
   function wrapMain() {

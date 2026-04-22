@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lectura Activa - TÃ©cnicas</title>
+    <title>Lectura Activa - Técnicas</title>
     <style>
         :root {
             --primary: #0F766E; /* Azul Cerceta / Teal profundo */
-            --secondary: #0D9488; /* Teal mÃ¡s claro */
+            --secondary: #0D9488; /* Teal más claro */
             --accent: #EAB308; /* Amarillo Mostaza */
             --accent-hover: #CA8A04; /* Mostaza oscuro */
             --bg-color: transparent;
@@ -79,7 +79,7 @@
             font-family: 'Georgia', serif;
         }
 
-        /* --- EL MISTERIO SIN TÃTULO --- */
+        /* --- EL MISTERIO SIN TÍTULO --- */
         .mystery-box {
             background-color: var(--white);
             border: 2px dashed #9CA3AF;
@@ -185,7 +185,7 @@
         .part-subtitle { font-size: 1.4rem; color: var(--secondary); font-weight: bold; margin-top: 20px; margin-bottom: 10px; display: block; }
         .part-bold { font-weight: bold; color: #111827; background-color: #FEF08A; padding: 0 4px; border-radius: 3px; }
         
-        /* Ocultar imÃ¡genes inicialmente */
+        /* Ocultar imágenes inicialmente */
         .part-image { font-size: 4rem; text-align: center; margin: 20px 0; opacity: 0; transition: opacity 0.5s; filter: blur(0) !important; display: block; }
         .part-image.show { opacity: 1; }
 
@@ -214,69 +214,69 @@
         <div class="header-section">
             <h1 class="main-title">Las Pistas Ocultas</h1>
             <p class="context-text">
-                Leer no es lo mismo que estudiar. Los libros de texto estÃ¡n llenos de pistas secretas para que tu cerebro sepa de quÃ© va el tema antes de empezar a memorizar. Â¡Vamos a descubrirlas!
+                Leer no es lo mismo que estudiar. Los libros de texto están llenos de pistas secretas para que tu cerebro sepa de qué va el tema antes de empezar a memorizar. ¡Vamos a descubrirlas!
             </p>
         </div>
 
-        <h2 class="section-title">El Misterio sin TÃ­tulo</h2>
+        <h2 class="section-title">El Misterio sin Título</h2>
         <div class="mystery-box">
             <p class="mystery-text" id="mystery-text">
-                "No es que se trate de una tarea especialmente difÃ­cil, pero sÃ­ hay que tener en cuenta algunos detalles. Lo importante es hacerlo al menos una vez al mes, y de forma que no queden picos que puedan causar daÃ±o en las zonas de alrededor."
+                "No es que se trate de una tarea especialmente difícil, pero sí hay que tener en cuenta algunos detalles. Lo importante es hacerlo al menos una vez al mes, y de forma que no queden picos que puedan causar daño en las zonas de alrededor."
             </p>
-            <div class="mystery-title" id="mystery-title">"CÃ“MO CORTARSE LAS UÃ‘AS"</div>
+            <div class="mystery-title" id="mystery-title">"CÓMO CORTARSE LAS UÑAS"</div>
             <p style="margin-bottom: 20px; color: var(--text-main);" id="mystery-question">
-                <strong>Â¿Eres capaz de adivinar de quÃ© habla este texto?</strong> Si no lo entiendes, es porque le falta la pieza mÃ¡s importante.
+                <strong>¿Eres capaz de adivinar de qué habla este texto?</strong> Si no lo entiendes, es porque le falta la pieza más importante.
             </p>
-            <button class="btn-reveal" id="btn-reveal-mystery" onclick="revealMystery()">Revelar el TÃ­tulo MÃ¡gico âž”</button>
+            <button class="btn-reveal" id="btn-reveal-mystery" onclick="revealMystery()">Revelar el Título Mágico ➔</button>
         </div>
 
         <h2 class="section-title">Las Gafas de Detective</h2>
         <p style="text-align: center; margin-bottom: 20px;">
-            Este texto estÃ¡ borroso. Usa los botones para revelar <strong>solo las pistas</strong> (sin leer los pÃ¡rrafos) y descubre de quÃ© trata.
+            Este texto está borroso. Usa los botones para revelar <strong>solo las pistas</strong> (sin leer los párrafos) y descubre de qué trata.
         </p>
 
         <div class="detective-panel">
             <div class="controls">
-                <button class="control-btn" onclick="unblur('.part-title', this)">1. ðŸ·ï¸ Revelar TÃ­tulo</button>
-                <button class="control-btn" onclick="unblur('.part-subtitle', this)">2. ðŸ“‘ Revelar SubtÃ­tulos</button>
-                <button class="control-btn" onclick="unblur('.part-bold', this)">3. ðŸ–ï¸ Revelar Negritas</button>
-                <button class="control-btn" onclick="showImage(this)">4. ðŸ–¼ï¸ Revelar ImÃ¡genes</button>
-                <button class="control-btn" style="background-color: var(--accent); color: white; border-color: var(--accent);" onclick="unblurAll(this)">5. ðŸ‘€ Leerlo todo</button>
+                <button class="control-btn" onclick="unblur('.part-title', this)">1. 🏷️ Revelar Título</button>
+                <button class="control-btn" onclick="unblur('.part-subtitle', this)">2. 📑 Revelar Subtítulos</button>
+                <button class="control-btn" onclick="unblur('.part-bold', this)">3. 🖍️ Revelar Negritas</button>
+                <button class="control-btn" onclick="showImage(this)">4. 🖼️ Revelar Imágenes</button>
+                <button class="control-btn" style="background-color: var(--accent); color: white; border-color: var(--accent);" onclick="unblurAll(this)">5. 👀 Leerlo todo</button>
             </div>
 
             <div class="text-book">
                 <span class="part-title blur-all">LOS PECES</span>
                 
-                <span class="part-image" id="fish-img">ðŸŸðŸ¡</span>
+                <span class="part-image" id="fish-img">🐟🐡</span>
 
-                <span class="part-subtitle blur-all">Â¿CÃ³mo son los peces?</span>
+                <span class="part-subtitle blur-all">¿Cómo son los peces?</span>
                 <span class="blur-all text-paragraph">
-                    Los peces son <span class="part-bold blur-all">vertebrados ovÃ­paros</span> que tienen el cuerpo cubierto de <span class="part-bold blur-all">escamas</span>, tienen <span class="part-bold blur-all">aletas</span> y viven en el agua. En el cuerpo de los peces se distinguen varias partes: cabeza, tronco, cola y aletas.
+                    Los peces son <span class="part-bold blur-all">vertebrados ovíparos</span> que tienen el cuerpo cubierto de <span class="part-bold blur-all">escamas</span>, tienen <span class="part-bold blur-all">aletas</span> y viven en el agua. En el cuerpo de los peces se distinguen varias partes: cabeza, tronco, cola y aletas.
                 </span>
 
-                <span class="part-subtitle blur-all">Â¿DÃ³nde viven los peces?</span>
+                <span class="part-subtitle blur-all">¿Dónde viven los peces?</span>
                 <span class="blur-all text-paragraph">
-                    Los peces pueden vivir en los rÃ­os, en los lagos y en el mar. Los peces que viven en los rÃ­os y lagos se llaman <span class="part-bold blur-all">peces de agua dulce</span> (como la trucha o la carpa). Los peces que viven en el mar se llaman <span class="part-bold blur-all">peces de agua salada</span> (como el tiburÃ³n o el atÃºn).
+                    Los peces pueden vivir en los ríos, en los lagos y en el mar. Los peces que viven en los ríos y lagos se llaman <span class="part-bold blur-all">peces de agua dulce</span> (como la trucha o la carpa). Los peces que viven en el mar se llaman <span class="part-bold blur-all">peces de agua salada</span> (como el tiburón o el atún).
                 </span>
             </div>
 
             <div class="conclusion-box" id="conclusion-box">
-                <strong style="color: #4D7C0F; font-size: 1.2rem;">Â¡MisiÃ³n Cumplida! ðŸ•µï¸â€â™‚ï¸</strong><br>
-                Â¿Te has dado cuenta? Solo leyendo el TÃ­tulo general, los dos SubtÃ­tulos y las palabras en Negrita, tu cerebro ya ha hecho un esquema perfecto: "Vamos a hablar de los peces. De dos cosas: de sus partes (aletas y escamas) y de dÃ³nde viven (agua dulce y salada)". <strong>Â¡Haz siempre esto antes de empezar a estudiar un tema nuevo!</strong>
+                <strong style="color: #4D7C0F; font-size: 1.2rem;">¡Misión Cumplida! 🕵️‍♂️</strong><br>
+                ¿Te has dado cuenta? Solo leyendo el Título general, los dos Subtítulos y las palabras en Negrita, tu cerebro ya ha hecho un esquema perfecto: "Vamos a hablar de los peces. De dos cosas: de sus partes (aletas y escamas) y de dónde viven (agua dulce y salada)". <strong>¡Haz siempre esto antes de empezar a estudiar un tema nuevo!</strong>
             </div>
         </div>
 
     </div>
 
     <script>
-        // LÃ³gica del Misterio sin TÃ­tulo
+        // Lógica del Misterio sin Título
         function revealMystery() {
             document.getElementById('mystery-title').style.display = 'block';
             document.getElementById('btn-reveal-mystery').style.display = 'none';
-            document.getElementById('mystery-question').innerHTML = 'Â¡Efectivamente! Los investigadores han descubierto que si te fijas en el <strong>TÃTULO</strong> antes de leer, tu mente se ordena y comprendes todo a la primera.';
+            document.getElementById('mystery-question').innerHTML = '¡Efectivamente! Los investigadores han descubierto que si te fijas en el <strong>TÍTULO</strong> antes de leer, tu mente se ordena y comprendes todo a la primera.';
         }
 
-        // LÃ³gica de las Gafas de Detective
+        // Lógica de las Gafas de Detective
         function unblur(selector, btn) {
             const elements = document.querySelectorAll(selector);
             elements.forEach(el => {
@@ -299,10 +299,10 @@
             // Mostrar imagen por si acaso
             document.getElementById('fish-img').classList.add('show');
             
-            // Mostrar la conclusiÃ³n
+            // Mostrar la conclusión
             document.getElementById('conclusion-box').style.display = 'block';
             btn.classList.add('active');
-            btn.innerText = "Â¡Lectura completada!";
+            btn.innerText = "¡Lectura completada!";
         }
     </script>
     

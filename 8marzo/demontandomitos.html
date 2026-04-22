@@ -142,7 +142,7 @@
             margin-right: auto;
         }
 
-        /* --- EXPLICACIÃ“N DE RESPUESTA --- */
+        /* --- EXPLICACIÓN DE RESPUESTA --- */
         .explanation-box {
             background: linear-gradient(to right, rgba(250, 245, 255, 0.8), rgba(255, 255, 255, 0));
             padding: 25px;
@@ -192,7 +192,7 @@
         <div class="header-section">
             <h1 class="main-title">Desmontando mitos</h1>
             <p class="context-text">
-                En nuestro dÃ­a a dÃ­a, en redes sociales o en la calle, escuchamos muchas frases hechas sobre la igualdad entre chicos y chicas. Algunas son ciertas, pero otras nacen con la intenciÃ³n de no dejarnos ver la realidad.
+                En nuestro día a día, en redes sociales o en la calle, escuchamos muchas frases hechas sobre la igualdad entre chicos y chicas. Algunas son ciertas, pero otras nacen con la intención de no dejarnos ver la realidad.
             </p>
             <p class="context-text" style="color: var(--text-light); font-size: 1rem;">
                 Leed la frase en voz alta, debatid en clase y elegid vuestra respuesta.
@@ -213,7 +213,7 @@
                 <div class="explanation-text" id="explanation-text"></div>
             </div>
             
-            <button class="btn btn-next" id="next-btn" onclick="nextQuestion()">Siguiente frase âž”</button>
+            <button class="btn btn-next" id="next-btn" onclick="nextQuestion()">Siguiente frase ➔</button>
 
             <div class="progress-indicator" id="progress"></div>
         </div>
@@ -223,29 +223,29 @@
     <script>
         const questions = [
             {
-                statement: '"Ya hay igualdad total: hoy en dÃ­a mujeres y hombres cobran exactamente lo mismo por el mismo trabajo."',
+                statement: '"Ya hay igualdad total: hoy en día mujeres y hombres cobran exactamente lo mismo por el mismo trabajo."',
                 type: 'Mito',
-                explanation: 'A esto se le llama "Brecha Salarial". Aunque la ley dice que deben cobrar lo mismo, la realidad es que las mujeres suelen ocupar puestos peor pagados, tienen mÃ¡s contratos a tiempo parcial (para poder cuidar de hijos o mayores) y llegan menos a los puestos directivos.'
+                explanation: 'A esto se le llama "Brecha Salarial". Aunque la ley dice que deben cobrar lo mismo, la realidad es que las mujeres suelen ocupar puestos peor pagados, tienen más contratos a tiempo parcial (para poder cuidar de hijos o mayores) y llegan menos a los puestos directivos.'
             },
             {
                 statement: '"Las tareas de casa y el cuidado de la familia recaen sobre todo en las mujeres porque se les da mejor por naturaleza."',
                 type: 'Mito',
-                explanation: 'No hay nada en el ADN humano que haga que a las mujeres se les dÃ© mejor poner lavadoras o acordarse de las vacunas. Esto es un rol de gÃ©nero impuesto socialmente a lo largo de los siglos. Cuidar de uno mismo y de los demÃ¡s es responsabilidad de cualquier persona adulta, sin importar su sexo.'
+                explanation: 'No hay nada en el ADN humano que haga que a las mujeres se les dé mejor poner lavadoras o acordarse de las vacunas. Esto es un rol de género impuesto socialmente a lo largo de los siglos. Cuidar de uno mismo y de los demás es responsabilidad de cualquier persona adulta, sin importar su sexo.'
             },
             {
-                statement: '"El feminismo es lo mismo que el machismo, pero al revÃ©s: busca que la mujer sea superior al hombre."',
+                statement: '"El feminismo es lo mismo que el machismo, pero al revés: busca que la mujer sea superior al hombre."',
                 type: 'Mito',
-                explanation: 'Esta es una de las confusiones mÃ¡s comunes. El machismo es la creencia de que el hombre es superior. El feminismo es el movimiento social que defiende la IGUALDAD de derechos, deberes y oportunidades entre ambos. Si crees en la justicia y la igualdad, tÃº tambiÃ©n eres feminista.'
+                explanation: 'Esta es una de las confusiones más comunes. El machismo es la creencia de que el hombre es superior. El feminismo es el movimiento social que defiende la IGUALDAD de derechos, deberes y oportunidades entre ambos. Si crees en la justicia y la igualdad, tú también eres feminista.'
             },
             {
-                statement: '"TodavÃ­a hoy, en muchos paÃ­ses del mundo, hay niÃ±as a las que se les prohÃ­be ir al instituto solo por ser niÃ±as."',
+                statement: '"Todavía hoy, en muchos países del mundo, hay niñas a las que se les prohíbe ir al instituto solo por ser niñas."',
                 type: 'Realidad',
-                explanation: 'Tristemente es una realidad. En paÃ­ses como AfganistÃ¡n, o en zonas de extrema pobreza, cuando una familia no tiene recursos, saca a las niÃ±as de la escuela para casarlas o ponerlas a trabajar, invirtiendo el dinero solo en la educaciÃ³n de los hijos varones.'
+                explanation: 'Tristemente es una realidad. En países como Afganistán, o en zonas de extrema pobreza, cuando una familia no tiene recursos, saca a las niñas de la escuela para casarlas o ponerlas a trabajar, invirtiendo el dinero solo en la educación de los hijos varones.'
             },
             {
                 statement: '"Llorar, ser sensible o pedir ayuda es de chicas. Los chicos tienen que ser fuertes y resolver sus problemas solos."',
                 type: 'Mito',
-                explanation: 'El machismo tambiÃ©n hace mucho daÃ±o a los chicos. Les obliga a ocultar sus emociones y a comportarse de forma agresiva o temeraria para "demostrar que son hombres". Romper este mito ayuda a que los chicos sean mÃ¡s libres, mÃ¡s sanos y tengan mejores relaciones de amistad.'
+                explanation: 'El machismo también hace mucho daño a los chicos. Les obliga a ocultar sus emociones y a comportarse de forma agresiva o temeraria para "demostrar que son hombres". Romper este mito ayuda a que los chicos sean más libres, más sanos y tengan mejores relaciones de amistad.'
             }
         ];
 
@@ -274,14 +274,14 @@
             
             const isCorrect = userChoice === q.type;
             
-            // Colores y tÃ­tulos segÃºn acierto o fallo
+            // Colores y títulos según acierto o fallo
             if (isCorrect) {
                 explanationTitleEl.style.color = q.type === 'Mito' ? 'var(--accent-red)' : 'var(--accent-green)';
-                explanationTitleEl.innerHTML = `Â¡Acertasteis! Es ${q.type.toUpperCase()}`;
+                explanationTitleEl.innerHTML = `¡Acertasteis! Es ${q.type.toUpperCase()}`;
                 explanationBoxEl.style.borderLeft = `4px solid ${q.type === 'Mito' ? 'var(--accent-red)' : 'var(--accent-green)'}`;
             } else {
                 explanationTitleEl.style.color = '#D97706'; // Naranja de advertencia
-                explanationTitleEl.innerHTML = `Â¡Cuidado! En realidad es un ${q.type.toUpperCase()}`;
+                explanationTitleEl.innerHTML = `¡Cuidado! En realidad es un ${q.type.toUpperCase()}`;
                 explanationBoxEl.style.borderLeft = `4px solid #D97706`;
             }
             
@@ -289,7 +289,7 @@
             explanationBoxEl.style.display = 'block';
             
             if (currentIndex < questions.length - 1) {
-                nextBtnEl.innerText = 'Siguiente frase âž”';
+                nextBtnEl.innerText = 'Siguiente frase ➔';
                 nextBtnEl.style.display = 'block';
             } else {
                 nextBtnEl.innerText = 'Finalizar debate';
@@ -304,13 +304,13 @@
         }
 
         function showFinalScreen() {
-            statementEl.innerText = "Â¡Buen trabajo desmontando mitos!";
+            statementEl.innerText = "¡Buen trabajo desmontando mitos!";
             statementEl.style.color = 'var(--accent-green)';
             actionButtonsEl.style.display = 'none';
             
             explanationTitleEl.style.color = 'var(--primary)';
-            explanationTitleEl.innerHTML = 'La informaciÃ³n es poder';
-            explanationTextEl.innerHTML = 'Ahora que sabÃ©is reconocer estos mitos, estÃ¡is un paso mÃ¡s cerca de construir un instituto (y un mundo) mÃ¡s justo para todos. Â¡La igualdad se practica todos los dÃ­as!';
+            explanationTitleEl.innerHTML = 'La información es poder';
+            explanationTextEl.innerHTML = 'Ahora que sabéis reconocer estos mitos, estáis un paso más cerca de construir un instituto (y un mundo) más justo para todos. ¡La igualdad se practica todos los días!';
             
             explanationBoxEl.style.borderLeft = '4px solid var(--secondary)';
             nextBtnEl.style.display = 'none';

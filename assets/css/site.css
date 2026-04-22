@@ -425,6 +425,63 @@ body[data-theme="cursos"] {
   background: rgba(255, 255, 255, 0.08);
 }
 
+.footer-lang {
+  margin-top: 24px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.footer-lang__copy {
+  flex: 1 1 320px;
+}
+
+.footer-lang__copy h3 {
+  margin: 0 0 8px;
+}
+
+.lang-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.lang-btn {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  border-radius: 999px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font: 700 0.92rem/1 "Segoe UI", sans-serif;
+  transition: background 180ms ease, transform 180ms ease, border-color 180ms ease;
+}
+
+.lang-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  transform: translateY(-1px);
+}
+
+.translator-note,
+.footer-legal {
+  margin-top: 10px;
+  color: rgba(255, 255, 255, 0.68);
+  line-height: 1.6;
+  font-size: 0.92rem;
+}
+
+#google_translate_element {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 .site-breadcrumbs {
   width: min(var(--site-max), calc(100% - 32px));
   margin: 0 auto 18px;

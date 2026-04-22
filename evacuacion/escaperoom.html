@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protocolo de EvacuaciÃ³n - Escape Room</title>
+    <title>Protocolo de Evacuación - Escape Room</title>
     <style>
         :root {
-            --primary: #B91C1C; /* Rojo CarmesÃ­ */
+            --primary: #B91C1C; /* Rojo Carmesí */
             --secondary: #EA580C; /* Naranja Intenso */
             --accent: #16A34A; /* Verde Seguridad */
             --bg-color: transparent;
@@ -121,7 +121,7 @@
         }
 
         .choice-btn::before {
-            content: 'âž”';
+            content: '➔';
             color: var(--secondary);
             margin-right: 15px;
             font-weight: bold;
@@ -204,9 +204,9 @@
     <div class="main-container">
         
         <div class="header-section">
-            <h1>Escape Room: La EvacuaciÃ³n</h1>
+            <h1>Escape Room: La Evacuación</h1>
             <p class="context-text">
-                Acaba de sonar la alarma de 5 toques. EstÃ¡s dentro del instituto y debes tomar las decisiones correctas para salir a salvo. Un paso en falso y quedarÃ¡s atrapado. Â¡Suerte!
+                Acaba de sonar la alarma de 5 toques. Estás dentro del instituto y debes tomar las decisiones correctas para salir a salvo. Un paso en falso y quedarás atrapado. ¡Suerte!
             </p>
         </div>
 
@@ -222,16 +222,16 @@
 
             <div class="result-screen" id="game-over-container">
                 <div class="result-icon">â˜ ï¸</div>
-                <div class="result-title" style="color: var(--primary);">MisiÃ³n Fallida</div>
+                <div class="result-title" style="color: var(--primary);">Misión Fallida</div>
                 <div class="result-desc" id="game-over-text"></div>
                 <button class="btn-action btn-retry" onclick="startGame()">Volver a intentar</button>
             </div>
 
             <div class="result-screen" id="victory-container">
-                <div class="result-icon">ðŸ†</div>
-                <div class="result-title" style="color: var(--accent);">Â¡A Salvo!</div>
+                <div class="result-icon">🏆</div>
+                <div class="result-title" style="color: var(--accent);">¡A Salvo!</div>
                 <div class="result-desc">
-                    Has demostrado tener la cabeza frÃ­a. Seguiste las normas: mochilas en la mesa, silencio, cerrar puertas, no correr y no volver atrÃ¡s. Eres un experto/a en emergencias.
+                    Has demostrado tener la cabeza fría. Seguiste las normas: mochilas en la mesa, silencio, cerrar puertas, no correr y no volver atrás. Eres un experto/a en emergencias.
                 </div>
             </div>
 
@@ -244,23 +244,23 @@
         const storyNodes = {
             start: {
                 level: "Fase 1: El Aula",
-                text: "EstÃ¡s en clase de MatemÃ¡ticas. De repente, el timbre suena 5 veces seguidas. Es la seÃ±al de evacuaciÃ³n. Tienes tu mochila tirada en el suelo del pasillo entre las mesas.",
+                text: "Estás en clase de Matemáticas. De repente, el timbre suena 5 veces seguidas. Es la señal de evacuación. Tienes tu mochila tirada en el suelo del pasillo entre las mesas.",
                 choices: [
-                    { text: "Cojo la mochila, me la cuelgo rÃ¡pido a la espalda y me pongo en la fila.", next: "fail_mochila" },
+                    { text: "Cojo la mochila, me la cuelgo rápido a la espalda y me pongo en la fila.", next: "fail_mochila" },
                     { text: "Cojo la mochila del suelo, la pongo encima de mi mesa y me coloco en la fila.", next: "node_2" }
                 ]
             },
             node_2: {
                 level: "Fase 2: La Puerta",
-                text: "Bien hecho. Al ponerla en la mesa evitas que alguien tropiece si se llena la clase de humo. Te colocas el Ãºltimo en la fila. SalÃ­s al pasillo en silencio siguiendo al profesor.",
+                text: "Bien hecho. Al ponerla en la mesa evitas que alguien tropiece si se llena la clase de humo. Te colocas el último en la fila. Salís al pasillo en silencio siguiendo al profesor.",
                 choices: [
-                    { text: "Como soy el Ãºltimo, me aseguro de CERRAR la puerta de la clase al salir.", next: "node_3" },
+                    { text: "Como soy el último, me aseguro de CERRAR la puerta de la clase al salir.", next: "node_3" },
                     { text: "Salgo corriendo para alcanzar al profesor y dejo la puerta abierta.", next: "fail_puerta" }
                 ]
             },
             node_3: {
                 level: "Fase 3: Las Escaleras",
-                text: "Â¡Perfecto! Cerrar la puerta evita que el humo se extienda. LlegÃ¡is a las escaleras, pero hay otra clase bajando muy despacio.",
+                text: "¡Perfecto! Cerrar la puerta evita que el humo se extienda. Llegáis a las escaleras, pero hay otra clase bajando muy despacio.",
                 choices: [
                     { text: "Les pedimos paso y los adelantamos por la izquierda para salir antes.", next: "fail_escaleras" },
                     { text: "Mantenemos nuestra fila pegada a la pared y bajamos a su ritmo.", next: "node_4" }
@@ -268,37 +268,37 @@
             },
             node_4: {
                 level: "Fase 4: El Olvido",
-                text: "Buena decisiÃ³n, adelantar causa avalanchas. Ya estÃ¡is casi en la salida, pero de repente recuerdas que te has dejado las llaves de casa en tu mesa.",
+                text: "Buena decisión, adelantar causa avalanchas. Ya estáis casi en la salida, pero de repente recuerdas que te has dejado las llaves de casa en tu mesa.",
                 choices: [
-                    { text: "Me doy la vuelta y subo corriendo. Solo tardarÃ© 10 segundos.", next: "fail_volver" },
+                    { text: "Me doy la vuelta y subo corriendo. Solo tardaré 10 segundos.", next: "fail_volver" },
                     { text: "Lo material no importa. Sigo hacia el punto de encuentro.", next: "node_5" }
                 ]
             },
             node_5: {
                 level: "Fase 5: El Punto de Encuentro",
-                text: "LlegÃ¡is a las pistas exteriores. Hay mucho ruido y otras clases se estÃ¡n reuniendo. El profesor empieza a contaros.",
+                text: "Llegáis a las pistas exteriores. Hay mucho ruido y otras clases se están reuniendo. El profesor empieza a contaros.",
                 choices: [
                     { text: "Me quedo en mi fila en absoluto silencio hasta que el profe termine de contar y avise al Jefe de Emergencia.", next: "victory" },
-                    { text: "Aprovecho para ir a buscar a mi mejor amigo que estÃ¡ en otra clase para ver si estÃ¡ bien.", next: "fail_patio" }
+                    { text: "Aprovecho para ir a buscar a mi mejor amigo que está en otra clase para ver si está bien.", next: "fail_patio" }
                 ]
             },
 
             // PANTALLAS DE GAME OVER
             fail_mochila: {
                 type: "game_over",
-                text: "Has cogido la mochila. Al salir al pasillo te has enganchado con la puerta y has provocado un tapÃ³n. El protocolo prohÃ­be llevar objetos personales."
+                text: "Has cogido la mochila. Al salir al pasillo te has enganchado con la puerta y has provocado un tapón. El protocolo prohíbe llevar objetos personales."
             },
             fail_puerta: {
                 type: "game_over",
-                text: "Has dejado la puerta abierta y ademÃ¡s has corrido. Correr provoca caÃ­das, y dejar la puerta abierta hace que el posible fuego y humo se extiendan rÃ¡pidamente por el instituto."
+                text: "Has dejado la puerta abierta y además has corrido. Correr provoca caídas, y dejar la puerta abierta hace que el posible fuego y humo se extiendan rápidamente por el instituto."
             },
             fail_escaleras: {
                 type: "game_over",
-                text: "Al intentar adelantar a la otra clase en las escaleras, alguien ha tropezado. HabÃ©is provocado una avalancha humana y habÃ©is bloqueado la salida."
+                text: "Al intentar adelantar a la otra clase en las escaleras, alguien ha tropezado. Habéis provocado una avalancha humana y habéis bloqueado la salida."
             },
             fail_volver: {
                 type: "game_over",
-                text: "Â¡Nunca se vuelve atrÃ¡s! Al intentar subir las escaleras a contracorriente, has chocado con la multitud que bajaba y has quedado atrapado."
+                text: "¡Nunca se vuelve atrás! Al intentar subir las escaleras a contracorriente, has chocado con la multitud que bajaba y has quedado atrapado."
             },
             fail_patio: {
                 type: "game_over",
@@ -343,7 +343,7 @@
             storyText.innerText = node.text;
             choicesContainer.innerHTML = ''; // Limpiar botones
 
-            // Crear botones de decisiÃ³n
+            // Crear botones de decisión
             node.choices.forEach(choice => {
                 const btn = document.createElement('button');
                 btn.className = 'choice-btn';
@@ -366,7 +366,7 @@
             gamePanel.style.borderColor = 'var(--accent)'; // Borde verde
         }
 
-        // Iniciar el juego al cargar la pÃ¡gina
+        // Iniciar el juego al cargar la página
         startGame();
 
     </script>
