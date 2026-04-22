@@ -1,0 +1,2562 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel de Evaluación Académica v2</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0c12;
+  --surface: #111520;
+  --surface2: #181d2c;
+  --surface3: #1e2438;
+  --border: #252d45;
+  --border2: #2f3856;
+  --text: #e2e8f8;
+  --text-muted: #6b7699;
+  --text-dim: #4a5470;
+  --accent: #5b8af0;
+  --accent2: #9b79f5;
+  --accent3: #3ecfcf;
+  --green: #3dd68c;
+  --red: #f2637a;
+  --yellow: #f5c842;
+  --orange: #f08c4b;
+  --pink: #f06bbd;
+  --cyan: #3ecfcf;
+  --radius: 12px;
+  --radius-sm: 8px;
+  --shadow: 0 8px 32px rgba(0,0,0,0.5);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 14px;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+/* HEADER */
+header {
+  background: rgba(17,21,32,0.95);
+  border-bottom: 1px solid var(--border);
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  backdrop-filter: blur(16px);
+  height: 56px;
+}
+.header-logo {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: -0.3px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.header-logo .dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; display: inline-block; }
+.header-actions { display: flex; gap: 8px; align-items: center; }
+
+/* BUTTONS */
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px; border-radius: var(--radius-sm); border: none;
+  cursor: pointer; font-family: 'Inter', sans-serif;
+  font-size: 12px; font-weight: 600; transition: all 0.15s;
+}
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { background: #7ba3ff; }
+.btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+.btn-secondary:hover { background: var(--surface3); border-color: var(--border2); }
+.btn-ghost { background: transparent; color: var(--text-muted); border: 1px solid var(--border); }
+.btn-ghost:hover { color: var(--text); border-color: var(--border2); }
+.btn-danger { background: rgba(242,99,122,0.15); color: var(--red); border: 1px solid rgba(242,99,122,0.3); }
+.btn-danger:hover { background: rgba(242,99,122,0.25); }
+.btn-success { background: rgba(61,214,140,0.15); color: var(--green); border: 1px solid rgba(61,214,140,0.3); }
+.btn-success:hover { background: rgba(61,214,140,0.25); }
+.btn-sm { padding: 5px 10px; font-size: 11px; }
+.btn-icon { width: 30px; height: 30px; padding: 0; justify-content: center; border-radius: 7px; font-size: 14px; }
+
+/* LAYOUT */
+.container { max-width: 1700px; margin: 0 auto; padding: 20px 28px; }
+
+/* UPLOAD */
+#upload-section {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  min-height: calc(100vh - 56px);
+  padding: 40px;
+}
+.upload-hero { text-align: center; max-width: 560px; }
+.upload-hero h2 {
+  font-family: 'Syne', sans-serif;
+  font-size: 2.6rem; font-weight: 800;
+  margin-bottom: 14px;
+  line-height: 1.1;
+}
+.upload-hero h2 .accent { color: var(--accent); }
+.upload-hero p { color: var(--text-muted); margin-bottom: 36px; font-size: 15px; line-height: 1.7; }
+
+.upload-cards { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-top: 32px; }
+.upload-card {
+  background: var(--surface);
+  border: 2px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 24px 28px; width: 165px;
+  text-align: center; cursor: pointer;
+  transition: all 0.25s; position: relative;
+}
+.upload-card:hover { border-color: var(--accent); background: var(--surface2); transform: translateY(-3px); box-shadow: 0 12px 30px rgba(91,138,240,0.15); }
+.upload-card.loaded { border-style: solid; border-color: var(--green); background: rgba(61,214,140,0.04); }
+.upload-card .trim-icon { font-size: 1.8rem; margin-bottom: 8px; }
+.upload-card .trim-label { font-weight: 700; color: var(--text); font-size: 13px; font-family: 'Syne', sans-serif; }
+.upload-card .trim-status { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+.upload-card.loaded .trim-status { color: var(--green); }
+.upload-card input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+
+/* TABS */
+.tabs {
+  display: flex; gap: 2px;
+  background: var(--surface);
+  border-radius: 10px; padding: 4px;
+  margin-bottom: 20px;
+  border: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.tab-btn {
+  padding: 7px 16px; border-radius: 7px; border: none;
+  background: transparent; color: var(--text-muted);
+  cursor: pointer; font-family: 'Inter', sans-serif;
+  font-size: 12px; font-weight: 600; transition: all 0.15s;
+  display: flex; align-items: center; gap: 6px; white-space: nowrap;
+}
+.tab-btn.active { background: var(--surface3); color: var(--text); box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+.tab-btn:hover:not(.active) { color: var(--text); }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* FILTERS */
+.filters-bar {
+  display: flex; gap: 10px; align-items: flex-end;
+  flex-wrap: wrap; margin-bottom: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+}
+.filter-group { display: flex; flex-direction: column; gap: 4px; }
+.filter-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-dim); }
+.filters-bar input, .filters-bar select {
+  background: var(--surface2); border: 1px solid var(--border);
+  color: var(--text); border-radius: var(--radius-sm); padding: 7px 12px;
+  font-family: 'Inter', sans-serif; font-size: 12px;
+  outline: none; transition: border-color 0.15s;
+  min-width: 160px;
+}
+.filters-bar input:focus, .filters-bar select:focus { border-color: var(--accent); }
+
+/* TABLE */
+.table-wrap { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border); }
+table { border-collapse: collapse; width: 100%; min-width: 700px; }
+thead th {
+  background: var(--surface2); padding: 10px 12px;
+  text-align: left; font-weight: 700; font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap; position: sticky; top: 0; z-index: 2;
+  cursor: pointer; user-select: none;
+}
+thead th:hover { background: var(--surface3); }
+thead th .sort-icon { opacity: 0.4; margin-left: 4px; }
+thead th.sorted .sort-icon { opacity: 1; color: var(--accent); }
+tbody tr { border-bottom: 1px solid rgba(37,45,69,0.6); transition: background 0.1s; }
+tbody tr:hover { background: var(--surface2); }
+tbody td { padding: 9px 12px; font-size: 13px; }
+tbody tr:last-child { border-bottom: none; }
+
+.grade-cell {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 26px; border-radius: 5px;
+  font-weight: 700; font-size: 12px;
+}
+.grade-10,.grade-9 { background: rgba(61,214,140,0.18); color: #5eefaa; }
+.grade-8,.grade-7 { background: rgba(62,207,207,0.15); color: #5ee0e0; }
+.grade-6 { background: rgba(245,200,66,0.12); color: #f5e070; }
+.grade-5 { background: rgba(240,140,75,0.12); color: #f5b07a; }
+.grade-4,.grade-3,.grade-2,.grade-1,.grade-0 { background: rgba(242,99,122,0.16); color: #f5808f; }
+.grade-na { background: rgba(107,118,153,0.12); color: var(--text-muted); font-size: 10px; }
+.grade-np { background: rgba(155,121,245,0.12); color: #b599f8; font-size: 10px; }
+.grade-absent { background: rgba(107,118,153,0.08); color: var(--text-dim); font-size: 10px; }
+
+/* RISK ALERT */
+.risk-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 2px 8px; border-radius: 20px;
+  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  background: rgba(242,99,122,0.15); color: var(--red);
+  border: 1px solid rgba(242,99,122,0.25);
+  animation: pulse-risk 2s ease-in-out infinite;
+}
+@keyframes pulse-risk { 0%,100% { opacity:1; } 50% { opacity:0.65; } }
+.risk-row { background: rgba(242,99,122,0.03) !important; }
+
+/* STATS */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 20px; }
+.stat-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 18px;
+  border-left: 3px solid var(--border2);
+  transition: transform 0.15s;
+}
+.stat-card:hover { transform: translateY(-1px); }
+.stat-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-dim); margin-bottom: 8px; font-weight: 700; }
+.stat-value { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; line-height: 1; }
+.stat-sub { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+
+/* SUBJECT CARDS */
+.subject-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px,1fr)); gap: 12px; margin-top: 16px; }
+.subject-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 16px;
+  border-top: 2px solid var(--accent);
+  transition: transform 0.15s, box-shadow 0.15s;
+  cursor: pointer;
+}
+.subject-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+.subject-card h4 { font-size: 13px; font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.pass-bar { height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; margin: 6px 0; }
+.pass-fill { height: 100%; border-radius: 3px; transition: width 0.6s; }
+.metrics { display: flex; justify-content: space-between; margin-top: 10px; }
+.metric { text-align: center; }
+.metric .val { font-weight: 700; font-size: 1rem; font-family: 'Syne', sans-serif; }
+.metric .lbl { font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* SPARKLINE */
+.sparkline { display: flex; align-items: flex-end; gap: 2px; height: 36px; margin: 8px 0; }
+.spark-bar { flex: 1; border-radius: 2px 2px 0 0; min-width: 8px; transition: opacity 0.15s; }
+.spark-bar:hover { opacity: 0.7; }
+
+/* SUBJECT HEADER vertical */
+.subject-header {
+  writing-mode: vertical-rl; text-orientation: mixed;
+  transform: rotate(180deg); padding: 8px 0;
+  font-size: 11px; font-weight: 700;
+  text-transform: uppercase; height: 80px;
+  display: flex; align-items: flex-end;
+}
+
+/* HEATMAP */
+.heatmap-wrap { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border); }
+.heatmap-table { border-collapse: collapse; width: 100%; }
+.heatmap-table th { background: var(--surface2); padding: 8px 10px; font-size: 11px; font-weight: 700; border-bottom: 1px solid var(--border); white-space: nowrap; }
+.heatmap-table td { padding: 4px 6px; border-bottom: 1px solid rgba(37,45,69,0.3); }
+.heatmap-cell {
+  width: 36px; height: 26px; border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; margin: auto;
+}
+
+/* MODAL */
+.modal-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.75);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000; padding: 20px;
+  backdrop-filter: blur(6px);
+  opacity: 0; pointer-events: none; transition: opacity 0.2s;
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+.modal {
+  background: var(--surface); border: 1px solid var(--border2);
+  border-radius: 16px; padding: 28px; max-width: 740px;
+  width: 100%; max-height: 92vh; overflow-y: auto;
+  transform: translateY(16px); transition: transform 0.2s;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+}
+.modal-overlay.open .modal { transform: translateY(0); }
+.modal-close {
+  position: absolute; top: 14px; right: 14px;
+  background: var(--surface2); border: 1px solid var(--border);
+  color: var(--text-muted); width: 28px; height: 28px;
+  border-radius: 50%; cursor: pointer; font-size: 15px;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+}
+.modal-close:hover { background: var(--surface3); color: var(--text); }
+
+/* BADGE */
+.badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 9px; border-radius: 20px;
+  font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px;
+}
+.badge-green { background: rgba(61,214,140,0.12); color: var(--green); border: 1px solid rgba(61,214,140,0.25); }
+.badge-red { background: rgba(242,99,122,0.12); color: var(--red); border: 1px solid rgba(242,99,122,0.25); }
+.badge-yellow { background: rgba(245,200,66,0.12); color: var(--yellow); border: 1px solid rgba(245,200,66,0.25); }
+.badge-blue { background: rgba(91,138,240,0.12); color: var(--accent); border: 1px solid rgba(91,138,240,0.25); }
+.badge-purple { background: rgba(155,121,245,0.12); color: var(--accent2); border: 1px solid rgba(155,121,245,0.25); }
+.badge-cyan { background: rgba(62,207,207,0.12); color: var(--cyan); border: 1px solid rgba(62,207,207,0.25); }
+
+/* TRIM BADGES */
+.trimestre-badge {
+  display: inline-flex; align-items: center; gap: 3px;
+  padding: 2px 7px; border-radius: 4px; font-size: 11px; font-weight: 700;
+}
+.t1 { background: rgba(62,207,207,0.12); color: var(--cyan); }
+.t2 { background: rgba(155,121,245,0.12); color: var(--accent2); }
+.t3 { background: rgba(61,214,140,0.12); color: var(--green); }
+
+/* TREND */
+.trend-up { color: var(--green); font-weight: 700; }
+.trend-down { color: var(--red); font-weight: 700; }
+.trend-flat { color: var(--text-muted); font-weight: 600; }
+
+/* SECTION TITLE */
+.section-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.2rem; font-weight: 700; margin-bottom: 14px;
+  display: flex; align-items: center; gap: 10px;
+  color: var(--text);
+}
+.section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* EVOLUTION CARD */
+.evo-card {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 12px;
+}
+.evo-card .subject-name { font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; letter-spacing: 0.5px; }
+.evo-grades { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+.evo-grade { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.evo-grade .trim-label { font-size: 9px; color: var(--text-muted); }
+.evolution-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px,1fr)); gap: 10px; margin-top: 16px; }
+.trend-arrow { font-size: 14px; }
+
+/* STUDENT MODAL NAVIGATION */
+.student-nav {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 18px; padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.nav-arrow {
+  background: var(--surface2); border: 1px solid var(--border);
+  color: var(--text); border-radius: var(--radius-sm); padding: 6px 12px;
+  cursor: pointer; font-size: 12px; font-weight: 600; transition: all 0.15s;
+}
+.nav-arrow:hover:not(:disabled) { background: var(--surface3); border-color: var(--border2); }
+.nav-arrow:disabled { opacity: 0.3; cursor: default; }
+.nav-select {
+  background: var(--surface2); border: 1px solid var(--border);
+  color: var(--text); border-radius: var(--radius-sm);
+  padding: 6px 12px; font-family: 'Inter', sans-serif; font-size: 12px;
+  flex: 1; min-width: 180px; outline: none;
+}
+.nav-counter { font-size: 11px; color: var(--text-muted); font-weight: 600; }
+
+.student-name { font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; }
+.student-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+.student-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 20px; gap: 12px; }
+.avg-badge {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 54px; height: 54px; border-radius: 50%;
+  font-weight: 800; font-size: 1.1rem; border: 3px solid;
+  font-family: 'Syne', sans-serif; flex-shrink: 0;
+}
+
+/* TOGGLE */
+.toggle-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 5px 12px; border-radius: 20px;
+  border: 1px solid var(--border); background: var(--surface2);
+  cursor: pointer; font-size: 11px; font-weight: 600; color: var(--text-muted);
+  transition: all 0.15s;
+}
+.toggle-btn.active { border-color: var(--red); background: rgba(242,99,122,0.08); color: var(--red); }
+.toggle-btn:hover { border-color: var(--border2); color: var(--text); }
+.toggle-btn .dot { width: 8px; height: 8px; background: currentColor; border-radius: 50%; }
+
+/* FULLSCREEN SESSION */
+#session-mode {
+  position: fixed; inset: 0; background: var(--bg);
+  z-index: 2000; display: none;
+  flex-direction: column;
+  overflow: hidden;
+}
+#session-mode.active { display: flex; }
+.session-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.session-body { flex: 1; overflow: auto; padding: 40px; display: flex; align-items: flex-start; justify-content: center; }
+.session-card { max-width: 900px; width: 100%; }
+.session-name { font-family: 'Syne', sans-serif; font-size: 3.5rem; font-weight: 800; margin-bottom: 8px; }
+.session-counter { font-size: 1rem; color: var(--text-muted); }
+.session-footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 16px 32px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+}
+.session-progress { flex: 1; height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+.session-progress-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.3s; }
+
+/* COMMENT */
+.comment-area {
+  background: var(--surface2); border: 1px solid var(--border);
+  color: var(--text); border-radius: var(--radius-sm);
+  padding: 10px 14px; font-family: 'Inter', sans-serif;
+  font-size: 13px; resize: vertical; min-height: 70px;
+  width: 100%; outline: none; transition: border-color 0.15s;
+}
+.comment-area:focus { border-color: var(--accent); }
+
+/* UPLOAD MODAL */
+.trim-selector { display: flex; gap: 10px; margin-top: 14px; justify-content: center; }
+.trim-option {
+  padding: 14px 20px; border-radius: 10px;
+  border: 2px solid var(--border); background: var(--surface2);
+  cursor: pointer; text-align: center; transition: all 0.15s;
+  flex: 1;
+}
+.trim-option:hover { border-color: var(--accent); }
+.trim-option.selected { border-color: var(--accent); background: rgba(91,138,240,0.08); }
+.trim-option .opt-icon { font-size: 1.4rem; margin-bottom: 6px; }
+.trim-option .opt-label { font-weight: 700; font-size: 12px; font-family: 'Syne', sans-serif; }
+.trim-option .opt-sub { font-size: 10px; color: var(--text-muted); }
+
+/* CONFIG MODAL */
+.config-section { margin-bottom: 24px; }
+.config-section h4 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-dim); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.config-row { display: flex; align-items: center; gap: 12px; padding: 8px 0; border-bottom: 1px solid rgba(37,45,69,0.4); }
+.config-row:last-child { border-bottom: none; }
+.config-label { flex: 1; font-size: 13px; }
+.config-input {
+  width: 80px; background: var(--surface2); border: 1px solid var(--border);
+  color: var(--text); border-radius: var(--radius-sm); padding: 5px 10px;
+  font-family: 'Inter', sans-serif; font-size: 12px; text-align: center; outline: none;
+}
+.config-input:focus { border-color: var(--accent); }
+.config-text-input {
+  flex: 1; max-width: 200px; background: var(--surface2); border: 1px solid var(--border);
+  color: var(--text); border-radius: var(--radius-sm); padding: 5px 10px;
+  font-family: 'Inter', sans-serif; font-size: 12px; outline: none;
+}
+.config-text-input:focus { border-color: var(--accent); }
+.checkbox-wrap { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+.checkbox-wrap input[type="checkbox"] { width: 14px; height: 14px; cursor: pointer; accent-color: var(--accent); }
+
+/* ZOOM */
+.zoom-controls { display: flex; align-items: center; gap: 4px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 3px 6px; }
+.zoom-btn { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 14px; line-height: 1; padding: 2px 5px; border-radius: 4px; transition: all 0.1s; }
+.zoom-btn:hover { background: var(--border); color: var(--text); }
+.zoom-label { font-size: 11px; font-weight: 600; color: var(--text-muted); min-width: 34px; text-align: center; }
+
+/* MISC */
+.name-cell { cursor: pointer; font-weight: 600; }
+.name-cell:hover { color: var(--accent); text-decoration: underline; }
+.avg-inline { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 22px; border-radius: 5px; font-weight: 700; font-size: 12px; }
+.fail-pill { display: inline-flex; align-items: center; gap: 3px; background: rgba(242,99,122,0.12); color: var(--red); border-radius: 10px; padding: 2px 8px; font-size: 11px; font-weight: 700; }
+.pass-pill { display: inline-flex; align-items: center; gap: 3px; background: rgba(61,214,140,0.1); color: var(--green); border-radius: 10px; padding: 2px 8px; font-size: 11px; font-weight: 700; }
+.empty-state { text-align: center; padding: 60px 20px; color: var(--text-muted); }
+.empty-state .icon { font-size: 2.5rem; margin-bottom: 10px; }
+
+.tooltip-wrap { position: relative; }
+.tooltip-wrap:hover .tooltip { opacity: 1; pointer-events: all; }
+.tooltip {
+  position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
+  background: var(--surface2); color: var(--text); padding: 4px 8px; border-radius: 6px;
+  font-size: 11px; white-space: nowrap; opacity: 0; pointer-events: none;
+  transition: opacity 0.15s; z-index: 10; border: 1px solid var(--border2);
+}
+
+/* CHART containers */
+.chart-container { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; }
+.chart-title { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 14px; }
+.charts-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px,1fr)); gap: 16px; margin-bottom: 16px; }
+
+/* NOTA MINIMA */
+.nota-minima {
+  background: rgba(245,200,66,0.06); border: 1px solid rgba(245,200,66,0.2);
+  border-radius: var(--radius); padding: 14px 18px; margin: 10px 0;
+  display: flex; align-items: center; gap: 12px;
+}
+.nota-minima .icon { font-size: 1.4rem; }
+.nota-minima strong { color: var(--yellow); }
+
+/* PRINT */
+.no-print {}
+@media print {
+  .no-print { display: none !important; }
+  body { background: #fff; color: #000; }
+  .stat-card, .subject-card, .evo-card { border: 1px solid #ccc; background: #fff; }
+  table th { background: #f5f5f5; color: #000; }
+  header, .tabs, .filters-bar { display: none !important; }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  header { padding: 0 16px; }
+  .container { padding: 14px 16px; }
+  .session-name { font-size: 2.2rem; }
+}
+
+/* COPY TOOLTIP */
+.copy-toast {
+  position: fixed; bottom: 80px; right: 24px; z-index: 3000;
+  background: var(--surface3); border: 1px solid var(--green);
+  color: var(--green); padding: 10px 18px; border-radius: 10px;
+  font-size: 13px; font-weight: 600;
+  opacity: 0; transform: translateY(10px);
+  transition: all 0.25s; pointer-events: none;
+}
+.copy-toast.show { opacity: 1; transform: translateY(0); }
+
+/* MATERIA OPTATIVA */
+.optativa-tag { font-size: 9px; background: rgba(155,121,245,0.12); color: var(--accent2); border-radius: 4px; padding: 1px 5px; font-weight: 700; letter-spacing: 0.3px; }
+
+/* SUBJECT COLOR DOT */
+.subject-color-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-logo">
+    <span class="dot"></span>
+    Panel de <span style="color:var(--accent); margin-left:4px">Evaluación</span>
+  </div>
+  <div class="header-actions" id="header-actions-upload">
+    <!-- filled by JS -->
+  </div>
+</header>
+
+<!-- TOAST -->
+<div class="copy-toast" id="copy-toast">✓ Copiado al portapapeles</div>
+
+<!-- UPLOAD MODAL -->
+<div class="modal-overlay" id="upload-modal">
+  <div class="modal" style="position:relative; max-width:500px">
+    <button class="modal-close" onclick="closeModal('upload-modal')">✕</button>
+    <div style="font-family:'Syne',sans-serif; font-size:1.3rem; font-weight:800; margin-bottom:16px">📁 Cargar evaluación</div>
+    <p style="color:var(--text-muted); font-size:13px; margin-bottom:16px">Selecciona el trimestre al que corresponde este archivo CSV.</p>
+    <div class="trim-selector">
+      <div class="trim-option" onclick="selectTrim(1)" id="opt-1">
+        <div class="opt-icon">1️⃣</div>
+        <div class="opt-label">1ª Evaluación</div>
+        <div class="opt-sub">Sep – Dic</div>
+      </div>
+      <div class="trim-option" onclick="selectTrim(2)" id="opt-2">
+        <div class="opt-icon">2️⃣</div>
+        <div class="opt-label">2ª Evaluación</div>
+        <div class="opt-sub">Ene – Mar</div>
+      </div>
+      <div class="trim-option" onclick="selectTrim(3)" id="opt-3">
+        <div class="opt-icon">3️⃣</div>
+        <div class="opt-label">3ª Evaluación</div>
+        <div class="opt-sub">Abr – Jun</div>
+      </div>
+    </div>
+    <div style="margin-top:20px; text-align:center">
+      <label style="display:inline-block; padding:12px 24px; background:var(--surface2); border:2px dashed var(--border); border-radius:10px; cursor:pointer; transition:all 0.2s" id="modal-file-label">
+        <input type="file" accept=".csv" id="modal-file-input" onchange="handleModalUpload(event)" style="display:none">
+        📁 Seleccionar archivo CSV
+      </label>
+      <div id="modal-file-name" style="margin-top:8px; font-size:12px; color:var(--text-muted)"></div>
+    </div>
+    <div style="margin-top:20px; text-align:right">
+      <button class="btn btn-primary" onclick="applyModalUpload()" id="modal-apply-btn" disabled>Cargar y Analizar</button>
+    </div>
+  </div>
+</div>
+
+<!-- STUDENT MODAL -->
+<div class="modal-overlay" id="student-modal">
+  <div class="modal" style="position:relative; max-width:820px" id="student-modal-content"></div>
+</div>
+
+<!-- CONFIG MODAL -->
+<div class="modal-overlay" id="config-modal">
+  <div class="modal" style="position:relative; max-width:600px" id="config-modal-content">
+    <button class="modal-close" onclick="closeModal('config-modal')">✕</button>
+    <div style="font-family:'Syne',sans-serif; font-size:1.3rem; font-weight:800; margin-bottom:20px">⚙️ Configuración</div>
+
+    <div class="config-section">
+      <h4>Pesos por trimestre en nota final (%)</h4>
+      <div class="config-row">
+        <span class="config-label"><span class="trimestre-badge t1">1ª Evaluación</span></span>
+        <input type="number" class="config-input" id="cfg-w1" value="30" min="0" max="100" onchange="updateConfig()">
+        <span style="color:var(--text-muted); font-size:12px">%</span>
+      </div>
+      <div class="config-row">
+        <span class="config-label"><span class="trimestre-badge t2">2ª Evaluación</span></span>
+        <input type="number" class="config-input" id="cfg-w2" value="30" min="0" max="100" onchange="updateConfig()">
+        <span style="color:var(--text-muted); font-size:12px">%</span>
+      </div>
+      <div class="config-row">
+        <span class="config-label"><span class="trimestre-badge t3">3ª Evaluación</span></span>
+        <input type="number" class="config-input" id="cfg-w3" value="40" min="0" max="100" onchange="updateConfig()">
+        <span style="color:var(--text-muted); font-size:12px">%</span>
+      </div>
+      <div id="cfg-weight-warn" style="font-size:11px; color:var(--red); margin-top:6px; display:none">⚠ Los pesos no suman 100%</div>
+    </div>
+
+    <div class="config-section">
+      <h4>Parámetros de riesgo</h4>
+      <div class="config-row">
+        <span class="config-label">Caída de media que activa alerta (puntos)</span>
+        <input type="number" class="config-input" id="cfg-drop" value="2" min="0.5" max="10" step="0.5" onchange="updateConfig()">
+      </div>
+      <div class="config-row">
+        <span class="config-label">Suspensos consecutivos para alerta</span>
+        <input type="number" class="config-input" id="cfg-consec" value="3" min="1" max="10" onchange="updateConfig()">
+      </div>
+    </div>
+
+    <div class="config-section">
+      <h4>Renombrar materias (nombre completo)</h4>
+      <div id="subject-rename-list" style="max-height:250px; overflow-y:auto; display:flex; flex-direction:column; gap:6px"></div>
+    </div>
+
+    <div class="config-section">
+      <h4>Materias optativas (excluir de la media)</h4>
+      <div id="optativa-list" style="display:flex; flex-wrap:wrap; gap:8px"></div>
+    </div>
+
+    <div style="margin-top:20px; display:flex; gap:10px; justify-content:flex-end">
+      <button class="btn btn-secondary" onclick="closeModal('config-modal')">Cerrar</button>
+      <button class="btn btn-primary" onclick="applyConfig()">Aplicar y reconstruir</button>
+    </div>
+  </div>
+</div>
+
+<!-- UPLOAD SECTION -->
+<div id="upload-section">
+  <div class="upload-hero">
+    <h2>Panel de<br><span class="accent">Evaluación</span> Académica</h2>
+    <p>Carga los archivos CSV de cada evaluación para analizar resultados, comparar progresos y preparar la sesión de junta de evaluación.</p>
+
+    <div class="upload-cards">
+      <div class="upload-card" id="card-1">
+        <input type="file" accept=".csv" onchange="handleFileUpload(event, 1)">
+        <div class="trim-icon">1️⃣</div>
+        <div class="trim-label">1ª Evaluación</div>
+        <div class="trim-status" id="status-1">Clic para cargar</div>
+      </div>
+      <div class="upload-card" id="card-2">
+        <input type="file" accept=".csv" onchange="handleFileUpload(event, 2)">
+        <div class="trim-icon">2️⃣</div>
+        <div class="trim-label">2ª Evaluación</div>
+        <div class="trim-status" id="status-2">Clic para cargar</div>
+      </div>
+      <div class="upload-card" id="card-3">
+        <input type="file" accept=".csv" onchange="handleFileUpload(event, 3)">
+        <div class="trim-icon">3️⃣</div>
+        <div class="trim-label">3ª Evaluación</div>
+        <div class="trim-status" id="status-3">Clic para cargar</div>
+      </div>
+    </div>
+
+    <div id="start-btn-wrap" style="display:none; margin-top:24px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap">
+      <button class="btn btn-primary" id="start-btn" onclick="buildDashboard()" disabled style="font-size:14px; padding:10px 28px">
+        ▶ Abrir Panel
+      </button>
+      <button class="btn btn-ghost" onclick="loadDemo()">🎲 Demo</button>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="main-app" style="display:none">
+  <div class="container">
+    <!-- TOP BAR -->
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px; flex-wrap:wrap; justify-content:space-between">
+      <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap">
+        <span style="color:var(--text-dim); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px">Cargado:</span>
+        <span class="trimestre-badge t1" id="loaded-t1" style="display:none">✓ 1ª Eval.</span>
+        <span class="trimestre-badge t2" id="loaded-t2" style="display:none">✓ 2ª Eval.</span>
+        <span class="trimestre-badge t3" id="loaded-t3" style="display:none">✓ 3ª Eval.</span>
+        <div id="risk-summary-header"></div>
+      </div>
+      <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap">
+        <div class="zoom-controls no-print">
+          <button class="zoom-btn" onclick="changeZoom(-10)">−</button>
+          <span class="zoom-label" id="zoom-label">100%</span>
+          <button class="zoom-btn" onclick="changeZoom(10)">+</button>
+          <button class="zoom-btn" onclick="resetZoom()" title="Resetear">↺</button>
+        </div>
+        <button class="btn btn-secondary btn-sm no-print" onclick="openSessionMode()">🎓 Sesión</button>
+        <button class="btn btn-secondary btn-sm no-print" onclick="openConfigModal()">⚙️ Config</button>
+        <button class="btn btn-secondary btn-sm no-print" onclick="openUploadModal()">+ Cargar</button>
+        <div style="display:flex; gap:6px" class="no-print">
+          <button class="btn btn-ghost btn-sm" onclick="exportTxt()">📄 TXT</button>
+          <button class="btn btn-ghost btn-sm" onclick="exportPDF()">🖨 PDF</button>
+          <button class="btn btn-ghost btn-sm" onclick="exportFailsPDF()">⚠ PDF Suspensos</button>
+          <button class="btn btn-ghost btn-sm" onclick="saveSession()">💾 Sesión</button>
+          <label class="btn btn-ghost btn-sm" style="cursor:pointer">📂 Restaurar <input type="file" accept=".json" onchange="restoreSession(event)" style="display:none"></label>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-grid" id="stats-grid"></div>
+
+    <!-- TABS -->
+    <div class="tabs no-print">
+      <button class="tab-btn active" onclick="switchTab('tabla')" data-tab="tabla">📋 Tabla</button>
+      <button class="tab-btn" onclick="switchTab('heatmap')" data-tab="heatmap">🌡 Mapa de Calor</button>
+      <button class="tab-btn" onclick="switchTab('materias')" data-tab="materias">📚 Materias</button>
+      <button class="tab-btn" onclick="switchTab('alumnos')" data-tab="alumnos">👤 Alumnos</button>
+      <button class="tab-btn" onclick="switchTab('progresion')" data-tab="progresion">📈 Progresión</button>
+      <button class="tab-btn" onclick="switchTab('graficos')" data-tab="graficos">📊 Gráficos</button>
+      <button class="tab-btn" onclick="switchTab('riesgo')" data-tab="riesgo">🚨 Riesgo</button>
+    </div>
+
+    <!-- TAB: TABLA -->
+    <div id="tab-tabla" class="tab-content active">
+      <div class="filters-bar">
+        <div class="filter-group">
+          <span class="filter-label">Buscar alumno</span>
+          <input type="text" id="filter-name" placeholder="Nombre..." oninput="applyFilters()">
+        </div>
+        <div class="filter-group">
+          <span class="filter-label">Materia</span>
+          <select id="filter-subject" onchange="applyFilters()">
+            <option value="">Todas</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <span class="filter-label">Trimestre</span>
+          <select id="filter-trim" onchange="applyFilters()">
+            <option value="last">Último</option>
+            <option value="1">1ª</option>
+            <option value="2">2ª</option>
+            <option value="3">3ª</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <span class="filter-label">Mostrar</span>
+          <select id="filter-show" onchange="applyFilters()">
+            <option value="all">Todos</option>
+            <option value="fail">Con suspensos</option>
+            <option value="pass">Sin suspensos</option>
+            <option value="risk">En riesgo</option>
+          </select>
+        </div>
+      </div>
+      <div class="table-wrap" id="main-table-wrap"></div>
+    </div>
+
+    <!-- TAB: HEATMAP -->
+    <div id="tab-heatmap" class="tab-content">
+      <div class="filters-bar">
+        <div class="filter-group">
+          <span class="filter-label">Trimestre</span>
+          <select id="filter-trim-heat" onchange="renderHeatmap()">
+            <option value="last">Último</option>
+            <option value="1">1ª</option>
+            <option value="2">2ª</option>
+            <option value="3">3ª</option>
+          </select>
+        </div>
+      </div>
+      <div class="heatmap-wrap" id="heatmap-wrap"></div>
+    </div>
+
+    <!-- TAB: MATERIAS -->
+    <div id="tab-materias" class="tab-content">
+      <div class="filters-bar">
+        <div class="filter-group">
+          <span class="filter-label">Trimestre</span>
+          <select id="filter-trim-mat" onchange="renderSubjectCards()">
+            <option value="last">Último</option>
+            <option value="1">1ª</option>
+            <option value="2">2ª</option>
+            <option value="3">3ª</option>
+          </select>
+        </div>
+      </div>
+      <div id="subject-cards-wrap"></div>
+    </div>
+
+    <!-- TAB: ALUMNOS -->
+    <div id="tab-alumnos" class="tab-content">
+      <div class="filters-bar">
+        <div class="filter-group">
+          <span class="filter-label">Buscar</span>
+          <input type="text" id="filter-student-search" placeholder="Nombre..." oninput="renderStudentList()">
+        </div>
+        <div class="filter-group">
+          <span class="filter-label">Ordenar</span>
+          <select id="sort-students" onchange="renderStudentList()">
+            <option value="name">Nombre</option>
+            <option value="avg-asc">Media ↑</option>
+            <option value="avg-desc">Media ↓</option>
+            <option value="fails-desc">Más suspensos</option>
+            <option value="wavg-desc">Media ponderada ↓</option>
+          </select>
+        </div>
+      </div>
+      <div id="student-list-grid" style="display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:12px"></div>
+    </div>
+
+    <!-- TAB: PROGRESION -->
+    <div id="tab-progresion" class="tab-content">
+      <div class="filters-bar">
+        <div class="filter-group">
+          <span class="filter-label">Buscar</span>
+          <input type="text" id="filter-prog-search" placeholder="Nombre..." oninput="renderProgression()">
+        </div>
+      </div>
+      <div id="progression-wrap"></div>
+    </div>
+
+    <!-- TAB: GRÁFICOS -->
+    <div id="tab-graficos" class="tab-content">
+      <div class="charts-row">
+        <div class="chart-container">
+          <div class="chart-title">📈 Evolución de la media del grupo</div>
+          <canvas id="chart-group-evolution" height="200"></canvas>
+        </div>
+        <div class="chart-container">
+          <div class="chart-title">📊 Distribución de notas</div>
+          <canvas id="chart-distribution" height="200"></canvas>
+        </div>
+      </div>
+      <div class="chart-container">
+        <div class="chart-title">📚 Media por materia</div>
+        <div class="filters-bar" style="margin-bottom:0; padding:8px 12px">
+          <div class="filter-group">
+            <span class="filter-label">Trimestre</span>
+            <select id="filter-trim-chart" onchange="renderCharts()">
+              <option value="last">Último</option>
+              <option value="1">1ª</option>
+              <option value="2">2ª</option>
+              <option value="3">3ª</option>
+            </select>
+          </div>
+        </div>
+        <canvas id="chart-subjects" height="120" style="margin-top:12px"></canvas>
+      </div>
+    </div>
+
+    <!-- TAB: RIESGO -->
+    <div id="tab-riesgo" class="tab-content">
+      <div id="risk-wrap"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SESSION MODE -->
+<div id="session-mode">
+  <div class="session-header">
+    <div>
+      <div style="font-family:'Syne',sans-serif; font-weight:800; font-size:1rem">🎓 Modo Sesión de Evaluación</div>
+      <div class="session-counter" id="session-counter"></div>
+    </div>
+    <div style="display:flex; gap:10px; align-items:center">
+      <button class="btn btn-ghost" onclick="window.print()">🖨 Imprimir</button>
+      <button class="btn btn-danger" onclick="closeSessionMode()">✕ Salir</button>
+    </div>
+  </div>
+  <div class="session-body">
+    <div class="session-card" id="session-card-content"></div>
+  </div>
+  <div class="session-footer">
+    <button class="btn btn-secondary" onclick="sessionNav(-1)" id="sess-prev">← Anterior</button>
+    <div style="flex:1">
+      <div class="session-progress">
+        <div class="session-progress-fill" id="sess-progress"></div>
+      </div>
+    </div>
+    <button class="btn btn-primary" onclick="sessionNav(1)" id="sess-next">Siguiente →</button>
+  </div>
+</div>
+
+<script>
+// ============================================================
+//  CONSTANTS
+// ============================================================
+const SUBJECT_COLORS = [
+  '#5b8af0','#f06bbd','#3ecfcf','#3dd68c','#f5c842',
+  '#f08c4b','#9b79f5','#34d399','#f2637a','#60a5fa',
+  '#e879f9','#2dd4bf','#facc15','#f97316','#c084fc',
+  '#86efac','#fda4af','#7dd3fc','#a3e635','#fb7185'
+];
+
+// ============================================================
+//  STATE
+// ============================================================
+let state = {
+  trims: { 1: null, 2: null, 3: null },
+  subjects: [],
+  modalTrim: null,
+  modalFile: null,
+  pendingModalData: null,
+  zoom: 100,
+  studentModal: { name: null, showOnlyFails: false },
+  session: { idx: 0, students: [] },
+  sort: { col: null, dir: 'asc' },
+  config: {
+    weights: { 1: 30, 2: 30, 3: 40 },
+    dropAlert: 2,
+    consecAlert: 3,
+    subjectNames: {},    // abbr -> fullname
+    optativas: new Set(),
+  },
+  comments: {}, // loaded from localStorage
+};
+
+// Load comments from localStorage
+try {
+  const saved = localStorage.getItem('eval_comments');
+  if (saved) state.comments = JSON.parse(saved);
+} catch(e) {}
+
+// ============================================================
+//  CSV PARSING
+// ============================================================
+function readFileSmartEncoding(file, callback) {
+  const reader = new FileReader();
+  reader.onload = ev => {
+    const text = ev.target.result;
+    if (text.includes('\uFFFD')) {
+      const r2 = new FileReader();
+      r2.onload = ev2 => callback(ev2.target.result);
+      r2.readAsText(file, 'windows-1252');
+    } else { callback(text); }
+  };
+  reader.readAsText(file, 'UTF-8');
+}
+
+function parseCSV(text) {
+  const result = Papa.parse(text.trim(), { header: true, skipEmptyLines: true, dynamicTyping: false });
+  if (!result.data.length) return null;
+  const headers = result.meta.fields;
+  const nameCol = headers[0];
+  const subjectCols = headers.slice(1).filter(h => h && h.trim());
+  const students = result.data.map(row => {
+    const name = (row[nameCol] || '').trim();
+    if (!name) return null;
+    const grades = {};
+    subjectCols.forEach(sub => {
+      const raw = (row[sub] || '').toString().trim().toUpperCase();
+      grades[sub] = parseGrade(raw);
+    });
+    return { name, grades };
+  }).filter(Boolean);
+  return { students, subjects: subjectCols };
+}
+
+function parseGrade(raw) {
+  if (!raw || raw === '' || raw === '-') return { type: 'absent', value: null };
+  if (raw === 'NP' || raw === 'S/C' || raw === 'SN' || raw === 'NC') return { type: 'np', value: null };
+  const n = parseFloat(raw.replace(',', '.'));
+  if (!isNaN(n)) return { type: 'grade', value: Math.min(10, Math.max(0, n)) };
+  return { type: 'absent', value: null };
+}
+
+// ============================================================
+//  UPLOAD HANDLERS
+// ============================================================
+function handleFileUpload(e, trim) {
+  const file = e.target.files[0];
+  if (!file) return;
+  readFileSmartEncoding(file, text => {
+    const parsed = parseCSV(text);
+    if (!parsed) { alert('Error al leer el archivo'); return; }
+    state.trims[trim] = parsed;
+    document.getElementById('card-' + trim).classList.add('loaded');
+    document.getElementById('status-' + trim).textContent = `✓ ${parsed.students.length} alumnos`;
+    checkStartButton();
+  });
+}
+
+function checkStartButton() {
+  const hasAny = state.trims[1] || state.trims[2] || state.trims[3];
+  const wrap = document.getElementById('start-btn-wrap');
+  if (wrap) { wrap.style.display = 'flex'; }
+  const btn = document.getElementById('start-btn');
+  if (btn) btn.disabled = !hasAny;
+}
+
+function openUploadModal() {
+  state.modalTrim = null; state.modalFile = null; state.pendingModalData = null;
+  document.getElementById('modal-apply-btn').disabled = true;
+  document.getElementById('modal-file-name').textContent = '';
+  [1,2,3].forEach(i => document.getElementById('opt-'+i).classList.remove('selected'));
+  document.getElementById('upload-modal').classList.add('open');
+}
+
+function selectTrim(n) {
+  state.modalTrim = n;
+  [1,2,3].forEach(i => document.getElementById('opt-'+i).classList.remove('selected'));
+  document.getElementById('opt-'+n).classList.add('selected');
+  checkModalApplyBtn();
+}
+
+function handleModalUpload(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  document.getElementById('modal-file-name').textContent = file.name;
+  readFileSmartEncoding(file, text => {
+    state.pendingModalData = parseCSV(text);
+    checkModalApplyBtn();
+  });
+}
+
+function checkModalApplyBtn() {
+  document.getElementById('modal-apply-btn').disabled = !(state.modalTrim && state.pendingModalData);
+}
+
+function applyModalUpload() {
+  if (!state.modalTrim || !state.pendingModalData) return;
+  state.trims[state.modalTrim] = state.pendingModalData;
+  closeModal('upload-modal');
+  buildDashboard();
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+// ============================================================
+//  DASHBOARD BUILD
+// ============================================================
+function buildDashboard() {
+  const subjectSet = new Set();
+  [1,2,3].forEach(t => { if (state.trims[t]) state.trims[t].subjects.forEach(s => subjectSet.add(s)); });
+  state.subjects = Array.from(subjectSet);
+
+  document.getElementById('upload-section').style.display = 'none';
+  document.getElementById('main-app').style.display = 'block';
+
+  [1,2,3].forEach(t => {
+    const el = document.getElementById('loaded-t' + t);
+    if (el) el.style.display = state.trims[t] ? 'inline-flex' : 'none';
+  });
+
+  renderHeaderActions();
+  renderStats();
+  renderMainTable();
+  renderSubjectFilter();
+  renderSubjectCards();
+  renderStudentList();
+  renderProgression();
+  renderHeatmap();
+  renderCharts();
+  renderRiskTab();
+}
+
+function renderHeaderActions() {
+  // nothing dynamic needed beyond what's in HTML
+}
+
+// ============================================================
+//  HELPERS
+// ============================================================
+function getLastTrim() {
+  for (let t = 3; t >= 1; t--) { if (state.trims[t]) return t; }
+  return 1;
+}
+
+function getTrimData(trimVal) {
+  if (trimVal === 'last') return state.trims[getLastTrim()];
+  return state.trims[parseInt(trimVal)];
+}
+
+function getStudentAvg(student, trimData, excludeOptativas = false) {
+  const entries = Object.entries(student.grades)
+    .filter(([sub, g]) => {
+      if (g.type !== 'grade') return false;
+      if (excludeOptativas && state.config.optativas.has(sub)) return false;
+      return true;
+    });
+  if (!entries.length) return null;
+  return entries.reduce((a,[,g]) => a + g.value, 0) / entries.length;
+}
+
+function getStudentFails(student, excludeOptativas = false) {
+  return Object.entries(student.grades).filter(([sub, g]) => {
+    if (excludeOptativas && state.config.optativas.has(sub)) return false;
+    return g.type === 'grade' && g.value < 5;
+  }).length;
+}
+
+function getWeightedAvg(name) {
+  const loadedTrims = [1,2,3].filter(t => state.trims[t]);
+  const total = loadedTrims.reduce((a,t) => a + state.config.weights[t], 0);
+  if (total === 0) return null;
+  let sum = 0, weightSum = 0;
+  loadedTrims.forEach(t => {
+    const td = state.trims[t];
+    const s = td.students.find(x => x.name === name);
+    if (!s) return;
+    const avg = getStudentAvg(s, td, true);
+    if (avg === null) return;
+    sum += avg * state.config.weights[t];
+    weightSum += state.config.weights[t];
+  });
+  if (weightSum === 0) return null;
+  return sum / weightSum;
+}
+
+function getSubjectColor(idx) { return SUBJECT_COLORS[idx % SUBJECT_COLORS.length]; }
+function subjectColorIdx(sub) { return state.subjects.indexOf(sub); }
+
+function getSubjectName(abbr) {
+  return state.config.subjectNames[abbr] || abbr;
+}
+
+function avgColor(v) {
+  if (v === null || isNaN(v)) return 'var(--text-muted)';
+  if (v >= 7) return 'var(--green)';
+  if (v >= 5) return 'var(--yellow)';
+  return 'var(--red)';
+}
+
+function gradeClass(g) {
+  if (!g || g.type === 'absent') return 'grade-absent';
+  if (g.type === 'np') return 'grade-np';
+  const v = Math.round(g.value);
+  return 'grade-' + v;
+}
+
+function gradeDisplay(g) {
+  if (!g || g.type === 'absent') return '<span class="grade-cell grade-absent">—</span>';
+  if (g.type === 'np') return '<span class="grade-cell grade-np">NP</span>';
+  const v = g.value;
+  const cls = gradeClass(g);
+  const icon = v < 5 ? '✗' : (v >= 9 ? '★' : '');
+  return `<span class="grade-cell ${cls}">${icon}${v % 1 === 0 ? v : v.toFixed(1)}</span>`;
+}
+
+function gradeShort(g) {
+  if (!g || g.type === 'absent') return '—';
+  if (g.type === 'np') return 'NP';
+  return g.value % 1 === 0 ? g.value : g.value.toFixed(1);
+}
+
+function getTrend(avgs) {
+  const valid = avgs.filter(a => a !== null);
+  if (valid.length < 2) return { icon: '→', label: 'sin datos', class: 'trend-flat' };
+  const first = valid[0], last = valid[valid.length - 1];
+  const diff = last - first;
+  if (diff > 0.5) return { icon: '↑', label: `+${diff.toFixed(1)}`, class: 'trend-up' };
+  if (diff < -0.5) return { icon: '↓', label: diff.toFixed(1), class: 'trend-down' };
+  return { icon: '→', label: 'estable', class: 'trend-flat' };
+}
+
+function escHtml(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+// ============================================================
+//  RISK DETECTION
+// ============================================================
+function detectRisk(name) {
+  const loadedTrims = [1,2,3].filter(t => state.trims[t]);
+  const reasons = [];
+
+  if (loadedTrims.length >= 2) {
+    const avgs = loadedTrims.map(t => {
+      const td = state.trims[t];
+      const s = td.students.find(x => x.name === name);
+      if (!s) return null;
+      return getStudentAvg(s, td, true);
+    }).filter(a => a !== null);
+
+    // Check drop between any two consecutive
+    for (let i = 1; i < avgs.length; i++) {
+      const drop = avgs[i-1] - avgs[i];
+      if (drop >= state.config.dropAlert) {
+        reasons.push(`⬇ Caída de ${drop.toFixed(1)} pts (${loadedTrims[i-1]}ª→${loadedTrims[i]}ª eval.)`);
+      }
+    }
+
+    // Consecutive fails across trims
+    let consecCount = 0; let maxConsec = 0;
+    state.subjects.forEach(sub => {
+      consecCount = 0;
+      loadedTrims.forEach(t => {
+        const td = state.trims[t];
+        const s = td.students.find(x => x.name === name);
+        if (!s) return;
+        const g = s.grades[sub];
+        if (g && g.type === 'grade' && g.value < 5) consecCount++;
+        else consecCount = 0;
+        maxConsec = Math.max(maxConsec, consecCount);
+      });
+    });
+    if (maxConsec >= state.config.consecAlert) {
+      reasons.push(`🔁 ${maxConsec} suspensos consecutivos en la misma materia`);
+    }
+  }
+
+  const lastTrim = state.trims[getLastTrim()];
+  const lastStudent = lastTrim.students.find(x => x.name === name);
+  if (lastStudent) {
+    const fails = getStudentFails(lastStudent, true);
+    if (fails >= 4) reasons.push(`⚠ ${fails} materias suspensas en último trimestre`);
+  }
+
+  return reasons;
+}
+
+// ============================================================
+//  NOTA MÍNIMA 3ª EVALUACIÓN
+// ============================================================
+function calcNotaMinima(name, sub) {
+  if (!state.trims[1] || !state.trims[2]) return null;
+  const w1 = state.config.weights[1], w2 = state.config.weights[2], w3 = state.config.weights[3];
+  const total = w1 + w2 + w3;
+  if (total === 0 || w3 === 0) return null;
+
+  const g1 = state.trims[1].students.find(x => x.name === name)?.grades[sub];
+  const g2 = state.trims[2].students.find(x => x.name === name)?.grades[sub];
+  if (!g1 || g1.type !== 'grade' || !g2 || g2.type !== 'grade') return null;
+
+  // nota_final = (g1*w1 + g2*w2 + g3*w3) / total >= 5
+  // g3 >= (5*total - g1*w1 - g2*w2) / w3
+  const min3 = (5 * total - g1.value * w1 - g2.value * w2) / w3;
+  return Math.max(0, Math.min(10, min3));
+}
+
+// ============================================================
+//  STATS
+// ============================================================
+function renderStats() {
+  const trimData = state.trims[getLastTrim()];
+  if (!trimData) return;
+  const avgs = trimData.students.map(s => getStudentAvg(s, trimData, true)).filter(v => v !== null);
+  const groupAvg = avgs.length ? (avgs.reduce((a,b)=>a+b,0)/avgs.length).toFixed(2) : '—';
+  const passing = trimData.students.filter(s => getStudentFails(s,true) === 0).length;
+  const passRate = ((passing / trimData.students.length) * 100).toFixed(0);
+  const totalFails = trimData.students.reduce((acc, s) => acc + getStudentFails(s,true), 0);
+  const loadedTrims = [1,2,3].filter(t => state.trims[t]).length;
+  const riskCount = trimData.students.filter(s => detectRisk(s.name).length > 0).length;
+
+  document.getElementById('stats-grid').innerHTML = `
+    <div class="stat-card" style="border-left-color:var(--accent)">
+      <div class="stat-label">👨‍🎓 Total alumnos</div>
+      <div class="stat-value">${trimData.students.length}</div>
+      <div class="stat-sub">${loadedTrims} evaluacion${loadedTrims!==1?'es':''} cargada${loadedTrims!==1?'s':''}</div>
+    </div>
+    <div class="stat-card" style="border-left-color:${avgColor(parseFloat(groupAvg))}">
+      <div class="stat-label">📊 Media del grupo</div>
+      <div class="stat-value" style="color:${avgColor(parseFloat(groupAvg))}">${groupAvg}</div>
+      <div class="stat-sub">Último trimestre (sin optativas)</div>
+    </div>
+    <div class="stat-card" style="border-left-color:${parseFloat(passRate)>=50?'var(--green)':'var(--red)'}">
+      <div class="stat-label">✅ Todo aprobado</div>
+      <div class="stat-value" style="color:${parseFloat(passRate)>=50?'var(--green)':'var(--red)'}">${passRate}%</div>
+      <div class="stat-sub">${passing} sin ningún suspenso</div>
+    </div>
+    <div class="stat-card" style="border-left-color:var(--red)">
+      <div class="stat-label">❌ Total suspensos</div>
+      <div class="stat-value" style="color:var(--red)">${totalFails}</div>
+      <div class="stat-sub">en último trimestre</div>
+    </div>
+    <div class="stat-card" style="border-left-color:var(--cyan)">
+      <div class="stat-label">📚 Materias</div>
+      <div class="stat-value">${state.subjects.filter(s=>!state.config.optativas.has(s)).length}</div>
+      <div class="stat-sub">${state.config.optativas.size} optativa${state.config.optativas.size!==1?'s':''}</div>
+    </div>
+    <div class="stat-card" style="border-left-color:${riskCount>0?'var(--red)':'var(--green)'}">
+      <div class="stat-label">🚨 En riesgo</div>
+      <div class="stat-value" style="color:${riskCount>0?'var(--red)':'var(--green)'}">${riskCount}</div>
+      <div class="stat-sub">alumnos detectados</div>
+    </div>
+  `;
+
+  const riskH = document.getElementById('risk-summary-header');
+  if (riskH) {
+    riskH.innerHTML = riskCount > 0
+      ? `<span class="risk-badge">🚨 ${riskCount} alumnos en riesgo</span>`
+      : '';
+  }
+}
+
+function loadedTrimLabels() {
+  const l = []; [1,2,3].forEach(t => { if (state.trims[t]) l.push(t+'ª'); });
+  return l.join(', ') + ' eval.';
+}
+
+// ============================================================
+//  MAIN TABLE
+// ============================================================
+function renderSubjectFilter() {
+  const sel = document.getElementById('filter-subject');
+  sel.innerHTML = '<option value="">Todas</option>';
+  state.subjects.forEach(s => {
+    const opt = document.createElement('option');
+    opt.value = s; opt.textContent = getSubjectName(s);
+    sel.appendChild(opt);
+  });
+}
+
+function applyFilters() { renderMainTable(); }
+
+let tableSort = { col: null, dir: 'asc' };
+
+function sortTable(col) {
+  if (tableSort.col === col) tableSort.dir = tableSort.dir === 'asc' ? 'desc' : 'asc';
+  else { tableSort.col = col; tableSort.dir = 'asc'; }
+  renderMainTable();
+}
+
+function renderMainTable() {
+  const trimVal = document.getElementById('filter-trim').value;
+  const trimData = getTrimData(trimVal);
+  if (!trimData) {
+    document.getElementById('main-table-wrap').innerHTML = '<div class="empty-state"><div class="icon">⚠️</div><p>No hay datos para este trimestre</p></div>';
+    return;
+  }
+
+  const nameFilter = document.getElementById('filter-name').value.toLowerCase();
+  const subjectFilter = document.getElementById('filter-subject').value;
+  const showFilter = document.getElementById('filter-show').value;
+
+  let students = trimData.students.filter(s => {
+    if (nameFilter && !s.name.toLowerCase().includes(nameFilter)) return false;
+    if (showFilter === 'fail' && getStudentFails(s,true) === 0) return false;
+    if (showFilter === 'pass' && getStudentFails(s,true) > 0) return false;
+    if (showFilter === 'risk' && detectRisk(s.name).length === 0) return false;
+    return true;
+  });
+
+  const subjects = subjectFilter ? [subjectFilter] : trimData.subjects;
+
+  // Sort
+  if (tableSort.col === 'name') students.sort((a,b) => tableSort.dir==='asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
+  else if (tableSort.col === 'avg') students.sort((a,b) => {
+    const aa = getStudentAvg(a,trimData,true) ?? -1;
+    const bb = getStudentAvg(b,trimData,true) ?? -1;
+    return tableSort.dir==='asc' ? aa-bb : bb-aa;
+  });
+  else if (tableSort.col === 'fails') students.sort((a,b) => {
+    return tableSort.dir==='asc' ? getStudentFails(a,true)-getStudentFails(b,true) : getStudentFails(b,true)-getStudentFails(a,true);
+  });
+  else if (tableSort.col && subjects.includes(tableSort.col)) {
+    students.sort((a,b) => {
+      const ga = a.grades[tableSort.col];
+      const gb = b.grades[tableSort.col];
+      const va = ga?.type==='grade' ? ga.value : -1;
+      const vb = gb?.type==='grade' ? gb.value : -1;
+      return tableSort.dir==='asc' ? va-vb : vb-va;
+    });
+  }
+
+  // Compute group avg per subject for comparison
+  const groupSubAvg = {};
+  subjects.forEach(sub => {
+    const vals = trimData.students.map(s => s.grades[sub]).filter(g => g?.type==='grade').map(g => g.value);
+    groupSubAvg[sub] = vals.length ? vals.reduce((a,b)=>a+b,0)/vals.length : null;
+  });
+
+  const si = col => tableSort.col === col ? `<span class="sort-icon">${tableSort.dir==='asc'?'↑':'↓'}</span>` : '<span class="sort-icon">↕</span>';
+
+  let html = `<table><thead><tr>
+    <th onclick="sortTable('name')" class="${tableSort.col==='name'?'sorted':''}">Alumno/a ${si('name')}</th>
+    <th onclick="sortTable('avg')" class="${tableSort.col==='avg'?'sorted':''}">Media ${si('avg')}</th>
+    <th onclick="sortTable('fails')" class="${tableSort.col==='fails'?'sorted':''}">Susp. ${si('fails')}</th>
+    <th style="color:var(--text-muted)">Riesgo</th>`;
+
+  subjects.forEach(sub => {
+    const ci = subjectColorIdx(sub);
+    const color = getSubjectColor(ci);
+    const isOpt = state.config.optativas.has(sub);
+    html += `<th style="border-top:2px solid ${color}" onclick="sortTable('${sub}')" class="${tableSort.col===sub?'sorted':''}">
+      <div class="tooltip-wrap">
+        <div class="subject-header" style="color:${color}">${getSubjectName(sub)}</div>
+        <div class="tooltip">${getSubjectName(sub)}${isOpt?' (optativa)':''}</div>
+      </div>
+    </th>`;
+  });
+
+  html += '</tr></thead><tbody>';
+
+  students.forEach(student => {
+    const avg = getStudentAvg(student, trimData, true);
+    const fails = getStudentFails(student, true);
+    const risks = detectRisk(student.name);
+    const isRisk = risks.length > 0;
+    const wAvg = getWeightedAvg(student.name);
+    const avgDisp = avg !== null ? avg.toFixed(1) : '—';
+    const avgCls = avgColor(avg);
+
+    html += `<tr class="${isRisk?'risk-row':''}">
+      <td>
+        <span class="name-cell" onclick="openStudentModal('${escHtml(student.name)}')">${escHtml(student.name)}</span>
+        ${state.comments[student.name] ? '<span title="Tiene notas" style="color:var(--yellow); font-size:11px; margin-left:4px">📝</span>' : ''}
+      </td>
+      <td>
+        <span class="avg-inline" style="background:rgba(0,0,0,0.3); color:${avgCls}">${avgDisp}</span>
+        ${wAvg !== null && [1,2,3].filter(t=>state.trims[t]).length > 1 ? `<span style="font-size:10px; color:var(--text-muted); margin-left:4px" title="Media ponderada">⊡${wAvg.toFixed(1)}</span>` : ''}
+      </td>
+      <td>${fails > 0 ? `<span class="fail-pill">⚠ ${fails}</span>` : '<span class="pass-pill">✓</span>'}</td>
+      <td>${isRisk ? `<span class="risk-badge" title="${risks.join('\n')}">🚨</span>` : '<span style="color:var(--text-dim)">—</span>'}</td>`;
+
+    subjects.forEach(sub => {
+      const g = student.grades[sub] || { type: 'absent', value: null };
+      const gAvg = groupSubAvg[sub];
+      let vsGroup = '';
+      if (g.type === 'grade' && gAvg !== null) {
+        const diff = g.value - gAvg;
+        if (diff > 0.5) vsGroup = `<span style="font-size:9px; color:var(--green); margin-left:2px">↑</span>`;
+        else if (diff < -0.5) vsGroup = `<span style="font-size:9px; color:var(--red); margin-left:2px">↓</span>`;
+      }
+      html += `<td style="text-align:center">${gradeDisplay(g)}${vsGroup}</td>`;
+    });
+    html += '</tr>';
+  });
+
+  html += '</tbody></table>';
+  document.getElementById('main-table-wrap').innerHTML = html;
+}
+
+// ============================================================
+//  HEATMAP
+// ============================================================
+function renderHeatmap() {
+  const trimVal = document.getElementById('filter-trim-heat').value;
+  const trimData = getTrimData(trimVal);
+  const wrap = document.getElementById('heatmap-wrap');
+  if (!trimData) { wrap.innerHTML = '<div class="empty-state"><div class="icon">⚠️</div><p>No hay datos</p></div>'; return; }
+
+  const subjects = trimData.subjects;
+  let html = `<table class="heatmap-table"><thead><tr><th style="min-width:120px">Alumno/a</th>`;
+  subjects.forEach(sub => {
+    const ci = subjectColorIdx(sub);
+    const color = getSubjectColor(ci);
+    html += `<th style="border-top:2px solid ${color}"><div class="subject-header" style="color:${color}">${getSubjectName(sub)}</div></th>`;
+  });
+  html += '</tr></thead><tbody>';
+
+  trimData.students.forEach(student => {
+    html += `<tr><td><span class="name-cell" onclick="openStudentModal('${escHtml(student.name)}')">${escHtml(student.name)}</span></td>`;
+    subjects.forEach(sub => {
+      const g = student.grades[sub];
+      let bg = 'rgba(37,45,69,0.3)', color = 'var(--text-dim)', txt = '—';
+      if (g && g.type === 'grade') {
+        const v = g.value;
+        txt = v % 1 === 0 ? v : v.toFixed(1);
+        if (v >= 9) { bg = 'rgba(61,214,140,0.35)'; color = '#5eefaa'; }
+        else if (v >= 7) { bg = 'rgba(61,214,140,0.2)'; color = '#5eefaa'; }
+        else if (v >= 6) { bg = 'rgba(245,200,66,0.2)'; color = '#f5e070'; }
+        else if (v >= 5) { bg = 'rgba(240,140,75,0.2)'; color = '#f5b07a'; }
+        else if (v >= 3) { bg = 'rgba(242,99,122,0.25)'; color = '#f5808f'; }
+        else { bg = 'rgba(242,99,122,0.4)'; color = '#f5808f'; }
+      } else if (g && g.type === 'np') {
+        bg = 'rgba(155,121,245,0.15)'; color = '#b599f8'; txt = 'NP';
+      }
+      html += `<td><div class="heatmap-cell" style="background:${bg}; color:${color}">${txt}</div></td>`;
+    });
+    html += '</tr>';
+  });
+
+  html += '</tbody></table>';
+  wrap.innerHTML = html;
+}
+
+// ============================================================
+//  SUBJECT CARDS
+// ============================================================
+function renderSubjectCards() {
+  const trimVal = document.getElementById('filter-trim-mat').value;
+  const trimData = getTrimData(trimVal);
+  const wrap = document.getElementById('subject-cards-wrap');
+  if (!trimData) { wrap.innerHTML = '<div class="empty-state"><div class="icon">⚠️</div><p>No hay datos</p></div>'; return; }
+
+  const prevTrimNum = parseInt(trimVal === 'last' ? getLastTrim() : trimVal) - 1;
+  const prevTrim = state.trims[prevTrimNum] || null;
+
+  let html = '<div class="subject-cards">';
+  trimData.subjects.forEach(sub => {
+    const ci = subjectColorIdx(sub);
+    const color = getSubjectColor(ci);
+    const isOpt = state.config.optativas.has(sub);
+    const grades = trimData.students.map(s => s.grades[sub]).filter(g => g?.type === 'grade');
+    const pass = grades.filter(g => g.value >= 5).length;
+    const fail = grades.filter(g => g.value < 5).length;
+    const np = trimData.students.filter(s => s.grades[sub]?.type === 'np').length;
+    const avg = grades.length ? (grades.reduce((a,g)=>a+g.value,0)/grades.length).toFixed(2) : '—';
+    const passRate = grades.length ? ((pass/grades.length)*100).toFixed(0) : 0;
+    const passColor = parseFloat(passRate) >= 70 ? 'var(--green)' : parseFloat(passRate) >= 50 ? 'var(--yellow)' : 'var(--red)';
+
+    // Recover / worsen from previous trimestre
+    let recoverHtml = '';
+    if (prevTrim) {
+      let recovered = 0, worsened = 0;
+      trimData.students.forEach(s => {
+        const prevS = prevTrim.students.find(x => x.name === s.name);
+        if (!prevS) return;
+        const gNow = s.grades[sub], gPrev = prevS.grades[sub];
+        if (gPrev?.type==='grade' && gNow?.type==='grade') {
+          if (gPrev.value < 5 && gNow.value >= 5) recovered++;
+          if (gPrev.value >= 5 && gNow.value < 5) worsened++;
+        }
+      });
+      if (recovered > 0) recoverHtml += `<span style="font-size:10px; color:var(--green); background:rgba(61,214,140,0.1); border-radius:4px; padding:1px 6px; margin-right:4px">↑ ${recovered} recuperan</span>`;
+      if (worsened > 0) recoverHtml += `<span style="font-size:10px; color:var(--red); background:rgba(242,99,122,0.1); border-radius:4px; padding:1px 6px">↓ ${worsened} empeoran</span>`;
+    }
+
+    const dist = [0,1,2,3,4,5,6,7,8,9,10].map(n => grades.filter(g => Math.round(g.value) === n).length);
+    const maxDist = Math.max(...dist, 1);
+    const bars = dist.map((cnt,n) => {
+      const h = Math.round((cnt/maxDist)*32);
+      const bc = n < 5 ? 'var(--red)' : n < 7 ? 'var(--yellow)' : 'var(--green)';
+      return `<div class="spark-bar" style="height:${Math.max(2,h)}px;background:${bc}" title="${n}: ${cnt}"></div>`;
+    }).join('');
+
+    html += `<div class="subject-card" style="border-top-color:${color}">
+      <h4 style="color:${color}"><span class="subject-color-dot" style="background:${color}"></span> ${getSubjectName(sub)} ${isOpt ? '<span class="optativa-tag">OPT</span>' : ''}</h4>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px">
+        <span style="font-size:11px; color:var(--text-muted)">${pass}/${grades.length} aprobados</span>
+        <span style="font-weight:800; font-size:1rem; color:${passColor}; font-family:'Syne',sans-serif">${passRate}%</span>
+      </div>
+      <div class="pass-bar"><div class="pass-fill" style="width:${passRate}%; background:${passColor}"></div></div>
+      <div class="sparkline">${bars}</div>
+      ${recoverHtml ? `<div style="margin:6px 0">${recoverHtml}</div>` : ''}
+      <div class="metrics">
+        <div class="metric"><div class="val" style="color:${avgColor(parseFloat(avg))}">${avg}</div><div class="lbl">Media</div></div>
+        <div class="metric"><div class="val" style="color:var(--green)">${pass}</div><div class="lbl">Aprob.</div></div>
+        <div class="metric"><div class="val" style="color:var(--red)">${fail}</div><div class="lbl">Susp.</div></div>
+        <div class="metric"><div class="val" style="color:var(--accent2)">${np}</div><div class="lbl">NP</div></div>
+      </div>
+    </div>`;
+  });
+  html += '</div>';
+  wrap.innerHTML = html;
+}
+
+// ============================================================
+//  STUDENT LIST
+// ============================================================
+function renderStudentList() {
+  const search = document.getElementById('filter-student-search').value.toLowerCase();
+  const sortBy = document.getElementById('sort-students').value;
+  const trimData = state.trims[getLastTrim()];
+  if (!trimData) return;
+
+  let students = trimData.students.filter(s => !search || s.name.toLowerCase().includes(search));
+  students = students.map(s => ({ ...s, avg: getStudentAvg(s,trimData,true), fails: getStudentFails(s,true), wAvg: getWeightedAvg(s.name) }));
+
+  if (sortBy === 'avg-asc') students.sort((a,b) => (a.avg??0) - (b.avg??0));
+  else if (sortBy === 'avg-desc') students.sort((a,b) => (b.avg??0) - (a.avg??0));
+  else if (sortBy === 'fails-desc') students.sort((a,b) => b.fails - a.fails);
+  else if (sortBy === 'wavg-desc') students.sort((a,b) => (b.wAvg??0) - (a.wAvg??0));
+  else students.sort((a,b) => a.name.localeCompare(b.name));
+
+  const grid = document.getElementById('student-list-grid');
+  if (!students.length) { grid.innerHTML = '<div class="empty-state"><div class="icon">🔍</div><p>Sin resultados</p></div>'; return; }
+
+  grid.innerHTML = students.map(s => {
+    const avgDisp = s.avg !== null ? s.avg.toFixed(1) : '—';
+    const avgC = avgColor(s.avg);
+    const failSubs = Object.entries(s.grades).filter(([,g]) => g.type==='grade' && g.value<5).map(([sub]) => sub);
+    const risks = detectRisk(s.name);
+
+    let trend = '';
+    const prevTrims = [3,2,1].filter(t => t < getLastTrim() && state.trims[t]);
+    if (prevTrims.length) {
+      const prevTd = state.trims[prevTrims[0]];
+      const prev = prevTd.students.find(ps => ps.name === s.name);
+      if (prev) {
+        const prevAvg = getStudentAvg(prev, prevTd, true);
+        if (prevAvg !== null && s.avg !== null) {
+          const diff = s.avg - prevAvg;
+          if (diff > 0.3) trend = `<span class="trend-up">↑ +${diff.toFixed(1)}</span>`;
+          else if (diff < -0.3) trend = `<span class="trend-down">↓ ${diff.toFixed(1)}</span>`;
+          else trend = `<span class="trend-flat">→ estable</span>`;
+        }
+      }
+    }
+
+    return `<div class="subject-card" style="cursor:pointer; border-top-color:${avgC}; ${risks.length?'border-color:rgba(242,99,122,0.3)':''}" onclick="openStudentModal('${escHtml(s.name)}')">
+      <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:10px">
+        <div>
+          <div style="font-weight:700; font-size:14px">${escHtml(s.name)}</div>
+          <div style="font-size:11px; color:var(--text-muted); margin-top:2px">${trend} ${risks.length ? '<span class="risk-badge" style="font-size:9px">🚨</span>' : ''}</div>
+        </div>
+        <div class="avg-badge" style="border-color:${avgC}; color:${avgC}">${avgDisp}</div>
+      </div>
+      ${failSubs.length>0 ? `<div style="margin-bottom:8px">${failSubs.slice(0,4).map(sub=>`<span style="font-size:10px; background:rgba(242,99,122,0.08); color:var(--red); border-radius:4px; padding:2px 6px; margin:1px; display:inline-block">✗ ${getSubjectName(sub)}</span>`).join('')}${failSubs.length>4?`<span style="font-size:10px; color:var(--text-muted)"> +${failSubs.length-4}</span>`:''}</div>` : '<div style="margin-bottom:8px; font-size:11px; color:var(--green)">✓ Sin suspensos</div>'}
+      <div class="sparkline">
+        ${trimData.subjects.slice(0,12).map(sub => {
+          const g = s.grades[sub];
+          if (!g || g.type !== 'grade') return '<div class="spark-bar" style="height:2px;background:var(--border)"></div>';
+          const h = Math.round((g.value/10)*32);
+          return `<div class="spark-bar" style="height:${Math.max(2,h)}px;background:${g.value>=5?'var(--green)':'var(--red)'}" title="${getSubjectName(sub)}: ${g.value}"></div>`;
+        }).join('')}
+      </div>
+      ${s.wAvg !== null ? `<div style="font-size:10px; color:var(--text-muted); margin-top:6px">Media ponderada: <strong style="color:${avgColor(s.wAvg)}">${s.wAvg.toFixed(2)}</strong></div>` : ''}
+    </div>`;
+  }).join('');
+}
+
+// ============================================================
+//  PROGRESSION TAB
+// ============================================================
+function renderProgression() {
+  const search = document.getElementById('filter-prog-search').value.toLowerCase();
+  const loadedTrims = [1,2,3].filter(t => state.trims[t]);
+  if (!loadedTrims.length) return;
+
+  if (loadedTrims.length === 1) {
+    document.getElementById('progression-wrap').innerHTML = `<div class="empty-state"><div class="icon">📊</div><p>Carga al menos 2 evaluaciones para ver la progresión comparativa.<br><span style="font-size:12px">Tienes cargada solo la ${loadedTrims[0]}ª evaluación.</span></p></div>`;
+    return;
+  }
+
+  const refTrim = state.trims[loadedTrims[0]];
+  let students = refTrim.students.filter(s => !search || s.name.toLowerCase().includes(search));
+  const wrap = document.getElementById('progression-wrap');
+
+  let html = `<div class="section-title">Evolución por alumno <span style="font-size:12px; font-family:'Inter',sans-serif; font-weight:400; color:var(--text-muted)">${students.length} alumnos</span></div>`;
+
+  students.forEach(refStudent => {
+    const name = refStudent.name;
+    const trimAvgs = loadedTrims.map(t => {
+      const td = state.trims[t];
+      const s = td.students.find(x => x.name === name);
+      if (!s) return null;
+      return getStudentAvg(s, td, true);
+    });
+    const trend = getTrend(trimAvgs);
+    const risks = detectRisk(name);
+
+    html += `<div style="background:var(--surface); border:1px solid ${risks.length?'rgba(242,99,122,0.25)':'var(--border)'}; border-radius:12px; padding:16px; margin-bottom:12px; cursor:pointer" onclick="openStudentModal('${escHtml(name)}')">
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; flex-wrap:wrap; gap:8px">
+        <div style="font-weight:700; font-size:14px">${escHtml(name)} ${risks.length ? '<span class="risk-badge" style="font-size:9px; margin-left:6px">🚨</span>' : ''}</div>
+        <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap">
+          ${loadedTrims.map((t,i) => `<span class="trimestre-badge t${t}">${t}ª: <strong>${trimAvgs[i] !== null ? trimAvgs[i].toFixed(1) : '—'}</strong></span>`).join('')}
+          <span class="${trend.class}" style="font-weight:700; font-size:12px">${trend.icon} ${trend.label}</span>
+        </div>
+      </div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap">
+        ${state.subjects.slice(0,14).map(sub => {
+          const subTrims = loadedTrims.map(t => {
+            const td = state.trims[t];
+            if (!td) return null;
+            const s = td.students.find(x => x.name === name);
+            if (!s) return null;
+            return { t, g: s.grades[sub] || null };
+          }).filter(Boolean);
+          const ci = subjectColorIdx(sub); const color = getSubjectColor(ci);
+          return `<div style="display:flex; align-items:center; gap:3px; background:var(--surface2); border-radius:5px; padding:3px 7px">
+            <span style="font-size:10px; color:${color}; font-weight:700">${getSubjectName(sub)}</span>
+            ${subTrims.map((x,i) => `${i>0?'<span style="color:var(--border)">→</span>':''}${gradeDisplay(x.g)}`).join('')}
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+  });
+  wrap.innerHTML = html;
+}
+
+// ============================================================
+//  CHARTS
+// ============================================================
+let chartInstances = {};
+
+function destroyChart(id) {
+  if (chartInstances[id]) { chartInstances[id].destroy(); delete chartInstances[id]; }
+}
+
+function renderCharts() {
+  renderGroupEvolution();
+  renderDistribution();
+  renderSubjectAvgChart();
+}
+
+function renderGroupEvolution() {
+  destroyChart('group-evolution');
+  const loadedTrims = [1,2,3].filter(t => state.trims[t]);
+  if (!loadedTrims.length) return;
+
+  const labels = loadedTrims.map(t => `${t}ª Evaluación`);
+  const data = loadedTrims.map(t => {
+    const td = state.trims[t];
+    const avgs = td.students.map(s => getStudentAvg(s,td,true)).filter(v => v!==null);
+    return avgs.length ? +(avgs.reduce((a,b)=>a+b,0)/avgs.length).toFixed(2) : null;
+  });
+
+  const ctx = document.getElementById('chart-group-evolution');
+  if (!ctx) return;
+  chartInstances['group-evolution'] = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Media del grupo',
+        data,
+        borderColor: '#5b8af0',
+        backgroundColor: 'rgba(91,138,240,0.1)',
+        borderWidth: 2,
+        pointBackgroundColor: '#5b8af0',
+        pointRadius: 5,
+        tension: 0.3,
+        fill: true,
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => `Media: ${ctx.raw?.toFixed(2)}` } } },
+      scales: {
+        y: { min: 0, max: 10, grid: { color: 'rgba(37,45,69,0.6)' }, ticks: { color: '#6b7699' } },
+        x: { grid: { color: 'rgba(37,45,69,0.4)' }, ticks: { color: '#6b7699' } }
+      }
+    }
+  });
+}
+
+function renderDistribution() {
+  destroyChart('distribution');
+  const trimData = getTrimData(document.getElementById('filter-trim-chart')?.value || 'last');
+  if (!trimData) return;
+
+  const labels = ['0–1','2–3','4 (susp)','5–6','7–8','9–10'];
+  const ranges = [[0,1.99],[2,3.99],[4,4.99],[5,6.99],[7,8.99],[9,10]];
+  const allGrades = trimData.students.flatMap(s => Object.values(s.grades)).filter(g => g?.type==='grade').map(g => g.value);
+  const data = ranges.map(([lo,hi]) => allGrades.filter(v => v>=lo && v<=hi).length);
+  const colors = ['#f5808f','#f5808f','#f5808f','#f5e070','#5ee0e0','#5eefaa'];
+
+  const ctx = document.getElementById('chart-distribution');
+  if (!ctx) return;
+  chartInstances['distribution'] = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{ label: 'Alumnos', data, backgroundColor: colors, borderRadius: 4 }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { grid: { color: 'rgba(37,45,69,0.6)' }, ticks: { color: '#6b7699', stepSize: 1 } },
+        x: { grid: { display: false }, ticks: { color: '#6b7699' } }
+      }
+    }
+  });
+}
+
+function renderSubjectAvgChart() {
+  destroyChart('subjects');
+  const trimVal = document.getElementById('filter-trim-chart')?.value || 'last';
+  const trimData = getTrimData(trimVal);
+  if (!trimData) return;
+
+  const labels = trimData.subjects.map(s => getSubjectName(s));
+  const avgs = trimData.subjects.map(sub => {
+    const vals = trimData.students.map(s => s.grades[sub]).filter(g => g?.type==='grade').map(g => g.value);
+    return vals.length ? +(vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(2) : 0;
+  });
+  const colors = trimData.subjects.map((_,i) => SUBJECT_COLORS[i % SUBJECT_COLORS.length]);
+
+  const ctx = document.getElementById('chart-subjects');
+  if (!ctx) return;
+  chartInstances['subjects'] = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{ label: 'Media', data: avgs, backgroundColor: colors.map(c => c+'99'), borderColor: colors, borderWidth: 1, borderRadius: 4 }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => `Media: ${ctx.raw}` } } },
+      scales: {
+        y: { min: 0, max: 10, grid: { color: 'rgba(37,45,69,0.6)' }, ticks: { color: '#6b7699' } },
+        x: { grid: { display: false }, ticks: { color: '#6b7699', maxRotation: 45 } }
+      }
+    }
+  });
+}
+
+// ============================================================
+//  RISK TAB
+// ============================================================
+function renderRiskTab() {
+  const trimData = state.trims[getLastTrim()];
+  if (!trimData) { document.getElementById('risk-wrap').innerHTML = '<div class="empty-state"><div class="icon">✅</div><p>No hay datos cargados</p></div>'; return; }
+
+  const riskStudents = trimData.students.map(s => ({ ...s, risks: detectRisk(s.name) })).filter(s => s.risks.length > 0);
+
+  if (!riskStudents.length) {
+    document.getElementById('risk-wrap').innerHTML = '<div class="empty-state"><div class="icon">✅</div><p>No se han detectado alumnos en riesgo con la configuración actual.</p></div>';
+    return;
+  }
+
+  let html = `<div class="section-title">🚨 Alumnos en riesgo <span style="font-size:12px; font-family:'Inter',sans-serif; font-weight:400; color:var(--text-muted)">${riskStudents.length} detectados</span></div>`;
+  html += `<div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:12px">`;
+
+  riskStudents.forEach(s => {
+    const avg = getStudentAvg(s, trimData, true);
+    html += `<div style="background:var(--surface); border:1px solid rgba(242,99,122,0.25); border-radius:12px; padding:16px; cursor:pointer" onclick="openStudentModal('${escHtml(s.name)}')">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px">
+        <div style="font-weight:700; font-size:14px">${escHtml(s.name)}</div>
+        <span style="color:${avgColor(avg)}; font-family:'Syne',sans-serif; font-weight:800; font-size:1.2rem">${avg?.toFixed(1)??'—'}</span>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:5px">
+        ${s.risks.map(r => `<div style="font-size:12px; color:var(--red); background:rgba(242,99,122,0.06); border-radius:6px; padding:5px 10px">${r}</div>`).join('')}
+      </div>
+    </div>`;
+  });
+  html += '</div>';
+
+  // Nota mínima table for 3ª eval (if 2 trims loaded)
+  if (state.trims[1] && state.trims[2] && !state.trims[3]) {
+    html += `<div class="section-title" style="margin-top:24px">🎯 Nota mínima en 3ª evaluación para aprobar</div>`;
+    html += `<p style="color:var(--text-muted); font-size:12px; margin-bottom:12px">Basado en los pesos configurados (${state.config.weights[1]}% / ${state.config.weights[2]}% / ${state.config.weights[3]}%)</p>`;
+    html += '<div class="table-wrap"><table><thead><tr><th>Alumno/a</th>';
+    state.subjects.filter(s=>!state.config.optativas.has(s)).forEach(sub => {
+      const ci = subjectColorIdx(sub); const color = getSubjectColor(ci);
+      html += `<th style="border-top:2px solid ${color}"><div class="subject-header" style="color:${color}">${getSubjectName(sub)}</div></th>`;
+    });
+    html += '</tr></thead><tbody>';
+
+    trimData.students.forEach(s => {
+      html += `<tr><td><span class="name-cell" onclick="openStudentModal('${escHtml(s.name)}')">${escHtml(s.name)}</span></td>`;
+      state.subjects.filter(sub=>!state.config.optativas.has(sub)).forEach(sub => {
+        const min = calcNotaMinima(s.name, sub);
+        if (min === null) { html += `<td style="text-align:center"><span class="grade-cell grade-absent">—</span></td>`; return; }
+        const g2 = state.trims[2].students.find(x=>x.name===s.name)?.grades[sub];
+        const alreadyPass = g2?.type==='grade' && g2.value >= 5;
+        if (min <= 0) { html += `<td style="text-align:center"><span class="grade-cell grade-10">✓</span></td>`; return; }
+        const color = min > 10 ? 'var(--red)' : min > 7 ? 'var(--yellow)' : 'var(--green)';
+        html += `<td style="text-align:center"><span class="grade-cell" style="background:rgba(0,0,0,0.3); color:${color}; font-size:11px">${min > 10 ? '✗' : min.toFixed(1)}</span></td>`;
+      });
+      html += '</tr>';
+    });
+    html += '</tbody></table></div>';
+  }
+
+  document.getElementById('risk-wrap').innerHTML = html;
+}
+
+// ============================================================
+//  STUDENT MODAL
+// ============================================================
+function getStudentList() {
+  const lastTrim = state.trims[getLastTrim()];
+  return lastTrim ? lastTrim.students.map(s => s.name) : [];
+}
+
+function openStudentModal(name) {
+  state.studentModal.name = name;
+  renderStudentModal();
+  document.getElementById('student-modal').classList.add('open');
+}
+
+function navStudent(dir) {
+  const list = getStudentList();
+  const idx = list.indexOf(state.studentModal.name);
+  const newIdx = idx + dir;
+  if (newIdx < 0 || newIdx >= list.length) return;
+  state.studentModal.name = list[newIdx];
+  renderStudentModal();
+}
+
+function navStudentSelect(sel) {
+  state.studentModal.name = sel.value;
+  renderStudentModal();
+}
+
+function toggleFailsOnly() {
+  state.studentModal.showOnlyFails = !state.studentModal.showOnlyFails;
+  renderStudentModal();
+}
+
+function renderStudentModal() {
+  const name = state.studentModal.name;
+  const showOnlyFails = state.studentModal.showOnlyFails;
+  const loadedTrims = [1,2,3].filter(t => state.trims[t]);
+  if (!loadedTrims.length || !name) return;
+
+  const modal = document.getElementById('student-modal-content');
+  const allStudents = getStudentList();
+  const idx = allStudents.indexOf(name);
+
+  const trimData = loadedTrims.map(t => {
+    const td = state.trims[t];
+    return { trim: t, student: td.students.find(s => s.name === name) };
+  }).filter(x => x.student);
+
+  const lastTrimData = trimData[trimData.length - 1];
+  const lastStudent = lastTrimData.student;
+  const avg = getStudentAvg(lastStudent, state.trims[lastTrimData.trim], true);
+  const fails = getStudentFails(lastStudent, true);
+  const trend = getTrend(trimData.map(x => getStudentAvg(x.student, state.trims[x.trim], true)));
+  const risks = detectRisk(name);
+  const wAvg = getWeightedAvg(name);
+  const comment = state.comments[name] || '';
+
+  const failSubjects = new Set();
+  trimData.forEach(x => {
+    Object.entries(x.student.grades).forEach(([sub, g]) => {
+      if (g?.type==='grade' && g.value < 5) failSubjects.add(sub);
+    });
+  });
+
+  const subjectsToShow = showOnlyFails ? state.subjects.filter(s => failSubjects.has(s)) : state.subjects;
+
+  const navOptions = allStudents.map((n,i) => `<option value="${escHtml(n)}" ${n===name?'selected':''}>${i+1}. ${escHtml(n)}</option>`).join('');
+
+  // Group avg for comparison
+  const groupSubAvg = {};
+  const lastTd = state.trims[lastTrimData.trim];
+  state.subjects.forEach(sub => {
+    const vals = lastTd.students.map(s => s.grades[sub]).filter(g => g?.type==='grade').map(g => g.value);
+    groupSubAvg[sub] = vals.length ? vals.reduce((a,b)=>a+b,0)/vals.length : null;
+  });
+
+  let html = `
+    <button class="modal-close" onclick="closeModal('student-modal')">✕</button>
+
+    <div class="student-nav">
+      <button class="nav-arrow" onclick="navStudent(-1)" ${idx<=0?'disabled':''}>← Anterior</button>
+      <select class="nav-select" onchange="navStudentSelect(this)">${navOptions}</select>
+      <button class="nav-arrow" onclick="navStudent(1)" ${idx>=allStudents.length-1?'disabled':''}>Siguiente →</button>
+      <span class="nav-counter">${idx+1} / ${allStudents.length}</span>
+      <button class="btn btn-ghost btn-sm" onclick="copyStudentRow('${escHtml(name)}')" title="Copiar fila" style="margin-left:auto">📋 Copiar</button>
+      <button class="btn btn-ghost btn-sm" onclick="exportStudentPDF('${escHtml(name)}')" title="PDF individual">🖨 PDF</button>
+    </div>
+
+    <div class="modal-header">
+      <div class="student-header">
+        <div>
+          <div class="student-name">${escHtml(name)}</div>
+          <div class="student-badges">
+            ${avg !== null ? `<span class="badge ${avg>=5?'badge-green':'badge-red'}">Media: ${avg.toFixed(2)}</span>` : ''}
+            ${fails > 0 ? `<span class="badge badge-red">⚠ ${fails} suspenso${fails>1?'s':''}</span>` : '<span class="badge badge-green">✓ Sin suspensos</span>'}
+            <span class="badge badge-blue ${trend.class}">${trend.icon} ${trend.label}</span>
+            <span class="badge badge-purple">${trimData.length} eval.</span>
+            ${wAvg !== null ? `<span class="badge badge-cyan">⊡ Pond: ${wAvg.toFixed(2)}</span>` : ''}
+            ${risks.length ? `<span class="badge badge-red">🚨 En riesgo</span>` : ''}
+          </div>
+        </div>
+        <div class="avg-badge" style="border-color:${avgColor(avg)}; color:${avgColor(avg)}">${avg !== null ? avg.toFixed(1) : '—'}</div>
+      </div>
+    </div>
+
+    ${risks.length ? `<div style="background:rgba(242,99,122,0.06); border:1px solid rgba(242,99,122,0.2); border-radius:10px; padding:12px; margin-bottom:16px">
+      ${risks.map(r => `<div style="font-size:12px; color:var(--red); margin:3px 0">${r}</div>`).join('')}
+    </div>` : ''}`;
+
+  // Nota mínima 3ª eval
+  if (state.trims[1] && state.trims[2] && !state.trims[3]) {
+    const critSubs = state.subjects.filter(sub => {
+      const min = calcNotaMinima(name, sub);
+      return min !== null && min > 0;
+    });
+    if (critSubs.length) {
+      html += `<div class="nota-minima"><span class="icon">🎯</span><div>
+        <strong>Nota mínima en 3ª evaluación para aprobar:</strong><br>
+        ${critSubs.map(sub => {
+          const min = calcNotaMinima(name, sub);
+          const color = min > 10 ? 'var(--red)' : min > 7 ? 'var(--yellow)' : 'var(--green)';
+          return `<span style="font-size:12px; margin-right:10px">${getSubjectName(sub)}: <strong style="color:${color}">${min > 10 ? 'imposible' : min.toFixed(1)}</strong></span>`;
+        }).join('')}
+      </div></div>`;
+    }
+  }
+
+  // Comments
+  html += `<div style="margin-bottom:16px">
+    <div style="font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.8px; color:var(--text-dim); margin-bottom:6px">📝 Notas / Comentarios</div>
+    <textarea class="comment-area" id="comment-${escHtml(name)}" placeholder="Añade notas sobre este alumno/a..." onchange="saveComment('${escHtml(name)}')">${escHtml(comment)}</textarea>
+  </div>`;
+
+  // Subject evolution
+  html += `<div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; flex-wrap:wrap; gap:8px">
+    <div class="section-title" style="font-size:1rem; margin-bottom:0">Evolución por materia</div>
+    <div style="display:flex; gap:8px; align-items:center">
+      <span style="font-size:11px; color:var(--text-muted)">${subjectsToShow.length} materia${subjectsToShow.length!==1?'s':''}</span>
+      <button class="toggle-btn ${showOnlyFails?'active':''}" onclick="toggleFailsOnly()">
+        <span class="dot"></span>${showOnlyFails ? '⚠ Solo suspensos' : '📚 Todas'}
+      </button>
+    </div>
+  </div>`;
+
+  if (subjectsToShow.length === 0) {
+    html += `<div style="text-align:center; padding:20px; color:var(--green); font-size:14px">✓ No hay materias suspensas en ninguna evaluación</div>`;
+  } else {
+    html += `<div class="evolution-grid">`;
+    subjectsToShow.forEach(sub => {
+      const ci = subjectColorIdx(sub); const color = getSubjectColor(ci);
+      const subGrades = trimData.map(x => ({ trim: x.trim, grade: x.student.grades[sub] || null }));
+      const subTrend = getTrend(subGrades.map(x => x.grade?.type==='grade' ? x.grade.value : null));
+      const hasAnyFail = subGrades.some(x => x.grade?.type==='grade' && x.grade.value < 5);
+      const gAvg = groupSubAvg[sub];
+      const lastG = subGrades[subGrades.length-1]?.grade;
+      let vsGroup = '';
+      if (lastG?.type==='grade' && gAvg !== null) {
+        const diff = lastG.value - gAvg;
+        vsGroup = diff > 0.5 ? `<span style="font-size:9px; color:var(--green)">↑grupo</span>` : diff < -0.5 ? `<span style="font-size:9px; color:var(--red)">↓grupo</span>` : '';
+      }
+
+      html += `<div class="evo-card" style="border-left:3px solid ${color}; ${hasAnyFail?'background:rgba(242,99,122,0.03)':''}">
+        <div class="subject-name" style="color:${color}">${getSubjectName(sub)} ${hasAnyFail?'<span style="font-size:9px;color:var(--red)">●</span>':''} ${vsGroup}</div>
+        <div class="evo-grades">
+          ${subGrades.map((x,i) => `<div class="evo-grade">
+            <span class="trimestre-badge t${x.trim}" style="font-size:9px">${x.trim}ª</span>
+            ${gradeDisplay(x.grade || {type:'absent',value:null})}
+          </div>${i<subGrades.length-1?'<span style="color:var(--border)">→</span>':''}`).join('')}
+          <span class="trend-arrow ${subTrend.class}">${subTrend.icon}</span>
+        </div>
+      </div>`;
+    });
+    html += '</div>';
+  }
+
+  // Per-trim summary
+  if (trimData.length > 1) {
+    html += `<div class="section-title" style="font-size:1rem; margin-top:20px">Resumen por evaluación</div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap">`;
+    trimData.forEach(x => {
+      const a = getStudentAvg(x.student, state.trims[x.trim], true);
+      const f = getStudentFails(x.student, true);
+      html += `<div style="background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:12px; flex:1; min-width:130px; text-align:center">
+        <span class="trimestre-badge t${x.trim}" style="margin-bottom:8px; display:inline-block">${x.trim}ª Evaluación</span>
+        <div style="font-size:1.5rem; font-weight:800; font-family:'Syne',sans-serif; color:${avgColor(a)}; margin:6px 0">${a !== null ? a.toFixed(1) : '—'}</div>
+        <div style="font-size:12px; color:${f>0?'var(--red)':'var(--green)'}">${f > 0 ? `⚠ ${f} susp.` : '✓ Todo aprobado'}</div>
+      </div>`;
+    });
+    html += '</div>';
+  }
+
+  modal.innerHTML = html;
+}
+
+function saveComment(name) {
+  const el = document.getElementById('comment-' + name);
+  if (!el) return;
+  if (el.value.trim()) state.comments[name] = el.value;
+  else delete state.comments[name];
+  try { localStorage.setItem('eval_comments', JSON.stringify(state.comments)); } catch(e) {}
+}
+
+// ============================================================
+//  SESSION MODE
+// ============================================================
+function openSessionMode() {
+  const trimData = state.trims[getLastTrim()];
+  if (!trimData) return;
+  state.session.students = trimData.students.map(s => s.name);
+  state.session.idx = 0;
+  document.getElementById('session-mode').classList.add('active');
+  renderSessionCard();
+}
+
+function closeSessionMode() {
+  document.getElementById('session-mode').classList.remove('active');
+}
+
+function sessionNav(dir) {
+  state.session.idx = Math.max(0, Math.min(state.session.students.length - 1, state.session.idx + dir));
+  renderSessionCard();
+}
+
+function renderSessionCard() {
+  const { idx, students } = state.session;
+  const name = students[idx];
+  const loadedTrims = [1,2,3].filter(t => state.trims[t]);
+  const trimData = state.trims[getLastTrim()];
+  const student = trimData.students.find(s => s.name === name);
+  if (!student) return;
+
+  const avg = getStudentAvg(student, trimData, true);
+  const fails = getStudentFails(student, true);
+  const trend = getTrend(loadedTrims.map(t => {
+    const td = state.trims[t];
+    const s = td.students.find(x => x.name === name);
+    return s ? getStudentAvg(s,td,true) : null;
+  }));
+  const risks = detectRisk(name);
+  const comment = state.comments[name] || '';
+  const wAvg = getWeightedAvg(name);
+
+  document.getElementById('session-counter').textContent = `${idx+1} de ${students.length}`;
+  document.getElementById('sess-prev').disabled = idx === 0;
+  document.getElementById('sess-next').disabled = idx === students.length - 1;
+  document.getElementById('sess-progress').style.width = ((idx+1)/students.length*100) + '%';
+
+  const failSubs = Object.entries(student.grades).filter(([,g]) => g.type==='grade' && g.value<5).map(([sub]) => sub);
+
+  let html = `
+    <div class="session-name">${escHtml(name)}</div>
+    <div class="student-badges" style="margin-bottom:24px">
+      ${avg !== null ? `<span class="badge ${avg>=5?'badge-green':'badge-red'}" style="font-size:13px; padding:5px 14px">Media: ${avg.toFixed(2)}</span>` : ''}
+      ${fails > 0 ? `<span class="badge badge-red" style="font-size:13px; padding:5px 14px">⚠ ${fails} suspenso${fails>1?'s':''}</span>` : '<span class="badge badge-green" style="font-size:13px; padding:5px 14px">✓ Sin suspensos</span>'}
+      <span class="badge badge-blue ${trend.class}" style="font-size:13px; padding:5px 14px">${trend.icon} ${trend.label}</span>
+      ${wAvg !== null ? `<span class="badge badge-cyan" style="font-size:13px; padding:5px 14px">⊡ Ponderada: ${wAvg.toFixed(2)}</span>` : ''}
+      ${risks.length ? `<span class="badge badge-red" style="font-size:13px; padding:5px 14px">🚨 En riesgo</span>` : ''}
+    </div>
+
+    ${risks.length ? `<div style="background:rgba(242,99,122,0.06); border:1px solid rgba(242,99,122,0.2); border-radius:10px; padding:12px 16px; margin-bottom:20px">
+      ${risks.map(r => `<div style="font-size:13px; color:var(--red); margin:3px 0">${r}</div>`).join('')}
+    </div>` : ''}
+
+    <div style="display:flex; gap:16px; flex-wrap:wrap; margin-bottom:24px">
+      ${loadedTrims.map(t => {
+        const td = state.trims[t];
+        const s = td.students.find(x => x.name === name);
+        if (!s) return '';
+        const a = getStudentAvg(s,td,true);
+        const f = getStudentFails(s,true);
+        return `<div style="background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:14px 20px; text-align:center; min-width:120px">
+          <span class="trimestre-badge t${t}">${t}ª Evaluación</span>
+          <div style="font-size:2rem; font-weight:800; font-family:'Syne',sans-serif; color:${avgColor(a)}; margin:8px 0">${a?.toFixed(1)??'—'}</div>
+          <div style="font-size:12px; color:${f>0?'var(--red)':'var(--green)'}">${f>0?`⚠ ${f} susp.`:'✓ OK'}</div>
+        </div>`;
+      }).join('')}
+    </div>
+
+    ${failSubs.length ? `<div style="margin-bottom:20px">
+      <div style="font-size:13px; font-weight:700; color:var(--red); margin-bottom:8px">Materias suspensas:</div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap">
+        ${failSubs.map(sub => {
+          const g = student.grades[sub];
+          return `<div style="background:rgba(242,99,122,0.1); border:1px solid rgba(242,99,122,0.2); border-radius:8px; padding:8px 14px">
+            <div style="font-size:12px; font-weight:700; color:var(--red)">${getSubjectName(sub)}</div>
+            <div style="font-size:1.1rem; font-weight:800; color:var(--red)">${g.value}</div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>` : ''}
+
+    <div style="margin-bottom:16px">
+      <div style="font-size:12px; font-weight:700; color:var(--text-dim); margin-bottom:6px; text-transform:uppercase; letter-spacing:0.5px">Todas las materias</div>
+      <div style="display:flex; gap:6px; flex-wrap:wrap">
+        ${trimData.subjects.map(sub => {
+          const g = student.grades[sub];
+          const isOpt = state.config.optativas.has(sub);
+          const color = getSubjectColor(subjectColorIdx(sub));
+          if (!g || g.type === 'absent') return '';
+          return `<div style="background:var(--surface2); border-radius:7px; padding:6px 10px; text-align:center; border-left:2px solid ${color}">
+            <div style="font-size:10px; color:${color}; font-weight:700">${getSubjectName(sub)}${isOpt?'*':''}</div>
+            <div style="${gradeClass(g).includes('grade-na')||gradeClass(g).includes('np')?'font-size:11px':'font-size:1.1rem; font-weight:800'}; color:${g.type==='grade'?avgColor(g.value):'var(--text-muted)'}">${gradeShort(g)}</div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+
+    <div>
+      <div style="font-size:12px; font-weight:700; color:var(--text-dim); margin-bottom:6px; text-transform:uppercase; letter-spacing:0.5px">📝 Comentarios</div>
+      <textarea class="comment-area" style="min-height:60px" placeholder="Notas sobre este alumno/a..." onchange="saveComment('${escHtml(name)}')">${escHtml(comment)}</textarea>
+    </div>
+  `;
+
+  document.getElementById('session-card-content').innerHTML = html;
+}
+
+// ============================================================
+//  CONFIG
+// ============================================================
+function openConfigModal() {
+  document.getElementById('cfg-w1').value = state.config.weights[1];
+  document.getElementById('cfg-w2').value = state.config.weights[2];
+  document.getElementById('cfg-w3').value = state.config.weights[3];
+  document.getElementById('cfg-drop').value = state.config.dropAlert;
+  document.getElementById('cfg-consec').value = state.config.consecAlert;
+
+  // Subject rename
+  const renameList = document.getElementById('subject-rename-list');
+  renameList.innerHTML = state.subjects.map(sub => `
+    <div class="config-row">
+      <span class="config-label" style="font-weight:700; color:${getSubjectColor(subjectColorIdx(sub))}">${sub}</span>
+      <input class="config-text-input" type="text" placeholder="Nombre completo..." value="${escHtml(state.config.subjectNames[sub]||'')}" data-sub="${escHtml(sub)}" id="rename-${escHtml(sub)}">
+    </div>`).join('');
+
+  // Optativas
+  const optList = document.getElementById('optativa-list');
+  optList.innerHTML = state.subjects.map(sub => `
+    <label class="checkbox-wrap" style="background:var(--surface2); border:1px solid var(--border); border-radius:6px; padding:5px 10px">
+      <input type="checkbox" ${state.config.optativas.has(sub)?'checked':''} id="opt-chk-${escHtml(sub)}" data-sub="${escHtml(sub)}">
+      <span style="font-size:12px; color:${getSubjectColor(subjectColorIdx(sub))}; font-weight:700">${sub}</span>
+    </label>`).join('');
+
+  updateConfig();
+  document.getElementById('config-modal').classList.add('open');
+}
+
+function updateConfig() {
+  const w1 = parseInt(document.getElementById('cfg-w1').value)||0;
+  const w2 = parseInt(document.getElementById('cfg-w2').value)||0;
+  const w3 = parseInt(document.getElementById('cfg-w3').value)||0;
+  const total = w1+w2+w3;
+  document.getElementById('cfg-weight-warn').style.display = total !== 100 ? 'block' : 'none';
+}
+
+function applyConfig() {
+  state.config.weights[1] = parseInt(document.getElementById('cfg-w1').value)||30;
+  state.config.weights[2] = parseInt(document.getElementById('cfg-w2').value)||30;
+  state.config.weights[3] = parseInt(document.getElementById('cfg-w3').value)||40;
+  state.config.dropAlert = parseFloat(document.getElementById('cfg-drop').value)||2;
+  state.config.consecAlert = parseInt(document.getElementById('cfg-consec').value)||3;
+
+  state.subjects.forEach(sub => {
+    const inp = document.getElementById('rename-' + sub);
+    if (inp && inp.value.trim()) state.config.subjectNames[sub] = inp.value.trim();
+    else delete state.config.subjectNames[sub];
+  });
+
+  state.config.optativas = new Set();
+  state.subjects.forEach(sub => {
+    const chk = document.getElementById('opt-chk-' + sub);
+    if (chk && chk.checked) state.config.optativas.add(sub);
+  });
+
+  closeModal('config-modal');
+  buildDashboard();
+}
+
+// ============================================================
+//  COPY ROW
+// ============================================================
+function copyStudentRow(name) {
+  const lastTrim = state.trims[getLastTrim()];
+  const student = lastTrim.students.find(s => s.name === name);
+  if (!student) return;
+  const avg = getStudentAvg(student, lastTrim, true);
+  let txt = `${name}\t${avg?.toFixed(2)??'—'}\t`;
+  lastTrim.subjects.forEach(sub => {
+    const g = student.grades[sub];
+    txt += `${gradeShort(g || {type:'absent'})}\t`;
+  });
+  navigator.clipboard.writeText(txt.trim()).then(() => showToast());
+}
+
+function showToast() {
+  const t = document.getElementById('copy-toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ============================================================
+//  EXPORT
+// ============================================================
+function exportTxt() {
+  const loadedTrims = [1,2,3].filter(t => state.trims[t]);
+  if (!loadedTrims.length) return;
+
+  let txt = '='.repeat(60) + '\n  ACTA DE EVALUACIÓN ACADÉMICA\n' + '='.repeat(60) + '\n\n';
+  txt += `Evaluaciones: ${loadedTrims.map(t=>t+'ª').join(', ')}\n\n`;
+
+  loadedTrims.forEach(t => {
+    const td = state.trims[t];
+    txt += `\n${'─'.repeat(50)}\n${t}ª EVALUACIÓN\n${'─'.repeat(50)}\n`;
+    td.students.forEach(s => {
+      const avg = getStudentAvg(s,td,true);
+      const fails = getStudentFails(s,true);
+      txt += `\n${s.name}\n  Media: ${avg?.toFixed(2)??'—'}  |  Suspensos: ${fails}`;
+      const wAvg = getWeightedAvg(s.name);
+      if (wAvg !== null) txt += `  |  Media ponderada: ${wAvg.toFixed(2)}`;
+      const risks = detectRisk(s.name);
+      if (risks.length) txt += `\n  🚨 RIESGO: ${risks.join(' | ')}`;
+      const comment = state.comments[s.name];
+      if (comment) txt += `\n  📝 Notas: ${comment}`;
+      txt += '\n  ';
+      td.subjects.forEach(sub => {
+        const g = s.grades[sub];
+        const d = !g||g.type==='absent' ? '—' : g.type==='np' ? 'NP' : g.value;
+        txt += `${getSubjectName(sub)}:${d}  `;
+      });
+      txt += '\n';
+    });
+    txt += '\n  RESUMEN MATERIAS:\n';
+    td.subjects.forEach(sub => {
+      const grades = td.students.map(s=>s.grades[sub]).filter(g=>g?.type==='grade');
+      const pass = grades.filter(g=>g.value>=5).length;
+      const avg = grades.length ? (grades.reduce((a,g)=>a+g.value,0)/grades.length).toFixed(2) : '—';
+      txt += `  ${getSubjectName(sub)}: ${pass}/${grades.length} apr. (${grades.length?((pass/grades.length)*100).toFixed(0):0}%) | Media: ${avg}\n`;
+    });
+  });
+
+  const blob = new Blob([txt], { type: 'text/plain; charset=utf-8' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = 'acta_evaluacion.txt'; a.click();
+}
+
+function exportPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+  const loadedTrims = [1,2,3].filter(t => state.trims[t]);
+  if (!loadedTrims.length) return;
+  const td = state.trims[getLastTrim()];
+
+  doc.setFont('helvetica','bold'); doc.setFontSize(16);
+  doc.text('Acta de Evaluación Académica', 14, 16);
+  doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(100);
+  doc.text(`Evaluaciones: ${loadedTrims.map(t=>t+'ª').join(', ')} | ${new Date().toLocaleDateString('es-ES')}`, 14, 22);
+  doc.setTextColor(0);
+
+  const cols = ['Alumno/a','Media','Pond.','Susp.','Riesgo',...td.subjects.map(s=>getSubjectName(s).substring(0,6))];
+  const rows = td.students.map(s => {
+    const avg = getStudentAvg(s,td,true);
+    const fails = getStudentFails(s,true);
+    const wAvg = getWeightedAvg(s.name);
+    const risks = detectRisk(s.name);
+    const cells = [s.name, avg?.toFixed(1)??'—', wAvg?.toFixed(1)??'—', fails.toString(), risks.length?'🚨':''];
+    td.subjects.forEach(sub => {
+      const g = s.grades[sub];
+      if (!g||g.type==='absent') cells.push('—');
+      else if (g.type==='np') cells.push('NP');
+      else cells.push(g.value%1===0?g.value.toString():g.value.toFixed(1));
+    });
+    return cells;
+  });
+
+  doc.autoTable({
+    head:[cols], body:rows, startY:28,
+    styles:{ fontSize:7, cellPadding:1.5 },
+    headStyles:{ fillColor:[24,29,44], textColor:[200,210,255] },
+    didParseCell:(data) => {
+      if (data.section==='body' && data.column.index>4) {
+        const v = parseFloat(data.cell.raw);
+        if (!isNaN(v)) {
+          if (v<5) { data.cell.styles.textColor=[220,80,80]; data.cell.styles.fontStyle='bold'; }
+          else if (v>=9) data.cell.styles.textColor=[80,200,100];
+        }
+      }
+      if (data.section==='body' && data.column.index===4 && data.cell.raw==='🚨') {
+        data.cell.styles.textColor=[220,80,80];
+      }
+    }
+  });
+
+  // Subject summary
+  let y = doc.lastAutoTable.finalY + 8;
+  if (y > 170) { doc.addPage(); y = 14; }
+  doc.setFont('helvetica','bold'); doc.setFontSize(11);
+  doc.text('Resumen por Materias', 14, y); y += 6;
+  const sumData = td.subjects.map(sub => {
+    const grades = td.students.map(s=>s.grades[sub]).filter(g=>g?.type==='grade');
+    const pass = grades.filter(g=>g.value>=5).length;
+    const fail = grades.filter(g=>g.value<5).length;
+    const avg = grades.length ? (grades.reduce((a,g)=>a+g.value,0)/grades.length).toFixed(2) : '—';
+    const pct = grades.length ? ((pass/grades.length)*100).toFixed(0)+'%' : '—';
+    return [getSubjectName(sub), grades.length.toString(), pass.toString(), fail.toString(), avg, pct];
+  });
+  doc.autoTable({
+    head:[['Materia','Eval.','Aprob.','Susp.','Media','% Aprob.']],
+    body:sumData, startY:y,
+    styles:{fontSize:8, cellPadding:2},
+    headStyles:{fillColor:[24,29,44], textColor:[200,210,255]},
+    didParseCell:(data) => {
+      if (data.section==='body' && data.column.index===5) {
+        const v = parseFloat(data.cell.raw);
+        if (!isNaN(v)) { data.cell.styles.fontStyle='bold'; data.cell.styles.textColor=v>=70?[80,200,100]:v>=50?[200,150,50]:[220,80,80]; }
+      }
+    }
+  });
+  doc.save('acta_evaluacion.pdf');
+}
+
+function exportFailsPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  const td = state.trims[getLastTrim()];
+  if (!td) return;
+
+  const failStudents = td.students.filter(s => getStudentFails(s,true) > 0);
+  doc.setFont('helvetica','bold'); doc.setFontSize(14);
+  doc.text('Lista de Apoyo/Refuerzo — Alumnos con Suspensos', 14, 16);
+  doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(100);
+  doc.text(`${new Date().toLocaleDateString('es-ES')} | ${failStudents.length} alumnos`, 14, 22);
+  doc.setTextColor(0);
+
+  const rows = failStudents.map(s => {
+    const avg = getStudentAvg(s,td,true);
+    const failSubs = Object.entries(s.grades).filter(([,g])=>g.type==='grade'&&g.value<5).map(([sub])=>getSubjectName(sub));
+    return [s.name, avg?.toFixed(1)??'—', failSubs.length.toString(), failSubs.join(', ')];
+  });
+
+  doc.autoTable({
+    head:[['Alumno/a','Media','Nº Susp.','Materias suspensas']],
+    body:rows, startY:28,
+    styles:{fontSize:9, cellPadding:2},
+    headStyles:{fillColor:[24,29,44], textColor:[200,210,255]},
+    columnStyles:{ 3:{ cellWidth:'auto' } }
+  });
+  doc.save('alumnos_con_suspensos.pdf');
+}
+
+function exportStudentPDF(name) {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  const loadedTrims = [1,2,3].filter(t => state.trims[t]);
+
+  doc.setFont('helvetica','bold'); doc.setFontSize(16);
+  doc.text(`Informe de Evaluación: ${name}`, 14, 16);
+  doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(100);
+  doc.text(new Date().toLocaleDateString('es-ES'), 14, 22);
+  doc.setTextColor(0);
+
+  let y = 30;
+  loadedTrims.forEach(t => {
+    const td = state.trims[t];
+    const student = td.students.find(s => s.name === name);
+    if (!student) return;
+    const avg = getStudentAvg(student,td,true);
+    const fails = getStudentFails(student,true);
+
+    doc.setFont('helvetica','bold'); doc.setFontSize(11);
+    doc.text(`${t}ª Evaluación — Media: ${avg?.toFixed(2)??'—'} — Suspensos: ${fails}`, 14, y); y+=5;
+
+    const rows = td.subjects.map(sub => {
+      const g = student.grades[sub];
+      return [getSubjectName(sub), !g||g.type==='absent'?'—':g.type==='np'?'NP':(g.value%1===0?g.value.toString():g.value.toFixed(1))];
+    });
+    doc.autoTable({ head:[['Materia','Nota']], body:rows, startY:y, styles:{fontSize:8,cellPadding:2}, headStyles:{fillColor:[24,29,44],textColor:[200,210,255]},
+      didParseCell:(data) => { if (data.section==='body'&&data.column.index===1) { const v=parseFloat(data.cell.raw); if(!isNaN(v)&&v<5){data.cell.styles.textColor=[220,80,80];data.cell.styles.fontStyle='bold';} } } });
+    y = doc.lastAutoTable.finalY + 8;
+  });
+
+  const comment = state.comments[name];
+  if (comment) {
+    doc.setFont('helvetica','bold'); doc.setFontSize(10);
+    doc.text('Observaciones:', 14, y); y += 5;
+    doc.setFont('helvetica','normal'); doc.setFontSize(9);
+    const lines = doc.splitTextToSize(comment, 180);
+    doc.text(lines, 14, y);
+  }
+
+  doc.save(`informe_${name.replace(/\s+/g,'_')}.pdf`);
+}
+
+// ============================================================
+//  SESSION SAVE / RESTORE
+// ============================================================
+function saveSession() {
+  const data = {
+    trims: {},
+    config: { ...state.config, optativas: Array.from(state.config.optativas) },
+    comments: state.comments,
+  };
+  [1,2,3].forEach(t => { if (state.trims[t]) data.trims[t] = state.trims[t]; });
+  const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = `sesion_evaluacion_${new Date().toISOString().slice(0,10)}.json`; a.click();
+}
+
+function restoreSession(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    try {
+      const data = JSON.parse(ev.target.result);
+      if (data.trims) { state.trims = { 1:null, 2:null, 3:null }; Object.entries(data.trims).forEach(([k,v]) => { state.trims[parseInt(k)] = v; }); }
+      if (data.comments) state.comments = data.comments;
+      if (data.config) {
+        state.config.weights = data.config.weights || state.config.weights;
+        state.config.dropAlert = data.config.dropAlert || 2;
+        state.config.consecAlert = data.config.consecAlert || 3;
+        state.config.subjectNames = data.config.subjectNames || {};
+        state.config.optativas = new Set(data.config.optativas || []);
+      }
+      buildDashboard();
+    } catch(err) { alert('Error al restaurar la sesión: ' + err.message); }
+  };
+  reader.readAsText(file);
+}
+
+// ============================================================
+//  TAB SWITCHING
+// ============================================================
+function switchTab(name) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  document.querySelector(`[data-tab="${name}"]`).classList.add('active');
+
+  if (name==='materias') renderSubjectCards();
+  if (name==='alumnos') renderStudentList();
+  if (name==='progresion') renderProgression();
+  if (name==='heatmap') renderHeatmap();
+  if (name==='graficos') renderCharts();
+  if (name==='riesgo') renderRiskTab();
+}
+
+// ============================================================
+//  ZOOM
+// ============================================================
+function changeZoom(delta) { state.zoom = Math.min(150, Math.max(70, state.zoom + delta)); applyZoom(); }
+function resetZoom() { state.zoom = 100; applyZoom(); }
+function applyZoom() { document.getElementById('main-app').style.fontSize = (state.zoom/100)+'rem'; document.getElementById('zoom-label').textContent = state.zoom+'%'; }
+
+// ============================================================
+//  KEYBOARD
+// ============================================================
+document.addEventListener('keydown', e => {
+  const modal = document.getElementById('student-modal');
+  const session = document.getElementById('session-mode');
+  if (session.classList.contains('active')) {
+    if (e.key==='ArrowLeft') sessionNav(-1);
+    if (e.key==='ArrowRight') sessionNav(1);
+    if (e.key==='Escape') closeSessionMode();
+    return;
+  }
+  if (!modal.classList.contains('open')) return;
+  if (e.key==='ArrowLeft') navStudent(-1);
+  if (e.key==='ArrowRight') navStudent(1);
+  if (e.key==='Escape') closeModal('student-modal');
+});
+
+// Initial state
+document.getElementById('start-btn-wrap').style.display = 'flex';
+
+// ============================================================
+//  DEMO DATA
+// ============================================================
+window.loadDemo = function() {
+  const subjects = ['BYG','EFI','EPV','GEH','LCL','MAT','MUS','ING','FRA','2CY','ROY','DDI','IAA','EDU','REL','RIS'];
+  const names = ['Sofía García López','Carlos Martínez Ruiz','María López Sánchez','Juan Rodríguez Gómez','Ana Fernández Torres','Pablo González Díaz','Laura Sánchez Herrero','Diego Torres Moreno','Elena Ruiz Jiménez','Marcos Díaz Navarro','Valentina Herrero Castro','Adrián Moreno Blanco','Lucía Jiménez Vega','Sergio Navarro Ortega','Isabel Castro Flores'];
+  function rnd(min,max) { return Math.round((Math.random()*(max-min)+min)*10)/10; }
+  function genGrades(base, trend=0) {
+    const g = {};
+    subjects.forEach(sub => {
+      const r = Math.random();
+      if (r<0.03) g[sub]={type:'absent',value:null};
+      else if (r<0.06) g[sub]={type:'np',value:null};
+      else g[sub]={type:'grade',value:Math.min(10,Math.max(1,rnd(base+trend-2,base+trend+2)))};
+    });
+    return g;
+  }
+  const bases = names.map(() => rnd(4,9));
+  const trends = names.map(() => rnd(-1.5,1.5));
+  for (let t=1; t<=3; t++) {
+    state.trims[t] = {
+      students: names.map((n,i) => ({ name:n, grades:genGrades(bases[i], (t-1)*trends[i]*0.7) })),
+      subjects
+    };
+    document.getElementById('card-'+t).classList.add('loaded');
+    document.getElementById('status-'+t).textContent = `✓ Demo – ${names.length} alumnos`;
+  }
+  checkStartButton();
+};
+</script>
+
+</body>
+</html>
