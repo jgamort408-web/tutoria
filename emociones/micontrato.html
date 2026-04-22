@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -22,7 +22,7 @@
         .subtitle { font-size: 1.2rem; color: #4B5563; max-width: 700px; margin: 0 auto; font-weight: 500; }
         .mantra-badge { display: inline-block; background-color: var(--bg-dark); color: var(--light-yellow); padding: 8px 20px; border-radius: 30px; font-size: 1.1rem; font-weight: bold; margin-top: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
 
-        /* --- FORMULARIO DE CREACIÓN --- */
+        /* --- FORMULARIO DE CREACIÃ“N --- */
         .form-panel { background-color: var(--bg-dark); border-radius: 16px; padding: 40px 30px; border: 4px solid var(--volcano-rock); box-shadow: 0 10px 30px rgba(0,0,0,0.2); transition: all 0.3s; }
         
         .form-group { margin-bottom: 25px; }
@@ -62,87 +62,88 @@
         @keyframes slideUp { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
 
     </style>
+    <link rel="stylesheet" href="../assets/css/site.css">
 </head>
 <body>
 
     <div class="main-container">
         <div class="header">
             <h1>Contrato de Autocontrol</h1>
-            <p class="subtitle">Prometer que te vas a portar bien no sirve de nada. Necesitas un plan exacto de cómo vas a reaccionar. Configura tu fórmula personal y sella tu compromiso.</p>
-            <div class="mantra-badge">👉 Parar no es perder — es elegir.</div>
+            <p class="subtitle">Prometer que te vas a portar bien no sirve de nada. Necesitas un plan exacto de cÃ³mo vas a reaccionar. Configura tu fÃ³rmula personal y sella tu compromiso.</p>
+            <div class="mantra-badge">ðŸ‘‰ Parar no es perder â€” es elegir.</div>
         </div>
 
         <div class="form-panel" id="form-panel">
             <div class="form-group">
-                <label class="form-label">1. ¿Cuál es tu punto débil?</label>
-                <div class="form-desc">Elige la situación exacta en la que sueles perder el control:</div>
+                <label class="form-label">1. Â¿CuÃ¡l es tu punto dÃ©bil?</label>
+                <div class="form-desc">Elige la situaciÃ³n exacta en la que sueles perder el control:</div>
                 <select class="form-select" id="input-trigger">
-                    <option value="" disabled selected>-- Selecciona una situación --</option>
-                    <option value="un compañero me insulta o se ríe de mí">Un compañero me insulta o se ríe de mí</option>
-                    <option value="un profesor me llama la atención injustamente">Un profesor me llama la atención injustamente</option>
+                    <option value="" disabled selected>-- Selecciona una situaciÃ³n --</option>
+                    <option value="un compaÃ±ero me insulta o se rÃ­e de mÃ­">Un compaÃ±ero me insulta o se rÃ­e de mÃ­</option>
+                    <option value="un profesor me llama la atenciÃ³n injustamente">Un profesor me llama la atenciÃ³n injustamente</option>
                     <option value="pierdo en un juego o partido en el patio">Pierdo en un juego o partido en el patio</option>
                     <option value="alguien me quita o toca mis cosas">Alguien me quita o toca mis cosas</option>
-                    <option value="mis padres me castigan o me quitan el móvil">Mis padres me castigan o me quitan el móvil</option>
+                    <option value="mis padres me castigan o me quitan el mÃ³vil">Mis padres me castigan o me quitan el mÃ³vil</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label class="form-label">2. ¿Cómo avisa tu cuerpo?</label>
-                <div class="form-desc">¿Qué sientes justo antes de explotar? (Fase Amarilla):</div>
+                <label class="form-label">2. Â¿CÃ³mo avisa tu cuerpo?</label>
+                <div class="form-desc">Â¿QuÃ© sientes justo antes de explotar? (Fase Amarilla):</div>
                 <select class="form-select" id="input-signal">
-                    <option value="" disabled selected>-- Selecciona tu señal física --</option>
-                    <option value="aprieto los puños y los dientes">Aprieto los puños y los dientes</option>
-                    <option value="mi corazón late súper rápido">Mi corazón late súper rápido (taquicardia)</option>
-                    <option value="siento mucho calor y mi respiración se acelera">Siento mucho calor y mi respiración se acelera</option>
-                    <option value="siento un nudo de nervios en el estómago">Siento un nudo de nervios en el estómago</option>
+                    <option value="" disabled selected>-- Selecciona tu seÃ±al fÃ­sica --</option>
+                    <option value="aprieto los puÃ±os y los dientes">Aprieto los puÃ±os y los dientes</option>
+                    <option value="mi corazÃ³n late sÃºper rÃ¡pido">Mi corazÃ³n late sÃºper rÃ¡pido (taquicardia)</option>
+                    <option value="siento mucho calor y mi respiraciÃ³n se acelera">Siento mucho calor y mi respiraciÃ³n se acelera</option>
+                    <option value="siento un nudo de nervios en el estÃ³mago">Siento un nudo de nervios en el estÃ³mago</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label class="form-label">3. ¿Cuál será tu escudo protector?</label>
-                <div class="form-desc">¿Qué vas a hacer inmediatamente para frenar?</div>
+                <label class="form-label">3. Â¿CuÃ¡l serÃ¡ tu escudo protector?</label>
+                <div class="form-desc">Â¿QuÃ© vas a hacer inmediatamente para frenar?</div>
                 <select class="form-select" id="input-strategy">
                     <option value="" disabled selected>-- Selecciona tu estrategia --</option>
                     <option value="hacer una pausa, cerrar los ojos y respirar 5 veces">Hacer una pausa, cerrar los ojos y respirar 5 veces</option>
-                    <option value="darme la vuelta, alejarme de allí y contar hasta 10">Darme la vuelta, alejarme de allí y contar hasta 10</option>
-                    <option value="ignorar la provocación y decírselo a un profesor">Ignorar la provocación y decírselo a un profesor</option>
+                    <option value="darme la vuelta, alejarme de allÃ­ y contar hasta 10">Darme la vuelta, alejarme de allÃ­ y contar hasta 10</option>
+                    <option value="ignorar la provocaciÃ³n y decÃ­rselo a un profesor">Ignorar la provocaciÃ³n y decÃ­rselo a un profesor</option>
                     <option value="morderme la lengua y pedir espacio para calmarme">Morderme la lengua y pedir espacio para calmarme</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label class="form-label">4. ¿Quién asume este compromiso?</label>
+                <label class="form-label">4. Â¿QuiÃ©n asume este compromiso?</label>
                 <input type="text" class="form-input" id="input-name" placeholder="Escribe tu nombre y primer apellido..." autocomplete="off">
             </div>
 
-            <button class="btn-sign" onclick="generateContract()">Firmar Compromiso ➔</button>
-            <div id="form-error" style="color: #FCA5A5; text-align: center; margin-top: 15px; display: none; font-weight: bold;">⚠️ Por favor, rellena todos los campos antes de firmar.</div>
+            <button class="btn-sign" onclick="generateContract()">Firmar Compromiso âž”</button>
+            <div id="form-error" style="color: #FCA5A5; text-align: center; margin-top: 15px; display: none; font-weight: bold;">âš ï¸ Por favor, rellena todos los campos antes de firmar.</div>
         </div>
 
         <div class="contract-panel" id="contract-panel">
             <div class="contract-header">
-                <div class="contract-logo">🤝</div>
+                <div class="contract-logo">ðŸ¤</div>
                 <div class="contract-title">Acuerdo Personal de Autocontrol</div>
             </div>
             
             <div class="contract-body">
-                Yo, <span class="contract-fill" id="out-name">________</span>, alumno/a de 1º de ESO, entiendo que sentir enfado es natural, pero que la agresividad es una elección.<br><br>
-                Por ello, me comprometo oficialmente a que la próxima vez que <span class="contract-fill" id="out-trigger">________</span>, y note que mi cuerpo me avisa porque <span class="contract-fill" id="out-signal">________</span>...<br><br>
-                <strong>No me dejaré llevar por la impulsividad.</strong> En su lugar, aplicaré mi estrategia de <span class="contract-fill" id="out-strategy">________</span> para proteger mi expediente, mi libertad y demostrar que yo tengo el control de mi vida.
+                Yo, <span class="contract-fill" id="out-name">________</span>, alumno/a de 1Âº de ESO, entiendo que sentir enfado es natural, pero que la agresividad es una elecciÃ³n.<br><br>
+                Por ello, me comprometo oficialmente a que la prÃ³xima vez que <span class="contract-fill" id="out-trigger">________</span>, y note que mi cuerpo me avisa porque <span class="contract-fill" id="out-signal">________</span>...<br><br>
+                <strong>No me dejarÃ© llevar por la impulsividad.</strong> En su lugar, aplicarÃ© mi estrategia de <span class="contract-fill" id="out-strategy">________</span> para proteger mi expediente, mi libertad y demostrar que yo tengo el control de mi vida.
             </div>
 
             <div class="contract-footer">
-                <div class="seal">⚖️</div>
+                <div class="seal">âš–ï¸</div>
                 <div class="signature-box">
                     <div class="signature-line" id="out-signature"></div>
                     <div style="font-weight: bold; text-transform: uppercase;">Firma del Alumno/a</div>
-                    <div style="font-size: 0.9rem; color: #6B7280; margin-top: 5px;">"Parar no es perder — es elegir"</div>
+                    <div style="font-size: 0.9rem; color: #6B7280; margin-top: 5px;">"Parar no es perder â€” es elegir"</div>
                 </div>
             </div>
 
             <div class="btn-actions">
-                <button class="btn-action btn-edit" onclick="editContract()">✏️ Editar</button>
-                <button class="btn-action btn-print" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
+                <button class="btn-action btn-edit" onclick="editContract()">âœï¸ Editar</button>
+                <button class="btn-action btn-print" onclick="window.print()">ðŸ–¨ï¸ Imprimir / Guardar PDF</button>
             </div>
         </div>
 
@@ -189,6 +190,7 @@
     </script>
 
     
-    <script src="https://jgamort408-web.github.io/profesor/tutoria/footer_8m.js?v=4"></script>
+        <script src="../assets/js/site.js"></script>
 </body>
 </html>
+

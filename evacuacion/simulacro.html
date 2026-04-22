@@ -1,12 +1,12 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protocolo de Evacuación - Contrarreloj</title>
+    <title>Protocolo de EvacuaciÃ³n - Contrarreloj</title>
     <style>
         :root {
-            --primary: #B91C1C; /* Rojo Carmesí */
+            --primary: #B91C1C; /* Rojo CarmesÃ­ */
             --secondary: #EA580C; /* Naranja Intenso */
             --accent: #16A34A; /* Verde Seguridad */
             --accent-fail: #DC2626; /* Rojo Error */
@@ -194,6 +194,7 @@
         }
 
     </style>
+    <link rel="stylesheet" href="../assets/css/site.css">
 </head>
 <body>
 
@@ -202,14 +203,14 @@
         <div class="header-section">
             <h1>Simulacro a Contrarreloj</h1>
             <p class="context-text">
-                En una emergencia real, los nervios nos pueden traicionar. Lee la situación, piensa rápido y elige la mejor decisión. Un solo error puede poner en peligro a todo tu grupo.
+                En una emergencia real, los nervios nos pueden traicionar. Lee la situaciÃ³n, piensa rÃ¡pido y elige la mejor decisiÃ³n. Un solo error puede poner en peligro a todo tu grupo.
             </p>
         </div>
 
         <div class="quiz-panel" id="quiz-panel">
             <div class="emergency-light" id="e-light"></div>
             
-            <div class="situation-tag" id="q-tag">Situación 1</div>
+            <div class="situation-tag" id="q-tag">SituaciÃ³n 1</div>
             <div class="question-text" id="q-text">Cargando...</div>
             
             <div class="options-container" id="options-container">
@@ -220,7 +221,7 @@
                 <div class="feedback-text" id="feedback-text"></div>
             </div>
             
-            <button class="btn-next" id="next-btn" onclick="nextQuestion()">Siguiente Situación ➔</button>
+            <button class="btn-next" id="next-btn" onclick="nextQuestion()">Siguiente SituaciÃ³n âž”</button>
         </div>
 
         <div class="progress-text" id="progress"></div>
@@ -231,53 +232,53 @@
         const questions = [
             {
                 tag: "La Mochila",
-                text: "Suenan los 5 toques. Tienes tu móvil nuevo y un estuche muy caro en la mesa. ¿Qué haces con tu mochila?",
+                text: "Suenan los 5 toques. Tienes tu mÃ³vil nuevo y un estuche muy caro en la mesa. Â¿QuÃ© haces con tu mochila?",
                 options: [
-                    { text: "A) La recojo rápido y me la pongo en la espalda.", correct: false },
-                    { text: "B) La pongo encima de mi mesa y la dejo ahí.", correct: true }
+                    { text: "A) La recojo rÃ¡pido y me la pongo en la espalda.", correct: false },
+                    { text: "B) La pongo encima de mi mesa y la dejo ahÃ­.", correct: true }
                 ],
-                feedbackCorrect: "¡Perfecto! El protocolo dice claramente que NO se recogen objetos personales. Las mochilas van encima de la mesa (no en el suelo) para evitar que tropecemos si la visibilidad es mala.",
-                feedbackIncorrect: "¡ERROR GRAVE! Demorarte en recoger cosas te pone en peligro. Además, llevar mochilas puede atascar las puertas y pasillos. Tu vida vale más que un móvil."
+                feedbackCorrect: "Â¡Perfecto! El protocolo dice claramente que NO se recogen objetos personales. Las mochilas van encima de la mesa (no en el suelo) para evitar que tropecemos si la visibilidad es mala.",
+                feedbackIncorrect: "Â¡ERROR GRAVE! Demorarte en recoger cosas te pone en peligro. AdemÃ¡s, llevar mochilas puede atascar las puertas y pasillos. Tu vida vale mÃ¡s que un mÃ³vil."
             },
             {
-                tag: "En el baño",
-                text: "Estabas en el baño lavándote las manos cuando suena la alarma. Sales al pasillo y ves pasar a la clase de 2º de la ESO.",
+                tag: "En el baÃ±o",
+                text: "Estabas en el baÃ±o lavÃ¡ndote las manos cuando suena la alarma. Sales al pasillo y ves pasar a la clase de 2Âº de la ESO.",
                 options: [
-                    { text: "A) Voy corriendo a buscar a mi clase (1º ESO) para ir con mi tutor.", correct: false },
-                    { text: "B) Me uno a esa clase de 2º y aviso a su profesor/a de que estoy ahí.", correct: true }
+                    { text: "A) Voy corriendo a buscar a mi clase (1Âº ESO) para ir con mi tutor.", correct: false },
+                    { text: "B) Me uno a esa clase de 2Âº y aviso a su profesor/a de que estoy ahÃ­.", correct: true }
                 ],
-                feedbackCorrect: "¡Gran decisión! El protocolo exige que te incorpores 'al grupo más cercano'. Si vas a buscar a tu clase puedes cruzarte con otros grupos y crear el caos. En el patio ya buscarás a tu profe.",
-                feedbackIncorrect: "¡PELIGRO! Nunca debes deambular solo por el instituto en una emergencia ni ir a contracorriente. Debes unirte al primer profesor o grupo que veas."
+                feedbackCorrect: "Â¡Gran decisiÃ³n! El protocolo exige que te incorpores 'al grupo mÃ¡s cercano'. Si vas a buscar a tu clase puedes cruzarte con otros grupos y crear el caos. En el patio ya buscarÃ¡s a tu profe.",
+                feedbackIncorrect: "Â¡PELIGRO! Nunca debes deambular solo por el instituto en una emergencia ni ir a contracorriente. Debes unirte al primer profesor o grupo que veas."
             },
             {
                 tag: "En la Escalera",
-                text: "Vuestra clase está bajando las escaleras, pero el grupo de delante va muy lento y estáis perdiendo tiempo.",
+                text: "Vuestra clase estÃ¡ bajando las escaleras, pero el grupo de delante va muy lento y estÃ¡is perdiendo tiempo.",
                 options: [
-                    { text: "A) Mantenemos nuestra fila detrás de ellos, a su ritmo, sin adelantar.", correct: true },
-                    { text: "B) Los adelantamos por la izquierda todos juntos para salir rápido.", correct: false }
+                    { text: "A) Mantenemos nuestra fila detrÃ¡s de ellos, a su ritmo, sin adelantar.", correct: true },
+                    { text: "B) Los adelantamos por la izquierda todos juntos para salir rÃ¡pido.", correct: false }
                 ],
-                feedbackCorrect: "¡Excelente! La norma dice: 'Permanecerán siempre unidos sin disgregarse ni adelantar a otros'. Adelantar en una escalera puede provocar caídas múltiples y avalanchas.",
-                feedbackIncorrect: "¡CUIDADO! Adelantar a otra clase en unas escaleras puede provocar una avalancha, caídas y un bloqueo total de la salida. Siempre hay que mantener la fila a su ritmo."
+                feedbackCorrect: "Â¡Excelente! La norma dice: 'PermanecerÃ¡n siempre unidos sin disgregarse ni adelantar a otros'. Adelantar en una escalera puede provocar caÃ­das mÃºltiples y avalanchas.",
+                feedbackIncorrect: "Â¡CUIDADO! Adelantar a otra clase en unas escaleras puede provocar una avalancha, caÃ­das y un bloqueo total de la salida. Siempre hay que mantener la fila a su ritmo."
             },
             {
                 tag: "Saliendo del Aula",
-                text: "Eres el último o la última de la fila al salir de tu clase hacia el pasillo.",
+                text: "Eres el Ãºltimo o la Ãºltima de la fila al salir de tu clase hacia el pasillo.",
                 options: [
                     { text: "A) Salgo corriendo para alcanzar a mi profe, que va el primero.", correct: false },
-                    { text: "B) Cierro la puerta del aula detrás de mí.", correct: true }
+                    { text: "B) Cierro la puerta del aula detrÃ¡s de mÃ­.", correct: true }
                 ],
-                feedbackCorrect: "¡Bien hecho! Cerrar la puerta del aula (¡sin echar la llave!) evita que, si hay un incendio, el humo se extienda por los pasillos o entre más oxígeno en la clase.",
-                feedbackIncorrect: "¡Te has saltado un paso! El protocolo especifica que el último alumno debe cerrar la puerta del aula. Esto es vital para frenar la expansión del humo o del fuego."
+                feedbackCorrect: "Â¡Bien hecho! Cerrar la puerta del aula (Â¡sin echar la llave!) evita que, si hay un incendio, el humo se extienda por los pasillos o entre mÃ¡s oxÃ­geno en la clase.",
+                feedbackIncorrect: "Â¡Te has saltado un paso! El protocolo especifica que el Ãºltimo alumno debe cerrar la puerta del aula. Esto es vital para frenar la expansiÃ³n del humo o del fuego."
             },
             {
                 tag: "El Olvido",
-                text: "Hace muchísimo frío. Ya estáis en el pasillo, pero recuerdas que tu abrigo está en el respaldo de la silla. Tardarías 5 segundos en cogerlo.",
+                text: "Hace muchÃ­simo frÃ­o. Ya estÃ¡is en el pasillo, pero recuerdas que tu abrigo estÃ¡ en el respaldo de la silla. TardarÃ­as 5 segundos en cogerlo.",
                 options: [
-                    { text: "A) Vuelvo rápidamente a clase a por él antes de que bajemos las escaleras.", correct: false },
-                    { text: "B) Me aguanto el frío y sigo en la fila. Ya me prestarán algo fuera.", correct: true }
+                    { text: "A) Vuelvo rÃ¡pidamente a clase a por Ã©l antes de que bajemos las escaleras.", correct: false },
+                    { text: "B) Me aguanto el frÃ­o y sigo en la fila. Ya me prestarÃ¡n algo fuera.", correct: true }
                 ],
-                feedbackCorrect: "¡Supervivencia al 100%! La norma más estricta es: 'En ningún caso ningún alumno ni alumna deberá volver atrás'. Si vas a contracorriente puedes chocar y caer.",
-                feedbackIncorrect: "¡DECISIÓN FATAL! Las normas dicen: 'En ningún caso se deberá volver atrás'. Ir en dirección contraria a cientos de personas que intentan salir es la causa de los peores accidentes."
+                feedbackCorrect: "Â¡Supervivencia al 100%! La norma mÃ¡s estricta es: 'En ningÃºn caso ningÃºn alumno ni alumna deberÃ¡ volver atrÃ¡s'. Si vas a contracorriente puedes chocar y caer.",
+                feedbackIncorrect: "Â¡DECISIÃ“N FATAL! Las normas dicen: 'En ningÃºn caso se deberÃ¡ volver atrÃ¡s'. Ir en direcciÃ³n contraria a cientos de personas que intentan salir es la causa de los peores accidentes."
             }
         ];
 
@@ -316,7 +317,7 @@
                 optionsContainer.appendChild(btn);
             });
 
-            progressEl.innerText = `Situación ${currentIndex + 1} de ${questions.length}`;
+            progressEl.innerText = `SituaciÃ³n ${currentIndex + 1} de ${questions.length}`;
         }
 
         function checkAnswer(isCorrect, selectedBtn) {
@@ -341,7 +342,7 @@
                 
                 feedbackBox.style.backgroundColor = 'rgba(22, 163, 74, 0.1)';
                 feedbackTitle.style.color = 'var(--accent)';
-                feedbackTitle.innerText = '✅ ACCIÓN SEGURA';
+                feedbackTitle.innerText = 'âœ… ACCIÃ“N SEGURA';
                 feedbackText.innerText = q.feedbackCorrect;
             } else {
                 selectedBtn.style.backgroundColor = 'rgba(220, 38, 38, 0.3)'; /* Red */
@@ -352,7 +353,7 @@
                 
                 feedbackBox.style.backgroundColor = 'rgba(220, 38, 38, 0.1)';
                 feedbackTitle.style.color = 'var(--accent-fail)';
-                feedbackTitle.innerText = '❌ PELIGRO';
+                feedbackTitle.innerText = 'âŒ PELIGRO';
                 feedbackText.innerText = q.feedbackIncorrect;
             }
             
@@ -378,13 +379,13 @@
             
             let message = "";
             if (score === questions.length) {
-                message = "¡Perfecto! Tienes unos reflejos excelentes y conoces las normas. Eres una garantía de seguridad para tu clase.";
+                message = "Â¡Perfecto! Tienes unos reflejos excelentes y conoces las normas. Eres una garantÃ­a de seguridad para tu clase.";
                 quizPanel.style.borderColor = 'var(--accent)';
                 eLight.style.backgroundColor = 'var(--accent)';
             } else if (score >= 3) {
-                message = "Bien hecho, pero cuidado. Has cometido algunos errores que en la vida real podrían causar problemas. Repasa las reglas de oro.";
+                message = "Bien hecho, pero cuidado. Has cometido algunos errores que en la vida real podrÃ­an causar problemas. Repasa las reglas de oro.";
             } else {
-                message = "¡Alerta! Necesitas repasar urgentemente el protocolo. Una evacuación requiere conocer las normas al milímetro para no ponerte en peligro a ti ni a los demás.";
+                message = "Â¡Alerta! Necesitas repasar urgentemente el protocolo. Una evacuaciÃ³n requiere conocer las normas al milÃ­metro para no ponerte en peligro a ti ni a los demÃ¡s.";
             }
 
             qText.innerText = `Has sobrevivido tomando ${score} decisiones seguras de ${questions.length}.`;
@@ -392,17 +393,18 @@
             
             feedbackBox.style.backgroundColor = 'rgba(255,255,255,0.1)';
             feedbackTitle.style.color = 'var(--white)';
-            feedbackTitle.innerText = 'EVALUACIÓN DEL TUTOR/A:';
+            feedbackTitle.innerText = 'EVALUACIÃ“N DEL TUTOR/A:';
             feedbackText.innerText = message;
             
             nextBtn.style.display = 'none';
-            progressEl.innerText = "Módulo Completado";
+            progressEl.innerText = "MÃ³dulo Completado";
         }
 
         // Iniciar
         loadQuestion();
     </script>
     
-    <script src="https://jgamort408-web.github.io/profesor/tutoria/footer_8m.js?v=3"></script>
+        <script src="../assets/js/site.js"></script>
 </body>
 </html>
+

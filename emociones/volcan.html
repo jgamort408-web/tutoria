@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Volcán Emocional - Gimnasio Emocional</title>
+    <title>El VolcÃ¡n Emocional - Gimnasio Emocional</title>
     <style>
         :root {
             --bg-dark: #111827;
@@ -85,7 +85,7 @@
         .btn-magma { background: linear-gradient(45deg, var(--magma-red), var(--magma-orange)); color: white; box-shadow: 0 4px 10px rgba(220, 38, 38, 0.3); }
         .btn-cool { background: linear-gradient(45deg, var(--cool-blue), #38BDF8); color: white; box-shadow: 0 4px 10px rgba(14, 165, 233, 0.3); }
 
-        /* --- EL VOLCÁN --- */
+        /* --- EL VOLCÃN --- */
         .volcano-container {
             flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
             position: relative; min-height: 250px;
@@ -137,45 +137,46 @@
         }
 
     </style>
+    <link rel="stylesheet" href="../assets/css/site.css">
 </head>
 <body>
 
     <div class="main-container">
         <div class="header">
-            <h1>El Volcán Emocional</h1>
-            <p class="subtitle">La ira nunca aparece de golpe. Son las pequeñas cosas del día a día las que llenan el vaso. Si aprendes a detectar la presión, podrás vaciarla antes de explotar.</p>
-            <div class="mantra-badge">👉 Parar no es perder — es elegir.</div>
+            <h1>El VolcÃ¡n Emocional</h1>
+            <p class="subtitle">La ira nunca aparece de golpe. Son las pequeÃ±as cosas del dÃ­a a dÃ­a las que llenan el vaso. Si aprendes a detectar la presiÃ³n, podrÃ¡s vaciarla antes de explotar.</p>
+            <div class="mantra-badge">ðŸ‘‰ Parar no es perder â€” es elegir.</div>
         </div>
 
         <div class="simulator-layout" id="sim-layout">
             
             <div class="panel">
-                <div class="panel-title" style="color: var(--magma-orange);">🔥 Añadir Presión</div>
-                <button class="btn btn-magma" onclick="addPressure(20, 'Me levanto con sueño y llego tarde')">🥱 Madrugar y prisas</button>
-                <button class="btn btn-magma" onclick="addPressure(25, 'Un profe me llama la atención injustamente')">👨‍🏫 Bronca del profe</button>
-                <button class="btn btn-magma" onclick="addPressure(30, 'Un compañero se ríe de mí en el pasillo')">🤬 Alguien se ríe de mí</button>
-                <button class="btn btn-magma" onclick="addPressure(20, 'Mis padres me quitan el móvil')">📱 Me quitan el móvil</button>
+                <div class="panel-title" style="color: var(--magma-orange);">ðŸ”¥ AÃ±adir PresiÃ³n</div>
+                <button class="btn btn-magma" onclick="addPressure(20, 'Me levanto con sueÃ±o y llego tarde')">ðŸ¥± Madrugar y prisas</button>
+                <button class="btn btn-magma" onclick="addPressure(25, 'Un profe me llama la atenciÃ³n injustamente')">ðŸ‘¨â€ðŸ« Bronca del profe</button>
+                <button class="btn btn-magma" onclick="addPressure(30, 'Un compaÃ±ero se rÃ­e de mÃ­ en el pasillo')">ðŸ¤¬ Alguien se rÃ­e de mÃ­</button>
+                <button class="btn btn-magma" onclick="addPressure(20, 'Mis padres me quitan el mÃ³vil')">ðŸ“± Me quitan el mÃ³vil</button>
             </div>
 
             <div class="volcano-container" id="volcano-container">
                 <div class="volcano-shape">
                     <div class="lava-fill" id="lava"></div>
                 </div>
-                <div class="pressure-gauge" id="gauge">PRESIÓN: 0%</div>
+                <div class="pressure-gauge" id="gauge">PRESIÃ“N: 0%</div>
             </div>
 
             <div class="panel">
-                <div class="panel-title" style="color: var(--cool-blue);">❄️ Válvulas de Escape</div>
-                <button class="btn btn-cool" onclick="coolDown(30, 'Cierras los ojos y respiras profundo 5 veces')" id="btn-resp">🌬️ Respirar 5 veces</button>
-                <button class="btn btn-cool" onclick="coolDown(40, 'Te alejas de la situación para no ver a esa persona')" id="btn-alej">🚶‍♂️ Alejarme de ahí</button>
-                <button class="btn btn-cool" onclick="coolDown(30, 'Le cuentas a un amigo lo que te ha molestado')" id="btn-habl">💬 Hablarlo con alguien</button>
-                <button class="btn btn-cool" onclick="coolDown(100, 'Reiniciando el volcán...')" id="btn-reset" style="display:none; background: #4B5563;">🔄 Volver a empezar</button>
+                <div class="panel-title" style="color: var(--cool-blue);">â„ï¸ VÃ¡lvulas de Escape</div>
+                <button class="btn btn-cool" onclick="coolDown(30, 'Cierras los ojos y respiras profundo 5 veces')" id="btn-resp">ðŸŒ¬ï¸ Respirar 5 veces</button>
+                <button class="btn btn-cool" onclick="coolDown(40, 'Te alejas de la situaciÃ³n para no ver a esa persona')" id="btn-alej">ðŸš¶â€â™‚ï¸ Alejarme de ahÃ­</button>
+                <button class="btn btn-cool" onclick="coolDown(30, 'Le cuentas a un amigo lo que te ha molestado')" id="btn-habl">ðŸ’¬ Hablarlo con alguien</button>
+                <button class="btn btn-cool" onclick="coolDown(100, 'Reiniciando el volcÃ¡n...')" id="btn-reset" style="display:none; background: #4B5563;">ðŸ”„ Volver a empezar</button>
             </div>
 
         </div>
 
         <div class="feedback-box" id="feedback">
-            Pulsa las causas de la izquierda para ver cómo se acumula la ira en tu interior.
+            Pulsa las causas de la izquierda para ver cÃ³mo se acumula la ira en tu interior.
         </div>
 
     </div>
@@ -197,9 +198,9 @@
 
             // Actualizar visuales
             lava.style.height = pressure + '%';
-            gauge.innerText = `PRESIÓN: ${pressure}%`;
+            gauge.innerText = `PRESIÃ“N: ${pressure}%`;
 
-            // Efectos de color según presión
+            // Efectos de color segÃºn presiÃ³n
             if (pressure < 50) {
                 gauge.style.color = "var(--magma-yellow)";
                 volcanoCont.classList.remove('shaking');
@@ -212,12 +213,12 @@
                 toggleMagmaBtns(false);
             } else if (pressure === 100) {
                 gauge.style.color = "var(--magma-red)";
-                gauge.innerText = "¡ERUPCIÓN!";
+                gauge.innerText = "Â¡ERUPCIÃ“N!";
                 volcanoCont.classList.add('shaking');
                 simLayout.classList.add('erupting');
-                feedback.innerHTML = "💥 <strong>¡HAS PERDIDO EL CONTROL!</strong> Cuando explotas, dejas de pensar con claridad. Ahora solo tú sufres las consecuencias. Usa las válvulas de escape para enfriarte.";
+                feedback.innerHTML = "ðŸ’¥ <strong>Â¡HAS PERDIDO EL CONTROL!</strong> Cuando explotas, dejas de pensar con claridad. Ahora solo tÃº sufres las consecuencias. Usa las vÃ¡lvulas de escape para enfriarte.";
                 feedback.style.color = "var(--magma-red)";
-                toggleMagmaBtns(true); // Bloquear botones de añadir presión
+                toggleMagmaBtns(true); // Bloquear botones de aÃ±adir presiÃ³n
                 btnReset.style.display = 'flex';
             }
         }
@@ -225,14 +226,14 @@
         function addPressure(amount, message) {
             if (pressure === 100) return;
             pressure += amount;
-            feedback.innerHTML = `🔥 ${message}. <em>La presión interior sube...</em>`;
+            feedback.innerHTML = `ðŸ”¥ ${message}. <em>La presiÃ³n interior sube...</em>`;
             feedback.style.color = "var(--magma-orange)";
             updateVolcano();
         }
 
         function coolDown(amount, message) {
             if (pressure === 0) {
-                feedback.innerHTML = "Estás en calma. No hay presión que soltar.";
+                feedback.innerHTML = "EstÃ¡s en calma. No hay presiÃ³n que soltar.";
                 feedback.style.color = "var(--cool-blue)";
                 return;
             }
@@ -240,12 +241,12 @@
             pressure -= amount;
             if (pressure < 0) pressure = 0; // Evitar que baje de 0 en el reset
             
-            feedback.innerHTML = `❄️ ${message}. <em>Estás recuperando el control.</em>`;
+            feedback.innerHTML = `â„ï¸ ${message}. <em>EstÃ¡s recuperando el control.</em>`;
             feedback.style.color = "var(--cool-blue)";
             
             if (amount === 100) {
                 btnReset.style.display = 'none';
-                feedback.innerHTML = "Volcán reiniciado. Recuerda: tú decides si la lava sube o baja.";
+                feedback.innerHTML = "VolcÃ¡n reiniciado. Recuerda: tÃº decides si la lava sube o baja.";
                 feedback.style.color = "var(--text-light)";
             }
             
@@ -259,6 +260,7 @@
     
 
     
-    <script src="https://jgamort408-web.github.io/profesor/tutoria/footer_8m.js?v=4"></script>
+        <script src="../assets/js/site.js"></script>
 </body>
 </html>
+

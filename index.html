@@ -1,291 +1,104 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Presentación Tutoría 1º ESO</title>
-    <style>
-        :root {
-            /* Nueva paleta: Azules y Ámbar */
-            --primary: #1E3A8A; /* Azul marino profundo */
-            --secondary: #2563EB; /* Azul brillante */
-            --accent: #F59E0B; /* Ámbar / Naranja cálido */
-            --accent-light: #FEF3C7; /* Ámbar muy suave para fondos */
-            --bg-color: transparent;
-            --text-main: #374151;
-            --text-light: #6B7280;
-            --white: #FFFFFF;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            display: flex;
-            justify-content: center;
-            line-height: 1.8;
-            flex-direction: column !important; /* Para evitar conflictos con el footer */
-            align-items: center !important;
-        }
-
-        .main-container {
-            width: 100%;
-            max-width: 1000px;
-            padding: 40px 20px;
-        }
-
-        /* --- CABECERA --- */
-        h1, h2, h3 {
-            font-family: 'Georgia', 'Times New Roman', serif;
-            color: var(--primary);
-        }
-
-        .header-section {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .welcome-badge {
-            display: inline-block;
-            background-color: var(--accent-light);
-            color: #B45309;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 20px;
-        }
-
-        .main-title {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            font-weight: normal;
-            letter-spacing: -0.5px;
-            color: var(--primary);
-        }
-
-        .main-title::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--secondary), var(--accent));
-            margin: 20px auto 0;
-            border-radius: 2px;
-        }
-
-        .context-text {
-            font-size: 1.2rem;
-            color: var(--text-main);
-            max-width: 800px;
-            margin: 0 auto 15px auto;
-        }
-
-        /* --- TARJETAS DE SECCIONES --- */
-        .sections-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .section-card {
-            background-color: var(--white);
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(30, 58, 138, 0.08);
-            cursor: pointer;
-            transition: all 0.4s ease;
-            border: 1px solid #E5E7EB;
-            border-top: 5px solid var(--secondary);
-            position: relative;
-        }
-
-        .section-card:nth-child(2n) {
-            border-top-color: var(--accent);
-        }
-
-        .section-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(30, 58, 138, 0.15);
-        }
-
-        .card-header {
-            padding: 30px 25px 20px 25px;
-            text-align: center;
-            background-color: var(--white);
-            position: relative;
-            z-index: 2;
-        }
-
-        .card-icon {
-            font-size: 3.5rem;
-            margin-bottom: 15px;
-            display: inline-block;
-            transition: transform 0.3s ease;
-        }
-
-        .section-card:hover .card-icon {
-            transform: scale(1.1);
-        }
-
-        .card-title {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            color: var(--primary);
-        }
-
-        .card-instruction {
-            font-size: 0.9rem;
-            color: var(--secondary);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: opacity 0.3s;
-        }
-
-        .section-card.revealed .card-instruction {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .card-content {
-            padding: 0 25px;
-            max-height: 0;
-            opacity: 0;
-            overflow: hidden;
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            background-color: #F9FAFB;
-        }
-
-        .section-card.revealed .card-content {
-            max-height: 300px;
-            opacity: 1;
-            padding: 0 25px 30px 25px;
-        }
-
-        .card-desc {
-            font-size: 1.05rem;
-            color: var(--text-main);
-            line-height: 1.6;
-            text-align: center;
-            padding-top: 15px;
-            border-top: 1px dashed #D1D5DB;
-        }
-
-        /* Falsa apariencia de enlace para guiar al usuario en Google Sites */
-        .fake-link {
-            display: inline-block;
-            margin-top: 15px;
-            color: var(--secondary);
-            font-weight: bold;
-            font-size: 0.95rem;
-        }
-        
-        .fake-link::after {
-            content: ' ➔';
-        }
-
-    </style>
+    <title>TutorÃ­a Activa | Estructura Web ESO</title>
+    <meta name="description" content="Estructura base para una web de tutorÃ­a en ESO con navegaciÃ³n comÃºn, bloques temÃ¡ticos e itinerarios por curso.">
+    <link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
-
-    <div class="main-container">
-        
-        <div class="header-section">
-            <span class="welcome-badge">Curso 2023 / 2024</span>
-            <h1 class="main-title">Tutoría 1º de ESO</h1>
-            <p class="context-text">
-                Bienvenid@s a nuestro espacio de encuentro. La tutoría no es una asignatura más, es el lugar donde aprendemos a convivir, a organizarnos y a conocernos mejor.
+    <div class="page-shell stack">
+        <section class="page-hero">
+            <span class="page-hero__eyebrow">Proyecto base</span>
+            <h1 class="page-hero__title">TutorÃ­a activa para toda la ESO</h1>
+            <p class="page-hero__lead">
+                Esta portada ya funciona como nodo central del proyecto: conecta cursos, Ã¡mbitos de trabajo y actividades interactivas con una misma identidad visual. La estructura estÃ¡ lista para crecer sin perder coherencia.
             </p>
-            <p class="context-text" style="color: var(--text-light); font-size: 1.05rem;">
-                Toca cada bloque para descubrir todo lo que vamos a trabajar este año.
-            </p>
-        </div>
-
-        <div class="sections-grid">
-            
-            <div class="section-card" onclick="revealCard(this)">
-                <div class="card-header">
-                    <span class="card-icon">💬</span>
-                    <h3 class="card-title">Convivencia y Asambleas</h3>
-                    <div class="card-instruction">Tocar para ver más</div>
-                </div>
-                <div class="card-content">
-                    <p class="card-desc">
-                        Utilizamos el modelo dialógico para resolver conflictos a través del diálogo. Aquí haremos nuestros sociogramas y prepararemos las asambleas de aula para que nuestra clase sea un lugar seguro para todos.
-                    </p>
-                    <div style="text-align: center;"><span class="fake-link">Ir a Sociograma</span></div>
-                </div>
+            <div class="button-row">
+                <a class="button" href="cursos/index.html">Explorar cursos</a>
+                <a class="ghost-button" href="estudio/index.html">Ver bloques temÃ¡ticos</a>
             </div>
+        </section>
 
-            <div class="section-card" onclick="revealCard(this)">
-                <div class="card-header">
-                    <span class="card-icon">🧠</span>
-                    <h3 class="card-title">Técnicas de Estudio</h3>
-                    <div class="card-instruction">Tocar para ver más</div>
-                </div>
-                <div class="card-content">
-                    <p class="card-desc">
-                        El salto a la ESO puede ser difícil. Aprenderemos a organizar nuestra agenda, hacer esquemas eficaces, resumir textos y trucos para enfrentarnos a los exámenes con confianza y sin estrés.
-                    </p>
-                    <div style="text-align: center;"><span class="fake-link">Ir a Técnicas</span></div>
-                </div>
+        <section class="stack">
+            <div class="section-heading">
+                <h2>Arquitectura principal</h2>
+                <p>La web queda organizada en dos puertas de entrada complementarias: navegaciÃ³n por curso y navegaciÃ³n por tema.</p>
             </div>
+            <div class="hub-grid">
+                <article class="hub-card">
+                    <h3>Itinerarios por curso</h3>
+                    <p>Cada nivel de ESO tendrÃ¡ su propia pÃ¡gina-resumen para ordenar sesiones, priorizar materiales y escalar los contenidos segÃºn la edad del alumnado.</p>
+                    <ul class="meta-list">
+                        <li>1.Âº ESO</li>
+                        <li>2.Âº ESO</li>
+                        <li>3.Âº ESO</li>
+                        <li>4.Âº ESO</li>
+                    </ul>
+                    <div class="button-row">
+                        <a class="button" href="cursos/index.html">Abrir cursos</a>
+                    </div>
+                </article>
 
-            <div class="section-card" onclick="revealCard(this)">
-                <div class="card-header">
-                    <span class="card-icon">📅</span>
-                    <h3 class="card-title">Días para Recordar</h3>
-                    <div class="card-instruction">Tocar para ver más</div>
-                </div>
-                <div class="card-content">
-                    <p class="card-desc">
-                        A lo largo del curso reflexionaremos sobre fechas clave para nuestra sociedad: el 8 de Marzo (Día de la Mujer), el Día de la Paz, el Día contra el Acoso Escolar, entre otros eventos importantes.
-                    </p>
-                    <div style="text-align: center;"><span class="fake-link">Ir a Especial 8M</span></div>
-                </div>
+                <article class="hub-card">
+                    <h3>Bloques temÃ¡ticos</h3>
+                    <p>Las actividades ya creadas se agrupan por Ã¡mbitos para facilitar la navegaciÃ³n del profesorado y construir secuencias didÃ¡cticas reutilizables.</p>
+                    <ul class="meta-list">
+                        <li>Estudio</li>
+                        <li>Emociones</li>
+                        <li>8M y ciudadanÃ­a</li>
+                        <li>EvacuaciÃ³n</li>
+                    </ul>
+                    <div class="button-row">
+                        <a class="ghost-button" href="emociones/index.html">Ir a Ã¡mbitos</a>
+                    </div>
+                </article>
+
+                <article class="hub-card">
+                    <h3>Seguimiento tutorial</h3>
+                    <p>Se reserva una secciÃ³n propia para evaluaciÃ³n, analÃ­tica o revisiÃ³n del progreso, separando claramente los paneles de gestiÃ³n de las actividades del alumnado.</p>
+                    <ul class="meta-list">
+                        <li>Panel docente</li>
+                        <li>Escalable</li>
+                        <li>Conectado</li>
+                    </ul>
+                    <div class="button-row">
+                        <a class="ghost-button" href="evaluacion/index.html">Ver evaluaciÃ³n</a>
+                    </div>
+                </article>
             </div>
+        </section>
 
-            <div class="section-card" onclick="revealCard(this)">
-                <div class="card-header">
-                    <span class="card-icon">🌿</span>
-                    <h3 class="card-title">Salud y Emociones</h3>
-                    <div class="card-instruction">Tocar para ver más</div>
+        <section class="two-col">
+            <article class="section-panel">
+                <h2>Bloques disponibles</h2>
+                <div class="page-links">
+                    <a href="estudio/index.html"><span>TÃ©cnicas de estudio</span><span>7 actividades</span></a>
+                    <a href="emociones/index.html"><span>EducaciÃ³n emocional</span><span>6 actividades</span></a>
+                    <a href="8marzo/index.html"><span>8M y ciudadanÃ­a</span><span>5 actividades</span></a>
+                    <a href="evacuacion/index.html"><span>Seguridad y evacuaciÃ³n</span><span>4 actividades</span></a>
                 </div>
-                <div class="card-content">
-                    <p class="card-desc">
-                        Cuidar nuestra mente y nuestro cuerpo es fundamental. Hablaremos sobre la importancia del sueño, la higiene digital (redes sociales), alimentación sana y cómo gestionar la ansiedad o la frustración.
+            </article>
+
+            <article class="section-panel">
+                <h2>Estado del proyecto</h2>
+                <div class="notice-card">
+                    <p class="site-copy">
+                        La web ya no es solo una estructura: ahora combina navegaciÃ³n comÃºn con contenido orientativo real por cursos y Ã¡mbitos, apoyado en los cuadernos disponibles y en las actividades interactivas que ya existÃ­an.
                     </p>
-                    <div style="text-align: center;"><span class="fake-link">Ir a Bienestar</span></div>
                 </div>
-            </div>
-
-        </div>
-
+                <ul class="meta-list">
+                    <li>Header comÃºn</li>
+                    <li>Footer comÃºn</li>
+                    <li>NavegaciÃ³n enlazada</li>
+                    <li>DiseÃ±o unificado</li>
+                </ul>
+            </article>
+        </section>
     </div>
 
-    <script>
-        function revealCard(element) {
-            // Permite abrir y cerrar las tarjetas al tocarlas
-            if (element.classList.contains('revealed')) {
-                element.classList.remove('revealed');
-            } else {
-                // Opcional: Si quieres que al abrir una se cierren las demás, descomenta esto:
-                // document.querySelectorAll('.section-card').forEach(card => card.classList.remove('revealed'));
-                
-                element.classList.add('revealed');
-            }
-        }
-    </script>
-<script src="https://jgamort408-web.github.io/profesor/tutoria/footer_8m.js?v=2"></script>
+    <script src="assets/js/site.js"></script>
 </body>
 </html>
+

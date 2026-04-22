@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -162,7 +162,7 @@
             margin-bottom: 10px;
         }
 
-        /* --- EJEMPLOS PELÍCULAS --- */
+        /* --- EJEMPLOS PELÃCULAS --- */
         .movies-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -241,7 +241,7 @@
             color: var(--text-main);
         }
 
-        /* --- CIENTÍFICAS OCULTAS --- */
+        /* --- CIENTÃFICAS OCULTAS --- */
         .inventors-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -327,6 +327,7 @@
         }
 
     </style>
+    <link rel="stylesheet" href="../assets/css/site.css">
 </head>
 <body>
 
@@ -335,28 +336,28 @@
         <h1 class="main-title">Mujeres en la pantalla y en el laboratorio</h1>
         
         <p class="context-text">
-            A lo largo de la historia, a las mujeres se les ha asignado el papel de "acompañantes" o "cuidadoras", tanto en la vida real como en la ficción. Esto ha provocado que muchos de sus grandes logros científicos hayan sido borrados de los libros, y que en el cine casi siempre hayan tenido papeles secundarios. ¡Vamos a analizarlo!
+            A lo largo de la historia, a las mujeres se les ha asignado el papel de "acompaÃ±antes" o "cuidadoras", tanto en la vida real como en la ficciÃ³n. Esto ha provocado que muchos de sus grandes logros cientÃ­ficos hayan sido borrados de los libros, y que en el cine casi siempre hayan tenido papeles secundarios. Â¡Vamos a analizarlo!
         </p>
 
-        <h2 class="section-title">1. El Evaluador de Películas</h2>
+        <h2 class="section-title">1. El Evaluador de PelÃ­culas</h2>
         
         <div class="bechdel-container">
             <p class="bechdel-intro">
-                El <strong>Test de Bechdel</strong> es un método famoso para evaluar si una historia tiene una representación femenina mínima. Pensad en vuestra película o serie favorita y responded a estas tres preguntas.
+                El <strong>Test de Bechdel</strong> es un mÃ©todo famoso para evaluar si una historia tiene una representaciÃ³n femenina mÃ­nima. Pensad en vuestra pelÃ­cula o serie favorita y responded a estas tres preguntas.
             </p>
 
             <div class="question-box">
-                <span class="question-text">1. ¿Hay al menos dos personajes femeninos con nombre propio?</span>
+                <span class="question-text">1. Â¿Hay al menos dos personajes femeninos con nombre propio?</span>
                 <button class="toggle-btn" onclick="toggleAnswer(this, 1)">NO</button>
             </div>
 
             <div class="question-box">
-                <span class="question-text">2. ¿Esas dos mujeres hablan entre ellas en algún momento?</span>
+                <span class="question-text">2. Â¿Esas dos mujeres hablan entre ellas en algÃºn momento?</span>
                 <button class="toggle-btn" onclick="toggleAnswer(this, 2)">NO</button>
             </div>
 
             <div class="question-box">
-                <span class="question-text">3. ¿Hablan de algo que NO sea un hombre (marido, novio, villano)?</span>
+                <span class="question-text">3. Â¿Hablan de algo que NO sea un hombre (marido, novio, villano)?</span>
                 <button class="toggle-btn" onclick="toggleAnswer(this, 3)">NO</button>
             </div>
 
@@ -368,193 +369,193 @@
             </div>
         </div>
 
-        <h3 style="text-align: center; color: var(--primary); margin-top: 30px;">Poniendo a prueba a los clásicos</h3>
-        <p style="text-align: center; color: var(--text-light);">Haz clic en estas películas famosas para descubrir si aprueban o suspenden el test.</p>
+        <h3 style="text-align: center; color: var(--primary); margin-top: 30px;">Poniendo a prueba a los clÃ¡sicos</h3>
+        <p style="text-align: center; color: var(--text-light);">Haz clic en estas pelÃ­culas famosas para descubrir si aprueban o suspenden el test.</p>
         
         <div class="movies-grid">
             <div class="movie-card" onclick="revealMovie(this)">
                 <div class="movie-front">
-                    <div class="movie-icon">🦸‍♂️</div>
+                    <div class="movie-icon">ðŸ¦¸â€â™‚ï¸</div>
                     <div class="movie-title">Los Vengadores (2012)</div>
                     <div class="movie-hint">Toca para ver</div>
                 </div>
                 <div class="movie-feedback">
                     <span class="feedback-badge badge-fail">SUSPENDE</span>
-                    <p class="feedback-desc">Tiene a Viuda Negra y a la agente Maria Hill (dos mujeres fuertes), pero <strong>jamás cruzan una sola palabra</strong> entre ellas en toda la película.</p>
+                    <p class="feedback-desc">Tiene a Viuda Negra y a la agente Maria Hill (dos mujeres fuertes), pero <strong>jamÃ¡s cruzan una sola palabra</strong> entre ellas en toda la pelÃ­cula.</p>
                 </div>
             </div>
 
             <div class="movie-card" onclick="revealMovie(this)">
                 <div class="movie-front">
-                    <div class="movie-icon">🧠</div>
-                    <div class="movie-title">Del Revés (Inside Out)</div>
+                    <div class="movie-icon">ðŸ§ </div>
+                    <div class="movie-title">Del RevÃ©s (Inside Out)</div>
                     <div class="movie-hint">Toca para ver</div>
                 </div>
                 <div class="movie-feedback">
                     <span class="feedback-badge badge-pass">APRUEBA</span>
-                    <p class="feedback-desc">Alegría y Tristeza son las protagonistas. Hablan constantemente entre ellas y debaten sobre cómo ayudar a Riley y gestionar sus recuerdos.</p>
+                    <p class="feedback-desc">AlegrÃ­a y Tristeza son las protagonistas. Hablan constantemente entre ellas y debaten sobre cÃ³mo ayudar a Riley y gestionar sus recuerdos.</p>
                 </div>
             </div>
 
             <div class="movie-card" onclick="revealMovie(this)">
                 <div class="movie-front">
-                    <div class="movie-icon">🚀</div>
+                    <div class="movie-icon">ðŸš€</div>
                     <div class="movie-title">Star Wars: Una nueva esperanza</div>
                     <div class="movie-hint">Toca para ver</div>
                 </div>
                 <div class="movie-feedback">
                     <span class="feedback-badge badge-fail">SUSPENDE</span>
-                    <p class="feedback-desc">La Princesa Leia es una gran líder rebelde, pero es literalmente la <strong>única mujer con nombre</strong> en toda la galaxia durante la película.</p>
+                    <p class="feedback-desc">La Princesa Leia es una gran lÃ­der rebelde, pero es literalmente la <strong>Ãºnica mujer con nombre</strong> en toda la galaxia durante la pelÃ­cula.</p>
                 </div>
             </div>
 
             <div class="movie-card" onclick="revealMovie(this)">
                 <div class="movie-front">
-                    <div class="movie-icon">🏹</div>
+                    <div class="movie-icon">ðŸ¹</div>
                     <div class="movie-title">Brave (Indomable)</div>
                     <div class="movie-hint">Toca para ver</div>
                 </div>
                 <div class="movie-feedback">
                     <span class="feedback-badge badge-pass">APRUEBA</span>
-                    <p class="feedback-desc">Toda la película se centra en la relación entre Mérida y su madre, la Reina Elinor. Hablan de sus tradiciones, el futuro y cómo cambiar su destino.</p>
+                    <p class="feedback-desc">Toda la pelÃ­cula se centra en la relaciÃ³n entre MÃ©rida y su madre, la Reina Elinor. Hablan de sus tradiciones, el futuro y cÃ³mo cambiar su destino.</p>
                 </div>
             </div>
 <div class="movie-card" onclick="revealMovie(this)">
                 <div class="movie-front">
-                    <div class="movie-icon">🍄</div>
+                    <div class="movie-icon">ðŸ„</div>
                     <div class="movie-title">Super Mario Bros (2023)</div>
                     <div class="movie-hint">Toca para ver</div>
                 </div>
                 <div class="movie-feedback">
                     <span class="feedback-badge badge-fail">SUSPENDE</span>
-                    <p class="feedback-desc">Aunque la Princesa Peach es una líder fuerte y guerrera, es prácticamente la <strong>única mujer con nombre</strong> en toda la película y no conversa con ninguna otra.</p>
+                    <p class="feedback-desc">Aunque la Princesa Peach es una lÃ­der fuerte y guerrera, es prÃ¡cticamente la <strong>Ãºnica mujer con nombre</strong> en toda la pelÃ­cula y no conversa con ninguna otra.</p>
                 </div>
             </div>
 
             <div class="movie-card" onclick="revealMovie(this)">
                 <div class="movie-front">
-                    <div class="movie-icon">❄️</div>
+                    <div class="movie-icon">â„ï¸</div>
                     <div class="movie-title">Frozen: El reino del hielo</div>
                     <div class="movie-hint">Toca para ver</div>
                 </div>
                 <div class="movie-feedback">
                     <span class="feedback-badge badge-pass">APRUEBA</span>
-                    <p class="feedback-desc">Elsa y Anna son el motor de la historia. Hablan constantemente sobre su relación como hermanas, sus miedos, sus poderes y cómo salvar su reino.</p>
+                    <p class="feedback-desc">Elsa y Anna son el motor de la historia. Hablan constantemente sobre su relaciÃ³n como hermanas, sus miedos, sus poderes y cÃ³mo salvar su reino.</p>
                 </div>
             </div>
 
             <div class="movie-card" onclick="revealMovie(this)">
                 <div class="movie-front">
-                    <div class="movie-icon">💍</div>
-                    <div class="movie-title">El Señor de los Anillos</div>
+                    <div class="movie-icon">ðŸ’</div>
+                    <div class="movie-title">El SeÃ±or de los Anillos</div>
                     <div class="movie-hint">Toca para ver</div>
                 </div>
                 <div class="movie-feedback">
                     <span class="feedback-badge badge-fail">SUSPENDE</span>
-                    <p class="feedback-desc">Hay personajes femeninos increíbles (Arwen, Éowyn, Galadriel), pero en toda la trilogía original... <strong>¡jamás llegan a conocerse ni a cruzar una sola palabra!</strong></p>
+                    <p class="feedback-desc">Hay personajes femeninos increÃ­bles (Arwen, Ã‰owyn, Galadriel), pero en toda la trilogÃ­a original... <strong>Â¡jamÃ¡s llegan a conocerse ni a cruzar una sola palabra!</strong></p>
                 </div>
             </div>
 
             <div class="movie-card" onclick="revealMovie(this)">
                 <div class="movie-front">
-                    <div class="movie-icon">🏹</div>
+                    <div class="movie-icon">ðŸ¹</div>
                     <div class="movie-title">Los Juegos del Hambre</div>
                     <div class="movie-hint">Toca para ver</div>
                 </div>
                 <div class="movie-feedback">
                     <span class="feedback-badge badge-pass">APRUEBA</span>
-                    <p class="feedback-desc">Katniss habla con su hermana Prim sobre cómo protegerla, y con su aliada Rue sobre cómo buscar comida, sobrevivir y escapar del peligro en la arena.</p>
+                    <p class="feedback-desc">Katniss habla con su hermana Prim sobre cÃ³mo protegerla, y con su aliada Rue sobre cÃ³mo buscar comida, sobrevivir y escapar del peligro en la arena.</p>
                 </div>
             </div>
         </div>
 
-        <h2 class="section-title">2. Científicas Ocultas</h2>
+        <h2 class="section-title">2. CientÃ­ficas Ocultas</h2>
         <p class="context-text" style="text-align: center; margin-bottom: 30px;">
-            Usamos estos inventos y conocimientos todos los días, pero pocas veces nos cuentan quién los creó. Haz clic en cada tarjeta para descubrir a las genios que hay detrás.
+            Usamos estos inventos y conocimientos todos los dÃ­as, pero pocas veces nos cuentan quiÃ©n los creÃ³. Haz clic en cada tarjeta para descubrir a las genios que hay detrÃ¡s.
         </p>
 
         <div class="inventors-grid">
             
             <div class="inventor-card" onclick="revealInventor(this)">
                 <div class="front-content">
-                    <div class="invention-icon">📶</div>
+                    <div class="invention-icon">ðŸ“¶</div>
                     <div class="invention-name">El Wi-Fi y el Bluetooth</div>
                     <div class="click-hint">Toca para descubrir</div>
                 </div>
                 <div class="inventor-info">
                     <div class="inventor-name">Hedy Lamarr</div>
                     <div class="inventor-desc">
-                        Además de ser una famosísima actriz de Hollywood, era una ingeniera brillante. Inventó un sistema de comunicaciones secretas durante la 2ª Guerra Mundial que es la base del Wi-Fi y el Bluetooth actual.
+                        AdemÃ¡s de ser una famosÃ­sima actriz de Hollywood, era una ingeniera brillante. InventÃ³ un sistema de comunicaciones secretas durante la 2Âª Guerra Mundial que es la base del Wi-Fi y el Bluetooth actual.
                     </div>
                 </div>
             </div>
 
             <div class="inventor-card" onclick="revealInventor(this)">
                 <div class="front-content">
-                    <div class="invention-icon">🚗</div>
+                    <div class="invention-icon">ðŸš—</div>
                     <div class="invention-name">El Limpiaparabrisas</div>
                     <div class="click-hint">Toca para descubrir</div>
                 </div>
                 <div class="inventor-info">
                     <div class="inventor-name">Mary Anderson</div>
                     <div class="inventor-desc">
-                        En 1903, viajando en tranvía bajo la nieve, vio que el conductor tenía que sacar la cabeza por la ventana para ver. Ella diseñó el primer limpiaparabrisas mecánico. ¡Las marcas de coches le robaron la idea!
+                        En 1903, viajando en tranvÃ­a bajo la nieve, vio que el conductor tenÃ­a que sacar la cabeza por la ventana para ver. Ella diseÃ±Ã³ el primer limpiaparabrisas mecÃ¡nico. Â¡Las marcas de coches le robaron la idea!
                     </div>
                 </div>
             </div>
 
             <div class="inventor-card" onclick="revealInventor(this)">
                 <div class="front-content">
-                    <div class="invention-icon">🛡️</div>
+                    <div class="invention-icon">ðŸ›¡ï¸</div>
                     <div class="invention-name">Los Chalecos Antibalas</div>
                     <div class="click-hint">Toca para descubrir</div>
                 </div>
                 <div class="inventor-info">
                     <div class="inventor-name">Stephanie Kwolek</div>
                     <div class="inventor-desc">
-                        Esta química descubrió en 1965 un material (el Kevlar) cinco veces más fuerte que el acero pero muy ligero. Su invento salva miles de vidas de policías y militares y se usa en naves espaciales.
+                        Esta quÃ­mica descubriÃ³ en 1965 un material (el Kevlar) cinco veces mÃ¡s fuerte que el acero pero muy ligero. Su invento salva miles de vidas de policÃ­as y militares y se usa en naves espaciales.
                     </div>
                 </div>
             </div>
 
             <div class="inventor-card" onclick="revealInventor(this)">
                 <div class="front-content">
-                    <div class="invention-icon">🧬</div>
+                    <div class="invention-icon">ðŸ§¬</div>
                     <div class="invention-name">La Estructura del ADN</div>
                     <div class="click-hint">Toca para descubrir</div>
                 </div>
                 <div class="inventor-info">
                     <div class="inventor-name">Rosalind Franklin</div>
                     <div class="inventor-desc">
-                        Ella logró tomar la primera fotografía que demostraba que el ADN tenía forma de doble hélice (la famosa Fotografía 51). Sus compañeros usaron su foto sin permiso para ganar el Premio Nobel.
+                        Ella logrÃ³ tomar la primera fotografÃ­a que demostraba que el ADN tenÃ­a forma de doble hÃ©lice (la famosa FotografÃ­a 51). Sus compaÃ±eros usaron su foto sin permiso para ganar el Premio Nobel.
                     </div>
                 </div>
             </div>
 
             <div class="inventor-card" onclick="revealInventor(this)">
                 <div class="front-content">
-                    <div class="invention-icon">🌕</div>
+                    <div class="invention-icon">ðŸŒ•</div>
                     <div class="invention-name">El viaje a la Luna</div>
                     <div class="click-hint">Toca para descubrir</div>
                 </div>
                 <div class="inventor-info">
                     <div class="inventor-name">Katherine Johnson</div>
                     <div class="inventor-desc">
-                        Conocida como la "ordenador humana", esta matemática de la NASA calculó las trayectorias exactas para que el Apolo 11 pudiera llegar a la Luna y regresar a salvo. Sin ella, Neil Armstrong no habría pisado la Luna.
+                        Conocida como la "ordenador humana", esta matemÃ¡tica de la NASA calculÃ³ las trayectorias exactas para que el Apolo 11 pudiera llegar a la Luna y regresar a salvo. Sin ella, Neil Armstrong no habrÃ­a pisado la Luna.
                     </div>
                 </div>
             </div>
 
             <div class="inventor-card" onclick="revealInventor(this)">
                 <div class="front-content">
-                    <div class="invention-icon">💻</div>
-                    <div class="invention-name">La Programación Informática</div>
+                    <div class="invention-icon">ðŸ’»</div>
+                    <div class="invention-name">La ProgramaciÃ³n InformÃ¡tica</div>
                     <div class="click-hint">Toca para descubrir</div>
                 </div>
                 <div class="inventor-info">
                     <div class="inventor-name">Ada Lovelace</div>
                     <div class="inventor-desc">
-                        En el siglo XIX (¡mucho antes de que existieran los ordenadores eléctricos!), esta matemática británica escribió el primer algoritmo pensado para ser procesado por una máquina. Es considerada la primera programadora de la historia.
+                        En el siglo XIX (Â¡mucho antes de que existieran los ordenadores elÃ©ctricos!), esta matemÃ¡tica britÃ¡nica escribiÃ³ el primer algoritmo pensado para ser procesado por una mÃ¡quina. Es considerada la primera programadora de la historia.
                     </div>
                 </div>
             </div>
@@ -564,14 +565,14 @@
     </div>
 
     <script>
-        // Lógica para el Test de Bechdel
+        // LÃ³gica para el Test de Bechdel
         let answers = { 1: false, 2: false, 3: false };
 
         function toggleAnswer(btn, questionNum) {
             answers[questionNum] = !answers[questionNum];
             
             if (answers[questionNum]) {
-                btn.innerText = 'SÍ';
+                btn.innerText = 'SÃ';
                 btn.classList.add('active');
             } else {
                 btn.innerText = 'NO';
@@ -591,24 +592,24 @@
                 resultBox.style.backgroundColor = '#ECFDF5';
                 resultBox.style.border = '2px solid var(--accent)';
                 resultTitle.style.color = 'var(--accent)';
-                resultTitle.innerText = '¡Test Superado! 🎉';
-                resultText.innerHTML = 'La película o juego que habéis elegido aprueba el Test de Bechdel. Esto significa que trata a sus personajes femeninos con profundidad, dándoles voz propia y una historia más allá de estar pendientes de un personaje masculino. ¡Ojalá todas fueran así!';
+                resultTitle.innerText = 'Â¡Test Superado! ðŸŽ‰';
+                resultText.innerHTML = 'La pelÃ­cula o juego que habÃ©is elegido aprueba el Test de Bechdel. Esto significa que trata a sus personajes femeninos con profundidad, dÃ¡ndoles voz propia y una historia mÃ¡s allÃ¡ de estar pendientes de un personaje masculino. Â¡OjalÃ¡ todas fueran asÃ­!';
             } else {
                 // Suspenso
                 resultBox.style.backgroundColor = '#FEF2F2';
                 resultBox.style.border = '2px solid var(--accent-fail)';
                 resultTitle.style.color = 'var(--accent-fail)';
-                resultTitle.innerText = '¡Test Suspendido! 🚨';
-                resultText.innerHTML = 'Vuestra película no ha pasado la prueba. Aunque parezca increíble, gran parte de las películas más famosas del cine suspenden este test tan básico. Esto demuestra que todavía queda trabajo para que las mujeres dejen de ser un simple "adorno" en la ficción.';
+                resultTitle.innerText = 'Â¡Test Suspendido! ðŸš¨';
+                resultText.innerHTML = 'Vuestra pelÃ­cula no ha pasado la prueba. Aunque parezca increÃ­ble, gran parte de las pelÃ­culas mÃ¡s famosas del cine suspenden este test tan bÃ¡sico. Esto demuestra que todavÃ­a queda trabajo para que las mujeres dejen de ser un simple "adorno" en la ficciÃ³n.';
             }
         }
 
-        // Lógica para Ejemplos de Películas
+        // LÃ³gica para Ejemplos de PelÃ­culas
         function revealMovie(card) {
             if (!card.classList.contains('revealed')) {
                 card.classList.add('revealed');
                 
-                // Cambiar color del borde según si aprueba o suspende para más feedback visual
+                // Cambiar color del borde segÃºn si aprueba o suspende para mÃ¡s feedback visual
                 const isPass = card.querySelector('.badge-pass');
                 if(isPass) {
                     card.style.borderColor = 'var(--accent)';
@@ -620,13 +621,14 @@
             }
         }
 
-        // Lógica para Científicas Ocultas
+        // LÃ³gica para CientÃ­ficas Ocultas
         function revealInventor(card) {
             if (!card.classList.contains('revealed')) {
                 card.classList.add('revealed');
             }
         }
     </script>
-<script src="https://jgamort408-web.github.io/profesor/tutoria/footer_8m.js?v=2"></script>
+    <script src="../assets/js/site.js"></script>
 </body>
 </html>
+

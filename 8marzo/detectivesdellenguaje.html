@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -72,7 +72,7 @@
             text-align: justify;
         }
 
-        /* --- SIMULACIÓN DE TITULARES --- */
+        /* --- SIMULACIÃ“N DE TITULARES --- */
         .detective-card {
             background-color: var(--white);
             border-radius: 12px;
@@ -166,7 +166,7 @@
             background-color: #F3E8FF;
         }
 
-        /* --- EXPLICACIÓN DE RESPUESTA --- */
+        /* --- EXPLICACIÃ“N DE RESPUESTA --- */
         .feedback-box {
             background: linear-gradient(to right, rgba(250, 245, 255, 0.9), rgba(255, 255, 255, 0));
             padding: 25px;
@@ -225,6 +225,7 @@
         }
 
     </style>
+    <link rel="stylesheet" href="../assets/css/site.css">
 </head>
 <body>
 
@@ -233,10 +234,10 @@
         <div class="header-section">
             <h1 class="main-title">Detectives del Lenguaje</h1>
             <p class="context-text">
-                El lenguaje construye nuestro mundo. La forma en la que hablamos y escribimos influye directamente en cómo vemos la realidad. A veces, sin darnos cuenta, utilizamos expresiones o leemos noticias que invisibilizan a las mujeres o las encasillan en estereotipos anticuados.
+                El lenguaje construye nuestro mundo. La forma en la que hablamos y escribimos influye directamente en cÃ³mo vemos la realidad. A veces, sin darnos cuenta, utilizamos expresiones o leemos noticias que invisibilizan a las mujeres o las encasillan en estereotipos anticuados.
             </p>
             <p class="context-text">
-                ¡Es hora de sacar la lupa! Analizad en clase los siguientes titulares de prensa ficticios, detectad dónde está el sesgo machista y elegid la mejor forma de reescribirlos.
+                Â¡Es hora de sacar la lupa! Analizad en clase los siguientes titulares de prensa ficticios, detectad dÃ³nde estÃ¡ el sesgo machista y elegid la mejor forma de reescribirlos.
             </p>
         </div>
 
@@ -251,7 +252,7 @@
             <div class="sub-headline" id="subheadline-text"></div>
 
             <div class="instruction">
-                🔍 ¿Cómo reescribirías este titular para que sea justo e igualitario?
+                ðŸ” Â¿CÃ³mo reescribirÃ­as este titular para que sea justo e igualitario?
             </div>
 
             <div class="options-container" id="options-container">
@@ -262,7 +263,7 @@
                 <div class="feedback-text" id="feedback-text"></div>
             </div>
             
-            <button class="btn-next" id="next-btn" onclick="nextCase()">Siguiente caso ➔</button>
+            <button class="btn-next" id="next-btn" onclick="nextCase()">Siguiente caso âž”</button>
 
         </div>
         
@@ -274,58 +275,58 @@
         const cases = [
             {
                 section: 'SOCIEDAD',
-                headline: '"Los médicos y las enfermeras del hospital logran un gran avance contra el virus."',
-                subheadline: 'El equipo del hospital comarcal recibe un premio por su dedicación.',
+                headline: '"Los mÃ©dicos y las enfermeras del hospital logran un gran avance contra el virus."',
+                subheadline: 'El equipo del hospital comarcal recibe un premio por su dedicaciÃ³n.',
                 options: [
-                    { text: 'A) "Los médicos y sus ayudantes logran un gran avance contra el virus."', correct: false },
-                    { text: 'B) "El personal médico y de enfermería logra un gran avance contra el virus."', correct: true }
+                    { text: 'A) "Los mÃ©dicos y sus ayudantes logran un gran avance contra el virus."', correct: false },
+                    { text: 'B) "El personal mÃ©dico y de enfermerÃ­a logra un gran avance contra el virus."', correct: true }
                 ],
-                feedbackCorrect: '¡Exacto! Al decir "los médicos y las enfermeras" estamos asumiendo automáticamente que los hombres ocupan el puesto de mayor prestigio (médicos) y las mujeres el de cuidado (enfermeras), cuando en la realidad hay muchísimas médicas y muchísimos enfermeros. Usar términos genéricos ("personal médico") incluye a todos.',
-                feedbackIncorrect: 'Piénsalo bien: ¿por qué asumir que todos los médicos son hombres y todas las enfermeras son mujeres? El lenguaje debe reflejar la realidad, y en los hospitales hay profesionales de ambos sexos en todos los puestos.'
+                feedbackCorrect: 'Â¡Exacto! Al decir "los mÃ©dicos y las enfermeras" estamos asumiendo automÃ¡ticamente que los hombres ocupan el puesto de mayor prestigio (mÃ©dicos) y las mujeres el de cuidado (enfermeras), cuando en la realidad hay muchÃ­simas mÃ©dicas y muchÃ­simos enfermeros. Usar tÃ©rminos genÃ©ricos ("personal mÃ©dico") incluye a todos.',
+                feedbackIncorrect: 'PiÃ©nsalo bien: Â¿por quÃ© asumir que todos los mÃ©dicos son hombres y todas las enfermeras son mujeres? El lenguaje debe reflejar la realidad, y en los hospitales hay profesionales de ambos sexos en todos los puestos.'
             },
             {
-                section: 'POLÍTICA',
+                section: 'POLÃTICA',
                 headline: '"La mujer del presidente brilla en la cumbre internacional por su elegante vestido rojo."',
-                subheadline: 'Acompañó a su marido durante la reunión de líderes mundiales.',
+                subheadline: 'AcompaÃ±Ã³ a su marido durante la reuniÃ³n de lÃ­deres mundiales.',
                 options: [
-                    { text: 'A) "Marta Gómez, experta en derecho internacional, asiste a la cumbre de líderes mundiales."', correct: true },
+                    { text: 'A) "Marta GÃ³mez, experta en derecho internacional, asiste a la cumbre de lÃ­deres mundiales."', correct: true },
                     { text: 'B) "La primera dama deslumbra a todos los asistentes con su espectacular belleza."', correct: false }
                 ],
-                feedbackCorrect: '¡Muy bien! A menudo en los medios de comunicación se reduce a mujeres brillantes a ser simplemente "la mujer de" alguien, destacando únicamente su ropa o su aspecto físico, mientras que a los hombres se les valora por su profesión o intelecto. Nombrarla por su nombre y su valía profesional es hacer justicia.',
-                feedbackIncorrect: 'Cuidado con el enfoque. Seguir destacando únicamente su belleza y su papel como "esposa de" sigue restándole valor como profesional. A los líderes masculinos rara vez se les juzga por el color de su traje.'
+                feedbackCorrect: 'Â¡Muy bien! A menudo en los medios de comunicaciÃ³n se reduce a mujeres brillantes a ser simplemente "la mujer de" alguien, destacando Ãºnicamente su ropa o su aspecto fÃ­sico, mientras que a los hombres se les valora por su profesiÃ³n o intelecto. Nombrarla por su nombre y su valÃ­a profesional es hacer justicia.',
+                feedbackIncorrect: 'Cuidado con el enfoque. Seguir destacando Ãºnicamente su belleza y su papel como "esposa de" sigue restÃ¡ndole valor como profesional. A los lÃ­deres masculinos rara vez se les juzga por el color de su traje.'
             },
             {
                 section: 'CIENCIA',
-                headline: '"Los científicos descubren un nuevo planeta habitable a 40 años luz."',
-                subheadline: 'El equipo internacional está liderado por la astrofísica española Sara Seager.',
+                headline: '"Los cientÃ­ficos descubren un nuevo planeta habitable a 40 aÃ±os luz."',
+                subheadline: 'El equipo internacional estÃ¡ liderado por la astrofÃ­sica espaÃ±ola Sara Seager.',
                 options: [
                     { text: 'A) "Los investigadores del espacio descubren un nuevo planeta habitable."', correct: false },
-                    { text: 'B) "Un equipo de especialistas, liderado por una astrofísica, descubre un nuevo planeta habitable."', correct: true }
+                    { text: 'B) "Un equipo de especialistas, liderado por una astrofÃ­sica, descubre un nuevo planeta habitable."', correct: true }
                 ],
-                feedbackCorrect: '¡Diste en el clavo! Si el equipo está liderado por una mujer (y compuesto por hombres y mujeres), usar el masculino genérico "Los científicos" invisibiliza por completo el liderazgo y el mérito femenino. Nombrar a la directora del proyecto crea referentes para que las niñas de hoy quieran ser científicas mañana.',
-                feedbackIncorrect: 'Aunque "investigadores" es otra palabra, sigue cayendo en el masculino genérico que oculta el hecho importantísimo de que el descubrimiento está liderado por una astrofísica.'
+                feedbackCorrect: 'Â¡Diste en el clavo! Si el equipo estÃ¡ liderado por una mujer (y compuesto por hombres y mujeres), usar el masculino genÃ©rico "Los cientÃ­ficos" invisibiliza por completo el liderazgo y el mÃ©rito femenino. Nombrar a la directora del proyecto crea referentes para que las niÃ±as de hoy quieran ser cientÃ­ficas maÃ±ana.',
+                feedbackIncorrect: 'Aunque "investigadores" es otra palabra, sigue cayendo en el masculino genÃ©rico que oculta el hecho importantÃ­simo de que el descubrimiento estÃ¡ liderado por una astrofÃ­sica.'
             },
 {
                 section: 'DEPORTES',
-                headline: '"La Messi del fútbol femenino gana la Copa del Mundo con su equipo."',
-                subheadline: 'La jugadora española es reconocida como la mejor deportista del planeta este año.',
+                headline: '"La Messi del fÃºtbol femenino gana la Copa del Mundo con su equipo."',
+                subheadline: 'La jugadora espaÃ±ola es reconocida como la mejor deportista del planeta este aÃ±o.',
                 options: [
-                    { text: 'A) "La mejor jugadora del fútbol femenino, igual que Messi, gana la copa."', correct: false },
-                    { text: 'B) "La futbolista española hace historia y gana la Copa del Mundo con su equipo."', correct: true }
+                    { text: 'A) "La mejor jugadora del fÃºtbol femenino, igual que Messi, gana la copa."', correct: false },
+                    { text: 'B) "La futbolista espaÃ±ola hace historia y gana la Copa del Mundo con su equipo."', correct: true }
                 ],
-                feedbackCorrect: '¡Eso es! Al llamarla "la Messi", le estamos quitando su propia identidad, como si para ser buena tuviera que ser comparada siempre con un hombre. Tiene nombre propio y su esfuerzo es solo suyo.',
-                feedbackIncorrect: 'Cuidado. Aunque digas que es "la mejor", seguir comparándola con un jugador masculino para darle valor invisibiliza su propio nombre y su mérito personal.'
+                feedbackCorrect: 'Â¡Eso es! Al llamarla "la Messi", le estamos quitando su propia identidad, como si para ser buena tuviera que ser comparada siempre con un hombre. Tiene nombre propio y su esfuerzo es solo suyo.',
+                feedbackIncorrect: 'Cuidado. Aunque digas que es "la mejor", seguir comparÃ¡ndola con un jugador masculino para darle valor invisibiliza su propio nombre y su mÃ©rito personal.'
             },
             {
                 section: 'CULTURA',
-                headline: '"Una abuela de 70 años gana el Premio Nacional de Literatura."',
-                subheadline: 'Carmen Roca, con más de veinte novelas publicadas, recibe el máximo galardón de las letras.',
+                headline: '"Una abuela de 70 aÃ±os gana el Premio Nacional de Literatura."',
+                subheadline: 'Carmen Roca, con mÃ¡s de veinte novelas publicadas, recibe el mÃ¡ximo galardÃ³n de las letras.',
                 options: [
-                    { text: 'A) "La escritora Carmen Roca gana el Premio Nacional de Literatura a los 70 años."', correct: true },
-                    { text: 'B) "Una señora mayor, abuela de tres nietos, gana el premio de literatura."', correct: false }
+                    { text: 'A) "La escritora Carmen Roca gana el Premio Nacional de Literatura a los 70 aÃ±os."', correct: true },
+                    { text: 'B) "Una seÃ±ora mayor, abuela de tres nietos, gana el premio de literatura."', correct: false }
                 ],
-                feedbackCorrect: '¡Perfecto! A los hombres casi nunca se les define en los titulares por ser "abuelos" o "padres" cuando ganan un premio profesional. Destacar su profesión ("escritora") y su nombre es lo correcto.',
-                feedbackIncorrect: 'Piénsalo un segundo. Definirla por ser "señora mayor" o "abuela" oculta el hecho de que es una gran novelista. A los escritores famosos de su edad no se les suele juzgar ni definir por su situación familiar.'
+                feedbackCorrect: 'Â¡Perfecto! A los hombres casi nunca se les define en los titulares por ser "abuelos" o "padres" cuando ganan un premio profesional. Destacar su profesiÃ³n ("escritora") y su nombre es lo correcto.',
+                feedbackIncorrect: 'PiÃ©nsalo un segundo. Definirla por ser "seÃ±ora mayor" o "abuela" oculta el hecho de que es una gran novelista. A los escritores famosos de su edad no se les suele juzgar ni definir por su situaciÃ³n familiar.'
             },
             {
                 section: 'SOCIEDAD',
@@ -335,19 +336,19 @@
                     { text: 'A) "Los hombres directivos y las mujeres de la limpieza llegan a un acuerdo."', correct: false },
                     { text: 'B) "El empresariado y el personal de limpieza llegan a un acuerdo laboral."', correct: true }
                 ],
-                feedbackCorrect: '¡Gran deducción! Llamar "hombres" a los directivos y "chicas" a las limpiadoras es muy habitual, pero empequeñece e infantiliza a las mujeres trabajadoras. Usar términos neutros como "personal" o "empresariado" es mucho más respetuoso e inclusivo.',
-                feedbackIncorrect: 'Aunque esta opción suena un poco mejor, sigue separando los trabajos de forma sexista (asumiendo que los que dirigen siempre son hombres y las que limpian siempre mujeres). Es mejor usar términos colectivos.'
+                feedbackCorrect: 'Â¡Gran deducciÃ³n! Llamar "hombres" a los directivos y "chicas" a las limpiadoras es muy habitual, pero empequeÃ±ece e infantiliza a las mujeres trabajadoras. Usar tÃ©rminos neutros como "personal" o "empresariado" es mucho mÃ¡s respetuoso e inclusivo.',
+                feedbackIncorrect: 'Aunque esta opciÃ³n suena un poco mejor, sigue separando los trabajos de forma sexista (asumiendo que los que dirigen siempre son hombres y las que limpian siempre mujeres). Es mejor usar tÃ©rminos colectivos.'
             },
             {
                 section: 'ACTUALIDAD',
                 headline: '"Los profesores del instituto organizan una gran carrera solidaria."',
-                subheadline: 'El claustro, formado por 25 maestras y 5 maestros, preparó el evento durante meses.',
+                subheadline: 'El claustro, formado por 25 maestras y 5 maestros, preparÃ³ el evento durante meses.',
                 options: [
                     { text: 'A) "El profesorado del instituto organiza una gran carrera solidaria."', correct: true },
                     { text: 'B) "Los maestros del instituto organizan una carrera solidaria."', correct: false }
                 ],
-                feedbackCorrect: '¡Muy bien! Cuando usamos palabras colectivas como "el profesorado", "el alumnado" o "el equipo docente", incluimos a todos y todas sin dejar a nadie fuera. Y más aún cuando, en este caso, la inmensa mayoría de las organizadoras son mujeres.',
-                feedbackIncorrect: 'Fíjate en la noticia: ¡hay 25 maestras y solo 5 maestros! Usar el masculino "los maestros" invisibiliza a la inmensa mayoría de las personas que han organizado la carrera. Hay que buscar palabras inclusivas y neutras.'
+                feedbackCorrect: 'Â¡Muy bien! Cuando usamos palabras colectivas como "el profesorado", "el alumnado" o "el equipo docente", incluimos a todos y todas sin dejar a nadie fuera. Y mÃ¡s aÃºn cuando, en este caso, la inmensa mayorÃ­a de las organizadoras son mujeres.',
+                feedbackIncorrect: 'FÃ­jate en la noticia: Â¡hay 25 maestras y solo 5 maestros! Usar el masculino "los maestros" invisibiliza a la inmensa mayorÃ­a de las personas que han organizado la carrera. Hay que buscar palabras inclusivas y neutras.'
             }
         ];
 
@@ -391,7 +392,7 @@
         function checkAnswer(isCorrect, selectedBtn) {
             const current = cases[currentIndex];
             
-            // Bloquear más clics
+            // Bloquear mÃ¡s clics
             optionsContainerEl.style.pointerEvents = 'none';
             
             // Estilos a los botones
@@ -404,7 +405,7 @@
                 selectedBtn.style.borderColor = 'var(--accent-green)';
                 selectedBtn.style.backgroundColor = '#ECFDF5';
                 feedbackTitleEl.style.color = 'var(--accent-green)';
-                feedbackTitleEl.innerText = '¡Gran trabajo detectivesco!';
+                feedbackTitleEl.innerText = 'Â¡Gran trabajo detectivesco!';
                 feedbackTextEl.innerText = current.feedbackCorrect;
                 feedbackBoxEl.style.borderLeft = '4px solid var(--accent-green)';
             } else {
@@ -419,10 +420,10 @@
             feedbackBoxEl.style.display = 'block';
             
             if (currentIndex < cases.length - 1) {
-                nextBtnEl.innerText = 'Siguiente caso ➔';
+                nextBtnEl.innerText = 'Siguiente caso âž”';
                 nextBtnEl.style.display = 'block';
             } else {
-                nextBtnEl.innerText = 'Finalizar investigación';
+                nextBtnEl.innerText = 'Finalizar investigaciÃ³n';
                 nextBtnEl.style.display = 'block';
                 nextBtnEl.onclick = showFinalScreen;
             }
@@ -434,16 +435,16 @@
         }
 
         function showFinalScreen() {
-            sectionEl.innerText = 'CONCLUSIÓN';
+            sectionEl.innerText = 'CONCLUSIÃ“N';
             headlineEl.innerText = 'Caso cerrado: El lenguaje importa';
-            subheadlineEl.innerText = 'Habéis demostrado tener un gran espíritu crítico.';
+            subheadlineEl.innerText = 'HabÃ©is demostrado tener un gran espÃ­ritu crÃ­tico.';
             
             optionsContainerEl.style.display = 'none';
             document.querySelector('.instruction').style.display = 'none';
             
             feedbackTitleEl.style.color = 'var(--primary)';
-            feedbackTitleEl.innerText = 'Vuestra misión a partir de hoy';
-            feedbackTextEl.innerText = 'A partir de ahora, cuando leáis una noticia, veáis un anuncio o escuchéis una conversación, poneos las "gafas violetas". Nombrar a las mujeres correctamente y evitar los estereotipos es el primer paso para construir una sociedad más justa. Lo que no se nombra, no existe.';
+            feedbackTitleEl.innerText = 'Vuestra misiÃ³n a partir de hoy';
+            feedbackTextEl.innerText = 'A partir de ahora, cuando leÃ¡is una noticia, veÃ¡is un anuncio o escuchÃ©is una conversaciÃ³n, poneos las "gafas violetas". Nombrar a las mujeres correctamente y evitar los estereotipos es el primer paso para construir una sociedad mÃ¡s justa. Lo que no se nombra, no existe.';
             feedbackBoxEl.style.borderLeft = '4px solid var(--primary)';
             
             nextBtnEl.style.display = 'none';
@@ -453,6 +454,7 @@
         // Iniciar la actividad
         loadCase();
     </script>
-<script src="https://jgamort408-web.github.io/profesor/tutoria/footer_8m.js?v=2"></script>
+    <script src="../assets/js/site.js"></script>
 </body>
 </html>
+

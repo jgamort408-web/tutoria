@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Semáforo de la Ira - Gimnasio Emocional</title>
+    <title>El SemÃ¡foro de la Ira - Gimnasio Emocional</title>
     <style>
         :root {
             --bg-dark: #111827; --text-light: #F9FAFB; --volcano-rock: #374151;
@@ -26,7 +26,7 @@
         .simulator-layout { display: flex; flex-direction: column; gap: 30px; background-color: var(--bg-dark); border-radius: 16px; padding: 40px 20px; color: var(--text-light); border: 4px solid var(--volcano-rock); align-items: center; }
         @media (min-width: 768px) { .simulator-layout { flex-direction: row; justify-content: space-around; padding: 40px; align-items: flex-start; } }
 
-        /* --- EL SEMÁFORO --- */
+        /* --- EL SEMÃFORO --- */
         .traffic-light-container { background-color: #1F2937; padding: 20px; border-radius: 40px; border: 4px solid #4B5563; display: flex; flex-direction: column; gap: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         .light { width: 80px; height: 80px; border-radius: 50%; background-color: #374151; cursor: pointer; transition: all 0.3s; box-shadow: inset 0 5px 10px rgba(0,0,0,0.5); border: 2px solid #111827; }
         
@@ -34,7 +34,7 @@
         .light.active-yellow { background-color: var(--light-yellow); box-shadow: 0 0 30px var(--light-yellow), inset 0 -5px 15px rgba(255,255,255,0.4); border-color: #FEF08A; }
         .light.active-green { background-color: var(--light-green); box-shadow: 0 0 30px var(--light-green), inset 0 -5px 15px rgba(255,255,255,0.4); border-color: #86EFAC; }
 
-        /* --- ESCÁNER CORPORAL (Silueta CSS) --- */
+        /* --- ESCÃNER CORPORAL (Silueta CSS) --- */
         .scanner-container { flex: 1; display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 350px; }
         .silhouette { position: relative; width: 150px; height: 260px; margin: 20px auto; opacity: 0.5; transition: opacity 0.4s; }
         .silhouette.active { opacity: 1; }
@@ -56,14 +56,15 @@
         .feedback-desc { font-size: 1.05rem; color: #D1D5DB; }
 
     </style>
+    <link rel="stylesheet" href="../assets/css/site.css">
 </head>
 <body>
 
     <div class="main-container">
         <div class="header">
-            <h1>El Semáforo de la Ira</h1>
-            <p class="subtitle">Aprende a leer las señales de tu propio cuerpo. Si detectas que estás en amarillo, tendrás tiempo de frenar antes del choque.</p>
-            <div class="mantra-badge">👉 Parar no es perder — es elegir.</div>
+            <h1>El SemÃ¡foro de la Ira</h1>
+            <p class="subtitle">Aprende a leer las seÃ±ales de tu propio cuerpo. Si detectas que estÃ¡s en amarillo, tendrÃ¡s tiempo de frenar antes del choque.</p>
+            <div class="mantra-badge">ðŸ‘‰ Parar no es perder â€” es elegir.</div>
         </div>
 
         <div class="simulator-layout">
@@ -76,8 +77,8 @@
 
             <div class="scanner-container">
                 <div class="feedback-panel" id="main-feedback">
-                    <div class="feedback-title" style="color: #9CA3AF;">Toca una luz del semáforo</div>
-                    <div class="feedback-desc">Enciende el semáforo para ver cómo reacciona tu cerebro y tu cuerpo en cada fase.</div>
+                    <div class="feedback-title" style="color: #9CA3AF;">Toca una luz del semÃ¡foro</div>
+                    <div class="feedback-desc">Enciende el semÃ¡foro para ver cÃ³mo reacciona tu cerebro y tu cuerpo en cada fase.</div>
                 </div>
 
                 <div class="silhouette" id="silhouette">
@@ -105,12 +106,12 @@
         const fbDesc = document.querySelector('.feedback-desc');
         const fbPanel = document.getElementById('main-feedback');
 
-        // Datos de síntomas físicos
+        // Datos de sÃ­ntomas fÃ­sicos
         const symptoms = {
-            head: { title: "Mandíbula y Cabeza", desc: "Aprietas los dientes sin darte cuenta. Tensión en el cuello y la frente. La sangre sube a la cabeza." },
-            chest: { title: "Pecho y Respiración", desc: "El corazón te late muy rápido (taquicardia). Respiras de forma corta y acelerada buscando oxígeno." },
-            stomach: { title: "Estómago", desc: "Sientes un 'nudo' en la boca del estómago, nervios o incluso náuseas. Tu digestión se paraliza." },
-            hands: { title: "Manos y Brazos", desc: "Aprietas los puños. Sientes calor, sudor o temblor en las manos porque tus músculos se tensan para 'pelear'." }
+            head: { title: "MandÃ­bula y Cabeza", desc: "Aprietas los dientes sin darte cuenta. TensiÃ³n en el cuello y la frente. La sangre sube a la cabeza." },
+            chest: { title: "Pecho y RespiraciÃ³n", desc: "El corazÃ³n te late muy rÃ¡pido (taquicardia). Respiras de forma corta y acelerada buscando oxÃ­geno." },
+            stomach: { title: "EstÃ³mago", desc: "Sientes un 'nudo' en la boca del estÃ³mago, nervios o incluso nÃ¡useas. Tu digestiÃ³n se paraliza." },
+            hands: { title: "Manos y Brazos", desc: "Aprietas los puÃ±os. Sientes calor, sudor o temblor en las manos porque tus mÃºsculos se tensan para 'pelear'." }
         };
 
         function setLight(color) {
@@ -126,31 +127,31 @@
 
             if (color === 'green') {
                 lightGreen.classList.add('active-green');
-                fbTitle.innerText = "🟢 FASE VERDE: CALMA";
+                fbTitle.innerText = "ðŸŸ¢ FASE VERDE: CALMA";
                 fbTitle.style.color = "var(--light-green)";
-                fbDesc.innerText = "Respiras normal. Tu cerebro racional está al mando. Eres capaz de dialogar y pensar en las consecuencias.";
+                fbDesc.innerText = "Respiras normal. Tu cerebro racional estÃ¡ al mando. Eres capaz de dialogar y pensar en las consecuencias.";
             } 
             else if (color === 'yellow') {
                 lightYellow.classList.add('active-yellow');
                 silhouette.classList.add('active');
                 hotspots.forEach(h => h.style.display = 'block'); // Mostrar sensores
-                fbTitle.innerText = "🟡 FASE AMARILLA: ALERTA";
+                fbTitle.innerText = "ðŸŸ¡ FASE AMARILLA: ALERTA";
                 fbTitle.style.color = "var(--light-yellow)";
-                fbDesc.innerText = "Tu cuerpo segrega adrenalina. ¡Aún estás a tiempo de frenar! TOCA LOS PUNTOS DE LA SILUETA para ver las señales de peligro.";
+                fbDesc.innerText = "Tu cuerpo segrega adrenalina. Â¡AÃºn estÃ¡s a tiempo de frenar! TOCA LOS PUNTOS DE LA SILUETA para ver las seÃ±ales de peligro.";
                 fbPanel.style.borderColor = "var(--light-yellow)";
             } 
             else if (color === 'red') {
                 lightRed.classList.add('active-red');
-                fbTitle.innerText = "🔴 FASE ROJA: EXPLOSIÓN";
+                fbTitle.innerText = "ðŸ”´ FASE ROJA: EXPLOSIÃ“N";
                 fbTitle.style.color = "var(--light-red)";
-                fbDesc.innerText = "Has perdido el control. Gritas, insultas o rompes cosas. Tu cerebro ya no piensa, solo reacciona. Ahora tú eres el problema.";
+                fbDesc.innerText = "Has perdido el control. Gritas, insultas o rompes cosas. Tu cerebro ya no piensa, solo reacciona. Ahora tÃº eres el problema.";
                 fbPanel.style.borderColor = "var(--light-red)";
             }
         }
 
         function showSymptom(part) {
             const data = symptoms[part];
-            fbTitle.innerText = "⚠️ " + data.title;
+            fbTitle.innerText = "âš ï¸ " + data.title;
             fbTitle.style.color = "var(--light-yellow)";
             fbDesc.innerText = data.desc;
             
@@ -161,6 +162,7 @@
     </script>
 
     
-    <script src="https://jgamort408-web.github.io/profesor/tutoria/footer_8m.js?v=4"></script>
+        <script src="../assets/js/site.js"></script>
 </body>
 </html>
+

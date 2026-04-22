@@ -1,13 +1,13 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSI: El Rincón de Carlos - Técnicas</title>
+    <title>CSI: El RincÃ³n de Carlos - TÃ©cnicas</title>
     <style>
         :root {
             --primary: #0F766E; /* Azul Cerceta / Teal profundo */
-            --secondary: #0D9488; /* Teal más claro */
+            --secondary: #0D9488; /* Teal mÃ¡s claro */
             --accent: #EAB308; /* Amarillo Mostaza */
             --accent-hover: #CA8A04; /* Mostaza oscuro */
             --bg-color: transparent;
@@ -148,7 +148,7 @@
             pointer-events: none; /* Ya no se puede clicar */
         }
 
-        /* --- PANEL DE ANÁLISIS (FEEDBACK) --- */
+        /* --- PANEL DE ANÃLISIS (FEEDBACK) --- */
         .analysis-panel {
             background-color: var(--panel-bg);
             border-left: 5px solid var(--accent);
@@ -210,54 +210,55 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="../assets/css/site.css">
 </head>
 <body>
 
     <div class="main-container">
         
         <div class="header-section">
-            <span class="badge-detective">Investigación en curso</span>
-            <h1 class="main-title">CSI: El rincón de Carlos</h1>
+            <span class="badge-detective">InvestigaciÃ³n en curso</span>
+            <h1 class="main-title">CSI: El rincÃ³n de Carlos</h1>
             <p class="context-text">
-                Carlos estudia 1º de ESO y en la primera evaluación ha sacado varios suspensos por sorpresa. Como detectives del estudio, tu misión es leer su rutina y <strong>hacer clic en las 8 frases que son "Delitos de Estudio"</strong> (malos hábitos).
+                Carlos estudia 1Âº de ESO y en la primera evaluaciÃ³n ha sacado varios suspensos por sorpresa. Como detectives del estudio, tu misiÃ³n es leer su rutina y <strong>hacer clic en las 8 frases que son "Delitos de Estudio"</strong> (malos hÃ¡bitos).
             </p>
         </div>
 
         <div class="game-layout">
             
             <div class="score-board">
-                <div>🔍 Pistas encontradas:</div>
+                <div>ðŸ” Pistas encontradas:</div>
                 <div id="counter"><span>0</span> / 8</div>
             </div>
 
             <div class="analysis-panel" id="analysis-panel">
-                <div class="analysis-title">🚨 ¡Hábito Tóxico Detectado!</div>
+                <div class="analysis-title">ðŸš¨ Â¡HÃ¡bito TÃ³xico Detectado!</div>
                 <div class="analysis-text" id="analysis-text"></div>
                 <div class="analysis-solution" id="analysis-solution"></div>
             </div>
 
             <div class="case-text-container">
                 <p>
-                    El lugar de estudio de Carlos es de lo más agradable y atractivo. Allí puedes encontrar todo tipo de discos, colecciones de coches, motos, futbolistas... aquello es como un museo lleno de distracciones.
+                    El lugar de estudio de Carlos es de lo mÃ¡s agradable y atractivo. AllÃ­ puedes encontrar todo tipo de discos, colecciones de coches, motos, futbolistas... aquello es como un museo lleno de distracciones.
                 </p>
                 <p>
-                    Carlos estudia generalmente <span class="clue" onclick="findClue(this, 0)">tumbado en la cama</span>, con <span class="clue" onclick="findClue(this, 1)">la TV o la radio puesta</span>, lo que frecuentemente molesta a su hermana. Además, si echan un partido de fútbol, lo deja todo para después. 
+                    Carlos estudia generalmente <span class="clue" onclick="findClue(this, 0)">tumbado en la cama</span>, con <span class="clue" onclick="findClue(this, 1)">la TV o la radio puesta</span>, lo que frecuentemente molesta a su hermana. AdemÃ¡s, si echan un partido de fÃºtbol, lo deja todo para despuÃ©s. 
                 </p>
                 <p>
-                    Es decir, estudia <span class="clue" onclick="findClue(this, 2)">sin un horario fijo</span>, solo cuando le apetece (que suele ser pocas veces). Cuando está "estudiando", <span class="clue" onclick="findClue(this, 3)">se levanta frecuentemente</span>: unas veces para ver qué hace su padre en el salón, otras para hacer una visita al frigorífico o asomarse a la ventana.
+                    Es decir, estudia <span class="clue" onclick="findClue(this, 2)">sin un horario fijo</span>, solo cuando le apetece (que suele ser pocas veces). Cuando estÃ¡ "estudiando", <span class="clue" onclick="findClue(this, 3)">se levanta frecuentemente</span>: unas veces para ver quÃ© hace su padre en el salÃ³n, otras para hacer una visita al frigorÃ­fico o asomarse a la ventana.
                 </p>
                 <p>
-                    Pero los días inmediatamente anteriores a los exámenes, eso sí, estudia como un bruto, <span class="clue" onclick="findClue(this, 4)">dándose unas palizas monumentales por la noche</span> y <span class="clue" onclick="findClue(this, 5)">tomándose algún café a hurtadillas</span> para no dormirse.
+                    Pero los dÃ­as inmediatamente anteriores a los exÃ¡menes, eso sÃ­, estudia como un bruto, <span class="clue" onclick="findClue(this, 4)">dÃ¡ndose unas palizas monumentales por la noche</span> y <span class="clue" onclick="findClue(this, 5)">tomÃ¡ndose algÃºn cafÃ© a hurtadillas</span> para no dormirse.
                 </p>
                 <p>
-                    En clase nunca toma notas, así que suele <span class="clue" onclick="findClue(this, 6)">fotocopiar los apuntes de sus compañeros a última hora</span>. Además, siempre dice que <span class="clue" onclick="findClue(this, 7)">hacer esquemas y subrayar es perder el tiempo</span>.
+                    En clase nunca toma notas, asÃ­ que suele <span class="clue" onclick="findClue(this, 6)">fotocopiar los apuntes de sus compaÃ±eros a Ãºltima hora</span>. AdemÃ¡s, siempre dice que <span class="clue" onclick="findClue(this, 7)">hacer esquemas y subrayar es perder el tiempo</span>.
                 </p>
             </div>
 
             <div class="victory-panel" id="victory-panel">
-                <h2>¡Caso Resuelto! 🏆</h2>
+                <h2>Â¡Caso Resuelto! ðŸ†</h2>
                 <p style="font-size: 1.2rem; margin-bottom: 20px;">
-                    Has detectado todos los errores de Carlos. El entorno y la planificación son el 50% de la nota final. Ahora que conoces las trampas del estudio, ¡asegúrate de no caer en ellas en tu propia habitación!
+                    Has detectado todos los errores de Carlos. El entorno y la planificaciÃ³n son el 50% de la nota final. Ahora que conoces las trampas del estudio, Â¡asegÃºrate de no caer en ellas en tu propia habitaciÃ³n!
                 </p>
             </div>
 
@@ -266,39 +267,39 @@
     </div>
 
     <script>
-        // Base de datos de las pistas, por índice.
+        // Base de datos de las pistas, por Ã­ndice.
         const cluesData = [
             {
                 badHabit: "Estudiar en la cama.",
-                solution: "Solución: La silla debe tener respaldo duro y mesa amplia. En la cama, el cerebro se prepara para dormir, no para concentrarse."
+                solution: "SoluciÃ³n: La silla debe tener respaldo duro y mesa amplia. En la cama, el cerebro se prepara para dormir, no para concentrarse."
             },
             {
-                badHabit: "Tener la TV o la música de fondo.",
-                solution: "Solución: Apaga los aparatos. El ruido divide tu atención a la mitad y tardarás el doble en aprenderte la lección."
+                badHabit: "Tener la TV o la mÃºsica de fondo.",
+                solution: "SoluciÃ³n: Apaga los aparatos. El ruido divide tu atenciÃ³n a la mitad y tardarÃ¡s el doble en aprenderte la lecciÃ³n."
             },
             {
                 badHabit: "No tener un horario fijo.",
-                solution: "Solución: Hay que trabajar todos los días a las mismas horas. Así se crea el hábito y el cuerpo se acostumbra a concentrarse a esa hora."
+                solution: "SoluciÃ³n: Hay que trabajar todos los dÃ­as a las mismas horas. AsÃ­ se crea el hÃ¡bito y el cuerpo se acostumbra a concentrarse a esa hora."
             },
             {
                 badHabit: "Levantarse constantemente (distracciones).",
-                solution: "Solución: Prepara en tu mesa todo el material y el agua ANTES de empezar. Estudia sin interrupciones durante 50 minutos y luego descansa 10."
+                solution: "SoluciÃ³n: Prepara en tu mesa todo el material y el agua ANTES de empezar. Estudia sin interrupciones durante 50 minutos y luego descansa 10."
             },
             {
                 badHabit: "Atracones la noche de antes.",
-                solution: "Solución: La memoria necesita tiempo para asimilar. Los atracones nocturnos solo generan estrés y se olvidan a los dos días."
+                solution: "SoluciÃ³n: La memoria necesita tiempo para asimilar. Los atracones nocturnos solo generan estrÃ©s y se olvidan a los dos dÃ­as."
             },
             {
-                badHabit: "Tomar café o robar horas al sueño.",
-                solution: "Solución: Un estudiante de tu edad debe dormir en torno a 8 horas. Lo que no duermes, no lo memorizas. ¡Es ciencia!"
+                badHabit: "Tomar cafÃ© o robar horas al sueÃ±o.",
+                solution: "SoluciÃ³n: Un estudiante de tu edad debe dormir en torno a 8 horas. Lo que no duermes, no lo memorizas. Â¡Es ciencia!"
             },
             {
                 badHabit: "Fotocopiar los apuntes de otros.",
-                solution: "Solución: Al tomar tus propios apuntes en clase ya estás haciendo el 40% del estudio. Copiar los de otros no sirve para enterarse del tema."
+                solution: "SoluciÃ³n: Al tomar tus propios apuntes en clase ya estÃ¡s haciendo el 40% del estudio. Copiar los de otros no sirve para enterarse del tema."
             },
             {
                 badHabit: "No hacer esquemas ni subrayar.",
-                solution: "Solución: Leer un texto de Ciencias de principio a fin no es estudiar, es leer. Tienes que ser 'activo': busca lo importante y haz tus propios esquemas."
+                solution: "SoluciÃ³n: Leer un texto de Ciencias de principio a fin no es estudiar, es leer. Tienes que ser 'activo': busca lo importante y haz tus propios esquemas."
             }
         ];
 
@@ -324,7 +325,7 @@
             analysisText.innerText = "Error: " + data.badHabit;
             analysisSolution.innerText = data.solution;
             
-            // Efecto para que se note la actualización si clican muy rápido
+            // Efecto para que se note la actualizaciÃ³n si clican muy rÃ¡pido
             analysisPanel.style.display = 'none';
             setTimeout(() => {
                 analysisPanel.style.display = 'block';
@@ -337,11 +338,12 @@
                     analysisPanel.style.display = 'none';
                     // Scroll hacia abajo
                     victoryPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 1000); // Dar un segundo para leer la última pista antes de felicitar
+                }, 1000); // Dar un segundo para leer la Ãºltima pista antes de felicitar
             }
         }
     </script>
     
-    <script src="https://jgamort408-web.github.io/profesor/tutoria/footer_8m.js?v=4"></script>
+        <script src="../assets/js/site.js"></script>
 </body>
 </html>
+

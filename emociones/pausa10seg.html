@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -31,7 +31,7 @@
         .btn-start { background: linear-gradient(45deg, var(--light-yellow), #F59E0B); color: var(--bg-dark); font-weight: bold; font-size: 1.2rem; padding: 15px 40px; border: none; border-radius: 30px; cursor: pointer; text-transform: uppercase; transition: transform 0.2s; box-shadow: 0 5px 15px rgba(250, 204, 21, 0.4); }
         .btn-start:hover { transform: scale(1.05); }
 
-        /* PANTALLA 2: ESTRÉS (REACCIÓN RÁPIDA) */
+        /* PANTALLA 2: ESTRÃ‰S (REACCIÃ“N RÃPIDA) */
         #screen-stress { display: none; flex-direction: column; align-items: center; width: 100%; }
         .scenario-text { font-size: 1.8rem; font-weight: bold; color: var(--light-yellow); margin-bottom: 30px; line-height: 1.3; font-family: 'Georgia', serif; }
         
@@ -41,14 +41,14 @@
         .btn-reset { background-color: var(--light-red); color: white; font-family: 'Arial Black', sans-serif; font-size: 2rem; padding: 20px 40px; border: none; border-radius: 12px; cursor: pointer; text-transform: uppercase; box-shadow: 0 10px 0 #991B1B, 0 15px 30px rgba(220,38,38,0.5); transition: transform 0.1s, box-shadow 0.1s; width: 90%; max-width: 400px; }
         .btn-reset:active { transform: translateY(10px); box-shadow: 0 0 0 #991B1B, 0 5px 10px rgba(220,38,38,0.5); }
 
-        /* PANTALLA 3: RESPIRACIÓN */
+        /* PANTALLA 3: RESPIRACIÃ“N */
         #screen-breathe { display: none; flex-direction: column; align-items: center; justify-content: center; height: 100%; width: 100%; }
         .breathe-title { font-size: 1.5rem; color: var(--cool-blue); margin-bottom: 40px; font-weight: bold; }
         
         .breath-circle { width: 150px; height: 150px; border-radius: 50%; background-color: var(--cool-blue); display: flex; justify-content: center; align-items: center; font-size: 1.5rem; font-weight: bold; color: white; box-shadow: 0 0 30px rgba(14, 165, 233, 0.5); border: 4px solid #38BDF8; transition: transform 2s ease-in-out, background-color 2s; }
         .breath-circle.expand { transform: scale(1.6); background-color: var(--light-green); border-color: #86EFAC; box-shadow: 0 0 40px rgba(22, 163, 74, 0.5); }
 
-        /* PANTALLA 4: RESULTADOS (FALLO O ÉXITO) */
+        /* PANTALLA 4: RESULTADOS (FALLO O Ã‰XITO) */
         #screen-result { display: none; flex-direction: column; align-items: center; gap: 20px; }
         .result-icon { font-size: 4rem; }
         .result-title { font-size: 2rem; font-family: 'Arial Black', sans-serif; text-transform: uppercase; }
@@ -57,35 +57,36 @@
         .btn-retry:hover { background-color: #4B5563; }
 
     </style>
+    <link rel="stylesheet" href="../assets/css/site.css">
 </head>
 <body>
 
     <div class="main-container">
         <div class="header">
             <h1>La Pausa de 10 Segundos</h1>
-            <p class="subtitle">Cuando te atacan, tu instinto es explotar en menos de 3 segundos. Entrena tus reflejos para frenar a tiempo y recuperar el control con la respiración.</p>
-            <div class="mantra-badge">👉 Parar no es perder — es elegir.</div>
+            <p class="subtitle">Cuando te atacan, tu instinto es explotar en menos de 3 segundos. Entrena tus reflejos para frenar a tiempo y recuperar el control con la respiraciÃ³n.</p>
+            <div class="mantra-badge">ðŸ‘‰ Parar no es perder â€” es elegir.</div>
         </div>
 
         <div class="simulator-box" id="sim-box">
             
             <div id="screen-intro">
-                <div class="intro-icon">⏱️</div>
+                <div class="intro-icon">â±ï¸</div>
                 <h2 style="color: white; font-size: 1.8rem;">Entrenamiento de Reflejos</h2>
-                <p style="color: #9CA3AF; font-size: 1.1rem; max-width: 500px;">Vas a ver una situación muy injusta. Tendrás solo <strong>3 segundos</strong> para pulsar el Botón de Freno antes de explotar y meterte en problemas.</p>
+                <p style="color: #9CA3AF; font-size: 1.1rem; max-width: 500px;">Vas a ver una situaciÃ³n muy injusta. TendrÃ¡s solo <strong>3 segundos</strong> para pulsar el BotÃ³n de Freno antes de explotar y meterte en problemas.</p>
                 <button class="btn-start" onclick="startSimulation()">Iniciar Simulador</button>
             </div>
 
             <div id="screen-stress">
-                <div class="scenario-text" id="scenario-text">Cargando situación...</div>
+                <div class="scenario-text" id="scenario-text">Cargando situaciÃ³n...</div>
                 <div class="timer-bar-container">
                     <div class="timer-fill" id="timer-fill"></div>
                 </div>
-                <button class="btn-reset" onclick="hitReset()">🛑 PARAR</button>
+                <button class="btn-reset" onclick="hitReset()">ðŸ›‘ PARAR</button>
             </div>
 
             <div id="screen-breathe">
-                <div class="breathe-title">¡Freno activado! Ahora respira...</div>
+                <div class="breathe-title">Â¡Freno activado! Ahora respira...</div>
                 <div class="breath-circle" id="breath-circle">INHALA</div>
             </div>
 
@@ -102,9 +103,9 @@
     <script>
         const scenarios = [
             "Un profesor te echa la bronca delante de todos por algo que no has hecho.",
-            "Alguien te da un empujón fuerte por la espalda en el pasillo y se ríe.",
-            "Llevas un mal día y un compañero te insulta por tu aspecto físico.",
-            "Un compañero te quita el estuche de las manos y no te lo quiere devolver."
+            "Alguien te da un empujÃ³n fuerte por la espalda en el pasillo y se rÃ­e.",
+            "Llevas un mal dÃ­a y un compaÃ±ero te insulta por tu aspecto fÃ­sico.",
+            "Un compaÃ±ero te quita el estuche de las manos y no te lo quiere devolver."
         ];
 
         const screenIntro = document.getElementById('screen-intro');
@@ -125,13 +126,13 @@
         const TIME_LIMIT = 3000; // 3 segundos
 
         function startSimulation() {
-            // Ocultar intro, mostrar estrés
+            // Ocultar intro, mostrar estrÃ©s
             screenIntro.style.display = 'none';
             screenResult.style.display = 'none';
             screenStress.style.display = 'flex';
             simBox.style.borderColor = "var(--light-red)";
 
-            // Seleccionar situación aleatoria
+            // Seleccionar situaciÃ³n aleatoria
             const randomScenario = scenarios[Math.floor(Math.random() * scenarios.length)];
             scenarioText.innerText = `"${randomScenario}"`;
 
@@ -139,20 +140,20 @@
             timerFill.style.transition = "none";
             timerFill.style.width = "100%";
             
-            // Pequeño delay para que el navegador registre el cambio y empiece la animación
+            // PequeÃ±o delay para que el navegador registre el cambio y empiece la animaciÃ³n
             setTimeout(() => {
                 timerFill.style.transition = `width ${TIME_LIMIT}ms linear`;
                 timerFill.style.width = "0%";
             }, 50);
 
-            // Iniciar cuenta atrás de fallo
+            // Iniciar cuenta atrÃ¡s de fallo
             failTimer = setTimeout(() => {
                 showResult(false);
             }, TIME_LIMIT);
         }
 
         function hitReset() {
-            // El usuario logró pulsar a tiempo
+            // El usuario logrÃ³ pulsar a tiempo
             clearTimeout(failTimer);
             startBreathing();
         }
@@ -182,7 +183,7 @@
                     clearInterval(breathInterval);
                     setTimeout(() => { showResult(true); }, 2000); // Dar tiempo a que termine de deshincharse
                 }
-            }, 2000); // 2 segundos por movimiento (4s por respiración completa)
+            }, 2000); // 2 segundos por movimiento (4s por respiraciÃ³n completa)
         }
 
         function showResult(success) {
@@ -191,17 +192,17 @@
             screenResult.style.display = 'flex';
 
             if (success) {
-                resIcon.innerText = "🧠";
+                resIcon.innerText = "ðŸ§ ";
                 resTitle.innerText = "Control Recuperado";
                 resTitle.style.color = "var(--light-green)";
                 simBox.style.borderColor = "var(--light-green)";
-                resDesc.innerHTML = "¡Excelente! Has logrado frenar antes de explotar. Al oxigenar tu cerebro durante esos segundos, ahora puedes decidir responder con inteligencia y sin agredir.";
+                resDesc.innerHTML = "Â¡Excelente! Has logrado frenar antes de explotar. Al oxigenar tu cerebro durante esos segundos, ahora puedes decidir responder con inteligencia y sin agredir.";
             } else {
-                resIcon.innerText = "💥";
+                resIcon.innerText = "ðŸ’¥";
                 resTitle.innerText = "Boom. Explotaste.";
                 resTitle.style.color = "var(--light-red)";
                 simBox.style.borderColor = "var(--light-red)";
-                resDesc.innerHTML = "Has tardado más de 3 segundos en frenar. Te has dejado llevar por la ira, probablemente has insultado o empujado, y ahora serás tú quien asuma el castigo. Hay que ser más rápido.";
+                resDesc.innerHTML = "Has tardado mÃ¡s de 3 segundos en frenar. Te has dejado llevar por la ira, probablemente has insultado o empujado, y ahora serÃ¡s tÃº quien asuma el castigo. Hay que ser mÃ¡s rÃ¡pido.";
             }
         }
 
@@ -213,6 +214,7 @@
     </script>
 
     
-    <script src="https://jgamort408-web.github.io/profesor/tutoria/footer_8m.js?v=4"></script>
+        <script src="../assets/js/site.js"></script>
 </body>
 </html>
+
