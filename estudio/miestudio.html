@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Radiografía de mi estudio - Técnicas</title>
+    <style>
+        :root {
+            --primary: #0F766E; /* Azul Cerceta / Teal profundo */
+            --secondary: #0D9488; /* Teal más claro */
+            --accent: #EAB308; /* Amarillo Mostaza */
+            --accent-hover: #CA8A04; /* Mostaza oscuro */
+            --bg-color: transparent;
+            --text-main: #374151;
+            --text-light: #6B7280;
+            --white: #FFFFFF;
+            --panel-bg: #F0FDFA; /* Fondo teal muy suave */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            line-height: 1.8;
+            flex-direction: column !important;
+            align-items: center !important;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 800px;
+            padding: 40px 20px;
+        }
+
+        /* --- CABECERA --- */
+        .header-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            color: var(--primary);
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .main-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .context-text {
+            font-size: 1.15rem;
+            color: var(--text-main);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* --- CUESTIONARIO --- */
+        .quiz-container {
+            background-color: var(--white);
+            border-radius: 16px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(13, 148, 136, 0.1);
+            border: 2px solid #CCFBF1;
+        }
+
+        .question-card {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px dashed #E5E7EB;
+        }
+
+        .question-card:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+        }
+
+        .option-btn {
+            flex: 1;
+            padding: 12px 0;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: 2px solid #E5E7EB;
+            background-color: var(--white);
+            color: var(--text-light);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-btn:hover {
+            border-color: var(--secondary);
+            color: var(--secondary);
+        }
+
+        /* Estados de selección */
+        .option-btn.selected-yes {
+            background-color: var(--primary);
+            border-color: var(--primary);
+            color: var(--white);
+        }
+
+        .option-btn.selected-no {
+            background-color: var(--accent);
+            border-color: var(--accent);
+            color: var(--white);
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 18px;
+            font-size: 1.3rem;
+            font-family: 'Georgia', serif;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: background 0.3s, transform 0.2s;
+            box-shadow: 0 4px 15px rgba(15, 118, 110, 0.3);
+        }
+
+        .submit-btn:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled {
+            background-color: #9CA3AF;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* --- RESULTADOS --- */
+        .result-container {
+            display: none;
+            background-color: var(--panel-bg);
+            border-radius: 16px;
+            padding: 40px 30px;
+            margin-top: 40px;
+            border: 4px solid var(--primary);
+            text-align: center;
+            animation: fadeIn 0.6s ease;
+        }
+
+        .profile-icon {
+            font-size: 4rem;
+            margin-bottom: 10px;
+        }
+
+        .profile-title {
+            font-size: 2rem;
+            font-family: 'Arial Black', sans-serif;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .profile-desc {
+            font-size: 1.15rem;
+            margin-bottom: 30px;
+        }
+
+        .tips-container {
+            text-align: left;
+            background-color: var(--white);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .tips-title {
+            color: var(--accent-hover);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--accent);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        .tips-list {
+            list-style-type: none;
+        }
+
+        .tips-list li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+            font-size: 1.05rem;
+        }
+
+        .tips-list li::before {
+            content: '💡';
+            position: absolute;
+            left: 0;
+            top: 2px;
+        }
+
+        .btn-retry {
+            background-color: var(--text-light);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: background 0.3s;
+        }
+
+        .btn-retry:hover { background-color: var(--text-main); }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        
+        <div class="header-section">
+            <h1 class="main-title">Radiografía de mi estudio</h1>
+            <p class="context-text">
+                ¿Qué tal estudiante eres? Responde con total sinceridad a estas 10 preguntas para descubrir tu perfil. No hay notas, solo pistas para hacerte la vida mucho más fácil este curso.
+            </p>
+        </div>
+
+        <div class="quiz-container" id="quiz-container">
+            <div id="questions-wrapper">
+                </div>
+            
+            <button class="submit-btn" id="submit-btn" onclick="calculateResult()" disabled>
+                Revelar mi Radiografía ➔
+            </button>
+        </div>
+
+        <div class="result-container" id="result-container">
+            <div class="profile-icon" id="profile-icon">🏆</div>
+            <div class="profile-title" id="profile-title">Estudiante Élite</div>
+            <div class="profile-desc" id="profile-desc">¡Enhorabuena! Tienes unos hábitos geniales.</div>
+            
+            <div class="tips-container" id="tips-container">
+                <div class="tips-title">Tu Plan de Mejora Personalizado:</div>
+                <ul class="tips-list" id="tips-list">
+                    </ul>
+            </div>
+
+            <button class="btn-retry" onclick="resetQuiz()">Volver a hacer el test</button>
+        </div>
+
+    </div>
+
+    <script>
+        // Preguntas extraídas del cuestionario oficial y su respuesta "correcta" o ideal
+        const questions = [
+            { id: 1, text: "¿Estudias siempre en el mismo lugar?", ideal: "SÍ", tip: "Busca un lugar fijo. Estudiar cada día en un sitio distinto desconcentra." },
+            { id: 2, text: "¿Dejas para el último día la preparación de los exámenes?", ideal: "NO", tip: "No dejes los exámenes para el último día. Divide el temario en los días previos." },
+            { id: 3, text: "¿Tienes un horario fijo para estudiar todos los días?", ideal: "SÍ", tip: "Crea una rutina. Estudia y haz los deberes todos los días a la misma hora." },
+            { id: 4, text: "¿Estudias en un lugar alejado de ruidos y con la TV/Móvil apagados?", ideal: "SÍ", tip: "Apaga la tele y aleja el móvil. Los ruidos de fondo hacen que tardes el doble en estudiar." },
+            { id: 5, text: "¿Estudias acostado/a en la cama o recostado en el sofá?", ideal: "NO", tip: "¡Sal de la cama! Estudiar tumbado le manda señales a tu cerebro de que es hora de dormir." },
+            { id: 6, text: "¿Preguntas al profesor/a cuando no entiendes algo en clase?", ideal: "SÍ", tip: "No te lleves las dudas a casa. Preguntar en clase te ahorrará horas de frustración." },
+            { id: 7, text: "¿Sueles apuntar siempre las tareas y exámenes en la AGENDA?", ideal: "SÍ", tip: "No te fíes de tu memoria. Apunta absolutamente todo en la agenda." },
+            { id: 8, text: "¿Pides prestados los apuntes para copiarlos porque no los tienes?", ideal: "NO", tip: "Toma tus propios apuntes. Copiar lo de otros te quita autonomía y no te ayuda a memorizar." },
+            { id: 9, text: "¿Haces esquemas o resúmenes de las lecciones que estudias?", ideal: "SÍ", tip: "Haz un estudio activo: subraya, resume y haz esquemas. Leer como un loro no funciona." },
+            { id: 10, text: "¿Duermes unas 8 horas diarias y te acuestas temprano?", ideal: "SÍ", tip: "El sueño es clave. Si no duermes tus 8 horas, lo que estudiaste ayer se borrará de tu mente." }
+        ];
+
+        // Estado de respuestas del usuario
+        let userAnswers = {};
+
+        const questionsWrapper = document.getElementById('questions-wrapper');
+        const submitBtn = document.getElementById('submit-btn');
+
+        // Generar HTML de las preguntas
+        function renderQuestions() {
+            questionsWrapper.innerHTML = '';
+            questions.forEach((q, index) => {
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.innerHTML = `
+                    <div class="question-text">${index + 1}. ${q.text}</div>
+                    <div class="btn-group">
+                        <button class="option-btn" id="btn-yes-${q.id}" onclick="selectOption(${q.id}, 'SÍ')">SÍ</button>
+                        <button class="option-btn" id="btn-no-${q.id}" onclick="selectOption(${q.id}, 'NO')">NO</button>
+                    </div>
+                `;
+                questionsWrapper.appendChild(card);
+            });
+        }
+
+        // Manejar la selección de opciones
+        function selectOption(questionId, answer) {
+            userAnswers[questionId] = answer;
+
+            // Actualizar estilos de los botones
+            const btnYes = document.getElementById(`btn-yes-${questionId}`);
+            const btnNo = document.getElementById(`btn-no-${questionId}`);
+
+            if (answer === 'SÍ') {
+                btnYes.classList.add('selected-yes');
+                btnNo.classList.remove('selected-no');
+            } else {
+                btnNo.classList.add('selected-no');
+                btnYes.classList.remove('selected-yes');
+            }
+
+            checkCompletion();
+        }
+
+        // Comprobar si todas están respondidas para habilitar el botón
+        function checkCompletion() {
+            if (Object.keys(userAnswers).length === questions.length) {
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Revelar mi Radiografía ➔";
+            }
+        }
+
+        // Calcular el resultado final
+        function calculateResult() {
+            let score = 0;
+            let improvements = [];
+
+            // Evaluar cada pregunta
+            questions.forEach(q => {
+                if (userAnswers[q.id] === q.ideal) {
+                    score++;
+                } else {
+                    improvements.push(q.tip);
+                }
+            });
+
+            displayResult(score, improvements);
+        }
+
+        // Mostrar la pantalla de resultados
+        function displayResult(score, improvements) {
+            document.getElementById('quiz-container').style.display = 'none';
+            const resultContainer = document.getElementById('result-container');
+            const pIcon = document.getElementById('profile-icon');
+            const pTitle = document.getElementById('profile-title');
+            const pDesc = document.getElementById('profile-desc');
+            const tList = document.getElementById('tips-list');
+            const tContainer = document.getElementById('tips-container');
+
+            resultContainer.style.display = 'block';
+
+            // Asignar perfil según puntuación
+            if (score >= 8) {
+                pIcon.innerText = "🚀";
+                pTitle.innerText = "Estudiante Élite";
+                pTitle.style.color = "var(--primary)";
+                pDesc.innerText = `¡Puntuación: ${score}/10! Tienes unos hábitos de estudio geniales. Si mantienes esta rutina, la ESO será un paseo para ti.`;
+            } else if (score >= 5) {
+                pIcon.innerText = "🌱";
+                pTitle.innerText = "Estudiante Promesa";
+                pTitle.style.color = "var(--accent-hover)";
+                pDesc.innerText = `¡Puntuación: ${score}/10! Estás en el buen camino, pero tienes algunos despistes que te roban tiempo y energía.`;
+            } else {
+                pIcon.innerText = "🎢";
+                pTitle.innerText = "Estudiante Kamikaze";
+                pTitle.style.color = "#DC2626"; // Rojo alerta
+                pDesc.innerText = `¡Puntuación: ${score}/10! ¡Alerta! Estás estudiando en modo supervivencia. Necesitas aplicar los siguientes consejos cuanto antes para no agobiarte.`;
+            }
+
+            // Mostrar consejos personalizados
+            tList.innerHTML = '';
+            if (improvements.length > 0) {
+                tContainer.style.display = 'block';
+                improvements.forEach(tip => {
+                    const li = document.createElement('li');
+                    li.innerText = tip;
+                    tList.appendChild(li);
+                });
+            } else {
+                tContainer.style.display = 'none'; // Si saca 10/10 no hay tips
+            }
+
+            // Hacer scroll hacia arriba
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function resetQuiz() {
+            userAnswers = {};
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Responde todo para continuar...";
+            document.getElementById('result-container').style.display = 'none';
+            document.getElementById('quiz-container').style.display = 'block';
+            renderQuestions();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Inicializar
+        renderQuestions();
+
+    </script>
+    
+    <script src="https://jgamort408-web.github.io/profesor/tutoria/footer_8m.js?v=4"></script>
+</body>
+</html>
