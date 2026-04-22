@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Origen de la Llama - 8M</title>
+    <style>
+        :root {
+            --primary: #581C87; /* Morado más profundo y elegante */
+            --secondary: #9333EA;
+            --accent: #10B981;
+            --bg-color: transparent;
+            --text-main: #374151; /* Gris oscuro, más suave para la lectura que el negro */
+            --text-light: #6B7280;
+            --white: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            /* Tipografía mixta: Serif para elegancia, Sans-serif para legibilidad */
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            line-height: 1.8; /* Interlineado amplio para lectura cuidada */
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 900px; /* Un poco más estrecho para no cansar la vista */
+            padding: 40px 20px;
+        }
+
+        /* --- TIPOGRAFÍA Y TEXTOS --- */
+        h1, h2, h3 {
+            font-family: 'Georgia', 'Times New Roman', serif; /* Toque editorial */
+            color: var(--primary);
+        }
+
+        .header-section {
+            margin-bottom: 50px;
+        }
+
+        .main-title {
+            font-size: 2.8rem;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: normal;
+            letter-spacing: -0.5px;
+        }
+
+        .main-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .context-text {
+            font-size: 1.15rem;
+            margin-bottom: 24px;
+            color: var(--text-main);
+            text-align: justify;
+        }
+
+        /* Letra capital para el primer párrafo */
+        .context-text.intro::first-letter {
+            font-family: 'Georgia', serif;
+            color: var(--primary);
+            float: left;
+            font-size: 4rem;
+            line-height: 0.8;
+            margin-right: 12px;
+            margin-top: 4px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(to right, rgba(250, 245, 255, 0.8), rgba(255, 255, 255, 0));
+            border-left: 4px solid var(--secondary);
+            padding: 25px 30px;
+            margin: 40px 0;
+            font-size: 1.25rem;
+            font-family: 'Georgia', serif;
+            font-style: italic;
+            color: var(--primary);
+        }
+
+        .highlight-box strong {
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-light);
+            font-style: normal;
+        }
+
+        /* --- DINÁMICA: DESCUBRE A LAS PIONERAS --- */
+        .section-subtitle {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 15px;
+            font-weight: normal;
+        }
+
+        .section-desc {
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto 40px auto;
+        }
+
+        .pioneers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 35px;
+        }
+
+        .card {
+            background-color: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border: 1px solid #F3F4F6;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(88, 28, 135, 0.15);
+        }
+
+        .card-img-container {
+            width: 100%;
+            height: 280px;
+            background-color: #E5E7EB;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .img-blurred {
+            filter: blur(12px) grayscale(100%);
+            transition: all 1s ease;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.1); /* Evita bordes blancos al desenfocar */
+        }
+
+        .card.revealed .img-blurred {
+            filter: blur(0) grayscale(0%);
+            transform: scale(1);
+        }
+
+        .card-instruction {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(88, 28, 135, 0.85);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            width: max-content;
+        }
+
+        .card.revealed .card-instruction {
+            opacity: 0;
+        }
+
+        .card-content {
+            padding: 0 25px;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: all 0.8s ease;
+        }
+
+        .card.revealed .card-content {
+            max-height: 500px;
+            opacity: 1;
+            padding: 25px;
+        }
+
+        .card-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+        }
+
+        .card-content p {
+            font-size: 1rem;
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: transparent;
+            color: var(--secondary);
+            padding: 4px 0;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-top: 1px solid #E5E7EB;
+            width: 100%;
+            text-align: left;
+            padding-top: 15px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        
+        <div class="header-section">
+            <h1 class="main-title">El origen de la llama</h1>
+            
+            <p class="context-text intro">
+                El 8 de marzo conmemora el Día Internacional de las Mujeres, una fecha que fue adoptada por la Asamblea General de la Organización de las Naciones Unidas el 16 de diciembre de 1977. El objetivo principal de este día es eliminar toda forma de discriminación hacia las mujeres, promover su empoderamiento y conseguir su plena participación en la sociedad.
+            </p>
+            
+            <p class="context-text">
+                Esta celebración es única porque congrega a mujeres de diferentes países del mundo, con culturas y realidades muy diferentes, que se unen para reivindicar mejoras en su situación jurídica, laboral, social y familiar.
+            </p>
+
+            <div class="highlight-box">
+                <strong>¿Por qué sigue siendo necesario?</strong> 
+                "Las mujeres y las niñas siguen estando en desventaja: son infravaloradas, trabajan más y ganan menos, son el centro de las violencias en diversas expresiones y tienen, por tanto, menos oportunidades."
+            </div>
+
+            <p class="context-text">
+                El legado histórico de las mujeres que lucharon por la igualdad entre los sexos no debe quedar en el olvido. Como decía el filósofo John Stuart Mill, "el progreso de las naciones se mide por el progreso de sus mujeres".
+            </p>
+        </div>
+
+        <div>
+            <h2 class="section-subtitle">Descubre a nuestras pioneras</h2>
+            <p class="section-desc">
+                Toca las tarjetas para enfocar la imagen histórica y descubrir a tres mujeres fundamentales en España que rompieron moldes.
+            </p>
+        </div>
+
+        <div class="pioneers-grid">
+            
+            <div class="card" onclick="revealCard(this)">
+                <div class="card-img-container">
+                    <img src="data:image/jpeg;base64,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" alt="Clara Campoamor" class="img-blurred">
+                    <div class="card-instruction">TOCAR PARA REVELAR</div>
+                </div>
+                <div class="card-content">
+                    <h3>Clara Campoamor</h3>
+                    <p>Abogada, escritora y política española. Es una de las figuras más importantes de nuestra historia porque fue la principal defensora del voto femenino en España, logrando que se aprobara en 1931.</p>
+                    <span class="tag">Derecho al voto</span>
+                </div>
+            </div>
+
+            <div class="card" onclick="revealCard(this)">
+                <div class="card-img-container">
+                    <img src="data:image/jpeg;base64,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" alt="Victoria Kent" class="img-blurred">
+                    <div class="card-instruction">TOCAR PARA REVELAR</div>
+                </div>
+                <div class="card-content">
+                    <h3>Victoria Kent</h3>
+                    <p>Primera mujer en ingresar en el Colegio de Abogados de Madrid y pionera mundial en tribunales militares. Como Directora General de Prisiones, trabajó incansablemente por los derechos humanos.</p>
+                    <span class="tag">Pionera en leyes</span>
+                </div>
+            </div>
+
+            <div class="card" onclick="revealCard(this)">
+                <div class="card-img-container">
+                    <img src="data:image/jpeg;base64,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" alt="Margarita Nelken" class="img-blurred">
+                    <div class="card-instruction">TOCAR PARA REVELAR</div>
+                </div>
+                <div class="card-content">
+                    <h3>Margarita Nelken</h3>
+                    <p>Escritora, crítica de arte y de las primeras diputadas en España. Denunció la situación de pobreza y subordinación que sufrían las mujeres trabajadoras, exigiendo mejoras laborales urgentes.</p>
+                    <span class="tag">Derechos laborales</span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        function revealCard(element) {
+            if (!element.classList.contains('revealed')) {
+                element.classList.add('revealed');
+            }
+        }
+    </script>
+<script src="https://jgamort408-web.github.io/profesor/tutoria/footer_8m.js?v=2"></script>
+</body>
+</html>
