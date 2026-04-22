@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teatro de Decisiones - Gimnasio Emocional</title>
+    <style>
+        :root {
+            --bg-dark: #111827; --text-light: #F9FAFB; --volcano-rock: #374151;
+            --light-red: #DC2626; --light-yellow: #FACC15; --light-green: #16A34A;
+            --cool-blue: #0EA5E9; --bg-color: transparent;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+        
+        body { background-color: var(--bg-color); color: var(--text-light); display: flex; flex-direction: column; align-items: center; line-height: 1.6; }
+        .main-container { width: 100%; max-width: 900px; padding: 30px 15px; }
+
+        /* --- CABECERA --- */
+        .header { text-align: center; margin-bottom: 30px; color: var(--bg-dark); }
+        .header h1 { font-family: 'Arial Black', Impact, sans-serif; color: var(--cool-blue); font-size: 2.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.1); }
+        .subtitle { font-size: 1.2rem; color: #4B5563; max-width: 700px; margin: 0 auto; font-weight: 500; }
+        .mantra-badge { display: inline-block; background-color: var(--bg-dark); color: var(--light-yellow); padding: 8px 20px; border-radius: 30px; font-size: 1.1rem; font-weight: bold; margin-top: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+
+        /* --- ESCENARIO DEL TEATRO --- */
+        .theater-stage { background-color: var(--bg-dark); border-radius: 16px; padding: 40px 20px; border: 4px solid var(--volcano-rock); min-height: 500px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); display: flex; flex-direction: column; align-items: center; }
+        
+        .scenario-box { background-color: #1F2937; border-left: 5px solid var(--light-yellow); padding: 25px; border-radius: 8px; width: 100%; max-width: 700px; margin-bottom: 30px; text-align: center; }
+        .scenario-tag { color: var(--light-yellow); font-weight: bold; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; font-size: 0.9rem; }
+        .scenario-text { font-size: 1.5rem; font-family: 'Georgia', serif; line-height: 1.4; }
+
+        /* --- BOTONES DE DECISIÓN --- */
+        .decision-panel { display: flex; flex-direction: column; gap: 15px; width: 100%; max-width: 700px; }
+        @media (min-width: 600px) { .decision-panel { flex-direction: row; } }
+
+        .btn-decision { flex: 1; padding: 20px; border: none; border-radius: 12px; font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: all 0.2s; text-transform: uppercase; color: white; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+        .btn-decision:hover { transform: translateY(-3px); filter: brightness(1.1); }
+        .btn-decision:active { transform: translateY(0); }
+        
+        .btn-impulsive { background: linear-gradient(135deg, #991B1B, var(--light-red)); box-shadow: 0 6px 15px rgba(220, 38, 38, 0.3); border: 2px solid #FCA5A5; }
+        .btn-control { background: linear-gradient(135deg, #166534, var(--light-green)); box-shadow: 0 6px 15px rgba(22, 163, 74, 0.3); border: 2px solid #86EFAC; }
+        .btn-icon { font-size: 2.5rem; }
+
+        /* --- CADENA DE CONSECUENCIAS --- */
+        .consequences-container { width: 100%; max-width: 700px; margin-top: 30px; display: flex; flex-direction: column; gap: 15px; }
+        
+        .step { background-color: #374151; padding: 15px 20px; border-radius: 8px; display: flex; align-items: center; gap: 15px; opacity: 0; transform: translateY(20px); transition: all 0.4s ease; font-size: 1.1rem; }
+        .step.visible { opacity: 1; transform: translateY(0); }
+        .step-number { background-color: var(--bg-dark); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: bold; flex-shrink: 0; }
+        
+        .conclusion-box { margin-top: 20px; padding: 25px; border-radius: 12px; text-align: center; font-size: 1.3rem; font-weight: bold; display: none; animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .conclusion-red { background-color: rgba(220, 38, 38, 0.1); border: 2px solid var(--light-red); color: #FCA5A5; }
+        .conclusion-green { background-color: rgba(22, 163, 74, 0.1); border: 2px solid var(--light-green); color: #86EFAC; }
+
+        .btn-next { background-color: var(--cool-blue); color: white; border: none; padding: 12px 30px; border-radius: 30px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 30px; display: none; transition: transform 0.2s; text-transform: uppercase; }
+        .btn-next:hover { transform: scale(1.05); }
+
+        @keyframes popIn { 0% { opacity: 0; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1); } }
+
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <div class="header">
+            <h1>Teatro de Decisiones</h1>
+            <p class="subtitle">Cada vez que alguien te provoca, te está poniendo a prueba. Eres tú quien decide si le regalas tu poder o si mantienes el control. Analiza las consecuencias.</p>
+            <div class="mantra-badge">👉 Parar no es perder — es elegir.</div>
+        </div>
+
+        <div class="theater-stage">
+            
+            <div class="scenario-box">
+                <div class="scenario-tag" id="scene-counter">Escena 1 de 3</div>
+                <div class="scenario-text" id="scene-text">Cargando situación...</div>
+            </div>
+
+            <div class="decision-panel" id="decision-panel">
+                <button class="btn-decision btn-impulsive" onclick="playReaction('impulsive')">
+                    <span class="btn-icon">🌋</span> REACCIÓN IMPULSIVA<br><span style="font-size: 0.9rem; font-weight: normal;">(Explotar)</span>
+                </button>
+                <button class="btn-decision btn-control" onclick="playReaction('control')">
+                    <span class="btn-icon">🧠</span> AUTOCONTROL<br><span style="font-size: 0.9rem; font-weight: normal;">(Frenar)</span>
+                </button>
+            </div>
+
+            <div class="consequences-container" id="consequences-container">
+                </div>
+
+            <div id="conclusion" class="conclusion-box"></div>
+            
+            <button class="btn-next" id="btn-next" onclick="nextScene()">Siguiente Escena ➔</button>
+
+        </div>
+    </div>
+
+    <script>
+        const scenes = [
+            {
+                text: "Estás en el pasillo. Un compañero te da un empujón fuerte 'sin querer' y se ríe en tu cara delante de sus amigos.",
+                impulsive: [
+                    "Te giras y le devuelves el empujón mucho más fuerte.",
+                    "Él se encara contigo y empezáis a gritaros e insultaros.",
+                    "Aparece el Jefe de Estudios y os manda a los dos a Jefatura.",
+                    "Te ponen un parte disciplinario y tus padres te castigan sin móvil el fin de semana."
+                ],
+                control: [
+                    "Haces la pausa de 10 segundos. Respiras hondo y aprietas los puños, pero no haces nada.",
+                    "Le miras fijamente, niegas con la cabeza y sigues caminando hacia tu grupo.",
+                    "Él se queda buscando pelea, pero al no hacerle caso, queda en ridículo delante de todos.",
+                    "Un profesor que lo ha visto todo le llama la atención a él por su actitud."
+                ],
+                conclusionRed: "❌ Él se ha reído y tú te has llevado un parte y te has quedado sin móvil. Le has regalado el poder de arruinarte la tarde. TÚ PIERDES.",
+                conclusionGreen: "✅ Has mantenido el control. Él se ha llevado la bronca y tú conservas tu libertad y tu móvil. TÚ GANAS."
+            },
+            {
+                text: "Estás jugando un partido en el patio. El árbitro (un alumno) pita una falta en tu contra que es totalmente injusta.",
+                impulsive: [
+                    "Le gritas que es un tramposo y tiras el balón lejos con rabia.",
+                    "Tus compañeros te dicen que te calmes, pero te encaras con ellos también.",
+                    "El profesor de guardia te expulsa del partido.",
+                    "Te pasas el resto del recreo solo, enfadado y castigado en la pared."
+                ],
+                control: [
+                    "Te da mucha rabia. Aprietas los dientes, pero te alejas de la jugada.",
+                    "Respiras hondo y te dices a ti mismo: 'Solo es un patio, no pasa nada'.",
+                    "Vuelves a tu posición en el campo y sigues jugando a tope.",
+                    "Marcas un golazo dos minutos después y tu equipo lo celebra contigo."
+                ],
+                conclusionRed: "❌ Por una falta tonta, te has quedado sin jugar y te has enfadado con tus amigos. TÚ PIERDES.",
+                conclusionGreen: "✅ Tragaste tu rabia un segundo y pudiste seguir disfrutando de tu recreo y tus amigos. TÚ GANAS."
+            },
+            {
+                text: "El profesor te llama la atención en clase por hablar, pero en realidad era el compañero de atrás quien estaba hablando.",
+                impulsive: [
+                    "Te levantas de la silla gritando: '¡YO NO HE SIDO, SIEMPRE VAS A POR MÍ!'.",
+                    "El profesor te dice que no le faltes al respeto con esos tonos.",
+                    "Tú sigues discutiendo y contestando de mala manera.",
+                    "Te expulsa de clase y te manda a Jefatura con una nota roja."
+                ],
+                control: [
+                    "Te muerdes la lengua aunque te parezca súper injusto.",
+                    "Dices en tono normal: 'Perdone profe, pero yo no estaba hablando'.",
+                    "El profe te pide que te calles igualmente, y tú asientes y sigues copiando.",
+                    "Al final de la clase te acercas a hablarlo con él tranquilamente y él te da la razón."
+                ],
+                conclusionRed: "❌ Tenías razón, pero al perder las formas, perdiste la razón y te llevaste un castigo. TÚ PIERDES.",
+                conclusionGreen: "✅ Mantuviste la calma, evitaste el parte y al final demostraste que eras inocente. TÚ GANAS."
+            }
+        ];
+
+        let currentScene = 0;
+        const sceneCounter = document.getElementById('scene-counter');
+        const sceneText = document.getElementById('scene-text');
+        const decisionPanel = document.getElementById('decision-panel');
+        const consequencesContainer = document.getElementById('consequences-container');
+        const conclusionBox = document.getElementById('conclusion');
+        const btnNext = document.getElementById('btn-next');
+
+        function loadScene() {
+            sceneCounter.innerText = `Escena ${currentScene + 1} de ${scenes.length}`;
+            sceneText.innerText = `"${scenes[currentScene].text}"`;
+            
+            // Reset UI
+            decisionPanel.style.display = 'flex';
+            consequencesContainer.innerHTML = '';
+            conclusionBox.style.display = 'none';
+            btnNext.style.display = 'none';
+            conclusionBox.className = 'conclusion-box'; // Reset classes
+        }
+
+        function playReaction(type) {
+            decisionPanel.style.display = 'none'; // Ocultar botones
+            
+            const steps = type === 'impulsive' ? scenes[currentScene].impulsive : scenes[currentScene].control;
+            const conclusion = type === 'impulsive' ? scenes[currentScene].conclusionRed : scenes[currentScene].conclusionGreen;
+            const conclusionClass = type === 'impulsive' ? 'conclusion-red' : 'conclusion-green';
+
+            consequencesContainer.innerHTML = '';
+            
+            // Mostrar los pasos como un efecto dominó (uno tras otro)
+            steps.forEach((stepText, index) => {
+                const stepEl = document.createElement('div');
+                stepEl.className = 'step';
+                stepEl.innerHTML = `<div class="step-number">${index + 1}</div><div>${stepText}</div>`;
+                consequencesContainer.appendChild(stepEl);
+
+                setTimeout(() => {
+                    stepEl.classList.add('visible');
+                }, 800 * (index + 1)); // Delay progresivo
+            });
+
+            // Mostrar la conclusión final y el botón de siguiente
+            setTimeout(() => {
+                conclusionBox.innerText = conclusion;
+                conclusionBox.classList.add(conclusionClass);
+                conclusionBox.style.display = 'block';
+                
+                if (currentScene < scenes.length - 1) {
+                    btnNext.innerText = "Siguiente Escena ➔";
+                    btnNext.style.display = 'block';
+                } else {
+                    btnNext.innerText = "Finalizar Entrenamiento ➔";
+                    btnNext.style.display = 'block';
+                    btnNext.onclick = finishTraining;
+                }
+                
+                // Scroll down
+                conclusionBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 800 * (steps.length + 1));
+        }
+
+        function nextScene() {
+            currentScene++;
+            loadScene();
+        }
+
+        function finishTraining() {
+            sceneCounter.innerText = "ENTRENAMIENTO COMPLETADO";
+            sceneCounter.style.color = "var(--light-green)";
+            sceneText.innerText = "Has entendido perfectamente cómo funciona tu cerebro. Tú tienes el poder de elegir el resultado de tus problemas.";
+            decisionPanel.style.display = 'none';
+            consequencesContainer.innerHTML = '';
+            conclusionBox.style.display = 'none';
+            btnNext.style.display = 'none';
+        }
+
+        // Init
+        loadScene();
+
+    </script>
+
+    
+    <script src="https://jgamort408-web.github.io/profesor/tutoria/footer_8m.js?v=4"></script>
+</body>
+</html>
