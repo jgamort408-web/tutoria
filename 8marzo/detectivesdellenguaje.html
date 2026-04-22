@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detectives del Lenguaje - 8M</title>
+    <style>
+        :root {
+            --primary: #581C87;
+            --secondary: #9333EA;
+            --accent-green: #059669;
+            --accent-red: #DC2626;
+            --bg-color: transparent;
+            --text-main: #374151;
+            --text-light: #6B7280;
+            --white: #FFFFFF;
+            --news-bg: #F9FAFB;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            line-height: 1.8;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 800px;
+            padding: 40px 20px;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            color: var(--primary);
+        }
+
+        .header-section {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .main-title {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            font-weight: normal;
+            letter-spacing: -0.5px;
+        }
+
+        .main-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .context-text {
+            font-size: 1.15rem;
+            color: var(--text-main);
+            margin-bottom: 10px;
+            text-align: justify;
+        }
+
+        /* --- SIMULACIÓN DE TITULARES --- */
+        .detective-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(88, 28, 135, 0.1);
+            padding: 40px;
+            border: 1px solid #E5E7EB;
+            min-height: 450px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .news-header {
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .news-logo {
+            font-family: 'Georgia', serif;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .news-tag {
+            background-color: var(--primary);
+            color: white;
+            padding: 3px 10px;
+            font-size: 0.8rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .headline {
+            font-family: 'Georgia', serif;
+            font-size: 2rem;
+            color: #111827;
+            line-height: 1.3;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .sub-headline {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .instruction {
+            background-color: #FAF5FF;
+            border-left: 4px solid var(--secondary);
+            padding: 15px;
+            margin-bottom: 25px;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1rem;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .option-btn {
+            background-color: var(--news-bg);
+            border: 1px solid #D1D5DB;
+            padding: 15px 20px;
+            font-size: 1.05rem;
+            font-family: inherit;
+            color: var(--text-main);
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.2s;
+            line-height: 1.5;
+        }
+
+        .option-btn:hover {
+            border-color: var(--secondary);
+            background-color: #F3E8FF;
+        }
+
+        /* --- EXPLICACIÓN DE RESPUESTA --- */
+        .feedback-box {
+            background: linear-gradient(to right, rgba(250, 245, 255, 0.9), rgba(255, 255, 255, 0));
+            padding: 25px;
+            border-radius: 8px;
+            text-align: left;
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+            margin-top: 10px;
+        }
+
+        .feedback-title {
+            font-family: 'Georgia', serif;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .feedback-text {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: var(--text-main);
+        }
+
+        .btn-next {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 25px;
+            font-weight: bold;
+            display: none;
+            align-self: flex-end;
+            transition: background 0.3s;
+        }
+
+        .btn-next:hover {
+            background-color: var(--secondary);
+        }
+
+        .progress-indicator {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        
+        <div class="header-section">
+            <h1 class="main-title">Detectives del Lenguaje</h1>
+            <p class="context-text">
+                El lenguaje construye nuestro mundo. La forma en la que hablamos y escribimos influye directamente en cómo vemos la realidad. A veces, sin darnos cuenta, utilizamos expresiones o leemos noticias que invisibilizan a las mujeres o las encasillan en estereotipos anticuados.
+            </p>
+            <p class="context-text">
+                ¡Es hora de sacar la lupa! Analizad en clase los siguientes titulares de prensa ficticios, detectad dónde está el sesgo machista y elegid la mejor forma de reescribirlos.
+            </p>
+        </div>
+
+        <div class="detective-card" id="detective-card">
+            
+            <div class="news-header">
+                <span class="news-logo">Diario Global</span>
+                <span class="news-tag" id="news-section">CIENCIA</span>
+            </div>
+
+            <div class="headline" id="headline-text">Cargando titular...</div>
+            <div class="sub-headline" id="subheadline-text"></div>
+
+            <div class="instruction">
+                🔍 ¿Cómo reescribirías este titular para que sea justo e igualitario?
+            </div>
+
+            <div class="options-container" id="options-container">
+                </div>
+
+            <div class="feedback-box" id="feedback-box">
+                <div class="feedback-title" id="feedback-title"></div>
+                <div class="feedback-text" id="feedback-text"></div>
+            </div>
+            
+            <button class="btn-next" id="next-btn" onclick="nextCase()">Siguiente caso ➔</button>
+
+        </div>
+        
+        <div class="progress-indicator" id="progress"></div>
+
+    </div>
+
+    <script>
+        const cases = [
+            {
+                section: 'SOCIEDAD',
+                headline: '"Los médicos y las enfermeras del hospital logran un gran avance contra el virus."',
+                subheadline: 'El equipo del hospital comarcal recibe un premio por su dedicación.',
+                options: [
+                    { text: 'A) "Los médicos y sus ayudantes logran un gran avance contra el virus."', correct: false },
+                    { text: 'B) "El personal médico y de enfermería logra un gran avance contra el virus."', correct: true }
+                ],
+                feedbackCorrect: '¡Exacto! Al decir "los médicos y las enfermeras" estamos asumiendo automáticamente que los hombres ocupan el puesto de mayor prestigio (médicos) y las mujeres el de cuidado (enfermeras), cuando en la realidad hay muchísimas médicas y muchísimos enfermeros. Usar términos genéricos ("personal médico") incluye a todos.',
+                feedbackIncorrect: 'Piénsalo bien: ¿por qué asumir que todos los médicos son hombres y todas las enfermeras son mujeres? El lenguaje debe reflejar la realidad, y en los hospitales hay profesionales de ambos sexos en todos los puestos.'
+            },
+            {
+                section: 'POLÍTICA',
+                headline: '"La mujer del presidente brilla en la cumbre internacional por su elegante vestido rojo."',
+                subheadline: 'Acompañó a su marido durante la reunión de líderes mundiales.',
+                options: [
+                    { text: 'A) "Marta Gómez, experta en derecho internacional, asiste a la cumbre de líderes mundiales."', correct: true },
+                    { text: 'B) "La primera dama deslumbra a todos los asistentes con su espectacular belleza."', correct: false }
+                ],
+                feedbackCorrect: '¡Muy bien! A menudo en los medios de comunicación se reduce a mujeres brillantes a ser simplemente "la mujer de" alguien, destacando únicamente su ropa o su aspecto físico, mientras que a los hombres se les valora por su profesión o intelecto. Nombrarla por su nombre y su valía profesional es hacer justicia.',
+                feedbackIncorrect: 'Cuidado con el enfoque. Seguir destacando únicamente su belleza y su papel como "esposa de" sigue restándole valor como profesional. A los líderes masculinos rara vez se les juzga por el color de su traje.'
+            },
+            {
+                section: 'CIENCIA',
+                headline: '"Los científicos descubren un nuevo planeta habitable a 40 años luz."',
+                subheadline: 'El equipo internacional está liderado por la astrofísica española Sara Seager.',
+                options: [
+                    { text: 'A) "Los investigadores del espacio descubren un nuevo planeta habitable."', correct: false },
+                    { text: 'B) "Un equipo de especialistas, liderado por una astrofísica, descubre un nuevo planeta habitable."', correct: true }
+                ],
+                feedbackCorrect: '¡Diste en el clavo! Si el equipo está liderado por una mujer (y compuesto por hombres y mujeres), usar el masculino genérico "Los científicos" invisibiliza por completo el liderazgo y el mérito femenino. Nombrar a la directora del proyecto crea referentes para que las niñas de hoy quieran ser científicas mañana.',
+                feedbackIncorrect: 'Aunque "investigadores" es otra palabra, sigue cayendo en el masculino genérico que oculta el hecho importantísimo de que el descubrimiento está liderado por una astrofísica.'
+            },
+{
+                section: 'DEPORTES',
+                headline: '"La Messi del fútbol femenino gana la Copa del Mundo con su equipo."',
+                subheadline: 'La jugadora española es reconocida como la mejor deportista del planeta este año.',
+                options: [
+                    { text: 'A) "La mejor jugadora del fútbol femenino, igual que Messi, gana la copa."', correct: false },
+                    { text: 'B) "La futbolista española hace historia y gana la Copa del Mundo con su equipo."', correct: true }
+                ],
+                feedbackCorrect: '¡Eso es! Al llamarla "la Messi", le estamos quitando su propia identidad, como si para ser buena tuviera que ser comparada siempre con un hombre. Tiene nombre propio y su esfuerzo es solo suyo.',
+                feedbackIncorrect: 'Cuidado. Aunque digas que es "la mejor", seguir comparándola con un jugador masculino para darle valor invisibiliza su propio nombre y su mérito personal.'
+            },
+            {
+                section: 'CULTURA',
+                headline: '"Una abuela de 70 años gana el Premio Nacional de Literatura."',
+                subheadline: 'Carmen Roca, con más de veinte novelas publicadas, recibe el máximo galardón de las letras.',
+                options: [
+                    { text: 'A) "La escritora Carmen Roca gana el Premio Nacional de Literatura a los 70 años."', correct: true },
+                    { text: 'B) "Una señora mayor, abuela de tres nietos, gana el premio de literatura."', correct: false }
+                ],
+                feedbackCorrect: '¡Perfecto! A los hombres casi nunca se les define en los titulares por ser "abuelos" o "padres" cuando ganan un premio profesional. Destacar su profesión ("escritora") y su nombre es lo correcto.',
+                feedbackIncorrect: 'Piénsalo un segundo. Definirla por ser "señora mayor" o "abuela" oculta el hecho de que es una gran novelista. A los escritores famosos de su edad no se les suele juzgar ni definir por su situación familiar.'
+            },
+            {
+                section: 'SOCIEDAD',
+                headline: '"Los hombres de negocios y las chicas de la limpieza llegan a un acuerdo laboral."',
+                subheadline: 'Se firman los nuevos contratos tras una larga semana de reuniones en la sede central.',
+                options: [
+                    { text: 'A) "Los hombres directivos y las mujeres de la limpieza llegan a un acuerdo."', correct: false },
+                    { text: 'B) "El empresariado y el personal de limpieza llegan a un acuerdo laboral."', correct: true }
+                ],
+                feedbackCorrect: '¡Gran deducción! Llamar "hombres" a los directivos y "chicas" a las limpiadoras es muy habitual, pero empequeñece e infantiliza a las mujeres trabajadoras. Usar términos neutros como "personal" o "empresariado" es mucho más respetuoso e inclusivo.',
+                feedbackIncorrect: 'Aunque esta opción suena un poco mejor, sigue separando los trabajos de forma sexista (asumiendo que los que dirigen siempre son hombres y las que limpian siempre mujeres). Es mejor usar términos colectivos.'
+            },
+            {
+                section: 'ACTUALIDAD',
+                headline: '"Los profesores del instituto organizan una gran carrera solidaria."',
+                subheadline: 'El claustro, formado por 25 maestras y 5 maestros, preparó el evento durante meses.',
+                options: [
+                    { text: 'A) "El profesorado del instituto organiza una gran carrera solidaria."', correct: true },
+                    { text: 'B) "Los maestros del instituto organizan una carrera solidaria."', correct: false }
+                ],
+                feedbackCorrect: '¡Muy bien! Cuando usamos palabras colectivas como "el profesorado", "el alumnado" o "el equipo docente", incluimos a todos y todas sin dejar a nadie fuera. Y más aún cuando, en este caso, la inmensa mayoría de las organizadoras son mujeres.',
+                feedbackIncorrect: 'Fíjate en la noticia: ¡hay 25 maestras y solo 5 maestros! Usar el masculino "los maestros" invisibiliza a la inmensa mayoría de las personas que han organizado la carrera. Hay que buscar palabras inclusivas y neutras.'
+            }
+        ];
+
+        let currentIndex = 0;
+
+        const sectionEl = document.getElementById('news-section');
+        const headlineEl = document.getElementById('headline-text');
+        const subheadlineEl = document.getElementById('subheadline-text');
+        const optionsContainerEl = document.getElementById('options-container');
+        
+        const feedbackBoxEl = document.getElementById('feedback-box');
+        const feedbackTitleEl = document.getElementById('feedback-title');
+        const feedbackTextEl = document.getElementById('feedback-text');
+        const nextBtnEl = document.getElementById('next-btn');
+        const progressEl = document.getElementById('progress');
+
+        function loadCase() {
+            const current = cases[currentIndex];
+            sectionEl.innerText = current.section;
+            headlineEl.innerText = current.headline;
+            subheadlineEl.innerText = current.subheadline;
+            
+            // Reset state
+            feedbackBoxEl.style.display = 'none';
+            nextBtnEl.style.display = 'none';
+            optionsContainerEl.style.pointerEvents = 'auto'; // Permitir clics de nuevo
+            optionsContainerEl.innerHTML = ''; // Limpiar opciones anteriores
+
+            // Crear botones de opciones
+            current.options.forEach((opt, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerText = opt.text;
+                btn.onclick = () => checkAnswer(opt.correct, btn);
+                optionsContainerEl.appendChild(btn);
+            });
+
+            progressEl.innerText = `Caso ${currentIndex + 1} de ${cases.length}`;
+        }
+
+        function checkAnswer(isCorrect, selectedBtn) {
+            const current = cases[currentIndex];
+            
+            // Bloquear más clics
+            optionsContainerEl.style.pointerEvents = 'none';
+            
+            // Estilos a los botones
+            const allBtns = optionsContainerEl.querySelectorAll('.option-btn');
+            allBtns.forEach(btn => btn.style.opacity = '0.5'); // Atenuar todos
+            
+            selectedBtn.style.opacity = '1'; // Resaltar el seleccionado
+            
+            if (isCorrect) {
+                selectedBtn.style.borderColor = 'var(--accent-green)';
+                selectedBtn.style.backgroundColor = '#ECFDF5';
+                feedbackTitleEl.style.color = 'var(--accent-green)';
+                feedbackTitleEl.innerText = '¡Gran trabajo detectivesco!';
+                feedbackTextEl.innerText = current.feedbackCorrect;
+                feedbackBoxEl.style.borderLeft = '4px solid var(--accent-green)';
+            } else {
+                selectedBtn.style.borderColor = 'var(--accent-red)';
+                selectedBtn.style.backgroundColor = '#FEF2F2';
+                feedbackTitleEl.style.color = 'var(--accent-red)';
+                feedbackTitleEl.innerText = 'Pista fallida...';
+                feedbackTextEl.innerText = current.feedbackIncorrect;
+                feedbackBoxEl.style.borderLeft = '4px solid var(--accent-red)';
+            }
+            
+            feedbackBoxEl.style.display = 'block';
+            
+            if (currentIndex < cases.length - 1) {
+                nextBtnEl.innerText = 'Siguiente caso ➔';
+                nextBtnEl.style.display = 'block';
+            } else {
+                nextBtnEl.innerText = 'Finalizar investigación';
+                nextBtnEl.style.display = 'block';
+                nextBtnEl.onclick = showFinalScreen;
+            }
+        }
+
+        function nextCase() {
+            currentIndex++;
+            loadCase();
+        }
+
+        function showFinalScreen() {
+            sectionEl.innerText = 'CONCLUSIÓN';
+            headlineEl.innerText = 'Caso cerrado: El lenguaje importa';
+            subheadlineEl.innerText = 'Habéis demostrado tener un gran espíritu crítico.';
+            
+            optionsContainerEl.style.display = 'none';
+            document.querySelector('.instruction').style.display = 'none';
+            
+            feedbackTitleEl.style.color = 'var(--primary)';
+            feedbackTitleEl.innerText = 'Vuestra misión a partir de hoy';
+            feedbackTextEl.innerText = 'A partir de ahora, cuando leáis una noticia, veáis un anuncio o escuchéis una conversación, poneos las "gafas violetas". Nombrar a las mujeres correctamente y evitar los estereotipos es el primer paso para construir una sociedad más justa. Lo que no se nombra, no existe.';
+            feedbackBoxEl.style.borderLeft = '4px solid var(--primary)';
+            
+            nextBtnEl.style.display = 'none';
+            progressEl.innerText = "Actividad completada";
+        }
+
+        // Iniciar la actividad
+        loadCase();
+    </script>
+<script src="https://jgamort408-web.github.io/profesor/tutoria/footer_8m.js?v=2"></script>
+</body>
+</html>
