@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSI: El Rincón de Carlos - Técnicas</title>
+    <style>
+        :root {
+            --primary: #0F766E; /* Azul Cerceta / Teal profundo */
+            --secondary: #0D9488; /* Teal más claro */
+            --accent: #EAB308; /* Amarillo Mostaza */
+            --accent-hover: #CA8A04; /* Mostaza oscuro */
+            --bg-color: transparent;
+            --text-main: #374151;
+            --text-light: #6B7280;
+            --white: #FFFFFF;
+            --panel-bg: #F0FDFA; /* Fondo teal muy suave */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            line-height: 1.8;
+            flex-direction: column !important;
+            align-items: center !important;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 900px;
+            padding: 40px 20px;
+        }
+
+        /* --- CABECERA --- */
+        .header-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            color: var(--primary);
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .main-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .context-text {
+            font-size: 1.15rem;
+            color: var(--text-main);
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        .badge-detective {
+            background-color: var(--accent);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        /* --- INTERFAZ DEL JUEGO --- */
+        .game-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Marcador de pistas */
+        .score-board {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.2rem;
+            font-family: 'Georgia', serif;
+            box-shadow: 0 4px 10px rgba(15, 118, 110, 0.2);
+        }
+
+        .score-board span {
+            font-family: 'Segoe UI', sans-serif;
+            font-weight: bold;
+            color: var(--accent);
+            font-size: 1.5rem;
+        }
+
+        /* El Texto del Caso */
+        .case-text-container {
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: 12px;
+            border: 2px solid #E5E7EB;
+            font-size: 1.2rem;
+            line-height: 1.9;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            color: #4B5563;
+            text-align: justify;
+        }
+
+        /* Pistas ocultas en el texto */
+        .clue {
+            cursor: pointer;
+            border-bottom: 2px dotted #D1D5DB; /* Pista sutil */
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .clue:hover {
+            background-color: #FEF08A; /* Hover amarillo claro */
+            border-bottom-color: var(--accent);
+            color: #B45309;
+        }
+
+        /* Pistas encontradas */
+        .clue.found {
+            background-color: var(--panel-bg);
+            border-bottom: 2px solid var(--primary);
+            color: var(--primary);
+            font-weight: bold;
+            pointer-events: none; /* Ya no se puede clicar */
+        }
+
+        /* --- PANEL DE ANÁLISIS (FEEDBACK) --- */
+        .analysis-panel {
+            background-color: var(--panel-bg);
+            border-left: 5px solid var(--accent);
+            padding: 25px;
+            border-radius: 0 12px 12px 0;
+            display: none;
+            animation: slideIn 0.4s ease;
+        }
+
+        .analysis-title {
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-transform: uppercase;
+        }
+
+        .analysis-text {
+            font-size: 1.1rem;
+            color: var(--text-main);
+        }
+
+        .analysis-solution {
+            margin-top: 10px;
+            font-style: italic;
+            color: var(--secondary);
+            font-weight: 500;
+        }
+
+        /* --- PANTALLA VICTORIA --- */
+        .victory-panel {
+            display: none;
+            background-color: var(--white);
+            border: 4px solid var(--accent);
+            padding: 40px 30px;
+            border-radius: 16px;
+            text-align: center;
+            margin-top: 30px;
+            animation: slideIn 0.5s ease;
+        }
+
+        .victory-panel h2 {
+            color: var(--primary);
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (min-width: 768px) {
+            .case-text-container {
+                padding: 40px 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        
+        <div class="header-section">
+            <span class="badge-detective">Investigación en curso</span>
+            <h1 class="main-title">CSI: El rincón de Carlos</h1>
+            <p class="context-text">
+                Carlos estudia 1º de ESO y en la primera evaluación ha sacado varios suspensos por sorpresa. Como detectives del estudio, tu misión es leer su rutina y <strong>hacer clic en las 8 frases que son "Delitos de Estudio"</strong> (malos hábitos).
+            </p>
+        </div>
+
+        <div class="game-layout">
+            
+            <div class="score-board">
+                <div>🔍 Pistas encontradas:</div>
+                <div id="counter"><span>0</span> / 8</div>
+            </div>
+
+            <div class="analysis-panel" id="analysis-panel">
+                <div class="analysis-title">🚨 ¡Hábito Tóxico Detectado!</div>
+                <div class="analysis-text" id="analysis-text"></div>
+                <div class="analysis-solution" id="analysis-solution"></div>
+            </div>
+
+            <div class="case-text-container">
+                <p>
+                    El lugar de estudio de Carlos es de lo más agradable y atractivo. Allí puedes encontrar todo tipo de discos, colecciones de coches, motos, futbolistas... aquello es como un museo lleno de distracciones.
+                </p>
+                <p>
+                    Carlos estudia generalmente <span class="clue" onclick="findClue(this, 0)">tumbado en la cama</span>, con <span class="clue" onclick="findClue(this, 1)">la TV o la radio puesta</span>, lo que frecuentemente molesta a su hermana. Además, si echan un partido de fútbol, lo deja todo para después. 
+                </p>
+                <p>
+                    Es decir, estudia <span class="clue" onclick="findClue(this, 2)">sin un horario fijo</span>, solo cuando le apetece (que suele ser pocas veces). Cuando está "estudiando", <span class="clue" onclick="findClue(this, 3)">se levanta frecuentemente</span>: unas veces para ver qué hace su padre en el salón, otras para hacer una visita al frigorífico o asomarse a la ventana.
+                </p>
+                <p>
+                    Pero los días inmediatamente anteriores a los exámenes, eso sí, estudia como un bruto, <span class="clue" onclick="findClue(this, 4)">dándose unas palizas monumentales por la noche</span> y <span class="clue" onclick="findClue(this, 5)">tomándose algún café a hurtadillas</span> para no dormirse.
+                </p>
+                <p>
+                    En clase nunca toma notas, así que suele <span class="clue" onclick="findClue(this, 6)">fotocopiar los apuntes de sus compañeros a última hora</span>. Además, siempre dice que <span class="clue" onclick="findClue(this, 7)">hacer esquemas y subrayar es perder el tiempo</span>.
+                </p>
+            </div>
+
+            <div class="victory-panel" id="victory-panel">
+                <h2>¡Caso Resuelto! 🏆</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 20px;">
+                    Has detectado todos los errores de Carlos. El entorno y la planificación son el 50% de la nota final. Ahora que conoces las trampas del estudio, ¡asegúrate de no caer en ellas en tu propia habitación!
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        // Base de datos de las pistas, por índice.
+        const cluesData = [
+            {
+                badHabit: "Estudiar en la cama.",
+                solution: "Solución: La silla debe tener respaldo duro y mesa amplia. En la cama, el cerebro se prepara para dormir, no para concentrarse."
+            },
+            {
+                badHabit: "Tener la TV o la música de fondo.",
+                solution: "Solución: Apaga los aparatos. El ruido divide tu atención a la mitad y tardarás el doble en aprenderte la lección."
+            },
+            {
+                badHabit: "No tener un horario fijo.",
+                solution: "Solución: Hay que trabajar todos los días a las mismas horas. Así se crea el hábito y el cuerpo se acostumbra a concentrarse a esa hora."
+            },
+            {
+                badHabit: "Levantarse constantemente (distracciones).",
+                solution: "Solución: Prepara en tu mesa todo el material y el agua ANTES de empezar. Estudia sin interrupciones durante 50 minutos y luego descansa 10."
+            },
+            {
+                badHabit: "Atracones la noche de antes.",
+                solution: "Solución: La memoria necesita tiempo para asimilar. Los atracones nocturnos solo generan estrés y se olvidan a los dos días."
+            },
+            {
+                badHabit: "Tomar café o robar horas al sueño.",
+                solution: "Solución: Un estudiante de tu edad debe dormir en torno a 8 horas. Lo que no duermes, no lo memorizas. ¡Es ciencia!"
+            },
+            {
+                badHabit: "Fotocopiar los apuntes de otros.",
+                solution: "Solución: Al tomar tus propios apuntes en clase ya estás haciendo el 40% del estudio. Copiar los de otros no sirve para enterarse del tema."
+            },
+            {
+                badHabit: "No hacer esquemas ni subrayar.",
+                solution: "Solución: Leer un texto de Ciencias de principio a fin no es estudiar, es leer. Tienes que ser 'activo': busca lo importante y haz tus propios esquemas."
+            }
+        ];
+
+        let foundCount = 0;
+        const totalClues = cluesData.length;
+        const counterSpan = document.querySelector('#counter span');
+        const analysisPanel = document.getElementById('analysis-panel');
+        const analysisText = document.getElementById('analysis-text');
+        const analysisSolution = document.getElementById('analysis-solution');
+        const victoryPanel = document.getElementById('victory-panel');
+
+        function findClue(element, index) {
+            // Si ya estaba encontrada, ignorar
+            if (element.classList.contains('found')) return;
+
+            // Marcar como encontrada
+            element.classList.add('found');
+            foundCount++;
+            counterSpan.innerText = foundCount;
+
+            // Mostrar el feedback
+            const data = cluesData[index];
+            analysisText.innerText = "Error: " + data.badHabit;
+            analysisSolution.innerText = data.solution;
+            
+            // Efecto para que se note la actualización si clican muy rápido
+            analysisPanel.style.display = 'none';
+            setTimeout(() => {
+                analysisPanel.style.display = 'block';
+            }, 10);
+
+            // Comprobar victoria
+            if (foundCount === totalClues) {
+                setTimeout(() => {
+                    victoryPanel.style.display = 'block';
+                    analysisPanel.style.display = 'none';
+                    // Scroll hacia abajo
+                    victoryPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 1000); // Dar un segundo para leer la última pista antes de felicitar
+            }
+        }
+    </script>
+    
+    <script src="https://jgamort408-web.github.io/profesor/tutoria/footer_8m.js?v=4"></script>
+</body>
+</html>
