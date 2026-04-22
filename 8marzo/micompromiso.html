@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Compromiso - 8M</title>
+    <style>
+        :root {
+            --primary: #581C87;
+            --secondary: #9333EA;
+            --accent: #10B981;
+            --bg-color: transparent;
+            --text-main: #374151;
+            --text-light: #6B7280;
+            --white: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            line-height: 1.8;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 1000px;
+            padding: 40px 20px;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            color: var(--primary);
+        }
+
+        .main-title {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: normal;
+            letter-spacing: -0.5px;
+        }
+
+        .main-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .context-text {
+            font-size: 1.15rem;
+            margin-bottom: 40px;
+            text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* --- CUADRÍCULA DE ACCIONES (EFECTO FLIP 3D) --- */
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .action-card {
+            background-color: transparent;
+            perspective: 1000px; /* Da el efecto de profundidad 3D */
+            min-height: 240px;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        /* Clase que se añade al hacer clic para voltear */
+        .action-card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden; /* Oculta la cara que queda atrás */
+            border-radius: 12px;
+            padding: 25px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border: 2px solid #E5E7EB;
+        }
+
+        /* Diseño de la cara frontal */
+        .card-front {
+            background-color: var(--white);
+            transition: border-color 0.3s ease;
+        }
+
+        .action-card:hover .card-front {
+            border-color: var(--secondary);
+        }
+
+        .action-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .action-text {
+            font-size: 1.1rem;
+            line-height: 1.4;
+            color: var(--text-main);
+            font-weight: bold;
+        }
+
+        .flip-hint {
+            font-size: 0.8rem;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        /* Diseño de la cara trasera (El Ejemplo) */
+        .card-back {
+            background-color: #F0FDF4; /* Verde esmeralda muy suave */
+            color: var(--text-main);
+            transform: rotateY(180deg);
+            border-color: var(--accent);
+        }
+
+        .back-title {
+            font-family: 'Georgia', serif;
+            color: var(--accent);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .example-text {
+            font-size: 1rem;
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        
+        <div id="selection-phase">
+            <h1 class="main-title">Pequeñas acciones, gran impacto</h1>
+            
+            <p class="context-text">
+                La igualdad no se logra solo con leyes, se construye todos los días en los pasillos del instituto, en casa y en nuestro grupo de amigos. <strong>Toca las tarjetas para darles la vuelta</strong> y descubrir ejemplos cotidianos donde tú puedes marcar la diferencia hoy mismo.
+            </p>
+
+            <div class="actions-grid" id="actions-grid">
+                </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Array con la acción (frontal) y el ejemplo cotidiano (trasera)
+        const actions = [
+            { 
+                icon: "🏠", 
+                text: "Compartir las tareas de casa sin que me lo tengan que pedir.",
+                example: "Si ves la basura llena, bájala. Haz tu cama antes de ir al instituto o recoge la mesa sin que tu madre te lo tenga que recordar como si fuera ella la única responsable."
+            },
+            { 
+                icon: "🛑", 
+                text: "No reírme de los chistes machistas.",
+                example: "En el grupo de WhatsApp de la clase, si alguien manda un 'meme' o un sticker ofensivo sobre chicas, di que eso no tiene gracia o simplemente no respondas con risas."
+            },
+            { 
+                icon: "🤝", 
+                text: "Hacer grupos de trabajo mixtos.",
+                example: "En Educación Física o en trabajos de ciencias, no hagáis grupos 'solo de chicos' o 'solo de chicas'. Mezclaros para jugar y para aportar ideas diferentes."
+            },
+            { 
+                icon: "🛡️", 
+                text: "Defender ante el acoso o las burlas.",
+                example: "Si ves que en el patio se meten con una compañera por su aspecto, su cuerpo o le hacen el vacío, acércate a ella o avisa discretamente a un profesor."
+            },
+            { 
+                icon: "💧", 
+                text: "Expresar mis emociones sin sentir vergüenza.",
+                example: "Si has tenido un mal día o estás estresado por un examen, díselo a un amigo. Los chicos también lloran y piden abrazos; eso te hace valiente, no débil."
+            },
+            { 
+                icon: "🤐", 
+                text: "No opinar sobre el cuerpo de los demás.",
+                example: "Evita comentarios como 'qué delgada estás', 'has engordado' o 'esa ropa no te pega'. El valor de las personas no está en su talla ni en agradar a los demás."
+            },
+            { 
+                icon: "🚀", 
+                text: "Animar a mis amigas a que estudien lo que quieran.",
+                example: "Si a tu amiga le encantan los videojuegos, la robótica o el fútbol, anímala a apuntarse al equipo o al torneo del instituto aunque sea la única chica."
+            },
+            { 
+                icon: "✋", 
+                text: "Respetar el espacio personal. Un 'NO' es un 'NO'.",
+                example: "Si una compañera te dice que no quiere que le quites el estuche, que no quiere bromas o no quiere que la toques, para inmediatamente y no insistas."
+            },
+            { 
+                icon: "📱", 
+                text: "Tener espíritu crítico en Redes Sociales.",
+                example: "Deja de seguir a 'tiktokers' o 'youtubers' que basan sus vídeos en menospreciar a las mujeres, insultarlas o tratarlas como si fueran un trofeo."
+            },
+            { 
+                icon: "👂", 
+                text: "Escuchar de verdad y no interrumpir.",
+                example: "En un debate en clase, fíjate si tiendes a hablar por encima de tus compañeras para tener la razón. Espera tu turno y valora su opinión."
+            },
+            { 
+                icon: "🚫", 
+                text: "No usar la palabra 'niña' como si fuera un insulto.",
+                example: "En vez de decir 'chutas como una niña' o 'lloras como una niña' (que es mentira), usa palabras reales y que no ofendan a la mitad de la población."
+            },
+            { 
+                icon: "📚", 
+                text: "Consumir ficción igualitaria.",
+                example: "Dales una oportunidad a series, películas o cómics donde la protagonista es una chica que lidera, lucha y toma decisiones importantes (no solo la que 'es rescatada')."
+            }
+        ];
+
+        const grid = document.getElementById('actions-grid');
+
+        // Generar las tarjetas Flip 3D
+        actions.forEach((action) => {
+            const card = document.createElement('div');
+            card.className = 'action-card';
+            
+            card.innerHTML = `
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="action-icon">${action.icon}</div>
+                        <div class="action-text">${action.text}</div>
+                        <div class="flip-hint">Toca para dar la vuelta ➔</div>
+                    </div>
+                    
+                    <div class="card-back">
+                        <div class="back-title">¿Cómo lo hago?</div>
+                        <div class="example-text">"${action.example}"</div>
+                    </div>
+                </div>
+            `;
+            
+            // Función para dar la vuelta al hacer clic
+            card.onclick = () => {
+                card.classList.toggle('flipped');
+            };
+            
+            grid.appendChild(card);
+        });
+    </script>
+<script src="https://jgamort408-web.github.io/profesor/tutoria/footer_8m.js?v=2"></script>
+</body>
+</html>
