@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>En la Pantalla y en el Laboratorio - 8M</title>
+    <style>
+        :root {
+            --primary: #581C87;
+            --secondary: #9333EA;
+            --accent: #10B981;
+            --accent-fail: #DC2626;
+            --bg-color: transparent;
+            --text-main: #374151;
+            --text-light: #6B7280;
+            --white: #FFFFFF;
+            --card-bg: #F9FAFB;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            line-height: 1.8;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 900px;
+            padding: 40px 20px;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            color: var(--primary);
+        }
+
+        .main-title {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: normal;
+            letter-spacing: -0.5px;
+        }
+
+        .main-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .context-text {
+            font-size: 1.15rem;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin: 50px 0 20px 0;
+            text-align: center;
+            color: var(--primary);
+        }
+
+        /* --- TEST DE BECHDEL --- */
+        .bechdel-container {
+            background-color: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(88, 28, 135, 0.08);
+            padding: 40px;
+            border: 1px solid #E5E7EB;
+            margin-bottom: 40px;
+        }
+
+        .bechdel-intro {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            text-align: center;
+            color: var(--text-light);
+            font-style: italic;
+        }
+
+        .question-box {
+            background-color: #FAF5FF;
+            border-left: 4px solid var(--secondary);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 0 8px 8px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .toggle-btn {
+            background-color: #E5E7EB;
+            color: var(--text-light);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            min-width: 80px;
+        }
+
+        .toggle-btn.active {
+            background-color: var(--accent);
+            color: white;
+            box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+        }
+
+        .evaluate-btn {
+            display: block;
+            width: 100%;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 30px;
+            font-family: 'Georgia', serif;
+            transition: background 0.3s;
+        }
+
+        .evaluate-btn:hover {
+            background-color: var(--secondary);
+        }
+
+        .result-box {
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .result-title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        /* --- EJEMPLOS PELÍCULAS --- */
+        .movies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .movie-card {
+            background-color: var(--white);
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-color: var(--secondary);
+        }
+
+        .movie-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .movie-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .movie-hint {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 10px;
+        }
+
+        .movie-feedback {
+            display: none;
+            animation: fadeIn 0.4s;
+        }
+
+        .movie-card.revealed .movie-front {
+            display: none;
+        }
+
+        .movie-card.revealed .movie-feedback {
+            display: block;
+        }
+
+        .feedback-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .badge-pass { background-color: var(--accent); }
+        .badge-fail { background-color: var(--accent-fail); }
+
+        .feedback-desc {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: var(--text-main);
+        }
+
+        /* --- CIENTÍFICAS OCULTAS --- */
+        .inventors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .inventor-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            border: 2px dashed #D1D5DB;
+            padding: 30px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            min-height: 220px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .inventor-card:hover {
+            border-color: var(--secondary);
+            background-color: #FAF5FF;
+        }
+
+        .invention-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .invention-name {
+            font-size: 1.4rem;
+            font-family: 'Georgia', serif;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .click-hint {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+        }
+
+        .inventor-info {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .inventor-card.revealed {
+            border: 2px solid var(--accent);
+            background-color: #F0FDF4;
+            cursor: default;
+        }
+
+        .inventor-card.revealed .front-content {
+            display: none;
+        }
+
+        .inventor-card.revealed .inventor-info {
+            display: block;
+        }
+
+        .inventor-name {
+            font-size: 1.5rem;
+            color: var(--accent);
+            font-family: 'Georgia', serif;
+            margin-bottom: 10px;
+        }
+
+        .inventor-desc {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            line-height: 1.5;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        
+        <h1 class="main-title">Mujeres en la pantalla y en el laboratorio</h1>
+        
+        <p class="context-text">
+            A lo largo de la historia, a las mujeres se les ha asignado el papel de "acompañantes" o "cuidadoras", tanto en la vida real como en la ficción. Esto ha provocado que muchos de sus grandes logros científicos hayan sido borrados de los libros, y que en el cine casi siempre hayan tenido papeles secundarios. ¡Vamos a analizarlo!
+        </p>
+
+        <h2 class="section-title">1. El Evaluador de Películas</h2>
+        
+        <div class="bechdel-container">
+            <p class="bechdel-intro">
+                El <strong>Test de Bechdel</strong> es un método famoso para evaluar si una historia tiene una representación femenina mínima. Pensad en vuestra película o serie favorita y responded a estas tres preguntas.
+            </p>
+
+            <div class="question-box">
+                <span class="question-text">1. ¿Hay al menos dos personajes femeninos con nombre propio?</span>
+                <button class="toggle-btn" onclick="toggleAnswer(this, 1)">NO</button>
+            </div>
+
+            <div class="question-box">
+                <span class="question-text">2. ¿Esas dos mujeres hablan entre ellas en algún momento?</span>
+                <button class="toggle-btn" onclick="toggleAnswer(this, 2)">NO</button>
+            </div>
+
+            <div class="question-box">
+                <span class="question-text">3. ¿Hablan de algo que NO sea un hombre (marido, novio, villano)?</span>
+                <button class="toggle-btn" onclick="toggleAnswer(this, 3)">NO</button>
+            </div>
+
+            <button class="evaluate-btn" onclick="evaluateBechdel()">Comprobar Resultados</button>
+
+            <div class="result-box" id="result-box">
+                <h3 class="result-title" id="result-title"></h3>
+                <p id="result-text" style="font-size: 1.1rem; line-height: 1.6;"></p>
+            </div>
+        </div>
+
+        <h3 style="text-align: center; color: var(--primary); margin-top: 30px;">Poniendo a prueba a los clásicos</h3>
+        <p style="text-align: center; color: var(--text-light);">Haz clic en estas películas famosas para descubrir si aprueban o suspenden el test.</p>
+        
+        <div class="movies-grid">
+            <div class="movie-card" onclick="revealMovie(this)">
+                <div class="movie-front">
+                    <div class="movie-icon">🦸‍♂️</div>
+                    <div class="movie-title">Los Vengadores (2012)</div>
+                    <div class="movie-hint">Toca para ver</div>
+                </div>
+                <div class="movie-feedback">
+                    <span class="feedback-badge badge-fail">SUSPENDE</span>
+                    <p class="feedback-desc">Tiene a Viuda Negra y a la agente Maria Hill (dos mujeres fuertes), pero <strong>jamás cruzan una sola palabra</strong> entre ellas en toda la película.</p>
+                </div>
+            </div>
+
+            <div class="movie-card" onclick="revealMovie(this)">
+                <div class="movie-front">
+                    <div class="movie-icon">🧠</div>
+                    <div class="movie-title">Del Revés (Inside Out)</div>
+                    <div class="movie-hint">Toca para ver</div>
+                </div>
+                <div class="movie-feedback">
+                    <span class="feedback-badge badge-pass">APRUEBA</span>
+                    <p class="feedback-desc">Alegría y Tristeza son las protagonistas. Hablan constantemente entre ellas y debaten sobre cómo ayudar a Riley y gestionar sus recuerdos.</p>
+                </div>
+            </div>
+
+            <div class="movie-card" onclick="revealMovie(this)">
+                <div class="movie-front">
+                    <div class="movie-icon">🚀</div>
+                    <div class="movie-title">Star Wars: Una nueva esperanza</div>
+                    <div class="movie-hint">Toca para ver</div>
+                </div>
+                <div class="movie-feedback">
+                    <span class="feedback-badge badge-fail">SUSPENDE</span>
+                    <p class="feedback-desc">La Princesa Leia es una gran líder rebelde, pero es literalmente la <strong>única mujer con nombre</strong> en toda la galaxia durante la película.</p>
+                </div>
+            </div>
+
+            <div class="movie-card" onclick="revealMovie(this)">
+                <div class="movie-front">
+                    <div class="movie-icon">🏹</div>
+                    <div class="movie-title">Brave (Indomable)</div>
+                    <div class="movie-hint">Toca para ver</div>
+                </div>
+                <div class="movie-feedback">
+                    <span class="feedback-badge badge-pass">APRUEBA</span>
+                    <p class="feedback-desc">Toda la película se centra en la relación entre Mérida y su madre, la Reina Elinor. Hablan de sus tradiciones, el futuro y cómo cambiar su destino.</p>
+                </div>
+            </div>
+<div class="movie-card" onclick="revealMovie(this)">
+                <div class="movie-front">
+                    <div class="movie-icon">🍄</div>
+                    <div class="movie-title">Super Mario Bros (2023)</div>
+                    <div class="movie-hint">Toca para ver</div>
+                </div>
+                <div class="movie-feedback">
+                    <span class="feedback-badge badge-fail">SUSPENDE</span>
+                    <p class="feedback-desc">Aunque la Princesa Peach es una líder fuerte y guerrera, es prácticamente la <strong>única mujer con nombre</strong> en toda la película y no conversa con ninguna otra.</p>
+                </div>
+            </div>
+
+            <div class="movie-card" onclick="revealMovie(this)">
+                <div class="movie-front">
+                    <div class="movie-icon">❄️</div>
+                    <div class="movie-title">Frozen: El reino del hielo</div>
+                    <div class="movie-hint">Toca para ver</div>
+                </div>
+                <div class="movie-feedback">
+                    <span class="feedback-badge badge-pass">APRUEBA</span>
+                    <p class="feedback-desc">Elsa y Anna son el motor de la historia. Hablan constantemente sobre su relación como hermanas, sus miedos, sus poderes y cómo salvar su reino.</p>
+                </div>
+            </div>
+
+            <div class="movie-card" onclick="revealMovie(this)">
+                <div class="movie-front">
+                    <div class="movie-icon">💍</div>
+                    <div class="movie-title">El Señor de los Anillos</div>
+                    <div class="movie-hint">Toca para ver</div>
+                </div>
+                <div class="movie-feedback">
+                    <span class="feedback-badge badge-fail">SUSPENDE</span>
+                    <p class="feedback-desc">Hay personajes femeninos increíbles (Arwen, Éowyn, Galadriel), pero en toda la trilogía original... <strong>¡jamás llegan a conocerse ni a cruzar una sola palabra!</strong></p>
+                </div>
+            </div>
+
+            <div class="movie-card" onclick="revealMovie(this)">
+                <div class="movie-front">
+                    <div class="movie-icon">🏹</div>
+                    <div class="movie-title">Los Juegos del Hambre</div>
+                    <div class="movie-hint">Toca para ver</div>
+                </div>
+                <div class="movie-feedback">
+                    <span class="feedback-badge badge-pass">APRUEBA</span>
+                    <p class="feedback-desc">Katniss habla con su hermana Prim sobre cómo protegerla, y con su aliada Rue sobre cómo buscar comida, sobrevivir y escapar del peligro en la arena.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">2. Científicas Ocultas</h2>
+        <p class="context-text" style="text-align: center; margin-bottom: 30px;">
+            Usamos estos inventos y conocimientos todos los días, pero pocas veces nos cuentan quién los creó. Haz clic en cada tarjeta para descubrir a las genios que hay detrás.
+        </p>
+
+        <div class="inventors-grid">
+            
+            <div class="inventor-card" onclick="revealInventor(this)">
+                <div class="front-content">
+                    <div class="invention-icon">📶</div>
+                    <div class="invention-name">El Wi-Fi y el Bluetooth</div>
+                    <div class="click-hint">Toca para descubrir</div>
+                </div>
+                <div class="inventor-info">
+                    <div class="inventor-name">Hedy Lamarr</div>
+                    <div class="inventor-desc">
+                        Además de ser una famosísima actriz de Hollywood, era una ingeniera brillante. Inventó un sistema de comunicaciones secretas durante la 2ª Guerra Mundial que es la base del Wi-Fi y el Bluetooth actual.
+                    </div>
+                </div>
+            </div>
+
+            <div class="inventor-card" onclick="revealInventor(this)">
+                <div class="front-content">
+                    <div class="invention-icon">🚗</div>
+                    <div class="invention-name">El Limpiaparabrisas</div>
+                    <div class="click-hint">Toca para descubrir</div>
+                </div>
+                <div class="inventor-info">
+                    <div class="inventor-name">Mary Anderson</div>
+                    <div class="inventor-desc">
+                        En 1903, viajando en tranvía bajo la nieve, vio que el conductor tenía que sacar la cabeza por la ventana para ver. Ella diseñó el primer limpiaparabrisas mecánico. ¡Las marcas de coches le robaron la idea!
+                    </div>
+                </div>
+            </div>
+
+            <div class="inventor-card" onclick="revealInventor(this)">
+                <div class="front-content">
+                    <div class="invention-icon">🛡️</div>
+                    <div class="invention-name">Los Chalecos Antibalas</div>
+                    <div class="click-hint">Toca para descubrir</div>
+                </div>
+                <div class="inventor-info">
+                    <div class="inventor-name">Stephanie Kwolek</div>
+                    <div class="inventor-desc">
+                        Esta química descubrió en 1965 un material (el Kevlar) cinco veces más fuerte que el acero pero muy ligero. Su invento salva miles de vidas de policías y militares y se usa en naves espaciales.
+                    </div>
+                </div>
+            </div>
+
+            <div class="inventor-card" onclick="revealInventor(this)">
+                <div class="front-content">
+                    <div class="invention-icon">🧬</div>
+                    <div class="invention-name">La Estructura del ADN</div>
+                    <div class="click-hint">Toca para descubrir</div>
+                </div>
+                <div class="inventor-info">
+                    <div class="inventor-name">Rosalind Franklin</div>
+                    <div class="inventor-desc">
+                        Ella logró tomar la primera fotografía que demostraba que el ADN tenía forma de doble hélice (la famosa Fotografía 51). Sus compañeros usaron su foto sin permiso para ganar el Premio Nobel.
+                    </div>
+                </div>
+            </div>
+
+            <div class="inventor-card" onclick="revealInventor(this)">
+                <div class="front-content">
+                    <div class="invention-icon">🌕</div>
+                    <div class="invention-name">El viaje a la Luna</div>
+                    <div class="click-hint">Toca para descubrir</div>
+                </div>
+                <div class="inventor-info">
+                    <div class="inventor-name">Katherine Johnson</div>
+                    <div class="inventor-desc">
+                        Conocida como la "ordenador humana", esta matemática de la NASA calculó las trayectorias exactas para que el Apolo 11 pudiera llegar a la Luna y regresar a salvo. Sin ella, Neil Armstrong no habría pisado la Luna.
+                    </div>
+                </div>
+            </div>
+
+            <div class="inventor-card" onclick="revealInventor(this)">
+                <div class="front-content">
+                    <div class="invention-icon">💻</div>
+                    <div class="invention-name">La Programación Informática</div>
+                    <div class="click-hint">Toca para descubrir</div>
+                </div>
+                <div class="inventor-info">
+                    <div class="inventor-name">Ada Lovelace</div>
+                    <div class="inventor-desc">
+                        En el siglo XIX (¡mucho antes de que existieran los ordenadores eléctricos!), esta matemática británica escribió el primer algoritmo pensado para ser procesado por una máquina. Es considerada la primera programadora de la historia.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        // Lógica para el Test de Bechdel
+        let answers = { 1: false, 2: false, 3: false };
+
+        function toggleAnswer(btn, questionNum) {
+            answers[questionNum] = !answers[questionNum];
+            
+            if (answers[questionNum]) {
+                btn.innerText = 'SÍ';
+                btn.classList.add('active');
+            } else {
+                btn.innerText = 'NO';
+                btn.classList.remove('active');
+            }
+        }
+
+        function evaluateBechdel() {
+            const resultBox = document.getElementById('result-box');
+            const resultTitle = document.getElementById('result-title');
+            const resultText = document.getElementById('result-text');
+
+            resultBox.style.display = 'block';
+
+            if (answers[1] && answers[2] && answers[3]) {
+                // Aprobado
+                resultBox.style.backgroundColor = '#ECFDF5';
+                resultBox.style.border = '2px solid var(--accent)';
+                resultTitle.style.color = 'var(--accent)';
+                resultTitle.innerText = '¡Test Superado! 🎉';
+                resultText.innerHTML = 'La película o juego que habéis elegido aprueba el Test de Bechdel. Esto significa que trata a sus personajes femeninos con profundidad, dándoles voz propia y una historia más allá de estar pendientes de un personaje masculino. ¡Ojalá todas fueran así!';
+            } else {
+                // Suspenso
+                resultBox.style.backgroundColor = '#FEF2F2';
+                resultBox.style.border = '2px solid var(--accent-fail)';
+                resultTitle.style.color = 'var(--accent-fail)';
+                resultTitle.innerText = '¡Test Suspendido! 🚨';
+                resultText.innerHTML = 'Vuestra película no ha pasado la prueba. Aunque parezca increíble, gran parte de las películas más famosas del cine suspenden este test tan básico. Esto demuestra que todavía queda trabajo para que las mujeres dejen de ser un simple "adorno" en la ficción.';
+            }
+        }
+
+        // Lógica para Ejemplos de Películas
+        function revealMovie(card) {
+            if (!card.classList.contains('revealed')) {
+                card.classList.add('revealed');
+                
+                // Cambiar color del borde según si aprueba o suspende para más feedback visual
+                const isPass = card.querySelector('.badge-pass');
+                if(isPass) {
+                    card.style.borderColor = 'var(--accent)';
+                    card.style.backgroundColor = '#F0FDF4';
+                } else {
+                    card.style.borderColor = 'var(--accent-fail)';
+                    card.style.backgroundColor = '#FEF2F2';
+                }
+            }
+        }
+
+        // Lógica para Científicas Ocultas
+        function revealInventor(card) {
+            if (!card.classList.contains('revealed')) {
+                card.classList.add('revealed');
+            }
+        }
+    </script>
+<script src="https://jgamort408-web.github.io/profesor/tutoria/footer_8m.js?v=2"></script>
+</body>
+</html>
