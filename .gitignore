@@ -1,0 +1,10 @@
+# Claude Code worktrees and session data
+.claude/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor directories
+.vscode/
+.idea/
