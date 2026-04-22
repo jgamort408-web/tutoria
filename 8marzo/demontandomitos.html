@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desmontando Mitos - 8M</title>
+    <style>
+        :root {
+            --primary: #581C87; /* Morado profundo */
+            --secondary: #9333EA;
+            --accent-green: #059669; /* Verde esmeralda para aciertos/realidad */
+            --accent-red: #DC2626; /* Rojo para mitos */
+            --bg-color: transparent;
+            --text-main: #374151;
+            --text-light: #6B7280;
+            --white: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            line-height: 1.8;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 800px;
+            padding: 40px 20px;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            color: var(--primary);
+        }
+
+        .header-section {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .main-title {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            font-weight: normal;
+            letter-spacing: -0.5px;
+        }
+
+        .main-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .context-text {
+            font-size: 1.15rem;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        /* --- TARJETA INTERACTIVA --- */
+        .quiz-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(88, 28, 135, 0.1);
+            padding: 40px;
+            text-align: center;
+            border: 1px solid #F3F4F6;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: all 0.4s ease;
+        }
+
+        .statement-text {
+            font-family: 'Georgia', serif;
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 40px;
+            font-style: italic;
+            line-height: 1.4;
+        }
+
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            font-family: inherit;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, opacity 0.2s;
+            color: var(--white);
+            letter-spacing: 0.5px;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .btn-mito {
+            background-color: var(--accent-red);
+            box-shadow: 0 4px 10px rgba(220, 38, 38, 0.2);
+        }
+
+        .btn-realidad {
+            background-color: var(--accent-green);
+            box-shadow: 0 4px 10px rgba(5, 150, 105, 0.2);
+        }
+
+        .btn-next {
+            background-color: var(--primary);
+            margin-top: 30px;
+            display: none;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* --- EXPLICACIÓN DE RESPUESTA --- */
+        .explanation-box {
+            background: linear-gradient(to right, rgba(250, 245, 255, 0.8), rgba(255, 255, 255, 0));
+            padding: 25px;
+            border-radius: 8px;
+            text-align: left;
+            display: none;
+            animation: fadeIn 0.6s ease-in-out;
+            margin-top: 20px;
+        }
+
+        .explanation-title {
+            font-family: 'Georgia', serif;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .explanation-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-main);
+        }
+
+        .progress-indicator {
+            margin-top: 30px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        
+        <div class="header-section">
+            <h1 class="main-title">Desmontando mitos</h1>
+            <p class="context-text">
+                En nuestro día a día, en redes sociales o en la calle, escuchamos muchas frases hechas sobre la igualdad entre chicos y chicas. Algunas son ciertas, pero otras nacen con la intención de no dejarnos ver la realidad.
+            </p>
+            <p class="context-text" style="color: var(--text-light); font-size: 1rem;">
+                Leed la frase en voz alta, debatid en clase y elegid vuestra respuesta.
+            </p>
+        </div>
+
+        <div class="quiz-card" id="quiz-card">
+            
+            <div class="statement-text" id="statement">Cargando...</div>
+            
+            <div class="buttons-container" id="action-buttons">
+                <button class="btn btn-mito" onclick="checkAnswer('Mito')">Es un MITO</button>
+                <button class="btn btn-realidad" onclick="checkAnswer('Realidad')">Es REALIDAD</button>
+            </div>
+
+            <div class="explanation-box" id="explanation-box">
+                <div class="explanation-title" id="explanation-title"></div>
+                <div class="explanation-text" id="explanation-text"></div>
+            </div>
+            
+            <button class="btn btn-next" id="next-btn" onclick="nextQuestion()">Siguiente frase ➔</button>
+
+            <div class="progress-indicator" id="progress"></div>
+        </div>
+
+    </div>
+
+    <script>
+        const questions = [
+            {
+                statement: '"Ya hay igualdad total: hoy en día mujeres y hombres cobran exactamente lo mismo por el mismo trabajo."',
+                type: 'Mito',
+                explanation: 'A esto se le llama "Brecha Salarial". Aunque la ley dice que deben cobrar lo mismo, la realidad es que las mujeres suelen ocupar puestos peor pagados, tienen más contratos a tiempo parcial (para poder cuidar de hijos o mayores) y llegan menos a los puestos directivos.'
+            },
+            {
+                statement: '"Las tareas de casa y el cuidado de la familia recaen sobre todo en las mujeres porque se les da mejor por naturaleza."',
+                type: 'Mito',
+                explanation: 'No hay nada en el ADN humano que haga que a las mujeres se les dé mejor poner lavadoras o acordarse de las vacunas. Esto es un rol de género impuesto socialmente a lo largo de los siglos. Cuidar de uno mismo y de los demás es responsabilidad de cualquier persona adulta, sin importar su sexo.'
+            },
+            {
+                statement: '"El feminismo es lo mismo que el machismo, pero al revés: busca que la mujer sea superior al hombre."',
+                type: 'Mito',
+                explanation: 'Esta es una de las confusiones más comunes. El machismo es la creencia de que el hombre es superior. El feminismo es el movimiento social que defiende la IGUALDAD de derechos, deberes y oportunidades entre ambos. Si crees en la justicia y la igualdad, tú también eres feminista.'
+            },
+            {
+                statement: '"Todavía hoy, en muchos países del mundo, hay niñas a las que se les prohíbe ir al instituto solo por ser niñas."',
+                type: 'Realidad',
+                explanation: 'Tristemente es una realidad. En países como Afganistán, o en zonas de extrema pobreza, cuando una familia no tiene recursos, saca a las niñas de la escuela para casarlas o ponerlas a trabajar, invirtiendo el dinero solo en la educación de los hijos varones.'
+            },
+            {
+                statement: '"Llorar, ser sensible o pedir ayuda es de chicas. Los chicos tienen que ser fuertes y resolver sus problemas solos."',
+                type: 'Mito',
+                explanation: 'El machismo también hace mucho daño a los chicos. Les obliga a ocultar sus emociones y a comportarse de forma agresiva o temeraria para "demostrar que son hombres". Romper este mito ayuda a que los chicos sean más libres, más sanos y tengan mejores relaciones de amistad.'
+            }
+        ];
+
+        let currentIndex = 0;
+
+        const statementEl = document.getElementById('statement');
+        const actionButtonsEl = document.getElementById('action-buttons');
+        const explanationBoxEl = document.getElementById('explanation-box');
+        const explanationTitleEl = document.getElementById('explanation-title');
+        const explanationTextEl = document.getElementById('explanation-text');
+        const nextBtnEl = document.getElementById('next-btn');
+        const progressEl = document.getElementById('progress');
+
+        function loadQuestion() {
+            const q = questions[currentIndex];
+            statementEl.innerText = q.statement;
+            explanationBoxEl.style.display = 'none';
+            actionButtonsEl.style.display = 'flex';
+            nextBtnEl.style.display = 'none';
+            progressEl.innerText = `Frase ${currentIndex + 1} de ${questions.length}`;
+        }
+
+        function checkAnswer(userChoice) {
+            const q = questions[currentIndex];
+            actionButtonsEl.style.display = 'none';
+            
+            const isCorrect = userChoice === q.type;
+            
+            // Colores y títulos según acierto o fallo
+            if (isCorrect) {
+                explanationTitleEl.style.color = q.type === 'Mito' ? 'var(--accent-red)' : 'var(--accent-green)';
+                explanationTitleEl.innerHTML = `¡Acertasteis! Es ${q.type.toUpperCase()}`;
+                explanationBoxEl.style.borderLeft = `4px solid ${q.type === 'Mito' ? 'var(--accent-red)' : 'var(--accent-green)'}`;
+            } else {
+                explanationTitleEl.style.color = '#D97706'; // Naranja de advertencia
+                explanationTitleEl.innerHTML = `¡Cuidado! En realidad es un ${q.type.toUpperCase()}`;
+                explanationBoxEl.style.borderLeft = `4px solid #D97706`;
+            }
+            
+            explanationTextEl.innerText = q.explanation;
+            explanationBoxEl.style.display = 'block';
+            
+            if (currentIndex < questions.length - 1) {
+                nextBtnEl.innerText = 'Siguiente frase ➔';
+                nextBtnEl.style.display = 'block';
+            } else {
+                nextBtnEl.innerText = 'Finalizar debate';
+                nextBtnEl.style.display = 'block';
+                nextBtnEl.onclick = showFinalScreen;
+            }
+        }
+
+        function nextQuestion() {
+            currentIndex++;
+            loadQuestion();
+        }
+
+        function showFinalScreen() {
+            statementEl.innerText = "¡Buen trabajo desmontando mitos!";
+            statementEl.style.color = 'var(--accent-green)';
+            actionButtonsEl.style.display = 'none';
+            
+            explanationTitleEl.style.color = 'var(--primary)';
+            explanationTitleEl.innerHTML = 'La información es poder';
+            explanationTextEl.innerHTML = 'Ahora que sabéis reconocer estos mitos, estáis un paso más cerca de construir un instituto (y un mundo) más justo para todos. ¡La igualdad se practica todos los días!';
+            
+            explanationBoxEl.style.borderLeft = '4px solid var(--secondary)';
+            nextBtnEl.style.display = 'none';
+            progressEl.innerText = "Actividad completada";
+        }
+
+        // Iniciar la primera frase
+        loadQuestion();
+    </script>
+<script src="https://jgamort408-web.github.io/profesor/tutoria/footer_8m.js?v=2"></script>
+</body>
+</html>
