@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hackeando el Examen - Técnicas</title>
+    <style>
+        :root {
+            --primary: #0F766E; /* Azul Cerceta / Teal profundo */
+            --secondary: #0D9488; /* Teal más claro */
+            --accent: #EAB308; /* Amarillo Mostaza */
+            --accent-hover: #CA8A04; /* Mostaza oscuro */
+            --alert: #DC2626; /* Rojo para la trampa */
+            --bg-color: transparent;
+            --text-main: #374151;
+            --text-light: #6B7280;
+            --white: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            line-height: 1.8;
+            flex-direction: column !important;
+            align-items: center !important;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 900px;
+            padding: 40px 20px;
+        }
+
+        /* --- CABECERA --- */
+        .header-section {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            color: var(--primary);
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .main-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .context-text {
+            font-size: 1.15rem;
+            color: var(--text-main);
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin: 40px 0 20px 0;
+            text-align: center;
+            font-family: 'Georgia', serif;
+        }
+
+        /* --- EL EXAMEN TRAMPA --- */
+        .exam-paper {
+            background-color: #FEFCE8; /* Color papel amarillento */
+            background-image: linear-gradient(#E5E7EB 1px, transparent 1px);
+            background-size: 100% 2em;
+            border: 1px solid #D1D5DB;
+            border-radius: 8px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            position: relative;
+            margin-bottom: 40px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.1rem;
+        }
+
+        .exam-header {
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--text-main);
+            padding-bottom: 10px;
+        }
+
+        .exam-list {
+            list-style-type: decimal;
+            margin-left: 20px;
+        }
+
+        .exam-list li {
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .exam-input {
+            border: 2px dashed #9CA3AF;
+            background: transparent;
+            padding: 5px 10px;
+            font-family: inherit;
+            font-size: 1rem;
+            width: 250px;
+            margin-top: 5px;
+            display: block;
+        }
+
+        .exam-btn {
+            background-color: var(--text-light);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-family: inherit;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        .exam-btn-final {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-family: inherit;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        /* Modal ZASCA (Trampa) */
+        .modal-trap {
+            display: none;
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(0,0,0,0.85);
+            border-radius: 8px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 30px;
+            z-index: 10;
+            animation: popIn 0.3s ease-out;
+        }
+
+        .modal-trap h2 {
+            color: var(--alert);
+            font-family: 'Arial Black', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .modal-trap p {
+            color: white;
+            font-size: 1.2rem;
+            max-width: 500px;
+            margin-bottom: 25px;
+        }
+
+        .modal-btn {
+            background-color: var(--accent);
+            color: var(--text-main);
+            font-weight: bold;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            border-radius: 30px;
+            cursor: pointer;
+        }
+
+        /* Modal ÉXITO */
+        .modal-success {
+            display: none;
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(15, 118, 110, 0.95);
+            border-radius: 8px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 30px;
+            z-index: 10;
+            animation: popIn 0.3s ease-out;
+        }
+
+        .modal-success h2 {
+            color: var(--accent);
+            font-family: 'Arial Black', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .modal-success p {
+            color: white;
+            font-size: 1.2rem;
+            max-width: 500px;
+            margin-bottom: 25px;
+        }
+
+        /* --- EL CAZADOR DE VERBOS (TARJETAS) --- */
+        .verbs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .verb-card {
+            background-color: transparent;
+            perspective: 1000px;
+            min-height: 200px;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .verb-card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border: 2px solid #E5E7EB;
+        }
+
+        /* Frontal: EL VERBO */
+        .card-front {
+            background-color: var(--white);
+            border-color: var(--primary);
+        }
+
+        .verb-card:hover .card-front {
+            background-color: var(--panel-bg);
+            transform: translateY(-3px);
+            transition: all 0.3s ease;
+        }
+
+        .verb-title {
+            font-family: 'Georgia', serif;
+            font-size: 1.8rem;
+            color: var(--primary);
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .flip-hint {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        /* Trasera: EL SIGNIFICADO */
+        .card-back {
+            background-color: var(--accent);
+            color: var(--text-main);
+            transform: rotateY(180deg);
+            border-color: var(--accent-hover);
+        }
+
+        .meaning-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.9); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        
+        <div class="header-section">
+            <h1 class="main-title">Hackeando el Examen</h1>
+            <p class="context-text">
+                ¿Alguna vez has suspendido un examen porque no entendiste lo que el profesor te pedía? Aquí vas a aprender a no caer en las trampas más comunes y a descifrar exactamente qué quieren que respondas.
+            </p>
+        </div>
+
+        <h2 class="section-title">La Prueba Trampa</h2>
+        <p style="text-align: center; margin-bottom: 20px;">
+            Atención: Tienes 30 segundos para resolver este pequeño test. Empieza ya.
+        </p>
+
+        <div class="exam-paper" id="exam-paper">
+            <div class="exam-header">TEST DE ATENCIÓN RÁPIDA</div>
+            <ol class="exam-list">
+                <li>Lee cuidadosamente todas las instrucciones antes de hacer nada.</li>
+                <li>
+                    Escribe tu nombre y apellidos en el siguiente recuadro:
+                    <input type="text" class="exam-input" placeholder="Nombre..." onkeydown="triggerTrap()">
+                </li>
+                <li>
+                    Resuelve mentalmente esta operación y escribe el resultado: 200 + 345
+                    <input type="number" class="exam-input" placeholder="Resultado..." onkeydown="triggerTrap()">
+                </li>
+                <li>
+                    Haz clic en el botón de abajo para confirmar que estás haciendo el test.
+                    <br><button class="exam-btn" onclick="triggerTrap()">Confirmar asistencia</button>
+                </li>
+                <li>Cuenta mentalmente del 1 al 10 hacia atrás.</li>
+                <li>
+                    Ahora que has terminado de leer todas las instrucciones, <strong>ignora los pasos 2, 3, 4 y 5</strong>. No escribas nada ni pulses los botones anteriores. Simplemente pulsa el botón verde de abajo para aprobar.
+                    <br><button class="exam-btn-final" onclick="triggerSuccess()">He leído todo y apruebo</button>
+                </li>
+            </ol>
+
+            <div class="modal-trap" id="modal-trap">
+                <h2>¡ZASCA!</h2>
+                <p>Has caído de lleno en la trampa. ¿Recuerdas la instrucción nº 1? "Lee todas las instrucciones antes de hacer nada". Si hubieras leído hasta el final, habrías visto que no tenías que rellenar nada.</p>
+                <button class="modal-btn" onclick="resetExam()">Entendido, no volverá a pasar</button>
+            </div>
+
+            <div class="modal-success" id="modal-success">
+                <h2>¡PERFECTO! 🧠</h2>
+                <p>Has superado la prueba porque has cumplido la regla de oro: LEER todo el ejercicio antes de lanzarte a escribir. Aplicar esto en tus exámenes reales te salvará de muchos suspensos tontos.</p>
+                <button class="modal-btn" onclick="closeSuccess()">Continuar</button>
+            </div>
+        </div>
+
+        <h2 class="section-title">El Cazador de Verbos</h2>
+        <p style="text-align: center; margin-bottom: 20px;">
+            El secreto para sacar buena nota es darle al profesor justo lo que pide. Toca las tarjetas para descubrir qué significa cada "Verbo de Examen".
+        </p>
+
+        <div class="verbs-grid">
+            
+            <div class="verb-card" onclick="this.classList.toggle('flipped')">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="verb-title">"Define..."</div>
+                        <div class="flip-hint">Toca para descubrir</div>
+                    </div>
+                    <div class="card-back">
+                        <div class="meaning-text">Di en qué consiste algo. Tienes que explicar qué es, dando su significado exacto, claro y breve (como en el diccionario).</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="verb-card" onclick="this.classList.toggle('flipped')">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="verb-title">"Diferencia..."</div>
+                        <div class="flip-hint">Toca para descubrir</div>
+                    </div>
+                    <div class="card-back">
+                        <div class="meaning-text">No pongas solo la definición. Tienes que nombrar las características en las que NO se parecen dos cosas.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="verb-card" onclick="this.classList.toggle('flipped')">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="verb-title">"Explica..."</div>
+                        <div class="flip-hint">Toca para descubrir</div>
+                    </div>
+                    <div class="card-back">
+                        <div class="meaning-text">Usa tus propias palabras para contar cómo funciona algo, por qué ocurre o cuáles son sus causas. Desarrolla la respuesta.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="verb-card" onclick="this.classList.toggle('flipped')">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="verb-title">"Razona..."</div>
+                        <div class="flip-hint">Toca para descubrir</div>
+                    </div>
+                    <div class="card-back">
+                        <div class="meaning-text">No basta con responder "Sí" o "No". Tienes que dar argumentos, motivos o pruebas matemáticas de por qué has dado esa respuesta.</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        // Lógica del Examen Trampa
+        const trapModal = document.getElementById('modal-trap');
+        const successModal = document.getElementById('modal-success');
+        const inputs = document.querySelectorAll('.exam-input');
+
+        let isSuccess = false;
+
+        function triggerTrap() {
+            if (!isSuccess) {
+                trapModal.style.display = 'flex';
+                // Limpiar inputs si había escrito algo
+                inputs.forEach(input => input.value = '');
+            }
+        }
+
+        function triggerSuccess() {
+            isSuccess = true;
+            successModal.style.display = 'flex';
+        }
+
+        function resetExam() {
+            trapModal.style.display = 'none';
+            isSuccess = false;
+        }
+
+        function closeSuccess() {
+            successModal.style.display = 'none';
+        }
+    </script>
+    
+    <script src="https://jgamort408-web.github.io/profesor/tutoria/footer_8m.js?v=4"></script>
+</body>
+</html>
