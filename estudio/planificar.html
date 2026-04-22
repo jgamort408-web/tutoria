@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Domina el Tiempo - Técnicas</title>
+    <style>
+        :root {
+            --primary: #0F766E; /* Azul Cerceta / Teal profundo */
+            --secondary: #0D9488; /* Teal más claro */
+            --accent: #EAB308; /* Amarillo Mostaza */
+            --accent-hover: #CA8A04; /* Mostaza oscuro */
+            --alert: #DC2626; /* Rojo para errores */
+            --success: #16A34A; /* Verde para aciertos */
+            --bg-color: transparent;
+            --text-main: #374151;
+            --text-light: #6B7280;
+            --white: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            line-height: 1.8;
+            flex-direction: column !important;
+            align-items: center !important;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 900px;
+            padding: 40px 20px;
+        }
+
+        /* --- CABECERA --- */
+        .header-section {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            color: var(--primary);
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .main-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .context-text {
+            font-size: 1.15rem;
+            color: var(--text-main);
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin: 40px 0 20px 0;
+            text-align: center;
+            font-family: 'Georgia', serif;
+        }
+
+        /* --- MITOS Y REALIDADES (FLIP CARDS) --- */
+        .myths-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .myth-card {
+            background-color: transparent;
+            perspective: 1000px;
+            min-height: 250px;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .myth-card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            padding: 25px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+            border: 2px solid #E5E7EB;
+        }
+
+        /* Cara Frontal: EL MITO (Rojizo/Naranja) */
+        .card-front {
+            background-color: var(--white);
+            border-color: #FCA5A5;
+        }
+        
+        .myth-card:hover .card-front {
+            border-color: var(--alert);
+            box-shadow: 0 8px 20px rgba(220, 38, 38, 0.15);
+        }
+
+        .myth-label {
+            color: var(--alert);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .myth-text {
+            font-size: 1.2rem;
+            color: var(--text-main);
+            font-style: italic;
+            font-family: 'Georgia', serif;
+        }
+
+        .flip-hint {
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            background-color: #F3F4F6;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        /* Cara Trasera: LA REALIDAD (Teal/Cerceta) */
+        .card-back {
+            background-color: #F0FDFA;
+            color: var(--text-main);
+            transform: rotateY(180deg);
+            border-color: var(--primary);
+        }
+
+        .reality-label {
+            color: var(--primary);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .reality-text {
+            font-size: 1.05rem;
+            line-height: 1.5;
+        }
+
+        /* --- JUEZ DE RUTINAS (MINIJUEGO) --- */
+        .routine-container {
+            background-color: var(--white);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(15, 118, 110, 0.1);
+            border: 2px solid #CCFBF1;
+        }
+
+        .routine-case {
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px dashed #D1D5DB;
+        }
+
+        .routine-case:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .case-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .case-avatar {
+            font-size: 2.5rem;
+            background-color: #FEF3C7;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .case-text {
+            font-size: 1.15rem;
+            color: var(--text-main);
+            line-height: 1.5;
+        }
+
+        .judgment-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            justify-content: flex-end;
+        }
+
+        .btn-judge {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s, opacity 0.2s;
+            color: white;
+        }
+
+        .btn-judge:hover { opacity: 0.9; transform: translateY(-2px); }
+        .btn-judge:active { transform: translateY(0); }
+
+        .btn-good { background-color: var(--success); }
+        .btn-bad { background-color: var(--alert); }
+
+        /* Feedback del minijuego */
+        .case-feedback {
+            display: none;
+            margin-top: 20px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-size: 1.05rem;
+            line-height: 1.5;
+            animation: fadeIn 0.4s;
+        }
+
+        .feedback-correct {
+            background-color: #DCFCE7;
+            border-left: 4px solid var(--success);
+            color: #166534;
+        }
+
+        .feedback-incorrect {
+            background-color: #FEE2E2;
+            border-left: 4px solid var(--alert);
+            color: #991B1B;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        
+        <div class="header-section">
+            <h1 class="main-title">El Arte de Planificar</h1>
+            <p class="context-text">
+                El problema no es que estudies poco, el problema es que gestionas mal tu tiempo. Aprender a organizar tus tardes te permitirá aprobar los exámenes <strong>y tener tiempo libre de sobra</strong>. 
+            </p>
+        </div>
+
+        <h2 class="section-title">Mitos vs. Realidad del Tiempo</h2>
+        <p style="text-align: center; margin-bottom: 30px; color: var(--text-light);">
+            Toca las tarjetas para desmontar las excusas más típicas del estudiante.
+        </p>
+
+        <div class="myths-grid" id="myths-grid">
+            </div>
+
+        <h2 class="section-title">El Juez de las Rutinas</h2>
+        <p style="text-align: center; margin-bottom: 30px; color: var(--text-light);">
+            Lee la tarde de estos tres estudiantes y decide si lo están haciendo BIEN o MAL.
+        </p>
+
+        <div class="routine-container" id="routine-container">
+            </div>
+
+    </div>
+
+    <script>
+        // DATOS: Mitos y Realidades
+        const myths = [
+            {
+                mito: '"Lo mejor es darme una buena paliza de estudio el día antes del examen."',
+                realidad: 'Tu cerebro necesita días para asimilar. Si estudias el día antes, vomitas la información en el examen y a los dos días se te ha olvidado todo.'
+            },
+            {
+                mito: '"Cuantas más horas seguidas esté sentado en la silla, más aprenderé."',
+                realidad: 'Nadie aguanta 3 horas seguidas concentrado. Lo ideal es estudiar 50 minutos y descansar 10 minutos. ¡Las pausas son obligatorias!'
+            },
+            {
+                mito: '"En mis descansos me tumbo a ver la TV o jugar a la consola 30 minutos."',
+                realidad: '¡Error! Los descansos deben ser cortos (10-15 min). Si superas los 30 minutos de pausa, tu nivel de concentración caerá en picado.'
+            },
+            {
+                mito: '"Si estudio mucho y hago los deberes, me quedaré sin tiempo para vivir."',
+                realidad: 'Todo lo contrario. Si tienes un horario fijo y evitas distraerte con el móvil, terminarás tan rápido que te sobrará tiempo libre cada día.'
+            }
+        ];
+
+        // DATOS: Casos del Juez de Rutinas
+        const cases = [
+            {
+                id: 1,
+                avatar: "👦",
+                text: "Llego del instituto, como rápido y me tumbo a ver la televisión y usar el móvil hasta las 19:30. Como ya es tarde, me pongo a hacer los deberes a toda prisa porque estoy cansado y quiero cenar.",
+                isGood: false,
+                explanation: "¡Muy mal planificado! El horario ideal es descansar un rato tras comer y empezar hacia las 16:00 o 17:00 h. Dejarlo para última hora asegura que el cansancio no te deje rendir."
+            },
+            {
+                id: 2,
+                avatar: "👧",
+                text: "El profe ha puesto un examen de Naturales para dentro de dos semanas. Lo anoto en mi agenda y decido leerme un punto del tema (20 minutos) cada tarde desde hoy.",
+                isGood: true,
+                explanation: "¡Perfecto! Esta es la técnica de los estudiantes Élite. Repartir el esfuerzo hace que no se acumule al final, no te agobias y el día antes solo tienes que repasar."
+            },
+            {
+                id: 3,
+                avatar: "🧑",
+                text: "Empiezo a hacer los ejercicios de Matemáticas. A los 20 minutos vibra mi móvil, me asomo 'solo un segundo' a responder a un amigo, veo un vídeo de TikTok y al final vuelvo al cuaderno 40 minutos después.",
+                isGood: false,
+                explanation: "¡Peligro de distracción! Has roto tu ritmo de trabajo por completo. El móvil debe estar en otra habitación o en silencio. Una tarea de 30 minutos te va a acabar costando 2 horas."
+            }
+        ];
+
+        // Renderizar Mitos (Flip Cards)
+        const mythsGrid = document.getElementById('myths-grid');
+        myths.forEach(m => {
+            const card = document.createElement('div');
+            card.className = 'myth-card';
+            card.innerHTML = `
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="myth-label">❌ MITO</div>
+                        <div class="myth-text">${m.mito}</div>
+                        <div class="flip-hint">Toca para ver la verdad</div>
+                    </div>
+                    <div class="card-back">
+                        <div class="reality-label">✅ REALIDAD</div>
+                        <div class="reality-text">${m.realidad}</div>
+                    </div>
+                </div>
+            `;
+            card.onclick = () => card.classList.toggle('flipped');
+            mythsGrid.appendChild(card);
+        });
+
+        // Renderizar Casos del Juez
+        const routineContainer = document.getElementById('routine-container');
+        cases.forEach(c => {
+            const caseDiv = document.createElement('div');
+            caseDiv.className = 'routine-case';
+            caseDiv.innerHTML = `
+                <div class="case-header">
+                    <div class="case-avatar">${c.avatar}</div>
+                    <div class="case-text">"${c.text}"</div>
+                </div>
+                <div class="judgment-buttons" id="buttons-${c.id}">
+                    <button class="btn-judge btn-bad" onclick="judgeCase(${c.id}, false, ${c.isGood})">👎 MAL</button>
+                    <button class="btn-judge btn-good" onclick="judgeCase(${c.id}, true, ${c.isGood})">👍 BIEN</button>
+                </div>
+                <div class="case-feedback" id="feedback-${c.id}"></div>
+            `;
+            routineContainer.appendChild(caseDiv);
+        });
+
+        // Función para juzgar los casos
+        function judgeCase(id, userChoice, correctChoice) {
+            const fbDiv = document.getElementById(`feedback-${id}`);
+            const buttonsDiv = document.getElementById(`buttons-${id}`);
+            
+            // Buscar la explicación en los datos
+            const caseData = cases.find(c => c.id === id);
+
+            if (userChoice === correctChoice) {
+                fbDiv.className = 'case-feedback feedback-correct';
+                fbDiv.innerHTML = `<strong>¡Acertaste como Juez!</strong> ${caseData.explanation}`;
+            } else {
+                fbDiv.className = 'case-feedback feedback-incorrect';
+                fbDiv.innerHTML = `<strong>¡Veredicto equivocado!</strong> ${caseData.explanation}`;
+            }
+
+            fbDiv.style.display = 'block';
+            buttonsDiv.style.display = 'none'; // Ocultar botones tras responder
+        }
+
+    </script>
+    
+    <script src="https://jgamort408-web.github.io/profesor/tutoria/footer_8m.js?v=4"></script>
+</body>
+</html>
