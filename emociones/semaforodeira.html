@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Semáforo de la Ira - Gimnasio Emocional</title>
+    <style>
+        :root {
+            --bg-dark: #111827; --text-light: #F9FAFB; --volcano-rock: #374151;
+            --light-red: #DC2626; --light-yellow: #FACC15; --light-green: #16A34A;
+            --bg-color: transparent;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+        
+        body { background-color: var(--bg-color); color: var(--bg-dark); display: flex; flex-direction: column; align-items: center; line-height: 1.6; }
+        .main-container { width: 100%; max-width: 900px; padding: 30px 15px; }
+
+        /* --- CABECERA --- */
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { font-family: 'Arial Black', Impact, sans-serif; color: var(--light-yellow); font-size: 2.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.1); }
+        .subtitle { font-size: 1.2rem; color: #4B5563; max-width: 700px; margin: 0 auto; font-weight: 500; }
+        .mantra-badge { display: inline-block; background-color: var(--bg-dark); color: var(--light-yellow); padding: 8px 20px; border-radius: 30px; font-size: 1.1rem; font-weight: bold; margin-top: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+
+        /* --- LAYOUT DEL SIMULADOR --- */
+        .simulator-layout { display: flex; flex-direction: column; gap: 30px; background-color: var(--bg-dark); border-radius: 16px; padding: 40px 20px; color: var(--text-light); border: 4px solid var(--volcano-rock); align-items: center; }
+        @media (min-width: 768px) { .simulator-layout { flex-direction: row; justify-content: space-around; padding: 40px; align-items: flex-start; } }
+
+        /* --- EL SEMÁFORO --- */
+        .traffic-light-container { background-color: #1F2937; padding: 20px; border-radius: 40px; border: 4px solid #4B5563; display: flex; flex-direction: column; gap: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .light { width: 80px; height: 80px; border-radius: 50%; background-color: #374151; cursor: pointer; transition: all 0.3s; box-shadow: inset 0 5px 10px rgba(0,0,0,0.5); border: 2px solid #111827; }
+        
+        .light.active-red { background-color: var(--light-red); box-shadow: 0 0 30px var(--light-red), inset 0 -5px 15px rgba(255,255,255,0.4); border-color: #FCA5A5; }
+        .light.active-yellow { background-color: var(--light-yellow); box-shadow: 0 0 30px var(--light-yellow), inset 0 -5px 15px rgba(255,255,255,0.4); border-color: #FEF08A; }
+        .light.active-green { background-color: var(--light-green); box-shadow: 0 0 30px var(--light-green), inset 0 -5px 15px rgba(255,255,255,0.4); border-color: #86EFAC; }
+
+        /* --- ESCÁNER CORPORAL (Silueta CSS) --- */
+        .scanner-container { flex: 1; display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 350px; }
+        .silhouette { position: relative; width: 150px; height: 260px; margin: 20px auto; opacity: 0.5; transition: opacity 0.4s; }
+        .silhouette.active { opacity: 1; }
+        
+        .sil-head { position: absolute; top: 0; left: 55px; width: 40px; height: 50px; background-color: #4B5563; border-radius: 50%; }
+        .sil-torso { position: absolute; top: 55px; left: 40px; width: 70px; height: 110px; background-color: #4B5563; border-radius: 20px 20px 10px 10px; }
+        .sil-arm-l { position: absolute; top: 65px; left: 10px; width: 22px; height: 90px; background-color: #4B5563; border-radius: 11px; transform: rotate(10deg); }
+        .sil-arm-r { position: absolute; top: 65px; left: 118px; width: 22px; height: 90px; background-color: #4B5563; border-radius: 11px; transform: rotate(-10deg); }
+        .sil-leg-l { position: absolute; top: 170px; left: 45px; width: 26px; height: 90px; background-color: #4B5563; border-radius: 10px; }
+        .sil-leg-r { position: absolute; top: 170px; left: 79px; width: 26px; height: 90px; background-color: #4B5563; border-radius: 10px; }
+
+        /* Puntos de calor (Hotspots) */
+        .hotspot { position: absolute; width: 24px; height: 24px; background-color: var(--light-yellow); border-radius: 50%; transform: translate(-50%, -50%); cursor: pointer; display: none; z-index: 10; box-shadow: 0 0 10px var(--light-yellow); animation: pulse 1.5s infinite; border: 3px solid #B45309; }
+        @keyframes pulse { 0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.8; } 50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.8; } }
+
+        /* --- FEEDBACK PANEL --- */
+        .feedback-panel { background-color: #1F2937; border: 2px solid #4B5563; border-radius: 12px; padding: 20px; text-align: center; width: 100%; min-height: 120px; display: flex; flex-direction: column; justify-content: center; }
+        .feedback-title { font-size: 1.3rem; font-weight: bold; margin-bottom: 5px; text-transform: uppercase; }
+        .feedback-desc { font-size: 1.05rem; color: #D1D5DB; }
+
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <div class="header">
+            <h1>El Semáforo de la Ira</h1>
+            <p class="subtitle">Aprende a leer las señales de tu propio cuerpo. Si detectas que estás en amarillo, tendrás tiempo de frenar antes del choque.</p>
+            <div class="mantra-badge">👉 Parar no es perder — es elegir.</div>
+        </div>
+
+        <div class="simulator-layout">
+            
+            <div class="traffic-light-container">
+                <div class="light" id="light-red" onclick="setLight('red')"></div>
+                <div class="light" id="light-yellow" onclick="setLight('yellow')"></div>
+                <div class="light" id="light-green" onclick="setLight('green')"></div>
+            </div>
+
+            <div class="scanner-container">
+                <div class="feedback-panel" id="main-feedback">
+                    <div class="feedback-title" style="color: #9CA3AF;">Toca una luz del semáforo</div>
+                    <div class="feedback-desc">Enciende el semáforo para ver cómo reacciona tu cerebro y tu cuerpo en cada fase.</div>
+                </div>
+
+                <div class="silhouette" id="silhouette">
+                    <div class="sil-head"></div>
+                    <div class="sil-torso"></div>
+                    <div class="sil-arm-l"></div>
+                    <div class="sil-arm-r"></div>
+                    <div class="sil-leg-l"></div>
+                    <div class="sil-leg-r"></div>
+                    
+                    <div class="hotspot" style="top: 25px; left: 75px;" onclick="showSymptom('head')"></div> <div class="hotspot" style="top: 90px; left: 75px;" onclick="showSymptom('chest')"></div> <div class="hotspot" style="top: 140px; left: 75px;" onclick="showSymptom('stomach')"></div> <div class="hotspot" style="top: 145px; left: 20px;" onclick="showSymptom('hands')"></div> <div class="hotspot" style="top: 145px; left: 130px;" onclick="showSymptom('hands')"></div> </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const lightRed = document.getElementById('light-red');
+        const lightYellow = document.getElementById('light-yellow');
+        const lightGreen = document.getElementById('light-green');
+        const silhouette = document.getElementById('silhouette');
+        const hotspots = document.querySelectorAll('.hotspot');
+        
+        const fbTitle = document.querySelector('.feedback-title');
+        const fbDesc = document.querySelector('.feedback-desc');
+        const fbPanel = document.getElementById('main-feedback');
+
+        // Datos de síntomas físicos
+        const symptoms = {
+            head: { title: "Mandíbula y Cabeza", desc: "Aprietas los dientes sin darte cuenta. Tensión en el cuello y la frente. La sangre sube a la cabeza." },
+            chest: { title: "Pecho y Respiración", desc: "El corazón te late muy rápido (taquicardia). Respiras de forma corta y acelerada buscando oxígeno." },
+            stomach: { title: "Estómago", desc: "Sientes un 'nudo' en la boca del estómago, nervios o incluso náuseas. Tu digestión se paraliza." },
+            hands: { title: "Manos y Brazos", desc: "Aprietas los puños. Sientes calor, sudor o temblor en las manos porque tus músculos se tensan para 'pelear'." }
+        };
+
+        function setLight(color) {
+            // Resetear luces
+            lightRed.className = 'light';
+            lightYellow.className = 'light';
+            lightGreen.className = 'light';
+            
+            // Ocultar hotspots
+            hotspots.forEach(h => h.style.display = 'none');
+            silhouette.classList.remove('active');
+            fbPanel.style.borderColor = '#4B5563';
+
+            if (color === 'green') {
+                lightGreen.classList.add('active-green');
+                fbTitle.innerText = "🟢 FASE VERDE: CALMA";
+                fbTitle.style.color = "var(--light-green)";
+                fbDesc.innerText = "Respiras normal. Tu cerebro racional está al mando. Eres capaz de dialogar y pensar en las consecuencias.";
+            } 
+            else if (color === 'yellow') {
+                lightYellow.classList.add('active-yellow');
+                silhouette.classList.add('active');
+                hotspots.forEach(h => h.style.display = 'block'); // Mostrar sensores
+                fbTitle.innerText = "🟡 FASE AMARILLA: ALERTA";
+                fbTitle.style.color = "var(--light-yellow)";
+                fbDesc.innerText = "Tu cuerpo segrega adrenalina. ¡Aún estás a tiempo de frenar! TOCA LOS PUNTOS DE LA SILUETA para ver las señales de peligro.";
+                fbPanel.style.borderColor = "var(--light-yellow)";
+            } 
+            else if (color === 'red') {
+                lightRed.classList.add('active-red');
+                fbTitle.innerText = "🔴 FASE ROJA: EXPLOSIÓN";
+                fbTitle.style.color = "var(--light-red)";
+                fbDesc.innerText = "Has perdido el control. Gritas, insultas o rompes cosas. Tu cerebro ya no piensa, solo reacciona. Ahora tú eres el problema.";
+                fbPanel.style.borderColor = "var(--light-red)";
+            }
+        }
+
+        function showSymptom(part) {
+            const data = symptoms[part];
+            fbTitle.innerText = "⚠️ " + data.title;
+            fbTitle.style.color = "var(--light-yellow)";
+            fbDesc.innerText = data.desc;
+            
+            // Efecto visual de feedback
+            fbPanel.style.backgroundColor = "#374151";
+            setTimeout(() => fbPanel.style.backgroundColor = "#1F2937", 200);
+        }
+    </script>
+
+    
+    <script src="https://jgamort408-web.github.io/profesor/tutoria/footer_8m.js?v=4"></script>
+</body>
+</html>
