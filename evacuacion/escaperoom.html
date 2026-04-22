@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocolo de Evacuación - Escape Room</title>
+    <style>
+        :root {
+            --primary: #B91C1C; /* Rojo Carmesí */
+            --secondary: #EA580C; /* Naranja Intenso */
+            --accent: #16A34A; /* Verde Seguridad */
+            --bg-color: transparent;
+            --text-main: #F9FAFB;
+            --text-light: #9CA3AF;
+            --panel-bg: #111827; /* Gris muy oscuro */
+            --card-bg: #1F2937;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: #1F2937; /* Color por defecto para fuera del panel */
+            display: flex;
+            justify-content: center;
+            line-height: 1.8;
+            flex-direction: column !important;
+            align-items: center !important;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 800px;
+            padding: 40px 20px;
+        }
+
+        /* --- CABECERA --- */
+        .header-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-family: 'Arial Black', Impact, sans-serif;
+            color: var(--primary);
+            font-size: 2.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .context-text {
+            font-size: 1.15rem;
+            color: #4B5563;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* --- PANTALLA DEL JUEGO --- */
+        .game-screen {
+            background-color: var(--panel-bg);
+            border-radius: 16px;
+            padding: 40px 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border: 4px solid #374151;
+            color: var(--text-main);
+            position: relative;
+            min-height: 450px;
+            display: flex;
+            flex-direction: column;
+            transition: border-color 0.4s;
+        }
+
+        .level-badge {
+            background-color: var(--secondary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            align-self: flex-start;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 10px rgba(234, 88, 12, 0.4);
+        }
+
+        .story-text {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin-bottom: 35px;
+            font-family: 'Georgia', serif;
+        }
+
+        .choices-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: auto;
+        }
+
+        .choice-btn {
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            border: 2px solid #4B5563;
+            padding: 18px 25px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+        }
+
+        .choice-btn::before {
+            content: '➔';
+            color: var(--secondary);
+            margin-right: 15px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: transform 0.2s;
+        }
+
+        .choice-btn:hover {
+            border-color: var(--secondary);
+            background-color: #273344;
+        }
+
+        .choice-btn:hover::before {
+            transform: translateX(5px);
+        }
+
+        /* --- PANTALLAS DE RESULTADO (GAME OVER / WIN) --- */
+        .result-screen {
+            display: none;
+            text-align: center;
+            animation: fadeIn 0.5s;
+            height: 100%;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .result-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+        }
+
+        .result-title {
+            font-family: 'Arial Black', sans-serif;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .result-desc {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: var(--text-light);
+            max-width: 600px;
+        }
+
+        .btn-action {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: transform 0.2s;
+            color: white;
+        }
+
+        .btn-action:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-retry {
+            background-color: var(--primary);
+            box-shadow: 0 5px 15px rgba(185, 28, 28, 0.4);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        
+        <div class="header-section">
+            <h1>Escape Room: La Evacuación</h1>
+            <p class="context-text">
+                Acaba de sonar la alarma de 5 toques. Estás dentro del instituto y debes tomar las decisiones correctas para salir a salvo. Un paso en falso y quedarás atrapado. ¡Suerte!
+            </p>
+        </div>
+
+        <div class="game-screen" id="game-panel">
+            
+            <div id="story-container">
+                <div class="level-badge" id="level-badge">Nivel 1</div>
+                <div class="story-text" id="story-text">Cargando historia...</div>
+                
+                <div class="choices-container" id="choices-container">
+                    </div>
+            </div>
+
+            <div class="result-screen" id="game-over-container">
+                <div class="result-icon">☠️</div>
+                <div class="result-title" style="color: var(--primary);">Misión Fallida</div>
+                <div class="result-desc" id="game-over-text"></div>
+                <button class="btn-action btn-retry" onclick="startGame()">Volver a intentar</button>
+            </div>
+
+            <div class="result-screen" id="victory-container">
+                <div class="result-icon">🏆</div>
+                <div class="result-title" style="color: var(--accent);">¡A Salvo!</div>
+                <div class="result-desc">
+                    Has demostrado tener la cabeza fría. Seguiste las normas: mochilas en la mesa, silencio, cerrar puertas, no correr y no volver atrás. Eres un experto/a en emergencias.
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        // Nodos de la historia (Escape Room)
+        const storyNodes = {
+            start: {
+                level: "Fase 1: El Aula",
+                text: "Estás en clase de Matemáticas. De repente, el timbre suena 5 veces seguidas. Es la señal de evacuación. Tienes tu mochila tirada en el suelo del pasillo entre las mesas.",
+                choices: [
+                    { text: "Cojo la mochila, me la cuelgo rápido a la espalda y me pongo en la fila.", next: "fail_mochila" },
+                    { text: "Cojo la mochila del suelo, la pongo encima de mi mesa y me coloco en la fila.", next: "node_2" }
+                ]
+            },
+            node_2: {
+                level: "Fase 2: La Puerta",
+                text: "Bien hecho. Al ponerla en la mesa evitas que alguien tropiece si se llena la clase de humo. Te colocas el último en la fila. Salís al pasillo en silencio siguiendo al profesor.",
+                choices: [
+                    { text: "Como soy el último, me aseguro de CERRAR la puerta de la clase al salir.", next: "node_3" },
+                    { text: "Salgo corriendo para alcanzar al profesor y dejo la puerta abierta.", next: "fail_puerta" }
+                ]
+            },
+            node_3: {
+                level: "Fase 3: Las Escaleras",
+                text: "¡Perfecto! Cerrar la puerta evita que el humo se extienda. Llegáis a las escaleras, pero hay otra clase bajando muy despacio.",
+                choices: [
+                    { text: "Les pedimos paso y los adelantamos por la izquierda para salir antes.", next: "fail_escaleras" },
+                    { text: "Mantenemos nuestra fila pegada a la pared y bajamos a su ritmo.", next: "node_4" }
+                ]
+            },
+            node_4: {
+                level: "Fase 4: El Olvido",
+                text: "Buena decisión, adelantar causa avalanchas. Ya estáis casi en la salida, pero de repente recuerdas que te has dejado las llaves de casa en tu mesa.",
+                choices: [
+                    { text: "Me doy la vuelta y subo corriendo. Solo tardaré 10 segundos.", next: "fail_volver" },
+                    { text: "Lo material no importa. Sigo hacia el punto de encuentro.", next: "node_5" }
+                ]
+            },
+            node_5: {
+                level: "Fase 5: El Punto de Encuentro",
+                text: "Llegáis a las pistas exteriores. Hay mucho ruido y otras clases se están reuniendo. El profesor empieza a contaros.",
+                choices: [
+                    { text: "Me quedo en mi fila en absoluto silencio hasta que el profe termine de contar y avise al Jefe de Emergencia.", next: "victory" },
+                    { text: "Aprovecho para ir a buscar a mi mejor amigo que está en otra clase para ver si está bien.", next: "fail_patio" }
+                ]
+            },
+
+            // PANTALLAS DE GAME OVER
+            fail_mochila: {
+                type: "game_over",
+                text: "Has cogido la mochila. Al salir al pasillo te has enganchado con la puerta y has provocado un tapón. El protocolo prohíbe llevar objetos personales."
+            },
+            fail_puerta: {
+                type: "game_over",
+                text: "Has dejado la puerta abierta y además has corrido. Correr provoca caídas, y dejar la puerta abierta hace que el posible fuego y humo se extiendan rápidamente por el instituto."
+            },
+            fail_escaleras: {
+                type: "game_over",
+                text: "Al intentar adelantar a la otra clase en las escaleras, alguien ha tropezado. Habéis provocado una avalancha humana y habéis bloqueado la salida."
+            },
+            fail_volver: {
+                type: "game_over",
+                text: "¡Nunca se vuelve atrás! Al intentar subir las escaleras a contracorriente, has chocado con la multitud que bajaba y has quedado atrapado."
+            },
+            fail_patio: {
+                type: "game_over",
+                text: "Al irte a buscar a tu amigo, tu profesor ha notado que faltabas en el recuento. Han pensado que estabas atrapado en el edificio y los bomberos han tenido que entrar a buscarte arriesgando su vida."
+            }
+        };
+
+        const storyContainer = document.getElementById('story-container');
+        const gameOverContainer = document.getElementById('game-over-container');
+        const victoryContainer = document.getElementById('victory-container');
+        const levelBadge = document.getElementById('level-badge');
+        const storyText = document.getElementById('story-text');
+        const choicesContainer = document.getElementById('choices-container');
+        const gameOverText = document.getElementById('game-over-text');
+        const gamePanel = document.getElementById('game-panel');
+
+        function startGame() {
+            // Reset de contenedores
+            gameOverContainer.style.display = 'none';
+            victoryContainer.style.display = 'none';
+            storyContainer.style.display = 'block';
+            gamePanel.style.borderColor = '#374151'; // Borde neutral
+            
+            goToNode('start');
+        }
+
+        function goToNode(nodeId) {
+            if (nodeId === 'victory') {
+                showVictory();
+                return;
+            }
+
+            const node = storyNodes[nodeId];
+
+            if (node.type === 'game_over') {
+                showGameOver(node.text);
+                return;
+            }
+
+            // Cargar historia
+            levelBadge.innerText = node.level;
+            storyText.innerText = node.text;
+            choicesContainer.innerHTML = ''; // Limpiar botones
+
+            // Crear botones de decisión
+            node.choices.forEach(choice => {
+                const btn = document.createElement('button');
+                btn.className = 'choice-btn';
+                btn.innerText = choice.text;
+                btn.onclick = () => goToNode(choice.next);
+                choicesContainer.appendChild(btn);
+            });
+        }
+
+        function showGameOver(reason) {
+            storyContainer.style.display = 'none';
+            gameOverText.innerText = reason;
+            gameOverContainer.style.display = 'flex';
+            gamePanel.style.borderColor = 'var(--primary)'; // Borde rojo
+        }
+
+        function showVictory() {
+            storyContainer.style.display = 'none';
+            victoryContainer.style.display = 'flex';
+            gamePanel.style.borderColor = 'var(--accent)'; // Borde verde
+        }
+
+        // Iniciar el juego al cargar la página
+        startGame();
+
+    </script>
+    
+    <script src="https://jgamort408-web.github.io/profesor/tutoria/footer_8m.js?v=3"></script>
+</body>
+</html>
