@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Contrato - Gimnasio Emocional</title>
+    <style>
+        :root {
+            --bg-dark: #111827; --text-light: #F9FAFB; --volcano-rock: #374151;
+            --light-yellow: #FACC15; --light-green: #16A34A; --cool-blue: #0EA5E9;
+            --paper-bg: #FEFCE8; --bg-color: transparent;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+        
+        body { background-color: var(--bg-color); color: var(--text-light); display: flex; flex-direction: column; align-items: center; line-height: 1.6; }
+        .main-container { width: 100%; max-width: 850px; padding: 30px 15px; }
+
+        /* --- CABECERA --- */
+        .header { text-align: center; margin-bottom: 30px; color: var(--bg-dark); }
+        .header h1 { font-family: 'Arial Black', Impact, sans-serif; color: var(--cool-blue); font-size: 2.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.1); }
+        .subtitle { font-size: 1.2rem; color: #4B5563; max-width: 700px; margin: 0 auto; font-weight: 500; }
+        .mantra-badge { display: inline-block; background-color: var(--bg-dark); color: var(--light-yellow); padding: 8px 20px; border-radius: 30px; font-size: 1.1rem; font-weight: bold; margin-top: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+
+        /* --- FORMULARIO DE CREACIÓN --- */
+        .form-panel { background-color: var(--bg-dark); border-radius: 16px; padding: 40px 30px; border: 4px solid var(--volcano-rock); box-shadow: 0 10px 30px rgba(0,0,0,0.2); transition: all 0.3s; }
+        
+        .form-group { margin-bottom: 25px; }
+        .form-label { display: block; font-size: 1.2rem; font-weight: bold; color: var(--light-yellow); margin-bottom: 10px; }
+        .form-desc { font-size: 0.95rem; color: #9CA3AF; margin-bottom: 10px; }
+        
+        .form-select, .form-input { width: 100%; padding: 15px; border-radius: 8px; border: 2px solid #4B5563; background-color: #1F2937; color: white; font-size: 1.1rem; outline: none; transition: border-color 0.2s; font-family: inherit; }
+        .form-select:focus, .form-input:focus { border-color: var(--cool-blue); }
+        
+        .btn-sign { width: 100%; background: linear-gradient(135deg, var(--light-green), #15803D); color: white; font-family: 'Arial Black', sans-serif; font-size: 1.5rem; padding: 20px; border: none; border-radius: 12px; cursor: pointer; text-transform: uppercase; box-shadow: 0 8px 20px rgba(22, 163, 74, 0.4); margin-top: 20px; transition: transform 0.2s; }
+        .btn-sign:hover { transform: translateY(-3px); }
+        .btn-sign:active { transform: translateY(0); }
+
+        /* --- EL CONTRATO / DIPLOMA (GENERADO) --- */
+        .contract-panel { display: none; background-color: var(--paper-bg); border-radius: 8px; padding: 40px; border: 2px solid #D1D5DB; box-shadow: inset 0 0 20px rgba(0,0,0,0.05), 0 15px 35px rgba(0,0,0,0.1); color: #111827; position: relative; animation: slideUp 0.5s ease-out; }
+        
+        /* Efecto de papel oficial */
+        .contract-panel::before { content: ''; position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px; border: 2px dashed #9CA3AF; border-radius: 4px; pointer-events: none; }
+        
+        .contract-header { text-align: center; border-bottom: 3px double #374151; padding-bottom: 20px; margin-bottom: 30px; position: relative; z-index: 1; }
+        .contract-logo { font-size: 4rem; margin-bottom: 10px; }
+        .contract-title { font-family: 'Georgia', serif; font-size: 2.5rem; color: #111827; text-transform: uppercase; }
+        
+        .contract-body { font-size: 1.3rem; line-height: 2; position: relative; z-index: 1; font-family: 'Georgia', serif; }
+        .contract-fill { font-weight: bold; color: var(--cool-blue); border-bottom: 2px solid var(--cool-blue); padding: 0 5px; font-style: italic; }
+        
+        .contract-footer { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 50px; position: relative; z-index: 1; }
+        .signature-box { text-align: center; width: 45%; }
+        .signature-line { border-bottom: 2px solid #111827; margin-bottom: 10px; height: 40px; font-family: 'Brush Script MT', cursive; font-size: 2rem; color: #1F2937; display: flex; align-items: flex-end; justify-content: center; }
+        .seal { font-size: 5rem; opacity: 0.8; transform: rotate(-15deg); }
+
+        .btn-actions { display: flex; gap: 15px; margin-top: 30px; }
+        .btn-action { flex: 1; padding: 15px; border-radius: 8px; border: none; font-weight: bold; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .btn-print { background-color: var(--cool-blue); color: white; }
+        .btn-edit { background-color: #E5E7EB; color: #374151; }
+
+        @keyframes slideUp { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
+
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <div class="header">
+            <h1>Contrato de Autocontrol</h1>
+            <p class="subtitle">Prometer que te vas a portar bien no sirve de nada. Necesitas un plan exacto de cómo vas a reaccionar. Configura tu fórmula personal y sella tu compromiso.</p>
+            <div class="mantra-badge">👉 Parar no es perder — es elegir.</div>
+        </div>
+
+        <div class="form-panel" id="form-panel">
+            <div class="form-group">
+                <label class="form-label">1. ¿Cuál es tu punto débil?</label>
+                <div class="form-desc">Elige la situación exacta en la que sueles perder el control:</div>
+                <select class="form-select" id="input-trigger">
+                    <option value="" disabled selected>-- Selecciona una situación --</option>
+                    <option value="un compañero me insulta o se ríe de mí">Un compañero me insulta o se ríe de mí</option>
+                    <option value="un profesor me llama la atención injustamente">Un profesor me llama la atención injustamente</option>
+                    <option value="pierdo en un juego o partido en el patio">Pierdo en un juego o partido en el patio</option>
+                    <option value="alguien me quita o toca mis cosas">Alguien me quita o toca mis cosas</option>
+                    <option value="mis padres me castigan o me quitan el móvil">Mis padres me castigan o me quitan el móvil</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">2. ¿Cómo avisa tu cuerpo?</label>
+                <div class="form-desc">¿Qué sientes justo antes de explotar? (Fase Amarilla):</div>
+                <select class="form-select" id="input-signal">
+                    <option value="" disabled selected>-- Selecciona tu señal física --</option>
+                    <option value="aprieto los puños y los dientes">Aprieto los puños y los dientes</option>
+                    <option value="mi corazón late súper rápido">Mi corazón late súper rápido (taquicardia)</option>
+                    <option value="siento mucho calor y mi respiración se acelera">Siento mucho calor y mi respiración se acelera</option>
+                    <option value="siento un nudo de nervios en el estómago">Siento un nudo de nervios en el estómago</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">3. ¿Cuál será tu escudo protector?</label>
+                <div class="form-desc">¿Qué vas a hacer inmediatamente para frenar?</div>
+                <select class="form-select" id="input-strategy">
+                    <option value="" disabled selected>-- Selecciona tu estrategia --</option>
+                    <option value="hacer una pausa, cerrar los ojos y respirar 5 veces">Hacer una pausa, cerrar los ojos y respirar 5 veces</option>
+                    <option value="darme la vuelta, alejarme de allí y contar hasta 10">Darme la vuelta, alejarme de allí y contar hasta 10</option>
+                    <option value="ignorar la provocación y decírselo a un profesor">Ignorar la provocación y decírselo a un profesor</option>
+                    <option value="morderme la lengua y pedir espacio para calmarme">Morderme la lengua y pedir espacio para calmarme</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">4. ¿Quién asume este compromiso?</label>
+                <input type="text" class="form-input" id="input-name" placeholder="Escribe tu nombre y primer apellido..." autocomplete="off">
+            </div>
+
+            <button class="btn-sign" onclick="generateContract()">Firmar Compromiso ➔</button>
+            <div id="form-error" style="color: #FCA5A5; text-align: center; margin-top: 15px; display: none; font-weight: bold;">⚠️ Por favor, rellena todos los campos antes de firmar.</div>
+        </div>
+
+        <div class="contract-panel" id="contract-panel">
+            <div class="contract-header">
+                <div class="contract-logo">🤝</div>
+                <div class="contract-title">Acuerdo Personal de Autocontrol</div>
+            </div>
+            
+            <div class="contract-body">
+                Yo, <span class="contract-fill" id="out-name">________</span>, alumno/a de 1º de ESO, entiendo que sentir enfado es natural, pero que la agresividad es una elección.<br><br>
+                Por ello, me comprometo oficialmente a que la próxima vez que <span class="contract-fill" id="out-trigger">________</span>, y note que mi cuerpo me avisa porque <span class="contract-fill" id="out-signal">________</span>...<br><br>
+                <strong>No me dejaré llevar por la impulsividad.</strong> En su lugar, aplicaré mi estrategia de <span class="contract-fill" id="out-strategy">________</span> para proteger mi expediente, mi libertad y demostrar que yo tengo el control de mi vida.
+            </div>
+
+            <div class="contract-footer">
+                <div class="seal">⚖️</div>
+                <div class="signature-box">
+                    <div class="signature-line" id="out-signature"></div>
+                    <div style="font-weight: bold; text-transform: uppercase;">Firma del Alumno/a</div>
+                    <div style="font-size: 0.9rem; color: #6B7280; margin-top: 5px;">"Parar no es perder — es elegir"</div>
+                </div>
+            </div>
+
+            <div class="btn-actions">
+                <button class="btn-action btn-edit" onclick="editContract()">✏️ Editar</button>
+                <button class="btn-action btn-print" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function generateContract() {
+            // Obtener valores
+            const trigger = document.getElementById('input-trigger').value;
+            const signal = document.getElementById('input-signal').value;
+            const strategy = document.getElementById('input-strategy').value;
+            const name = document.getElementById('input-name').value.trim();
+            const errorMsg = document.getElementById('form-error');
+
+            // Validar
+            if (!trigger || !signal || !strategy || !name) {
+                errorMsg.style.display = 'block';
+                return;
+            }
+
+            errorMsg.style.display = 'none';
+
+            // Rellenar contrato
+            document.getElementById('out-name').innerText = name;
+            document.getElementById('out-trigger').innerText = trigger;
+            document.getElementById('out-signal').innerText = signal;
+            document.getElementById('out-strategy').innerText = strategy;
+            
+            // Simular firma con fuente cursiva
+            document.getElementById('out-signature').innerText = name;
+
+            // Cambiar pantallas
+            document.getElementById('form-panel').style.display = 'none';
+            document.getElementById('contract-panel').style.display = 'block';
+            
+            // Scroll hacia arriba
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function editContract() {
+            document.getElementById('contract-panel').style.display = 'none';
+            document.getElementById('form-panel').style.display = 'block';
+        }
+    </script>
+
+    
+    <script src="https://jgamort408-web.github.io/profesor/tutoria/footer_8m.js?v=4"></script>
+</body>
+</html>
