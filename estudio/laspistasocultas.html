@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lectura Activa - Técnicas</title>
+    <style>
+        :root {
+            --primary: #0F766E; /* Azul Cerceta / Teal profundo */
+            --secondary: #0D9488; /* Teal más claro */
+            --accent: #EAB308; /* Amarillo Mostaza */
+            --accent-hover: #CA8A04; /* Mostaza oscuro */
+            --bg-color: transparent;
+            --text-main: #374151;
+            --text-light: #6B7280;
+            --white: #FFFFFF;
+            --panel-bg: #F0FDFA; /* Fondo teal muy suave */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            line-height: 1.8;
+            flex-direction: column !important;
+            align-items: center !important;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 900px;
+            padding: 40px 20px;
+        }
+
+        /* --- CABECERA --- */
+        .header-section {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            color: var(--primary);
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .main-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        .context-text {
+            font-size: 1.15rem;
+            color: var(--text-main);
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin: 40px 0 20px 0;
+            text-align: center;
+            font-family: 'Georgia', serif;
+        }
+
+        /* --- EL MISTERIO SIN TÍTULO --- */
+        .mystery-box {
+            background-color: var(--white);
+            border: 2px dashed #9CA3AF;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            margin-bottom: 40px;
+        }
+
+        .mystery-text {
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .mystery-title {
+            font-size: 2rem;
+            font-family: 'Arial Black', sans-serif;
+            color: var(--accent-hover);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .btn-reveal {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 10px rgba(234, 179, 8, 0.3);
+        }
+
+        .btn-reveal:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        /* --- GAFAS DE DETECTIVE (TEXTO BORROSO) --- */
+        .detective-panel {
+            background-color: var(--panel-bg);
+            border: 2px solid #CCFBF1;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(15, 118, 110, 0.1);
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+        .control-btn {
+            background-color: var(--white);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .control-btn:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .control-btn.active {
+            background-color: var(--primary);
+            color: var(--white);
+            pointer-events: none;
+        }
+
+        .text-book {
+            background-color: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
+            font-size: 1.15rem;
+            line-height: 1.9;
+        }
+
+        /* Clases de desenfoque */
+        .blur-all { filter: blur(6px); user-select: none; transition: filter 0.5s; }
+        .blur-none { filter: blur(0px) !important; }
+        
+        .part-title { font-size: 2rem; font-weight: bold; color: var(--primary); text-transform: uppercase; margin-bottom: 10px; display: block; }
+        .part-subtitle { font-size: 1.4rem; color: var(--secondary); font-weight: bold; margin-top: 20px; margin-bottom: 10px; display: block; }
+        .part-bold { font-weight: bold; color: #111827; background-color: #FEF08A; padding: 0 4px; border-radius: 3px; }
+        
+        /* Ocultar imágenes inicialmente */
+        .part-image { font-size: 4rem; text-align: center; margin: 20px 0; opacity: 0; transition: opacity 0.5s; filter: blur(0) !important; display: block; }
+        .part-image.show { opacity: 1; }
+
+        .conclusion-box {
+            margin-top: 30px;
+            background-color: #ECFCCB; /* Verde lima muy suave */
+            border: 2px solid #84CC16;
+            padding: 20px;
+            border-radius: 8px;
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        
+        <div class="header-section">
+            <h1 class="main-title">Las Pistas Ocultas</h1>
+            <p class="context-text">
+                Leer no es lo mismo que estudiar. Los libros de texto están llenos de pistas secretas para que tu cerebro sepa de qué va el tema antes de empezar a memorizar. ¡Vamos a descubrirlas!
+            </p>
+        </div>
+
+        <h2 class="section-title">El Misterio sin Título</h2>
+        <div class="mystery-box">
+            <p class="mystery-text" id="mystery-text">
+                "No es que se trate de una tarea especialmente difícil, pero sí hay que tener en cuenta algunos detalles. Lo importante es hacerlo al menos una vez al mes, y de forma que no queden picos que puedan causar daño en las zonas de alrededor."
+            </p>
+            <div class="mystery-title" id="mystery-title">"CÓMO CORTARSE LAS UÑAS"</div>
+            <p style="margin-bottom: 20px; color: var(--text-main);" id="mystery-question">
+                <strong>¿Eres capaz de adivinar de qué habla este texto?</strong> Si no lo entiendes, es porque le falta la pieza más importante.
+            </p>
+            <button class="btn-reveal" id="btn-reveal-mystery" onclick="revealMystery()">Revelar el Título Mágico ➔</button>
+        </div>
+
+        <h2 class="section-title">Las Gafas de Detective</h2>
+        <p style="text-align: center; margin-bottom: 20px;">
+            Este texto está borroso. Usa los botones para revelar <strong>solo las pistas</strong> (sin leer los párrafos) y descubre de qué trata.
+        </p>
+
+        <div class="detective-panel">
+            <div class="controls">
+                <button class="control-btn" onclick="unblur('.part-title', this)">1. 🏷️ Revelar Título</button>
+                <button class="control-btn" onclick="unblur('.part-subtitle', this)">2. 📑 Revelar Subtítulos</button>
+                <button class="control-btn" onclick="unblur('.part-bold', this)">3. 🖍️ Revelar Negritas</button>
+                <button class="control-btn" onclick="showImage(this)">4. 🖼️ Revelar Imágenes</button>
+                <button class="control-btn" style="background-color: var(--accent); color: white; border-color: var(--accent);" onclick="unblurAll(this)">5. 👀 Leerlo todo</button>
+            </div>
+
+            <div class="text-book">
+                <span class="part-title blur-all">LOS PECES</span>
+                
+                <span class="part-image" id="fish-img">🐟🐡</span>
+
+                <span class="part-subtitle blur-all">¿Cómo son los peces?</span>
+                <span class="blur-all text-paragraph">
+                    Los peces son <span class="part-bold blur-all">vertebrados ovíparos</span> que tienen el cuerpo cubierto de <span class="part-bold blur-all">escamas</span>, tienen <span class="part-bold blur-all">aletas</span> y viven en el agua. En el cuerpo de los peces se distinguen varias partes: cabeza, tronco, cola y aletas.
+                </span>
+
+                <span class="part-subtitle blur-all">¿Dónde viven los peces?</span>
+                <span class="blur-all text-paragraph">
+                    Los peces pueden vivir en los ríos, en los lagos y en el mar. Los peces que viven en los ríos y lagos se llaman <span class="part-bold blur-all">peces de agua dulce</span> (como la trucha o la carpa). Los peces que viven en el mar se llaman <span class="part-bold blur-all">peces de agua salada</span> (como el tiburón o el atún).
+                </span>
+            </div>
+
+            <div class="conclusion-box" id="conclusion-box">
+                <strong style="color: #4D7C0F; font-size: 1.2rem;">¡Misión Cumplida! 🕵️‍♂️</strong><br>
+                ¿Te has dado cuenta? Solo leyendo el Título general, los dos Subtítulos y las palabras en Negrita, tu cerebro ya ha hecho un esquema perfecto: "Vamos a hablar de los peces. De dos cosas: de sus partes (aletas y escamas) y de dónde viven (agua dulce y salada)". <strong>¡Haz siempre esto antes de empezar a estudiar un tema nuevo!</strong>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Lógica del Misterio sin Título
+        function revealMystery() {
+            document.getElementById('mystery-title').style.display = 'block';
+            document.getElementById('btn-reveal-mystery').style.display = 'none';
+            document.getElementById('mystery-question').innerHTML = '¡Efectivamente! Los investigadores han descubierto que si te fijas en el <strong>TÍTULO</strong> antes de leer, tu mente se ordena y comprendes todo a la primera.';
+        }
+
+        // Lógica de las Gafas de Detective
+        function unblur(selector, btn) {
+            const elements = document.querySelectorAll(selector);
+            elements.forEach(el => {
+                el.classList.add('blur-none');
+            });
+            btn.classList.add('active');
+        }
+
+        function showImage(btn) {
+            document.getElementById('fish-img').classList.add('show');
+            btn.classList.add('active');
+        }
+
+        function unblurAll(btn) {
+            // Quitar borroso de todo el texto
+            const allBlurred = document.querySelectorAll('.blur-all');
+            allBlurred.forEach(el => {
+                el.classList.add('blur-none');
+            });
+            // Mostrar imagen por si acaso
+            document.getElementById('fish-img').classList.add('show');
+            
+            // Mostrar la conclusión
+            document.getElementById('conclusion-box').style.display = 'block';
+            btn.classList.add('active');
+            btn.innerText = "¡Lectura completada!";
+        }
+    </script>
+    
+    <script src="https://jgamort408-web.github.io/profesor/tutoria/footer_8m.js?v=4"></script>
+</body>
+</html>
