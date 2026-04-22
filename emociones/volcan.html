@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Volcán Emocional - Gimnasio Emocional</title>
+    <style>
+        :root {
+            --bg-dark: #111827;
+            --text-light: #F9FAFB;
+            --magma-red: #DC2626;
+            --magma-orange: #EA580C;
+            --magma-yellow: #FACC15;
+            --cool-blue: #0EA5E9;
+            --volcano-rock: #374151;
+            --bg-color: transparent;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+        
+        body { 
+            background-color: var(--bg-color); 
+            color: var(--bg-dark); 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            line-height: 1.6; 
+        }
+
+        .main-container { width: 100%; max-width: 900px; padding: 30px 15px; }
+
+        /* --- CABECERA --- */
+        .header { text-align: center; margin-bottom: 30px; }
+        .header h1 { 
+            font-family: 'Arial Black', Impact, sans-serif; 
+            color: var(--magma-red); 
+            font-size: 2.8rem; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            margin-bottom: 10px; 
+        }
+        .subtitle { font-size: 1.2rem; color: #4B5563; max-width: 700px; margin: 0 auto; font-weight: 500; }
+        
+        .mantra-badge {
+            display: inline-block;
+            background-color: var(--bg-dark);
+            color: var(--magma-yellow);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-top: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        /* --- LAYOUT DEL SIMULADOR --- */
+        .simulator-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            background-color: var(--bg-dark);
+            border-radius: 16px;
+            padding: 40px 20px;
+            color: var(--text-light);
+            border: 4px solid var(--volcano-rock);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        @media (min-width: 768px) {
+            .simulator-layout { flex-direction: row; justify-content: space-between; padding: 40px; }
+        }
+
+        /* Paneles laterales (Botones) */
+        .panel { flex: 1; display: flex; flex-direction: column; gap: 15px; }
+        .panel-title { font-size: 1.2rem; font-weight: bold; text-align: center; text-transform: uppercase; margin-bottom: 10px; }
+        
+        .btn {
+            padding: 12px 15px; border: none; border-radius: 8px; font-weight: bold; font-size: 1rem;
+            cursor: pointer; transition: transform 0.1s, filter 0.2s; display: flex; align-items: center; gap: 10px;
+        }
+        .btn:hover { filter: brightness(1.1); transform: translateY(-2px); }
+        .btn:active { transform: translateY(0); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+        .btn-magma { background: linear-gradient(45deg, var(--magma-red), var(--magma-orange)); color: white; box-shadow: 0 4px 10px rgba(220, 38, 38, 0.3); }
+        .btn-cool { background: linear-gradient(45deg, var(--cool-blue), #38BDF8); color: white; box-shadow: 0 4px 10px rgba(14, 165, 233, 0.3); }
+
+        /* --- EL VOLCÁN --- */
+        .volcano-container {
+            flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+            position: relative; min-height: 250px;
+        }
+
+        .volcano-shape {
+            width: 180px; height: 220px; background-color: var(--volcano-rock);
+            clip-path: polygon(35% 0%, 65% 0%, 100% 100%, 0% 100%);
+            position: relative; overflow: hidden;
+            box-shadow: inset 0 -20px 50px rgba(0,0,0,0.5);
+            border-bottom: 5px solid #1F2937;
+        }
+
+        .lava-fill {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 0%;
+            background: linear-gradient(to top, var(--magma-red), var(--magma-orange), var(--magma-yellow));
+            transition: height 0.4s ease-out;
+            box-shadow: 0 0 20px var(--magma-orange);
+        }
+
+        .pressure-gauge {
+            margin-top: 20px; font-size: 1.5rem; font-family: 'Arial Black', sans-serif;
+            color: var(--magma-yellow); text-align: center;
+        }
+
+        /* --- ANIMACIONES --- */
+        .shaking { animation: shake 0.4s infinite; }
+        .erupting { animation: erupt 0.1s infinite; border-color: var(--magma-red) !important; box-shadow: 0 0 50px var(--magma-red) !important; }
+
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            25% { transform: translate(-1px, -2px) rotate(-1deg); }
+            50% { transform: translate(-3px, 0px) rotate(1deg); }
+            75% { transform: translate(3px, 2px) rotate(0deg); }
+            100% { transform: translate(1px, -1px) rotate(-1deg); }
+        }
+
+        @keyframes erupt {
+            0% { background-color: var(--bg-dark); }
+            50% { background-color: #450a0a; }
+            100% { background-color: var(--bg-dark); }
+        }
+
+        /* --- FEEDBACK --- */
+        .feedback-box {
+            text-align: center; margin-top: 20px; padding: 15px; border-radius: 8px;
+            font-size: 1.1rem; font-weight: bold; min-height: 60px;
+            background-color: rgba(255,255,255,0.1);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <div class="header">
+            <h1>El Volcán Emocional</h1>
+            <p class="subtitle">La ira nunca aparece de golpe. Son las pequeñas cosas del día a día las que llenan el vaso. Si aprendes a detectar la presión, podrás vaciarla antes de explotar.</p>
+            <div class="mantra-badge">👉 Parar no es perder — es elegir.</div>
+        </div>
+
+        <div class="simulator-layout" id="sim-layout">
+            
+            <div class="panel">
+                <div class="panel-title" style="color: var(--magma-orange);">🔥 Añadir Presión</div>
+                <button class="btn btn-magma" onclick="addPressure(20, 'Me levanto con sueño y llego tarde')">🥱 Madrugar y prisas</button>
+                <button class="btn btn-magma" onclick="addPressure(25, 'Un profe me llama la atención injustamente')">👨‍🏫 Bronca del profe</button>
+                <button class="btn btn-magma" onclick="addPressure(30, 'Un compañero se ríe de mí en el pasillo')">🤬 Alguien se ríe de mí</button>
+                <button class="btn btn-magma" onclick="addPressure(20, 'Mis padres me quitan el móvil')">📱 Me quitan el móvil</button>
+            </div>
+
+            <div class="volcano-container" id="volcano-container">
+                <div class="volcano-shape">
+                    <div class="lava-fill" id="lava"></div>
+                </div>
+                <div class="pressure-gauge" id="gauge">PRESIÓN: 0%</div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-title" style="color: var(--cool-blue);">❄️ Válvulas de Escape</div>
+                <button class="btn btn-cool" onclick="coolDown(30, 'Cierras los ojos y respiras profundo 5 veces')" id="btn-resp">🌬️ Respirar 5 veces</button>
+                <button class="btn btn-cool" onclick="coolDown(40, 'Te alejas de la situación para no ver a esa persona')" id="btn-alej">🚶‍♂️ Alejarme de ahí</button>
+                <button class="btn btn-cool" onclick="coolDown(30, 'Le cuentas a un amigo lo que te ha molestado')" id="btn-habl">💬 Hablarlo con alguien</button>
+                <button class="btn btn-cool" onclick="coolDown(100, 'Reiniciando el volcán...')" id="btn-reset" style="display:none; background: #4B5563;">🔄 Volver a empezar</button>
+            </div>
+
+        </div>
+
+        <div class="feedback-box" id="feedback">
+            Pulsa las causas de la izquierda para ver cómo se acumula la ira en tu interior.
+        </div>
+
+    </div>
+
+    <script>
+        let pressure = 0;
+        const lava = document.getElementById('lava');
+        const gauge = document.getElementById('gauge');
+        const simLayout = document.getElementById('sim-layout');
+        const volcanoCont = document.getElementById('volcano-container');
+        const feedback = document.getElementById('feedback');
+        const magmaBtns = document.querySelectorAll('.btn-magma');
+        const btnReset = document.getElementById('btn-reset');
+
+        function updateVolcano() {
+            // Limitar entre 0 y 100
+            if (pressure < 0) pressure = 0;
+            if (pressure > 100) pressure = 100;
+
+            // Actualizar visuales
+            lava.style.height = pressure + '%';
+            gauge.innerText = `PRESIÓN: ${pressure}%`;
+
+            // Efectos de color según presión
+            if (pressure < 50) {
+                gauge.style.color = "var(--magma-yellow)";
+                volcanoCont.classList.remove('shaking');
+                simLayout.classList.remove('erupting');
+                toggleMagmaBtns(false);
+            } else if (pressure >= 50 && pressure < 100) {
+                gauge.style.color = "var(--magma-orange)";
+                volcanoCont.classList.add('shaking');
+                simLayout.classList.remove('erupting');
+                toggleMagmaBtns(false);
+            } else if (pressure === 100) {
+                gauge.style.color = "var(--magma-red)";
+                gauge.innerText = "¡ERUPCIÓN!";
+                volcanoCont.classList.add('shaking');
+                simLayout.classList.add('erupting');
+                feedback.innerHTML = "💥 <strong>¡HAS PERDIDO EL CONTROL!</strong> Cuando explotas, dejas de pensar con claridad. Ahora solo tú sufres las consecuencias. Usa las válvulas de escape para enfriarte.";
+                feedback.style.color = "var(--magma-red)";
+                toggleMagmaBtns(true); // Bloquear botones de añadir presión
+                btnReset.style.display = 'flex';
+            }
+        }
+
+        function addPressure(amount, message) {
+            if (pressure === 100) return;
+            pressure += amount;
+            feedback.innerHTML = `🔥 ${message}. <em>La presión interior sube...</em>`;
+            feedback.style.color = "var(--magma-orange)";
+            updateVolcano();
+        }
+
+        function coolDown(amount, message) {
+            if (pressure === 0) {
+                feedback.innerHTML = "Estás en calma. No hay presión que soltar.";
+                feedback.style.color = "var(--cool-blue)";
+                return;
+            }
+            
+            pressure -= amount;
+            if (pressure < 0) pressure = 0; // Evitar que baje de 0 en el reset
+            
+            feedback.innerHTML = `❄️ ${message}. <em>Estás recuperando el control.</em>`;
+            feedback.style.color = "var(--cool-blue)";
+            
+            if (amount === 100) {
+                btnReset.style.display = 'none';
+                feedback.innerHTML = "Volcán reiniciado. Recuerda: tú decides si la lava sube o baja.";
+                feedback.style.color = "var(--text-light)";
+            }
+            
+            updateVolcano();
+        }
+
+        function toggleMagmaBtns(disabled) {
+            magmaBtns.forEach(btn => btn.disabled = disabled);
+        }
+    </script>
+    
+
+    
+    <script src="https://jgamort408-web.github.io/profesor/tutoria/footer_8m.js?v=4"></script>
+</body>
+</html>
