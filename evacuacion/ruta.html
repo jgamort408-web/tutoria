@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocolo de Evacuación - Ruta Interactiva</title>
+    <style>
+        :root {
+            --primary: #B91C1C; /* Rojo Carmesí */
+            --secondary: #EA580C; /* Naranja Intenso */
+            --accent: #16A34A; /* Verde Seguridad */
+            --bg-color: transparent;
+            --text-main: #1F2937;
+            --text-light: #6B7280;
+            --white: #FFFFFF;
+            --locked-bg: #F3F4F6;
+            --locked-text: #9CA3AF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            line-height: 1.8;
+            flex-direction: column !important;
+            align-items: center !important;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 800px;
+            padding: 40px 20px;
+        }
+
+        /* --- CABECERA --- */
+        .header-section {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-family: 'Arial Black', Impact, sans-serif;
+            color: var(--primary);
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .context-text {
+            font-size: 1.15rem;
+            color: var(--text-main);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* --- LÍNEA DE TIEMPO / RUTA --- */
+        .timeline {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto;
+            padding-left: 40px;
+        }
+
+        /* La línea vertical de fondo */
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 18px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: #E5E7EB;
+            border-radius: 4px;
+        }
+
+        .step-container {
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        /* El círculo del número */
+        .step-number {
+            position: absolute;
+            left: -40px;
+            top: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--locked-bg);
+            color: var(--locked-text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            border: 4px solid var(--white);
+            box-shadow: 0 0 0 2px #E5E7EB;
+            transition: all 0.4s ease;
+            z-index: 2;
+        }
+
+        /* La tarjeta de contenido */
+        .step-card {
+            background-color: var(--white);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            border: 2px solid #E5E7EB;
+            transition: all 0.4s ease;
+            opacity: 0.6;
+            pointer-events: none; /* Bloqueado por defecto */
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .step-icon {
+            font-size: 2rem;
+            margin-right: 15px;
+            filter: grayscale(100%);
+            transition: filter 0.4s ease;
+        }
+
+        .step-title {
+            font-family: 'Arial Black', sans-serif;
+            font-size: 1.3rem;
+            color: var(--locked-text);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: color 0.4s ease;
+        }
+
+        .step-content {
+            font-size: 1.05rem;
+            color: var(--text-main);
+            display: none; /* Oculto hasta que se activa */
+            animation: fadeIn 0.5s;
+        }
+
+        .step-content p {
+            margin-bottom: 10px;
+        }
+
+        .step-content ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .btn-complete {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: background 0.3s;
+        }
+
+        .btn-complete:hover {
+            background-color: #C2410C;
+        }
+
+        /* --- ESTADOS DE LA RUTA --- */
+        
+        /* ESTADO: DESBLOQUEADO (Actual) */
+        .step-container.unlocked .step-card {
+            opacity: 1;
+            pointer-events: auto;
+            border-color: var(--secondary);
+            box-shadow: 0 8px 20px rgba(234, 88, 12, 0.15);
+        }
+        .step-container.unlocked .step-number {
+            background-color: var(--secondary);
+            color: white;
+            box-shadow: 0 0 0 2px var(--secondary);
+        }
+        .step-container.unlocked .step-title {
+            color: var(--secondary);
+        }
+        .step-container.unlocked .step-icon {
+            filter: grayscale(0%);
+        }
+        .step-container.unlocked .step-content {
+            display: block;
+        }
+
+        /* ESTADO: COMPLETADO */
+        .step-container.completed .step-card {
+            opacity: 1;
+            pointer-events: none; /* Ya no se puede hacer clic */
+            border-color: var(--accent);
+            background-color: #F0FDF4;
+        }
+        .step-container.completed .step-number {
+            background-color: var(--accent);
+            color: white;
+            box-shadow: 0 0 0 2px var(--accent);
+        }
+        .step-container.completed .step-title {
+            color: var(--accent);
+        }
+        .step-container.completed .step-icon {
+            filter: grayscale(0%);
+        }
+        .step-container.completed .step-content {
+            display: block;
+        }
+        .step-container.completed .btn-complete {
+            display: none; /* Ocultar el botón una vez completado */
+        }
+        
+        /* Efecto visual de "línea completada" hacia el siguiente paso */
+        .step-container.completed::after {
+            content: '';
+            position: absolute;
+            left: -22px;
+            top: 40px;
+            bottom: -40px;
+            width: 4px;
+            background-color: var(--accent);
+            z-index: 1;
+            transition: height 0.5s ease;
+        }
+        .step-container:last-child::after {
+            display: none; /* El último no tiene línea hacia abajo */
+        }
+
+        /* MENSAJE FINAL */
+        .success-message {
+            text-align: center;
+            background-color: var(--accent);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-top: 40px;
+            display: none;
+            animation: fadeIn 0.8s;
+            box-shadow: 0 10px 25px rgba(22, 163, 74, 0.3);
+        }
+
+        .success-message h2 {
+            color: white;
+            margin-bottom: 10px;
+            font-family: 'Arial Black', sans-serif;
+            text-transform: uppercase;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        
+        <div class="header-section">
+            <h1>La Ruta de Evacuación</h1>
+            <p class="context-text">
+                Una evacuación es un trabajo en equipo. Si un paso falla, toda la cadena se rompe. Lee detenidamente tu misión en cada fase y pulsa <strong>"Paso completado"</strong> para avanzar por los pasillos hasta llegar al Punto de Encuentro.
+            </p>
+        </div>
+
+        <div class="timeline" id="evacuation-timeline">
+            
+            <div class="step-container unlocked" id="step-1">
+                <div class="step-number">1</div>
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-icon">📋</div>
+                        <div class="step-title">Recuento</div>
+                    </div>
+                    <div class="step-content">
+                        <p>El profesor o profesora debe saber exactamente cuántos somos antes de salir.</p>
+                        <ul>
+                            <li>Mochilas a las mesas.</li>
+                            <li>Formamos una <strong>única fila</strong> en la clase de forma rápida y en silencio.</li>
+                            <li>El/la profe se colocará el primero de la fila.</li>
+                        </ul>
+                        <button class="btn-complete" onclick="completeStep(1)">Paso Completado ✔</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-container" id="step-2">
+                <div class="step-number">2</div>
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-icon">🪟</div>
+                        <div class="step-title">Seguridad</div>
+                    </div>
+                    <div class="step-content">
+                        <p>¡Atención, alumnado responsable! Si estás cerca de la ventana o de la puerta, esta es tu misión:</p>
+                        <ul>
+                            <li><strong>Cierre de ventanas:</strong> Fundamental para que, si hay fuego, no entre oxígeno que avive las llamas.</li>
+                            <li><strong>Apagar las luces.</strong></li>
+                        </ul>
+                        <button class="btn-complete" onclick="completeStep(2)">Paso Completado ✔</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-container" id="step-3">
+                <div class="step-number">3</div>
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-icon">🚪</div>
+                        <div class="step-title">Salida del Aula</div>
+                    </div>
+                    <div class="step-content">
+                        <p>El momento crítico. Salimos al pasillo manteniendo la fila única.</p>
+                        <ul>
+                            <li><strong>Esperamos instrucciones:</strong> Si estamos en la 1ª o 2ª planta, esperamos en la pared a que nos den la orden de bajar las escaleras.</li>
+                            <li>El último alumno o alumna en salir <strong>cierra la puerta de la clase</strong> (¡sin echar la llave!).</li>
+                        </ul>
+                        <button class="btn-complete" onclick="completeStep(3)">Paso Completado ✔</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-container" id="step-4">
+                <div class="step-number">4</div>
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-icon">📍</div>
+                        <div class="step-title">Punto de Encuentro</div>
+                    </div>
+                    <div class="step-content">
+                        <p>Hemos llegado al exterior, pero la emergencia no ha terminado.</p>
+                        <ul>
+                            <li>Debemos caminar sin correr y sin empujar hasta las <strong>PISTAS</strong>.</li>
+                            <li>Nos colocamos exactamente en el lugar señalado para nuestro grupo.</li>
+                            <li>Seguimos en silencio y sin romper la fila.</li>
+                        </ul>
+                        <button class="btn-complete" onclick="completeStep(4)">Paso Completado ✔</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="step-container" id="step-5">
+                <div class="step-number">5</div>
+                <div class="step-card">
+                    <div class="step-header">
+                        <div class="step-icon">📢</div>
+                        <div class="step-title">Informa</div>
+                    </div>
+                    <div class="step-content">
+                        <p>El último paso es para el profesorado, pero necesitamos tu colaboración manteniéndote en silencio.</p>
+                        <ul>
+                            <li>El profe comunica al <strong>Jefe de Emergencia</strong> cuántos alumnos/as ha evacuado.</li>
+                            <li>Se comprueba que no falta nadie de los que estaban hoy en clase.</li>
+                        </ul>
+                        <button class="btn-complete" onclick="completeStep(5)">Finalizar Evacuación ✔</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="success-message" id="success-message">
+            <h2>¡Evacuación Exitosa! 🏆</h2>
+            <p>Habéis seguido los 5 pasos a la perfección. Conocer este recorrido y mantener la calma es la mejor herramienta para protegernos a todos y a todas.</p>
+        </div>
+
+    </div>
+
+    <script>
+        function completeStep(stepNumber) {
+            // 1. Marcar el paso actual como completado
+            const currentStep = document.getElementById(`step-${stepNumber}`);
+            currentStep.classList.remove('unlocked');
+            currentStep.classList.add('completed');
+
+            // 2. Desbloquear el siguiente paso (si existe)
+            const nextStep = document.getElementById(`step-${stepNumber + 1}`);
+            if (nextStep) {
+                nextStep.classList.add('unlocked');
+                
+                // Hacer scroll suave para que el siguiente paso se vea bien
+                setTimeout(() => {
+                    nextStep.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 300);
+            } else {
+                // Si no hay siguiente paso, mostrar el mensaje de éxito
+                const successMsg = document.getElementById('success-message');
+                successMsg.style.display = 'block';
+                setTimeout(() => {
+                    successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 300);
+            }
+        }
+    </script>
+    
+    <script src="https://jgamort408-web.github.io/profesor/tutoria/footer_8m.js?v=3"></script>
+</body>
+</html>
