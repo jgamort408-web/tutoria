@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Normas de convivencia | Tutoría Activa</title>
+    <link rel="stylesheet" href="../assets/css/site.css">
+    <style>
+        :root {
+            --p:    #065f46;
+            --p2:   #059669;
+            --acc:  #f59e0b;
+            --dan:  #dc2626;
+            --bg:   #f0fdf4;
+            --card: #ffffff;
+            --bord: #a7f3d0;
+            --txt:  #1f2937;
+            --mut:  #6b7280;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--txt);
+            line-height: 1.65;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 32px 20px 72px;
+            display: grid;
+            gap: 22px;
+        }
+
+        /* ── Hero ─────────────────────────────────────────────── */
+        .act-hero {
+            background: linear-gradient(135deg, var(--p) 0%, var(--p2) 100%);
+            color: #fff;
+            border-radius: 24px;
+            padding: 36px 32px;
+            position: relative;
+            overflow: hidden;
+        }
+        .act-hero::before {
+            content: "";
+            position: absolute;
+            top: -70px; right: -70px;
+            width: 220px; height: 220px;
+            border-radius: 50%;
+            background: rgba(255,255,255,.07);
+            pointer-events: none;
+        }
+        .act-hero::after {
+            content: "";
+            position: absolute;
+            bottom: -50px; left: -50px;
+            width: 160px; height: 160px;
+            border-radius: 50%;
+            background: rgba(255,255,255,.05);
+            pointer-events: none;
+        }
+        .act-eyebrow {
+            position: relative;
+            display: inline-block;
+            background: rgba(255,255,255,.18);
+            border: 1px solid rgba(255,255,255,.28);
+            border-radius: 999px;
+            padding: 5px 14px;
+            font-size: .76rem;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        .act-hero h1 {
+            position: relative;
+            margin: 0 0 10px;
+            font-size: clamp(1.55rem, 3.5vw, 2.3rem);
+            font-weight: 800;
+            line-height: 1.1;
+        }
+        .act-hero > p {
+            position: relative;
+            margin: 0 0 22px;
+            opacity: .88;
+            max-width: 580px;
+            font-size: 1rem;
+        }
+        .hero-btns { position: relative; display: flex; flex-wrap: wrap; gap: 10px; }
+
+        /* ── Cards ────────────────────────────────────────────── */
+        .step-card {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 28px 28px 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,.07);
+            border: 1px solid rgba(0,0,0,.055);
+        }
+        .step-card h2 {
+            margin: 0 0 6px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--p);
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+        .step-card > p.sub {
+            color: var(--mut);
+            margin: 0 0 18px;
+            font-size: .93rem;
+        }
+
+        /* ── Theory grid ──────────────────────────────────────── */
+        .theory-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+        @media (max-width: 600px) { .theory-grid { grid-template-columns: 1fr; } }
+        .theory-item {
+            background: var(--bg);
+            border: 1.5px solid var(--bord);
+            border-radius: 14px;
+            padding: 16px;
+        }
+        .theory-item h3 {
+            margin: 0 0 9px;
+            font-size: .9rem;
+            font-weight: 700;
+            color: var(--p);
+        }
+        .theory-item ul {
+            margin: 0; padding-left: 18px;
+            font-size: .88rem; line-height: 1.65;
+        }
+
+        /* ── Input row ────────────────────────────────────────── */
+        .input-row { display: flex; gap: 10px; flex-wrap: wrap; }
+        .input-row input {
+            flex: 1;
+            min-width: 200px;
+            padding: 13px 16px;
+            border: 2px solid var(--bord);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color .2s;
+            background: var(--bg);
+        }
+        .input-row input:focus { border-color: var(--p2); background: #fff; }
+
+        /* ── Buttons ──────────────────────────────────────────── */
+        .btn {
+            border: none;
+            border-radius: 12px;
+            padding: 12px 20px;
+            font-size: .92rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            transition: transform .15s ease, box-shadow .15s ease, opacity .15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            white-space: nowrap;
+        }
+        .btn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,.12); }
+        .btn:active:not(:disabled) { transform: none; }
+        .btn:disabled { opacity: .42; cursor: not-allowed; }
+        .btn-primary { background: var(--p); color: #fff; }
+        .btn-accent  { background: var(--acc); color: #fff; }
+        .btn-ghost   { background: rgba(255,255,255,.15); color: #fff; border: 1.5px solid rgba(255,255,255,.35); }
+        .btn-ghost:hover:not(:disabled) { background: rgba(255,255,255,.26); }
+        .btn-sm      { padding: 8px 13px; font-size: .83rem; border-radius: 9px; }
+        .btn-danger  { background: var(--dan); color: #fff; }
+
+        /* ── Rules grid ───────────────────────────────────────── */
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 13px;
+            margin-top: 18px;
+            min-height: 72px;
+        }
+        .rule-card {
+            background: var(--bg);
+            border: 2px solid var(--bord);
+            border-radius: 16px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: transform .18s, box-shadow .18s;
+        }
+        .rule-card:hover { transform: translateY(-3px); box-shadow: 0 8px 22px rgba(0,0,0,.09); }
+        .rule-text { font-weight: 600; font-size: .94rem; flex: 1; }
+        .rule-meta { font-size: .84rem; color: var(--mut); }
+        .rule-stars { font-size: 1rem; letter-spacing: 1px; min-height: 1.4rem; }
+        .rule-actions { display: flex; gap: 7px; flex-wrap: wrap; }
+        .empty-state {
+            grid-column: 1/-1;
+            text-align: center;
+            color: var(--mut);
+            padding: 20px;
+            font-style: italic;
+            font-size: .9rem;
+        }
+
+        /* ── Votes pill ───────────────────────────────────────── */
+        .votes-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 7px 16px;
+            background: #ecfdf5;
+            border: 1.5px solid var(--bord);
+            border-radius: 999px;
+            font-weight: 700;
+            color: var(--p);
+            font-size: .88rem;
+            margin-bottom: 6px;
+        }
+
+        /* ── Mural ────────────────────────────────────────────── */
+        .mural-list {
+            counter-reset: mural;
+            list-style: none;
+            padding: 0;
+            display: grid;
+            gap: 10px;
+            margin: 20px 0 0;
+        }
+        .mural-list li {
+            counter-increment: mural;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 18px;
+            background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%);
+            border: 1.5px solid var(--bord);
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: .95rem;
+        }
+        .mural-list li::before {
+            content: counter(mural);
+            display: grid;
+            place-items: center;
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            background: var(--p);
+            color: #fff;
+            font-size: .88rem;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+        .mural-votes {
+            margin-left: auto;
+            font-size: .8rem;
+            font-weight: 400;
+            color: var(--mut);
+            white-space: nowrap;
+        }
+
+        /* ── Badge ────────────────────────────────────────────── */
+        .badge-unlock {
+            margin-top: 20px;
+            padding: 20px 22px;
+            background: linear-gradient(135deg, #fef3c7, #fffbeb);
+            border: 2px solid #fbbf24;
+            border-radius: 18px;
+            align-items: center;
+            gap: 16px;
+            display: none;
+        }
+        .badge-unlock.visible { display: flex; animation: popIn .4s cubic-bezier(.34,1.56,.64,1); }
+        @keyframes popIn { from { opacity: 0; transform: scale(.85); } to { opacity: 1; transform: none; } }
+        .badge-icon { font-size: 2.5rem; flex-shrink: 0; }
+        .badge-title { display: block; font-size: 1rem; font-weight: 800; color: #92400e; margin-bottom: 3px; }
+        .badge-sub   { margin: 0; font-size: .87rem; color: #b45309; }
+
+        /* ── Classroom mode ───────────────────────────────────── */
+        body.class-mode .step-card       { padding: 36px 36px 32px; }
+        body.class-mode .step-card h2    { font-size: 1.65rem; }
+        body.class-mode .step-card > p.sub { font-size: 1.15rem; }
+        body.class-mode .rule-text       { font-size: 1.2rem; }
+        body.class-mode .btn             { padding: 16px 26px; font-size: 1.05rem; }
+        body.class-mode .input-row input { font-size: 1.1rem; padding: 15px 18px; }
+        body.class-mode .theory-grid     { display: none; }
+        body.class-mode .main-container  { max-width: 1060px; }
+    </style>
+</head>
+<body>
+<div class="main-container">
+
+    <!-- ── Hero ── -->
+    <header class="act-hero">
+        <span class="act-eyebrow">Módulo 2 · 1.º ESO · Convivencia</span>
+        <h1>Construimos nuestras normas de convivencia</h1>
+        <p>Entre todos vamos a decidir qué normas necesitamos para que el aula sea un lugar donde aprender, respetarse y estar bien.</p>
+        <div class="hero-btns">
+            <button class="btn btn-ghost" id="classBtn" onclick="toggleClassroom()">
+                <i class="fa-solid fa-display" aria-hidden="true"></i> Modo pizarra
+            </button>
+            <button class="btn btn-ghost" onclick="clearAll()">
+                <i class="fa-solid fa-rotate" aria-hidden="true"></i> Reiniciar sesión
+            </button>
+        </div>
+    </header>
+
+    <!-- ── Teoría ── -->
+    <section class="step-card">
+        <h2><i class="fa-solid fa-scale-balanced" aria-hidden="true"></i> Antes de empezar: derechos y deberes</h2>
+        <p class="sub">Para construir buenas normas, primero recordamos que todos y todas tenemos derechos en el instituto, y también responsabilidades.</p>
+        <div class="theory-grid">
+            <div class="theory-item">
+                <h3>🟢 Derechos del alumnado</h3>
+                <ul>
+                    <li>Recibir una educación de calidad</li>
+                    <li>Ser tratado/a con respeto e igualdad</li>
+                    <li>Participar en la vida del centro</li>
+                    <li>Que se proteja tu privacidad</li>
+                    <li>Recibir orientación académica y personal</li>
+                    <li>Que se escuche y atienda tu opinión</li>
+                </ul>
+            </div>
+            <div class="theory-item">
+                <h3>🔵 Deberes del alumnado</h3>
+                <ul>
+                    <li>Asistir con puntualidad y regularidad</li>
+                    <li>Respetar a compañeros/as y profesores/as</li>
+                    <li>Cuidar el material y las instalaciones</li>
+                    <li>Participar activamente en las clases</li>
+                    <li>Seguir las instrucciones del centro</li>
+                    <li>No impedir el aprendizaje de los demás</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Paso 1: proponer ── -->
+    <section class="step-card">
+        <h2><i class="fa-solid fa-pen-to-square" aria-hidden="true"></i> Paso 1 · Propón una norma</h2>
+        <p class="sub">Escribe una norma que ayude a que el aula sea un lugar respetuoso, seguro y agradable. Puedes añadir tantas como quieras.</p>
+        <div class="input-row">
+            <input id="ruleInput" type="text"
+                placeholder="Ej: Escuchamos sin interrumpir cuando alguien habla"
+                maxlength="120"
+                aria-label="Nueva norma de convivencia"
+                onkeydown="if(event.key==='Enter') addRule()">
+            <button class="btn btn-primary" onclick="addRule()">
+                <i class="fa-solid fa-plus" aria-hidden="true"></i> Añadir norma
+            </button>
+        </div>
+    </section>
+
+    <!-- ── Paso 2: votar ── -->
+    <section class="step-card">
+        <h2><i class="fa-solid fa-thumbs-up" aria-hidden="true"></i> Paso 2 · Votamos las mejores normas</h2>
+        <p class="sub">Cada persona tiene 3 votos. Usadlos en las normas que consideráis más importantes para el grupo.</p>
+        <div class="votes-pill">
+            <i class="fa-solid fa-star" aria-hidden="true"></i>
+            Votos disponibles: <span id="votesCount">3</span>
+        </div>
+        <div id="rulesGrid" class="rules-grid">
+            <p class="empty-state">Todavía no hay normas. ¡Añade la primera arriba!</p>
+        </div>
+    </section>
+
+    <!-- ── Paso 3: mural ── -->
+    <section class="step-card">
+        <h2><i class="fa-solid fa-award" aria-hidden="true"></i> Paso 3 · Mural de convivencia del aula</h2>
+        <p class="sub">Cuando el grupo haya votado, generamos el mural con las cinco normas más valoradas. Este será vuestro compromiso colectivo para todo el curso.</p>
+        <button class="btn btn-accent" onclick="generateMural()">
+            <i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> Generar mural final
+        </button>
+        <ol id="muralList" class="mural-list" aria-live="polite"></ol>
+        <div id="badgeSection" class="badge-unlock" role="alert">
+            <div class="badge-icon">🏆</div>
+            <div>
+                <span class="badge-title">Logro desbloqueado: Constructores/as de convivencia</span>
+                <p class="badge-sub">¡Enhorabuena! Habéis construido juntos el código de convivencia de vuestra aula.</p>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<script src="../assets/js/site.js"></script>
+<script>
+(function () {
+    const KEY        = "normas-v2";
+    const KEY_VOTES  = "normas-v2-votes";
+    const MAX_VOTES  = 3;
+
+    let rules      = JSON.parse(localStorage.getItem(KEY))       || [];
+    let votesLeft  = parseInt(localStorage.getItem(KEY_VOTES))   || MAX_VOTES;
+    let classMode  = false;
+
+    function save() {
+        localStorage.setItem(KEY, JSON.stringify(rules));
+        localStorage.setItem(KEY_VOTES, votesLeft);
+    }
+
+    function esc(s) {
+        return String(s)
+            .replace(/&/g,"&amp;").replace(/</g,"&lt;")
+            .replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+    }
+
+    function stars(n) {
+        if (!n) return '<span style="color:#d1d5db;font-size:.85rem">sin votos</span>';
+        return "⭐".repeat(Math.min(n, 5)) + (n > 5 ? ` +${n-5}` : "");
+    }
+
+    function render() {
+        document.getElementById("votesCount").textContent = votesLeft;
+
+        const grid = document.getElementById("rulesGrid");
+        if (!rules.length) {
+            grid.innerHTML = '<p class="empty-state">Todavía no hay normas. ¡Añade la primera arriba!</p>';
+            return;
+        }
+
+        const sorted = [...rules]
+            .map((r, i) => ({ ...r, _i: i }))
+            .sort((a, b) => b.votes - a.votes);
+
+        grid.innerHTML = sorted.map(rule => `
+            <article class="rule-card">
+                <div class="rule-text">${esc(rule.text)}</div>
+                <div>
+                    <div class="rule-stars">${stars(rule.votes)}</div>
+                    <div class="rule-meta">${rule.votes} voto${rule.votes !== 1 ? "s" : ""}</div>
+                </div>
+                <div class="rule-actions">
+                    <button class="btn btn-primary btn-sm"
+                        onclick="vote(${rule._i})"
+                        ${votesLeft <= 0 ? "disabled" : ""}
+                        aria-label="Votar norma: ${esc(rule.text)}">
+                        <i class="fa-solid fa-thumbs-up" aria-hidden="true"></i> Votar
+                    </button>
+                    <button class="btn btn-danger btn-sm"
+                        onclick="removeRule(${rule._i})"
+                        aria-label="Eliminar norma: ${esc(rule.text)}">
+                        <i class="fa-solid fa-trash" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </article>
+        `).join("");
+    }
+
+    window.addRule = function () {
+        const input = document.getElementById("ruleInput");
+        const text  = input.value.trim();
+        if (!text) { input.focus(); return; }
+        rules.push({ text, votes: 0 });
+        input.value = "";
+        input.focus();
+        save();
+        render();
+    };
+
+    window.vote = function (i) {
+        if (votesLeft <= 0 || i >= rules.length) return;
+        rules[i].votes += 1;
+        votesLeft -= 1;
+        save();
+        render();
+    };
+
+    window.removeRule = function (i) {
+        rules.splice(i, 1);
+        save();
+        render();
+    };
+
+    window.generateMural = function () {
+        const list  = document.getElementById("muralList");
+        const badge = document.getElementById("badgeSection");
+        const top   = [...rules].sort((a, b) => b.votes - a.votes).slice(0, 5);
+
+        if (!top.length) {
+            list.innerHTML = '<li style="color:var(--mut);font-style:italic;list-style:none">Añade y vota normas primero.</li>';
+            return;
+        }
+
+        list.innerHTML = top.map(r =>
+            `<li>${esc(r.text)}<span class="mural-votes">${r.votes} voto${r.votes !== 1 ? "s" : ""}</span></li>`
+        ).join("");
+
+        badge.classList.add("visible");
+        badge.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    };
+
+    window.clearAll = function () {
+        if (!confirm("¿Empezar de nuevo? Se borrarán todas las normas y votos.")) return;
+        rules     = [];
+        votesLeft = MAX_VOTES;
+        document.getElementById("muralList").innerHTML   = "";
+        document.getElementById("badgeSection").classList.remove("visible");
+        save();
+        render();
+    };
+
+    window.toggleClassroom = function () {
+        classMode = !classMode;
+        document.body.classList.toggle("class-mode", classMode);
+        document.getElementById("classBtn").innerHTML = classMode
+            ? '<i class="fa-solid fa-compress" aria-hidden="true"></i> Salir de pizarra'
+            : '<i class="fa-solid fa-display" aria-hidden="true"></i> Modo pizarra';
+    };
+
+    render();
+})();
+</script>
+</body>
+</html>
