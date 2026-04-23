@@ -1,0 +1,28 @@
+{
+  "name": "Tutoría Activa",
+  "short_name": "Tutoría",
+  "description": "Plataforma de tutoría activa para ESO: actividades interactivas, bloques temáticos e itinerarios por curso con diseño unificado.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f5f4f1",
+  "theme_color": "#1e40af",
+  "lang": "es",
+  "categories": ["education"],
+  "icons": [
+    {
+      "src": "assets/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icons/icon.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ],
+  "screenshots": []
+}

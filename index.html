@@ -1,19 +1,23 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tutoría Activa | Estructura Web ESO</title>
-    <meta name="description" content="Estructura base para una web de tutoría en ESO con navegación común, bloques temáticos e itinerarios por curso.">
+    <title>Tutoría Activa | Inicio</title>
+    <meta name="description" content="Plataforma de tutoría activa para ESO: actividades interactivas, bloques temáticos e itinerarios por curso con diseño unificado.">
     <link rel="stylesheet" href="assets/css/site.css">
+    <link rel="icon" type="image/svg+xml" href="assets/icons/icon.svg">
+    <link rel="apple-touch-icon" href="assets/icons/icon.svg">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1e40af">
 </head>
 <body>
-    <div class="page-shell stack">
+    <div class="page-shell">
         <section class="page-hero">
-            <span class="page-hero__eyebrow">Proyecto base</span>
+            <span class="page-hero__eyebrow">Tutoría ESO · Plataforma docente</span>
             <h1 class="page-hero__title">Tutoría activa para toda la ESO</h1>
             <p class="page-hero__lead">
-                Esta portada ya funciona como nodo central del proyecto: conecta cursos, ámbitos de trabajo y actividades interactivas con una misma identidad visual. La estructura está lista para crecer sin perder coherencia.
+                Una plataforma con identidad visual unificada que conecta cursos, bloques temáticos y actividades interactivas. Diseñada para crecer sin perder coherencia.
             </p>
             <div class="button-row">
                 <a class="button" href="cursos/index.html">Explorar cursos</a>
@@ -21,15 +25,35 @@
             </div>
         </section>
 
+        <div class="stats-row">
+            <div class="stat-item" data-reveal>
+                <span class="stat-number">22+</span>
+                <span class="stat-label">Actividades</span>
+            </div>
+            <div class="stat-item" data-reveal>
+                <span class="stat-number">4</span>
+                <span class="stat-label">Bloques temáticos</span>
+            </div>
+            <div class="stat-item" data-reveal>
+                <span class="stat-number">4</span>
+                <span class="stat-label">Cursos ESO</span>
+            </div>
+            <div class="stat-item" data-reveal>
+                <span class="stat-number">3</span>
+                <span class="stat-label">Idiomas</span>
+            </div>
+        </div>
+
         <section class="stack">
             <div class="section-heading">
                 <h2>Arquitectura principal</h2>
-                <p>La web queda organizada en dos puertas de entrada complementarias: navegación por curso y navegación por tema.</p>
+                <p>Dos puertas de entrada complementarias: navegación por curso y por temática.</p>
             </div>
             <div class="hub-grid">
-                <article class="hub-card">
+                <article class="hub-card" data-reveal>
+                    <div class="card-icon"><i class="fa-solid fa-graduation-cap" aria-hidden="true"></i></div>
                     <h3>Itinerarios por curso</h3>
-                    <p>Cada nivel de ESO tendrá su propia página-resumen para ordenar sesiones, priorizar materiales y escalar los contenidos según la edad del alumnado.</p>
+                    <p>Cada nivel de ESO tiene su propia página-resumen para ordenar sesiones, priorizar materiales y escalar los contenidos según la edad del alumnado.</p>
                     <ul class="meta-list">
                         <li>1.º ESO</li>
                         <li>2.º ESO</li>
@@ -41,9 +65,10 @@
                     </div>
                 </article>
 
-                <article class="hub-card">
+                <article class="hub-card" data-reveal>
+                    <div class="card-icon"><i class="fa-solid fa-layer-group" aria-hidden="true"></i></div>
                     <h3>Bloques temáticos</h3>
-                    <p>Las actividades ya creadas se agrupan por ámbitos para facilitar la navegación del profesorado y construir secuencias didácticas reutilizables.</p>
+                    <p>Las actividades se agrupan por ámbitos para facilitar la navegación del profesorado y construir secuencias didácticas reutilizables.</p>
                     <ul class="meta-list">
                         <li>Estudio</li>
                         <li>Emociones</li>
@@ -55,9 +80,10 @@
                     </div>
                 </article>
 
-                <article class="hub-card">
+                <article class="hub-card" data-reveal>
+                    <div class="card-icon"><i class="fa-solid fa-chart-line" aria-hidden="true"></i></div>
                     <h3>Seguimiento tutorial</h3>
-                    <p>Se reserva una sección propia para evaluación, analítica o revisión del progreso, separando claramente los paneles de gestión de las actividades del alumnado.</p>
+                    <p>Sección dedicada a evaluación y analítica del progreso, separando claramente los paneles de gestión de las actividades del alumnado.</p>
                     <ul class="meta-list">
                         <li>Panel docente</li>
                         <li>Escalable</li>
@@ -71,7 +97,7 @@
         </section>
 
         <section class="two-col">
-            <article class="section-panel">
+            <article class="section-panel" data-reveal="left">
                 <h2>Bloques disponibles</h2>
                 <div class="page-links">
                     <a href="estudio/index.html"><span>Técnicas de estudio</span><span>7 actividades</span></a>
@@ -81,11 +107,11 @@
                 </div>
             </article>
 
-            <article class="section-panel">
+            <article class="section-panel" data-reveal>
                 <h2>Estado del proyecto</h2>
                 <div class="notice-card">
                     <p class="site-copy">
-                        La web ya no es solo una estructura: ahora combina navegación común con contenido orientativo real por cursos y ámbitos, apoyado en los cuadernos disponibles y en las actividades interactivas que ya existían.
+                        La plataforma combina navegación común con contenido real orientado a cursos y ámbitos, apoyado en cuadernos y actividades interactivas ya disponibles.
                     </p>
                 </div>
                 <ul class="meta-list">
@@ -101,4 +127,3 @@
     <script src="assets/js/site.js"></script>
 </body>
 </html>
-
