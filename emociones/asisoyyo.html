@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Así soy yo | Tutoría Activa</title>
+    <link rel="stylesheet" href="../assets/css/site.css">
+    <style>
+        :root {
+            --p:    #7c3aed;
+            --p2:   #a855f7;
+            --acc:  #f59e0b;
+            --bg:   #faf5ff;
+            --card: #ffffff;
+            --bord: #e9d5ff;
+            --txt:  #1f2937;
+            --mut:  #6b7280;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--txt);
+            line-height: 1.65;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 32px 20px 72px;
+            display: grid;
+            gap: 22px;
+        }
+
+        /* ── Hero ── */
+        .act-hero {
+            background: linear-gradient(135deg, var(--p) 0%, var(--p2) 100%);
+            color: #fff;
+            border-radius: 24px;
+            padding: 36px 32px;
+            position: relative;
+            overflow: hidden;
+        }
+        .act-hero::before {
+            content: "";
+            position: absolute;
+            top: -60px; right: -60px;
+            width: 200px; height: 200px;
+            border-radius: 50%;
+            background: rgba(255,255,255,.07);
+            pointer-events: none;
+        }
+        .act-eyebrow {
+            position: relative;
+            display: inline-block;
+            background: rgba(255,255,255,.18);
+            border: 1px solid rgba(255,255,255,.28);
+            border-radius: 999px;
+            padding: 5px 14px;
+            font-size: .76rem;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        .act-hero h1 {
+            position: relative;
+            margin: 0 0 10px;
+            font-size: clamp(1.55rem, 3.5vw, 2.3rem);
+            font-weight: 800;
+            line-height: 1.1;
+        }
+        .act-hero > p {
+            position: relative;
+            margin: 0 0 22px;
+            opacity: .88;
+            max-width: 560px;
+            font-size: 1rem;
+        }
+        .hero-btns { position: relative; display: flex; flex-wrap: wrap; gap: 10px; }
+
+        /* ── Step card ── */
+        .step-card {
+            background: var(--card);
+            border-radius: 20px;
+            padding: 28px 28px 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,.07);
+            border: 1px solid rgba(0,0,0,.055);
+        }
+        .step-card h2 {
+            margin: 0 0 6px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--p);
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+        .step-card > p.sub {
+            color: var(--mut);
+            margin: 0 0 20px;
+            font-size: .93rem;
+        }
+
+        /* ── Buttons ── */
+        .btn {
+            border: none;
+            border-radius: 12px;
+            padding: 12px 20px;
+            font-size: .92rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            transition: transform .15s ease, box-shadow .15s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,.12); }
+        .btn-primary { background: var(--p);   color: #fff; }
+        .btn-accent  { background: var(--acc); color: #fff; }
+        .btn-ghost   { background: rgba(255,255,255,.15); color: #fff; border: 1.5px solid rgba(255,255,255,.35); }
+
+        /* ── Sectors grid ── */
+        .sectors-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        @media (max-width: 700px) { .sectors-grid { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 480px) { .sectors-grid { grid-template-columns: 1fr; } }
+
+        .sector-card {
+            border-radius: 18px;
+            padding: 20px 18px;
+            border: 2px solid var(--bord);
+            background: var(--bg);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: transform .18s, box-shadow .18s, border-color .2s;
+            cursor: pointer;
+            position: relative;
+        }
+        .sector-card:focus-within { border-color: var(--p); box-shadow: 0 0 0 3px rgba(124,58,237,.15); }
+        .sector-card.filled { border-color: var(--p); background: #f5f3ff; }
+        .sector-card:hover  { transform: translateY(-3px); box-shadow: 0 8px 22px rgba(0,0,0,.09); }
+
+        .sector-emoji {
+            font-size: 2rem;
+            line-height: 1;
+        }
+        .sector-label {
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--p);
+        }
+        .sector-question {
+            font-size: .9rem;
+            font-weight: 600;
+            color: var(--txt);
+            line-height: 1.4;
+        }
+        .sector-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1.5px solid var(--bord);
+            border-radius: 10px;
+            font-size: .92rem;
+            font-family: inherit;
+            outline: none;
+            background: #fff;
+            resize: none;
+            transition: border-color .2s;
+        }
+        .sector-input:focus { border-color: var(--p); }
+        .check-badge {
+            position: absolute;
+            top: 12px; right: 12px;
+            width: 22px; height: 22px;
+            border-radius: 50%;
+            background: var(--p);
+            color: #fff;
+            font-size: .7rem;
+            display: none;
+            place-items: center;
+        }
+        .sector-card.filled .check-badge { display: grid; }
+
+        /* ── Progress bar ── */
+        .progress-bar-wrap {
+            height: 8px;
+            background: var(--bord);
+            border-radius: 999px;
+            overflow: hidden;
+            margin-bottom: 6px;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--p), var(--p2));
+            border-radius: 999px;
+            transition: width .4s cubic-bezier(.4,0,.2,1);
+        }
+        .progress-label {
+            font-size: .82rem;
+            color: var(--mut);
+            font-weight: 600;
+        }
+
+        /* ── Tarjeta final ── */
+        .profile-card {
+            display: none;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(124,58,237,.18);
+        }
+        .profile-card.visible { display: block; animation: popIn .45s cubic-bezier(.34,1.56,.64,1); }
+        @keyframes popIn { from { opacity:0; transform:scale(.88); } to { opacity:1; transform:none; } }
+
+        .profile-header {
+            background: linear-gradient(135deg, var(--p) 0%, var(--p2) 100%);
+            color: #fff;
+            padding: 28px 28px 22px;
+            text-align: center;
+        }
+        .profile-header h2 { margin: 0 0 4px; font-size: 1.4rem; font-weight: 800; }
+        .profile-header p  { margin: 0; opacity: .82; font-size: .92rem; }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            background: var(--card);
+        }
+        @media (max-width: 600px) { .profile-grid { grid-template-columns: 1fr 1fr; } }
+
+        .profile-item {
+            padding: 18px 16px;
+            border-right: 1px solid var(--bord);
+            border-bottom: 1px solid var(--bord);
+        }
+        .profile-item:nth-child(3n) { border-right: none; }
+        .profile-emoji  { font-size: 1.6rem; margin-bottom: 6px; }
+        .profile-key    { font-size: .72rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--p); margin-bottom: 3px; }
+        .profile-value  { font-size: .95rem; font-weight: 600; color: var(--txt); }
+
+        .profile-footer {
+            background: var(--card);
+            border-top: 1px solid var(--bord);
+            padding: 16px 20px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        /* ── Badge ── */
+        .badge-unlock {
+            margin-top: 18px;
+            padding: 18px 22px;
+            background: linear-gradient(135deg, #fef3c7, #fffbeb);
+            border: 2px solid #fbbf24;
+            border-radius: 16px;
+            align-items: center;
+            gap: 14px;
+            display: none;
+        }
+        .badge-unlock.visible { display: flex; animation: popIn .4s cubic-bezier(.34,1.56,.64,1); }
+        .badge-icon  { font-size: 2.2rem; flex-shrink: 0; }
+        .badge-title { display: block; font-size: .96rem; font-weight: 800; color: #92400e; margin-bottom: 2px; }
+        .badge-sub   { margin: 0; font-size: .85rem; color: #b45309; }
+
+        /* ── Classroom mode ── */
+        body.class-mode .step-card    { padding: 36px 36px 32px; }
+        body.class-mode .step-card h2 { font-size: 1.65rem; }
+        body.class-mode .sector-question { font-size: 1.1rem; }
+        body.class-mode .sector-input    { font-size: 1.05rem; padding: 12px 14px; }
+        body.class-mode .main-container  { max-width: 1060px; }
+    </style>
+</head>
+<body>
+<div class="main-container">
+
+    <!-- ── Hero ── -->
+    <header class="act-hero">
+        <span class="act-eyebrow">Módulo 3 · 1.º ESO · Cohesión e identidad</span>
+        <h1>Así soy yo</h1>
+        <p>Una actividad de autoconocimiento y presentación. Rellena las seis secciones y descubre tu tarjeta personal.</p>
+        <div class="hero-btns">
+            <button class="btn btn-ghost" id="classBtn" onclick="toggleClassroom()">
+                <i class="fa-solid fa-display" aria-hidden="true"></i> Modo pizarra
+            </button>
+            <button class="btn btn-ghost" onclick="resetAll()">
+                <i class="fa-solid fa-rotate" aria-hidden="true"></i> Empezar de nuevo
+            </button>
+        </div>
+    </header>
+
+    <!-- ── Instrucciones ── -->
+    <section class="step-card">
+        <h2><i class="fa-solid fa-circle-info" aria-hidden="true"></i> ¿Cómo funciona?</h2>
+        <p class="sub">Rellena cada una de las seis secciones con sinceridad. No hay respuestas correctas o incorrectas: se trata de que el grupo te conozca un poco mejor. Cuando termines, genera tu tarjeta personal.</p>
+        <div class="progress-bar-wrap">
+            <div class="progress-bar-fill" id="progressBar" style="width:0%"></div>
+        </div>
+        <p class="progress-label" id="progressLabel">0 de 6 secciones completadas</p>
+    </section>
+
+    <!-- ── Sectores ── -->
+    <section class="step-card">
+        <h2><i class="fa-solid fa-id-card" aria-hidden="true"></i> Rellena tu perfil</h2>
+        <p class="sub">Haz clic en cada tarjeta y escribe tu respuesta. Cuando una tarjeta se complete verás la marca de verificación.</p>
+        <div class="sectors-grid" id="sectorsGrid"></div>
+    </section>
+
+    <!-- ── Generar tarjeta ── -->
+    <section class="step-card">
+        <h2><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i> Tu tarjeta personal</h2>
+        <p class="sub">Cuando hayas rellenado todas las secciones, genera tu tarjeta y compártela con el grupo.</p>
+        <button class="btn btn-accent" onclick="generateCard()">
+            <i class="fa-solid fa-id-card" aria-hidden="true"></i> Generar mi tarjeta
+        </button>
+
+        <div class="profile-card" id="profileCard">
+            <div class="profile-header">
+                <h2 id="profileTitle">Mi tarjeta personal</h2>
+                <p>1.º ESO · Tutoría Activa</p>
+            </div>
+            <div class="profile-grid" id="profileGrid"></div>
+            <div class="profile-footer">
+                <button class="btn btn-primary" onclick="window.print()">
+                    <i class="fa-solid fa-print" aria-hidden="true"></i> Imprimir
+                </button>
+            </div>
+        </div>
+
+        <div class="badge-unlock" id="badgeSection" role="alert">
+            <div class="badge-icon">🌟</div>
+            <div>
+                <span class="badge-title">Logro desbloqueado: ¡Ya te conozco!</span>
+                <p class="badge-sub">Has completado tu ficha de presentación. ¡El grupo ya sabe un poco más de ti!</p>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<script src="../assets/js/site.js"></script>
+<script>
+(function () {
+    const KEY = "asisoyyo-v1";
+
+    const sectors = [
+        {
+            id: "hobby",
+            emoji: "🎮",
+            label: "Mi hobby",
+            question: "¿Qué te gusta hacer en tu tiempo libre?",
+            placeholder: "Ej: jugar al fútbol, dibujar, escuchar música…",
+            type: "text"
+        },
+        {
+            id: "color",
+            emoji: "🎨",
+            label: "Mi color",
+            question: "¿Con qué color te identificas y por qué?",
+            placeholder: "Ej: el azul porque me transmite calma…",
+            type: "text"
+        },
+        {
+            id: "animal",
+            emoji: "🦁",
+            label: "Mi animal",
+            question: "¿Qué animal te representa y por qué?",
+            placeholder: "Ej: el delfín porque soy curioso/a y sociable…",
+            type: "text"
+        },
+        {
+            id: "palabra",
+            emoji: "💬",
+            label: "Una palabra",
+            question: "¿Qué palabra te define mejor?",
+            placeholder: "Ej: creativo/a, leal, tranquilo/a…",
+            type: "text"
+        },
+        {
+            id: "emocion",
+            emoji: "😊",
+            label: "Mi emoción frecuente",
+            question: "¿Qué emoción sientes con más frecuencia?",
+            placeholder: "Ej: alegría, curiosidad, nerviosismo…",
+            type: "text"
+        },
+        {
+            id: "meta",
+            emoji: "🎯",
+            label: "Mi meta este curso",
+            question: "¿Qué quieres conseguir o aprender este año?",
+            placeholder: "Ej: aprobar todo, hacer nuevos amigos/as, mejorar en mates…",
+            type: "text"
+        }
+    ];
+
+    let data = JSON.parse(localStorage.getItem(KEY)) || {};
+
+    function save() { localStorage.setItem(KEY, JSON.stringify(data)); }
+
+    function esc(s) {
+        return String(s || "")
+            .replace(/&/g,"&amp;").replace(/</g,"&lt;")
+            .replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+    }
+
+    function renderSectors() {
+        const grid = document.getElementById("sectorsGrid");
+        grid.innerHTML = sectors.map(s => {
+            const val    = data[s.id] || "";
+            const filled = val.trim().length > 0;
+            return `
+                <div class="sector-card ${filled ? "filled" : ""}" id="card-${s.id}">
+                    <div class="check-badge" aria-hidden="true">✓</div>
+                    <div class="sector-emoji">${s.emoji}</div>
+                    <div class="sector-label">${esc(s.label)}</div>
+                    <div class="sector-question">${esc(s.question)}</div>
+                    <textarea
+                        class="sector-input"
+                        rows="2"
+                        placeholder="${esc(s.placeholder)}"
+                        maxlength="120"
+                        aria-label="${esc(s.question)}"
+                        data-id="${s.id}"
+                        onInput="handleInput(this)"
+                    >${esc(val)}</textarea>
+                </div>
+            `;
+        }).join("");
+        updateProgress();
+    }
+
+    window.handleInput = function (el) {
+        const id  = el.dataset.id;
+        data[id]  = el.value;
+        save();
+        const card = document.getElementById("card-" + id);
+        card.classList.toggle("filled", el.value.trim().length > 0);
+        updateProgress();
+    };
+
+    function updateProgress() {
+        const filled = sectors.filter(s => (data[s.id] || "").trim()).length;
+        const pct    = Math.round(filled / sectors.length * 100);
+        document.getElementById("progressBar").style.width  = pct + "%";
+        document.getElementById("progressLabel").textContent =
+            `${filled} de ${sectors.length} secciones completadas`;
+    }
+
+    window.generateCard = function () {
+        const card   = document.getElementById("profileCard");
+        const grid   = document.getElementById("profileGrid");
+        const badge  = document.getElementById("badgeSection");
+
+        grid.innerHTML = sectors.map(s => {
+            const val = (data[s.id] || "").trim() || "—";
+            return `
+                <div class="profile-item">
+                    <div class="profile-emoji">${s.emoji}</div>
+                    <div class="profile-key">${esc(s.label)}</div>
+                    <div class="profile-value">${esc(val)}</div>
+                </div>
+            `;
+        }).join("");
+
+        card.classList.add("visible");
+        badge.classList.add("visible");
+        card.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    };
+
+    window.resetAll = function () {
+        if (!confirm("¿Borrar todas tus respuestas y empezar de nuevo?")) return;
+        data = {};
+        save();
+        document.getElementById("profileCard").classList.remove("visible");
+        document.getElementById("badgeSection").classList.remove("visible");
+        renderSectors();
+    };
+
+    window.toggleClassroom = function () {
+        const on = document.body.classList.toggle("class-mode");
+        document.getElementById("classBtn").innerHTML = on
+            ? '<i class="fa-solid fa-compress" aria-hidden="true"></i> Salir de pizarra'
+            : '<i class="fa-solid fa-display"  aria-hidden="true"></i> Modo pizarra';
+    };
+
+    renderSectors();
+})();
+</script>
+</body>
+</html>
