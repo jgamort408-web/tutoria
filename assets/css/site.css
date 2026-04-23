@@ -1169,3 +1169,47 @@ body::before {
   opacity: 0.18;
   margin-bottom: 2px;
 }
+
+/* ─── Internal content links ─────────────────────────────── */
+.list-clean a,
+.info-card p a,
+.session-card p a,
+.notice-card p a,
+.section-panel p a,
+.accent-box p a,
+.timeline-item a {
+  color: var(--theme-primary);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1.5px solid var(--theme-soft-mid);
+  transition: color var(--t-fast), border-color var(--t-fast);
+}
+
+.list-clean a:hover,
+.info-card p a:hover,
+.session-card p a:hover,
+.notice-card p a:hover,
+.section-panel p a:hover,
+.accent-box p a:hover,
+.timeline-item a:hover {
+  color: var(--theme-secondary);
+  border-color: var(--theme-secondary);
+}
+
+/* ─── Course number badge ────────────────────────────────── */
+.card-icon .course-num {
+  font-family: var(--font-serif);
+  font-weight: 800;
+  font-size: 1rem;
+  color: var(--theme-primary);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+/* ─── Flex-body safety (activity pages override body display) */
+.site-breadcrumbs,
+.site-main,
+.site-footer {
+  flex-shrink: 0;
+  min-width: 0;
+}

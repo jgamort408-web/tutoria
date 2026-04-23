@@ -42,6 +42,7 @@
   injectBreadcrumbs();
   injectFooter();
   wrapMain();
+  autoReveal();
   setupTranslator();
   setupScrollReveal();
   setupMobileMenu();
@@ -239,6 +240,27 @@
       </div>
     `;
     document.body.appendChild(footer);
+  }
+
+  /* ── Auto reveal (hub pages) ────────────────────────────── */
+  function autoReveal() {
+    const shell = document.querySelector(".page-shell");
+    if (!shell) return;
+
+    // Reveal direct section/article children of page-shell
+    Array.from(shell.children).forEach(el => {
+      if (!el.hasAttribute("data-reveal")) {
+        el.dataset.reveal = "";
+      }
+    });
+
+    // Staggered scale reveal for cards inside grids
+    shell.querySelectorAll(
+      ".hub-card:not([data-reveal]), .course-card:not([data-reveal]), " +
+      ".info-card:not([data-reveal]), .session-card:not([data-reveal])"
+    ).forEach(el => {
+      el.dataset.reveal = "scale";
+    });
   }
 
   /* ── Mobile menu ────────────────────────────────────────── */
