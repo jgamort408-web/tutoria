@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elección de Delegado/a | Tutoría Activa</title>
+    <link rel="stylesheet" href="../assets/css/site.css">
+    <style>
+        :root {
+            --p:    #b45309;
+            --p2:   #f59e0b;
+            --acc:  #1d4ed8;
+            --bg:   #fffbeb;
+            --card: #ffffff;
+            --bord: #fde68a;
+            --txt:  #1c1917;
+            --mut:  #6b7280;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--txt);
+            line-height: 1.65;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 32px 20px 72px;
+            display: grid;
+            gap: 22px;
+        }
+
+        /* ── Hero ── */
+        .act-hero {
+            background: linear-gradient(135deg, var(--p) 0%, var(--p2) 100%);
+            color: #fff;
+            border-radius: 24px;
+            padding: 36px 32px;
+            position: relative;
+            overflow: hidden;
+        }
+        .act-hero::before {
+            content: "";
+            position: absolute;
+            top: -60px; right: -60px;
+            width: 200px; height: 200px;
+            border-radius: 50%;
+            background: rgba(255,255,255,.07);
+            pointer-events: none;
+        }
+        .act-eyebrow {
+            position: relative;
+            display: inline-block;
+            background: rgba(255,255,255,.18);
+            border: 1px solid rgba(255,255,255,.28);
+            border-radius: 999px;
+            padding: 5px 14px;
+            font-size: .76rem;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        .act-hero h1 {
+            position: relative;
+            margin: 0 0 10px;
+            font-size: clamp(1.55rem, 3.5vw, 2.3rem);
+            font-weight: 800;
+            line-height: 1.1;
+        }
+        .act-hero > p {
+            position: relative;
+            margin: 0 0 22px;
+            opacity: .88;
+            max-width: 580px;
+        }
+        .meta-pills { position: relative; display: flex; flex-wrap: wrap; gap: 8px; }
+        .meta-pill {
+            background: rgba(255,255,255,.15);
+            border: 1px solid rgba(255,255,255,.25);
+            border-radius: 999px;
+            padding: 4px 14px;
+            font-size: .78rem;
+        }
+
+        /* ── Steps ── */
+        .step-tabs {
+            display: flex; gap: 0;
+            background: #fff;
+            border: 1.5px solid var(--bord);
+            border-radius: 14px;
+            overflow: hidden;
+        }
+        .step-tab {
+            flex: 1;
+            padding: 12px 8px;
+            text-align: center;
+            cursor: pointer;
+            font-size: .83rem;
+            font-weight: 600;
+            color: var(--mut);
+            border: none;
+            background: none;
+            font-family: inherit;
+            transition: background .2s, color .2s;
+            border-right: 1.5px solid var(--bord);
+        }
+        .step-tab:last-child { border-right: none; }
+        .step-tab.active { background: var(--p); color: #fff; }
+        .step-tab:disabled { opacity: .45; cursor: not-allowed; }
+
+        .step-panel { display: none; }
+        .step-panel.active { display: block; }
+
+        /* ── Panel base ── */
+        .panel {
+            background: var(--card);
+            border: 1.5px solid var(--bord);
+            border-radius: 20px;
+            padding: 26px 24px;
+        }
+        .panel h2 { font-size: 1.15rem; font-weight: 700; margin: 0 0 6px; }
+        .panel-sub { font-size: .86rem; color: var(--mut); margin-bottom: 18px; }
+
+        /* ── Input row ── */
+        .input-row {
+            display: flex; gap: 8px;
+        }
+        .input-row input {
+            flex: 1;
+            border: 1.5px solid #d1d5db;
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: .9rem;
+            font-family: inherit;
+            transition: border-color .2s;
+        }
+        .input-row input:focus { outline: none; border-color: var(--p2); }
+
+        /* ── Candidate list ── */
+        .candidates-list { display: grid; gap: 10px; margin-top: 14px; }
+        .candidate-item {
+            display: flex; align-items: center; gap: 12px;
+            background: var(--bg);
+            border: 1.5px solid var(--bord);
+            border-radius: 12px;
+            padding: 12px 16px;
+        }
+        .candidate-avatar {
+            width: 38px; height: 38px;
+            background: linear-gradient(135deg, var(--p), var(--p2));
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-weight: 800; font-size: 1rem;
+            flex-shrink: 0;
+        }
+        .candidate-name { flex: 1; font-weight: 600; font-size: .9rem; }
+        .btn-remove {
+            background: none; border: none; cursor: pointer;
+            color: #9ca3af; font-size: 1.1rem; padding: 2px 6px;
+            border-radius: 6px; transition: color .2s, background .2s;
+        }
+        .btn-remove:hover { color: #dc2626; background: #fee2e2; }
+
+        /* ── Criteria ── */
+        .criteria-list { display: grid; gap: 8px; }
+        .criteria-item {
+            background: var(--bg);
+            border: 1.5px solid var(--bord);
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: .87rem;
+        }
+        .criteria-item strong { color: var(--p); }
+
+        /* ── Vote grid ── */
+        .vote-grid { display: grid; gap: 12px; }
+        .vote-card {
+            background: #fff;
+            border: 2px solid var(--bord);
+            border-radius: 14px;
+            padding: 16px 20px;
+            display: flex; align-items: center; gap: 16px;
+            transition: border-color .2s, box-shadow .2s;
+        }
+        .vote-card.voted { border-color: #16a34a; background: #f0fdf4; }
+        .vote-info { flex: 1; }
+        .vote-info .vname { font-weight: 700; font-size: .95rem; }
+        .vote-info .votes-recv { font-size: .8rem; color: var(--mut); }
+        .btn-vote {
+            padding: 8px 18px;
+            background: var(--p);
+            color: #fff;
+            border: none; border-radius: 9px;
+            font-family: inherit; font-size: .85rem; font-weight: 700;
+            cursor: pointer; transition: opacity .2s;
+        }
+        .btn-vote:disabled { opacity: .4; cursor: not-allowed; }
+        .votes-left-badge {
+            background: var(--p);
+            color: #fff;
+            border-radius: 999px;
+            padding: 4px 14px;
+            font-size: .83rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 14px;
+        }
+
+        /* ── Results ── */
+        .results-list { display: grid; gap: 10px; }
+        .result-item {
+            display: flex; align-items: center; gap: 14px;
+            background: var(--bg);
+            border: 1.5px solid var(--bord);
+            border-radius: 12px;
+            padding: 12px 16px;
+        }
+        .result-item.winner {
+            border-color: #f59e0b;
+            background: #fffbeb;
+            box-shadow: 0 0 0 2px #fde68a;
+        }
+        .result-rank { font-size: 1.5rem; width: 36px; text-align: center; }
+        .result-name { flex: 1; font-weight: 700; font-size: .95rem; }
+        .result-bar-wrap { flex: 2; }
+        .result-bar-bg {
+            height: 10px;
+            background: #e5e7eb;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+        .result-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--p), var(--p2));
+            border-radius: 999px;
+            transition: width .7s ease;
+        }
+        .result-votes { font-weight: 800; font-size: .95rem; color: var(--p); min-width: 48px; text-align: right; }
+
+        .winner-banner {
+            background: linear-gradient(135deg, #b45309, #f59e0b);
+            color: #fff;
+            border-radius: 16px;
+            padding: 22px;
+            text-align: center;
+            margin-bottom: 18px;
+        }
+        .winner-banner .crown { font-size: 2.5rem; }
+        .winner-banner h3 { margin: 6px 0 4px; font-size: 1.3rem; }
+        .winner-banner p { opacity: .9; font-size: .88rem; }
+
+        /* ── Buttons ── */
+        .btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 10px 22px;
+            border-radius: 10px;
+            border: 1.5px solid transparent; cursor: pointer;
+            font-family: inherit; font-size: .88rem; font-weight: 600;
+            transition: opacity .2s, transform .1s;
+        }
+        .btn:active { transform: scale(.97); }
+        .btn-primary { background: var(--p); color: #fff; }
+        .btn-secondary { background: var(--bg); color: var(--p); border-color: var(--bord); }
+        .btn-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+
+        /* ── Alert ── */
+        .inline-alert {
+            background: #fee2e2;
+            color: #b91c1c;
+            border-radius: 8px;
+            padding: 8px 14px;
+            font-size: .84rem;
+            margin-top: 8px;
+            display: none;
+        }
+        .inline-alert.show { display: block; }
+
+        /* ── Classroom ── */
+        #classroom-toggle {
+            position: fixed; bottom: 20px; right: 20px;
+            background: var(--p); color: #fff;
+            border: none; border-radius: 12px;
+            padding: 10px 16px;
+            font-size: .82rem; font-weight: 700;
+            cursor: pointer; box-shadow: 0 4px 18px rgba(180,83,9,.22);
+            z-index: 200;
+        }
+        body.classroom .main-container { max-width: 1100px; }
+        body.classroom .act-hero h1 { font-size: 2.4rem; }
+    </style>
+</head>
+<body data-theme="evaluacion">
+<div class="main-container">
+
+    <div class="act-hero">
+        <span class="act-eyebrow">Módulo 4 · Delegados · 1.º ESO</span>
+        <h1>Elección de Delegado/a de clase</h1>
+        <p>Proceso democrático guiado en tres fases: candidaturas, criterios de elección y votación secreta con recuento automático.</p>
+        <div class="meta-pills">
+            <span class="meta-pill">⏱️ 30-40 min</span>
+            <span class="meta-pill">👥 Grupo-clase</span>
+            <span class="meta-pill">🗳️ Democracia participativa</span>
+        </div>
+    </div>
+
+    <div class="step-tabs">
+        <button class="step-tab active" id="tab-1" onclick="goStep(1)">1. Candidatos</button>
+        <button class="step-tab" id="tab-2" onclick="goStep(2)" disabled>2. Criterios</button>
+        <button class="step-tab" id="tab-3" onclick="goStep(3)" disabled>3. Votación</button>
+        <button class="step-tab" id="tab-4" onclick="goStep(4)" disabled>4. Resultado</button>
+    </div>
+
+    <!-- STEP 1: Candidatos -->
+    <div class="step-panel active panel" id="step-1">
+        <h2>📋 Paso 1: Presentación de candidatos</h2>
+        <p class="panel-sub">El tutor o tutora anota los nombres de quienes se presentan voluntariamente. Mínimo 2 candidatos para continuar.</p>
+        <div class="input-row">
+            <input type="text" id="candidate-input" placeholder="Nombre del candidato o candidata" maxlength="50"
+                onkeydown="if(event.key==='Enter') addCandidate()">
+            <button class="btn btn-primary" onclick="addCandidate()">+ Añadir</button>
+        </div>
+        <div class="inline-alert" id="alert-cand"></div>
+        <div class="candidates-list" id="candidates-list"></div>
+        <div class="btn-row">
+            <button class="btn btn-primary" id="btn-to-criteria" onclick="goStep(2)" disabled>Continuar con criterios →</button>
+        </div>
+    </div>
+
+    <!-- STEP 2: Criterios -->
+    <div class="step-panel panel" id="step-2">
+        <h2>🌟 Paso 2: Reflexión sobre criterios de elección</h2>
+        <p class="panel-sub">Antes de votar, el grupo reflexiona sobre qué cualidades debe tener un buen representante. Leemos juntos:</p>
+        <div class="criteria-list">
+            <div class="criteria-item"><strong>Responsabilidad:</strong> Cumple con sus obligaciones y transmite los mensajes del grupo al tutor.</div>
+            <div class="criteria-item"><strong>Escucha activa:</strong> Escucha a sus compañeros/as sin juzgar y recoge sus opiniones.</div>
+            <div class="criteria-item"><strong>Valentía para hablar:</strong> Se atreve a dar la cara cuando el grupo tiene una queja o propuesta.</div>
+            <div class="criteria-item"><strong>Imparcialidad:</strong> No favorece a sus amigos, sino que representa a toda la clase.</div>
+            <div class="criteria-item"><strong>Organización:</strong> Sabe gestionar la información y recordar acuerdos tomados en clase.</div>
+        </div>
+        <div class="btn-row">
+            <button class="btn btn-secondary" onclick="goStep(1)">← Volver</button>
+            <button class="btn btn-primary" onclick="goStep(3)">Ir a votar →</button>
+        </div>
+    </div>
+
+    <!-- STEP 3: Votación -->
+    <div class="step-panel panel" id="step-3">
+        <h2>🗳️ Paso 3: Votación</h2>
+        <p class="panel-sub">Cada alumno/a tiene <strong>1 voto</strong>. El tutor/a recorre la clase: cada alumno/a pulsa su candidato/a en la pantalla del profesor.</p>
+        <div id="votes-left-display"></div>
+        <div class="vote-grid" id="vote-grid"></div>
+        <div class="inline-alert" id="alert-vote"></div>
+        <div class="btn-row">
+            <button class="btn btn-secondary" onclick="goStep(2)">← Volver</button>
+            <button class="btn btn-primary" id="btn-to-results" onclick="goStep(4)">Ver resultado →</button>
+        </div>
+    </div>
+
+    <!-- STEP 4: Resultados -->
+    <div class="step-panel panel" id="step-4">
+        <h2>📊 Paso 4: Resultado de la votación</h2>
+        <p class="panel-sub">Recuento final. El candidato con más votos es elegido delegado/a de clase.</p>
+        <div id="winner-banner-wrap"></div>
+        <div class="results-list" id="results-list"></div>
+        <div class="btn-row">
+            <button class="btn btn-secondary" onclick="resetAll()">🔄 Nueva elección</button>
+        </div>
+    </div>
+
+</div>
+
+<button id="classroom-toggle" onclick="toggleClassroom()">📽️ Modo proyector</button>
+
+<script>
+(function() {
+    'use strict';
+
+    const STORAGE_KEY = 'delegado_v1';
+    let state = loadState();
+
+    function loadState() {
+        try {
+            const s = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+            return s && Array.isArray(s.candidates)
+                ? s
+                : { candidates: [], votes: {}, currentStep: 1, totalVoters: 0 };
+        } catch { return { candidates: [], votes: {}, currentStep: 1, totalVoters: 0 }; }
+    }
+
+    function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+
+    function sanitize(str) {
+        const d = document.createElement('div');
+        d.textContent = str;
+        return d.innerHTML;
+    }
+
+    // ── Step navigation ──
+    function goStep(n) {
+        if (n === 2 && state.candidates.length < 2) {
+            showAlert('alert-cand', 'Añade al menos 2 candidatos para continuar.');
+            return;
+        }
+        state.currentStep = n;
+        save();
+        [1,2,3,4].forEach(i => {
+            document.getElementById('step-' + i).classList.toggle('active', i === n);
+            const tab = document.getElementById('tab-' + i);
+            tab.classList.toggle('active', i === n);
+            tab.disabled = i > n && !(i <= n + 1 || (n >= 2 && i === 3) || (n >= 3 && i === 4));
+        });
+        // Enable next tab
+        if (n < 4) document.getElementById('tab-' + (n+1)).disabled = false;
+        if (n === 3) renderVoteGrid();
+        if (n === 4) renderResults();
+    }
+
+    window.goStep = goStep;
+
+    // ── Step 1: Candidates ──
+    function addCandidate() {
+        const input = document.getElementById('candidate-input');
+        const name = input.value.trim();
+        hideAlert('alert-cand');
+        if (!name) return;
+        if (state.candidates.includes(name)) {
+            showAlert('alert-cand', 'Ese nombre ya está en la lista.');
+            return;
+        }
+        state.candidates.push(name);
+        state.votes[name] = 0;
+        save();
+        input.value = '';
+        renderCandidates();
+        updateStep1Btn();
+    }
+    window.addCandidate = addCandidate;
+
+    function removeCandidate(name) {
+        state.candidates = state.candidates.filter(c => c !== name);
+        delete state.votes[name];
+        save();
+        renderCandidates();
+        updateStep1Btn();
+    }
+
+    function renderCandidates() {
+        const list = document.getElementById('candidates-list');
+        if (state.candidates.length === 0) { list.innerHTML = ''; return; }
+        list.innerHTML = state.candidates.map(c => `
+            <div class="candidate-item">
+                <div class="candidate-avatar">${sanitize(c[0].toUpperCase())}</div>
+                <div class="candidate-name">${sanitize(c)}</div>
+                <button class="btn-remove" onclick="removeCandidate('${c.replace(/'/g,"\\'")}')">✕</button>
+            </div>
+        `).join('');
+    }
+
+    window.removeCandidate = removeCandidate;
+
+    function updateStep1Btn() {
+        document.getElementById('btn-to-criteria').disabled = state.candidates.length < 2;
+        if (state.candidates.length >= 2) document.getElementById('tab-2').disabled = false;
+    }
+
+    // ── Step 3: Vote ──
+    let votesGiven = 0;
+    const MAX_VOTES = 1;
+
+    function renderVoteGrid() {
+        votesGiven = Object.values(state.votes).reduce((a,b) => a+b, 0);
+        const grid = document.getElementById('vote-grid');
+        grid.innerHTML = state.candidates.map(c => {
+            const myVotes = state.votes[c] || 0;
+            const voted = myVotes > 0;
+            const disabled = votesGiven >= 9999 ? 'disabled' : '';
+            return `
+                <div class="vote-card ${voted ? 'voted' : ''}">
+                    <div class="candidate-avatar">${sanitize(c[0].toUpperCase())}</div>
+                    <div class="vote-info">
+                        <div class="vname">${sanitize(c)}</div>
+                        <div class="votes-recv">${myVotes} voto${myVotes !== 1 ? 's' : ''}</div>
+                    </div>
+                    <button class="btn-vote" onclick="castVote('${c.replace(/'/g,"\\'")}')">
+                        Votar
+                    </button>
+                </div>
+            `;
+        }).join('');
+
+        const display = document.getElementById('votes-left-display');
+        display.innerHTML = `<div class="votes-left-badge">🗳️ Votos emitidos: ${votesGiven}</div>`;
+    }
+
+    function castVote(name) {
+        state.votes[name] = (state.votes[name] || 0) + 1;
+        save();
+        renderVoteGrid();
+    }
+    window.castVote = castVote;
+
+    // ── Step 4: Results ──
+    function renderResults() {
+        const sorted = [...state.candidates].sort((a,b) => (state.votes[b]||0) - (state.votes[a]||0));
+        const maxVotes = state.votes[sorted[0]] || 0;
+        const winner = sorted[0];
+
+        const banner = document.getElementById('winner-banner-wrap');
+        banner.innerHTML = maxVotes > 0 ? `
+            <div class="winner-banner">
+                <div class="crown">👑</div>
+                <h3>${sanitize(winner)}</h3>
+                <p>Delegado/a elegido/a · ${maxVotes} voto${maxVotes !== 1 ? 's' : ''}</p>
+            </div>
+        ` : '';
+
+        const list = document.getElementById('results-list');
+        const medals = ['🥇','🥈','🥉'];
+        list.innerHTML = sorted.map((c, i) => {
+            const v = state.votes[c] || 0;
+            const pct = maxVotes > 0 ? (v / maxVotes * 100) : 0;
+            return `
+                <div class="result-item ${i === 0 && v > 0 ? 'winner' : ''}">
+                    <div class="result-rank">${medals[i] || (i+1) + 'º'}</div>
+                    <div class="result-name">${sanitize(c)}</div>
+                    <div class="result-bar-wrap">
+                        <div class="result-bar-bg">
+                            <div class="result-bar-fill" style="width:${pct}%"></div>
+                        </div>
+                    </div>
+                    <div class="result-votes">${v} voto${v !== 1 ? 's' : ''}</div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function resetAll() {
+        if (!confirm('¿Reiniciar todo el proceso de elección?')) return;
+        state = { candidates: [], votes: {}, currentStep: 1, totalVoters: 0 };
+        save();
+        renderCandidates();
+        updateStep1Btn();
+        goStep(1);
+    }
+    window.resetAll = resetAll;
+
+    function showAlert(id, msg) {
+        const el = document.getElementById(id);
+        el.textContent = msg; el.classList.add('show');
+        setTimeout(() => el.classList.remove('show'), 3000);
+    }
+    function hideAlert(id) { document.getElementById(id).classList.remove('show'); }
+
+    function toggleClassroom() {
+        document.body.classList.toggle('classroom');
+        const btn = document.getElementById('classroom-toggle');
+        btn.textContent = document.body.classList.contains('classroom') ? '🖥️ Salir proyector' : '📽️ Modo proyector';
+    }
+    window.toggleClassroom = toggleClassroom;
+
+    // Init
+    renderCandidates();
+    updateStep1Btn();
+    goStep(state.currentStep || 1);
+})();
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>

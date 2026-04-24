@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Social de Acogida | Tutoría Activa</title>
+    <link rel="stylesheet" href="../assets/css/site.css">
+    <style>
+        :root {
+            --p:    #1d4ed8;
+            --p2:   #3b82f6;
+            --acc:  #f59e0b;
+            --bg:   #eff6ff;
+            --card: #ffffff;
+            --bord: #bfdbfe;
+            --txt:  #1e3a5f;
+            --mut:  #6b7280;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--txt);
+            line-height: 1.65;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 32px 20px 72px;
+            display: grid;
+            gap: 22px;
+        }
+
+        /* ── Hero ── */
+        .act-hero {
+            background: linear-gradient(135deg, var(--p) 0%, var(--p2) 100%);
+            color: #fff;
+            border-radius: 24px;
+            padding: 36px 32px;
+            position: relative;
+            overflow: hidden;
+        }
+        .act-hero::before {
+            content: "";
+            position: absolute;
+            top: -60px; right: -60px;
+            width: 200px; height: 200px;
+            border-radius: 50%;
+            background: rgba(255,255,255,.07);
+            pointer-events: none;
+        }
+        .act-eyebrow {
+            position: relative;
+            display: inline-block;
+            background: rgba(255,255,255,.18);
+            border: 1px solid rgba(255,255,255,.28);
+            border-radius: 999px;
+            padding: 5px 14px;
+            font-size: .76rem;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        .act-hero h1 {
+            position: relative;
+            margin: 0 0 10px;
+            font-size: clamp(1.55rem, 3.5vw, 2.3rem);
+            font-weight: 800;
+            line-height: 1.1;
+        }
+        .act-hero > p {
+            position: relative;
+            margin: 0 0 22px;
+            opacity: .88;
+            max-width: 560px;
+        }
+        .meta-pills {
+            position: relative;
+            display: flex; flex-wrap: wrap; gap: 8px;
+        }
+        .meta-pill {
+            background: rgba(255,255,255,.15);
+            border: 1px solid rgba(255,255,255,.25);
+            border-radius: 999px;
+            padding: 4px 14px;
+            font-size: .78rem;
+        }
+
+        /* ── Progress ── */
+        .progress-bar-wrap {
+            background: #fff;
+            border: 1px solid var(--bord);
+            border-radius: 16px;
+            padding: 16px 22px;
+            display: flex; align-items: center; gap: 16px;
+        }
+        .progress-bar-wrap .label { font-size: .85rem; font-weight: 600; white-space: nowrap; color: var(--p); }
+        .progress-bar-bg {
+            flex: 1;
+            height: 10px;
+            background: var(--bord);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--p), var(--p2));
+            border-radius: 999px;
+            width: 0%;
+            transition: width .5s ease;
+        }
+        .progress-count { font-size: .9rem; font-weight: 700; color: var(--p); min-width: 50px; text-align: right; }
+
+        /* ── Grid ── */
+        .bingo-section h2 {
+            font-size: 1.2rem; font-weight: 700; margin-bottom: 14px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .bingo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 14px;
+        }
+        .bingo-card {
+            background: var(--card);
+            border: 2px solid var(--bord);
+            border-radius: 16px;
+            padding: 18px 16px;
+            cursor: pointer;
+            transition: border-color .2s, box-shadow .2s, transform .15s;
+        }
+        .bingo-card:hover {
+            border-color: var(--p2);
+            box-shadow: 0 4px 18px rgba(59,130,246,.14);
+            transform: translateY(-2px);
+        }
+        .bingo-card.found {
+            border-color: #16a34a;
+            background: #f0fdf4;
+        }
+        .bingo-card.found .card-icon { background: #dcfce7; color: #16a34a; }
+        .card-icon {
+            width: 40px; height: 40px;
+            background: var(--bg);
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+        }
+        .card-trait {
+            font-size: .88rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--txt);
+        }
+        .card-name-input {
+            width: 100%;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 6px 10px;
+            font-size: .82rem;
+            font-family: inherit;
+            background: #f9fafb;
+            transition: border-color .2s;
+        }
+        .card-name-input:focus { outline: none; border-color: var(--p2); background: #fff; }
+        .card-name-input::placeholder { color: #9ca3af; }
+        .found-badge {
+            display: none;
+            align-items: center; gap: 5px;
+            font-size: .78rem; font-weight: 700;
+            color: #16a34a;
+            margin-top: 6px;
+        }
+        .bingo-card.found .found-badge { display: flex; }
+        .bingo-card.found .card-name-input { display: none; }
+
+        /* ── Finish ── */
+        .finish-panel {
+            background: var(--card);
+            border: 2px solid var(--bord);
+            border-radius: 20px;
+            padding: 28px 24px;
+            text-align: center;
+            display: none;
+        }
+        .finish-panel.visible { display: block; }
+        .finish-panel h2 { font-size: 1.6rem; font-weight: 800; color: var(--p); margin-bottom: 10px; }
+        .finish-panel p { color: var(--mut); margin-bottom: 20px; }
+        .trophy { font-size: 3.5rem; margin-bottom: 12px; }
+        .result-list {
+            text-align: left;
+            background: var(--bg);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin: 0 auto 20px;
+            max-width: 500px;
+            font-size: .88rem;
+        }
+        .result-list li { margin-bottom: 5px; }
+
+        /* ── Instruction box ── */
+        .howto-box {
+            background: #fff;
+            border: 1px solid var(--bord);
+            border-radius: 16px;
+            padding: 20px 24px;
+        }
+        .howto-box h3 { font-size: 1rem; font-weight: 700; margin-bottom: 10px; color: var(--p); }
+        .howto-box ol { margin: 0; padding-left: 20px; }
+        .howto-box li { margin-bottom: 5px; font-size: .88rem; }
+
+        /* ── Buttons ── */
+        .btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 10px 22px;
+            border-radius: 10px;
+            border: none; cursor: pointer;
+            font-family: inherit; font-size: .9rem; font-weight: 600;
+            transition: opacity .2s, transform .1s;
+        }
+        .btn:active { transform: scale(.97); }
+        .btn-primary { background: var(--p); color: #fff; }
+        .btn-secondary { background: var(--bg); color: var(--p); border: 1.5px solid var(--bord); }
+        .btn-row { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+
+        /* ── Classroom mode ── */
+        #classroom-toggle {
+            position: fixed; bottom: 20px; right: 20px;
+            background: var(--p); color: #fff;
+            border: none; border-radius: 12px;
+            padding: 10px 16px;
+            font-size: .82rem; font-weight: 700;
+            cursor: pointer; box-shadow: 0 4px 18px rgba(29,78,216,.22);
+            z-index: 200;
+        }
+        body.classroom .main-container { max-width: 1100px; }
+        body.classroom .act-hero h1 { font-size: 2.4rem; }
+        body.classroom .card-trait { font-size: 1rem; }
+        body.classroom .bingo-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+    </style>
+</head>
+<body data-theme="emociones">
+<div class="main-container">
+
+    <div class="act-hero">
+        <span class="act-eyebrow">Módulo 1 · Acogida · 1.º ESO</span>
+        <h1>Encuentra al compañero que…</h1>
+        <p>Recorre el aula y busca a alguien que encaje con cada descripción. Escribe su nombre y marca la casilla. ¡El primero en completar todas las filas gana!</p>
+        <div class="meta-pills">
+            <span class="meta-pill">🕐 20-30 min</span>
+            <span class="meta-pill">👥 Grupo-clase</span>
+            <span class="meta-pill">🎯 Cohesión y acogida</span>
+        </div>
+    </div>
+
+    <div class="howto-box">
+        <h3>Cómo jugar</h3>
+        <ol>
+            <li>Lee cada tarjeta y busca en el aula a un compañero o compañera que encaje.</li>
+            <li>Escribe su nombre en la casilla y pulsa <strong>Enter</strong> o haz clic en <strong>✓ Apuntado</strong>.</li>
+            <li>Solo puedes usar el nombre de cada persona <strong>una sola vez</strong>.</li>
+            <li>Cuando completes todas las casillas, verás tu resultado final.</li>
+        </ol>
+    </div>
+
+    <div class="progress-bar-wrap">
+        <span class="label">Progreso:</span>
+        <div class="progress-bar-bg"><div class="progress-bar-fill" id="prog-fill"></div></div>
+        <span class="progress-count" id="prog-count">0 / 16</span>
+    </div>
+
+    <div class="bingo-section">
+        <h2>🃏 Tarjetas del quiz</h2>
+        <div class="bingo-grid" id="bingo-grid"></div>
+    </div>
+
+    <div class="finish-panel" id="finish-panel">
+        <div class="trophy">🏆</div>
+        <h2>¡Has encontrado a todos!</h2>
+        <p>Has completado el quiz de acogida. Ya conoces mejor a tu grupo.</p>
+        <ul class="result-list" id="result-list"></ul>
+        <div class="btn-row">
+            <button class="btn btn-secondary" onclick="resetGame()">🔄 Nueva partida</button>
+            <button class="btn btn-primary" onclick="printResult()">🖨️ Imprimir resultado</button>
+        </div>
+    </div>
+
+</div>
+
+<button id="classroom-toggle" onclick="toggleClassroom()">📽️ Modo proyector</button>
+
+<script>
+(function() {
+    'use strict';
+
+    const CARDS = [
+        { emoji: '🐱', trait: 'Tiene una mascota en casa' },
+        { emoji: '🎮', trait: 'Juega a videojuegos más de 2 horas al día' },
+        { emoji: '🏊', trait: 'Sabe nadar y le gusta el agua' },
+        { emoji: '🍕', trait: 'Su comida favorita es la pizza' },
+        { emoji: '📚', trait: 'Ha leído al menos 5 libros este año' },
+        { emoji: '🎨', trait: 'Dibuja o pinta en su tiempo libre' },
+        { emoji: '⚽', trait: 'Practica algún deporte en equipo' },
+        { emoji: '🎵', trait: 'Toca un instrumento musical' },
+        { emoji: '🌍', trait: 'Ha viajado a otro país' },
+        { emoji: '🍳', trait: 'Sabe cocinar algún plato' },
+        { emoji: '😂', trait: 'Se ríe cuando está nervioso/a' },
+        { emoji: '🌙', trait: 'Es más activo/a por la noche que por la mañana' },
+        { emoji: '🎤', trait: 'Canta en la ducha o en casa' },
+        { emoji: '🦸', trait: 'Tiene un superpoder favorito si pudiera elegir' },
+        { emoji: '🌱', trait: 'Cuida plantas o tiene huerto en casa' },
+        { emoji: '🧩', trait: 'Le gustan los puzles, el ajedrez o los juegos de mesa' },
+    ];
+
+    const STORAGE_KEY = 'quizsocial_v1';
+
+    let state = loadState();
+
+    function loadState() {
+        try {
+            const s = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+            return Array.isArray(s.names) ? s : { names: Array(CARDS.length).fill('') };
+        } catch { return { names: Array(CARDS.length).fill('') }; }
+    }
+
+    function saveState() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function sanitize(str) {
+        const d = document.createElement('div');
+        d.textContent = str;
+        return d.innerHTML;
+    }
+
+    function renderGrid() {
+        const grid = document.getElementById('bingo-grid');
+        grid.innerHTML = '';
+        CARDS.forEach((card, i) => {
+            const name = state.names[i] || '';
+            const found = name.trim().length > 0;
+            const el = document.createElement('div');
+            el.className = 'bingo-card' + (found ? ' found' : '');
+            el.innerHTML = `
+                <div class="card-icon">${card.emoji}</div>
+                <div class="card-trait">${sanitize(card.trait)}</div>
+                <input type="text" class="card-name-input" placeholder="Nombre del compañero/a"
+                    value="${sanitize(name)}" maxlength="40" aria-label="Nombre">
+                <div class="found-badge">✅ ${sanitize(name)}</div>
+            `;
+            const input = el.querySelector('input');
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') markFound(i, input.value);
+            });
+            input.addEventListener('blur', () => markFound(i, input.value));
+            grid.appendChild(el);
+        });
+        updateProgress();
+    }
+
+    function markFound(index, value) {
+        const trimmed = value.trim();
+        if (!trimmed) {
+            state.names[index] = '';
+            saveState();
+            renderGrid();
+            return;
+        }
+        // Prevent duplicate names
+        const usedElsewhere = state.names.some((n, i) => i !== index && n.trim().toLowerCase() === trimmed.toLowerCase());
+        if (usedElsewhere) {
+            const input = document.querySelectorAll('.card-name-input')[index];
+            if (input) {
+                input.style.borderColor = '#dc2626';
+                input.title = 'Este nombre ya lo usaste en otra tarjeta.';
+                setTimeout(() => { input.style.borderColor = ''; input.title = ''; }, 2000);
+            }
+            return;
+        }
+        state.names[index] = trimmed;
+        saveState();
+        renderGrid();
+        checkFinish();
+    }
+
+    function updateProgress() {
+        const found = state.names.filter(n => n.trim()).length;
+        const total = CARDS.length;
+        document.getElementById('prog-fill').style.width = (found / total * 100) + '%';
+        document.getElementById('prog-count').textContent = found + ' / ' + total;
+    }
+
+    function checkFinish() {
+        const allDone = state.names.every(n => n.trim());
+        if (allDone) {
+            const panel = document.getElementById('finish-panel');
+            panel.classList.add('visible');
+            const list = document.getElementById('result-list');
+            list.innerHTML = CARDS.map((c, i) =>
+                `<li>${c.emoji} <strong>${sanitize(c.trait)}</strong> → ${sanitize(state.names[i])}</li>`
+            ).join('');
+            panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }
+
+    function resetGame() {
+        state = { names: Array(CARDS.length).fill('') };
+        saveState();
+        document.getElementById('finish-panel').classList.remove('visible');
+        renderGrid();
+    }
+
+    function printResult() {
+        window.print();
+    }
+
+    function toggleClassroom() {
+        document.body.classList.toggle('classroom');
+        const btn = document.getElementById('classroom-toggle');
+        btn.textContent = document.body.classList.contains('classroom') ? '🖥️ Salir proyector' : '📽️ Modo proyector';
+    }
+
+    // Init
+    renderGrid();
+    checkFinish();
+})();
+</script>
+<script src="../assets/js/site.js"></script>
+</body>
+</html>
