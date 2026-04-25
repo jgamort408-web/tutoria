@@ -537,6 +537,145 @@ tbody tr:last-child { border-bottom: none; }
 
 /* SUBJECT COLOR DOT */
 .subject-color-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+
+/* ── INFORME ──────────────────────────────────────────────── */
+.informe-hero {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+  color: #fff; border-radius: var(--radius); padding: 26px 32px; margin-bottom: 20px;
+}
+.informe-hero h2 { font-family: 'Syne', sans-serif; font-size: 1.6rem; font-weight: 800; margin-bottom: 4px; }
+.informe-hero p { font-size: 13px; opacity: .85; margin-bottom: 14px; }
+.informe-meta { display: flex; flex-wrap: wrap; gap: 8px; }
+.informe-meta-chip {
+  background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.28);
+  border-radius: 999px; padding: 3px 12px; font-size: 12px; font-weight: 600;
+}
+.informe-section { margin-bottom: 28px; }
+.informe-section-title {
+  font-family: 'Syne', sans-serif; font-size: .95rem; font-weight: 700;
+  color: var(--accent); margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+  padding-bottom: 8px; border-bottom: 2px solid var(--border);
+}
+.informe-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 12px; }
+.informe-subject-stat {
+  background: var(--surface); border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm); padding: 14px 16px;
+}
+.informe-subject-stat h4 { font-size: 13px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.informe-student-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 12px; }
+.informe-student-card {
+  background: var(--surface); border: 1.5px solid var(--border);
+  border-radius: var(--radius); padding: 16px 18px; break-inside: avoid;
+}
+.informe-student-card.risk { border-color: var(--red); background: #fff5f5; }
+.informe-student-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.informe-student-avatar {
+  width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff; display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 15px;
+}
+.informe-grade-row { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.informe-grade-chip {
+  font-size: 11px; padding: 2px 8px; border-radius: 5px; font-weight: 700;
+  background: var(--surface2); border: 1px solid var(--border);
+}
+.informe-filter-bar { display: flex; gap: 10px; flex-wrap: wrap; align-items: flex-end; margin-bottom: 18px; }
+.informe-print-btn { margin-bottom: 18px; }
+@media print {
+  .informe-hero, .informe-section-title { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .informe-student-card { page-break-inside: avoid; }
+}
+
+/* ── DIFICULTADES ─────────────────────────────────────────── */
+.dif-top-bar { display: flex; gap: 10px; align-items: center; margin-bottom: 14px; flex-wrap: wrap; }
+.dif-layout { display: grid; grid-template-columns: 300px 1fr; gap: 16px; }
+.dif-panel-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: .95rem; margin-bottom: 10px; }
+.dif-student-panel {
+  background: var(--surface); border: 1.5px solid var(--border);
+  border-radius: var(--radius); padding: 14px;
+  display: flex; flex-direction: column; gap: 6px;
+  overflow-y: auto; max-height: 72vh;
+}
+.dif-catalog-panel {
+  background: var(--surface); border: 1.5px solid var(--border);
+  border-radius: var(--radius); padding: 16px;
+  overflow-y: auto; max-height: 72vh;
+}
+.dif-student-item {
+  display: flex; align-items: center; gap: 10px; padding: 8px 11px;
+  border: 1.5px solid var(--border); border-radius: 9px; cursor: pointer;
+  transition: all 0.15s; font-size: 13px;
+}
+.dif-student-item:hover { background: var(--surface2); border-color: var(--accent); }
+.dif-student-item.selected { background: #e0e7ff; border-color: var(--accent); font-weight: 700; }
+.dif-count-badge {
+  margin-left: auto; background: var(--accent); color: #fff;
+  border-radius: 999px; padding: 1px 8px; font-size: 11px; font-weight: 700;
+}
+.dif-assigned-panel {
+  background: var(--surface2); border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm); padding: 14px; margin-top: 12px;
+}
+.dif-assigned-panel-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: var(--text-dim); margin-bottom: 8px; }
+.dif-assigned-item {
+  background: #e0e7ff; border: 1.5px solid #a5b4fc; border-radius: 9px; padding: 9px 12px; margin-bottom: 6px;
+}
+.dif-assigned-item:last-child { margin-bottom: 0; }
+.dif-assigned-item .a-title { font-weight: 700; font-size: 12px; color: var(--accent); }
+.dif-assigned-item .a-cat { font-size: 11px; color: var(--text-muted); }
+.dif-assigned-item .a-nota { font-size: 12px; color: var(--text); margin-top: 4px; font-style: italic; }
+.dif-assigned-item .a-date { font-size: 10px; color: var(--text-dim); margin-top: 3px; }
+.dif-remove-btn {
+  float: right; background: none; border: none; cursor: pointer;
+  color: var(--text-dim); font-size: 15px; line-height: 1; transition: color 0.15s;
+}
+.dif-remove-btn:hover { color: var(--red); }
+.dif-search {
+  width: 100%; background: var(--surface2); border: 1.5px solid var(--border);
+  color: var(--text); border-radius: var(--radius-sm); padding: 8px 12px;
+  font-family: 'Inter', sans-serif; font-size: 13px; outline: none; margin-bottom: 14px;
+}
+.dif-search:focus { border-color: var(--accent); }
+.dif-cat-block { margin-bottom: 14px; }
+.dif-cat-header {
+  display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 13px;
+  padding: 9px 13px; border-radius: 9px; cursor: pointer; user-select: none;
+  border: 1.5px solid var(--border); background: var(--surface2); margin-bottom: 8px;
+  transition: background 0.15s;
+}
+.dif-cat-header:hover { background: var(--surface3); }
+.dif-cat-body { display: grid; gap: 9px; padding: 0 2px; }
+.dif-card {
+  background: var(--surface2); border: 1.5px solid var(--border); border-radius: var(--radius);
+  padding: 13px 15px; transition: border-color .15s, box-shadow .15s;
+}
+.dif-card:hover { border-color: var(--accent); box-shadow: 0 2px 10px rgba(55,48,163,.10); }
+.dif-card.assigned { border-color: var(--accent); background: #e0e7ff; }
+.dif-card-title { font-weight: 700; font-size: 13px; margin-bottom: 3px; }
+.dif-card-desc { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; line-height: 1.5; }
+.dif-expand-btn {
+  background: none; border: none; cursor: pointer; font-size: 11px;
+  font-weight: 700; color: var(--accent); padding: 0; margin-bottom: 8px; display: block;
+}
+.dif-detail { display: none; border-top: 1px solid var(--border); padding-top: 10px; margin-bottom: 10px; }
+.dif-detail.open { display: block; }
+.dif-detail h5 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--text-dim); margin-bottom: 5px; }
+.dif-detail ul { padding-left: 16px; margin-bottom: 10px; }
+.dif-detail li { font-size: 12px; color: var(--text); margin-bottom: 3px; line-height: 1.5; }
+.dif-assign-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding-top: 10px; border-top: 1px solid var(--border); }
+.dif-note-input {
+  flex: 1; min-width: 130px; background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 5px 10px;
+  font-family: 'Inter', sans-serif; font-size: 12px; color: var(--text); outline: none;
+}
+.dif-note-input:focus { border-color: var(--accent); }
+.dif-empty { text-align: center; padding: 36px 20px; color: var(--text-muted); font-size: 13px; }
+@media (max-width: 900px) {
+  .dif-layout { grid-template-columns: 1fr; }
+  .dif-student-panel, .dif-catalog-panel { max-height: 50vh; }
+}
 </style>
     <link rel="stylesheet" href="../assets/css/site.css">
 </head>
@@ -732,6 +871,8 @@ tbody tr:last-child { border-bottom: none; }
       <button class="tab-btn" onclick="switchTab('progresion')" data-tab="progresion">📈 Progresión</button>
       <button class="tab-btn" onclick="switchTab('graficos')" data-tab="graficos">📊 Gráficos</button>
       <button class="tab-btn" onclick="switchTab('riesgo')" data-tab="riesgo">🚨 Riesgo</button>
+      <button class="tab-btn" onclick="switchTab('informe')" data-tab="informe">📄 Informe</button>
+      <button class="tab-btn" onclick="switchTab('dificultades')" data-tab="dificultades">🧩 Dificultades</button>
     </div>
 
     <!-- TAB: TABLA -->
@@ -867,6 +1008,59 @@ tbody tr:last-child { border-bottom: none; }
       <div id="risk-wrap"></div>
     </div>
 
+    <!-- TAB: INFORME -->
+    <div id="tab-informe" class="tab-content">
+      <div class="informe-filter-bar no-print">
+        <div class="filter-group">
+          <span class="filter-label">Trimestre</span>
+          <select id="informe-trim" onchange="renderInforme()">
+            <option value="last">Último cargado</option>
+            <option value="1">1ª Evaluación</option>
+            <option value="2">2ª Evaluación</option>
+            <option value="3">3ª Evaluación</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <span class="filter-label">Mostrar alumnado</span>
+          <select id="informe-filtro-alumnos" onchange="renderInforme()">
+            <option value="all">Todos</option>
+            <option value="risk">Solo en riesgo</option>
+            <option value="fail">Con suspensos</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <span class="filter-label">Buscar alumno</span>
+          <input type="text" id="informe-buscar" placeholder="Nombre..." oninput="renderInforme()">
+        </div>
+        <button class="btn btn-primary btn-sm informe-print-btn" onclick="window.print()">🖨 Imprimir informe</button>
+      </div>
+      <div id="informe-wrap"></div>
+    </div>
+
+    <!-- TAB: DIFICULTADES -->
+    <div id="tab-dificultades" class="tab-content">
+      <div class="dif-top-bar no-print">
+        <button class="btn btn-success btn-sm" onclick="exportDifCSV()">⬇ Exportar CSV</button>
+        <label class="btn btn-ghost btn-sm" style="cursor:pointer">⬆ Importar CSV
+          <input type="file" accept=".csv" onchange="importDifCSV(event)" style="display:none">
+        </label>
+        <button class="btn btn-danger btn-sm" onclick="clearAllDif()">🗑 Limpiar todo</button>
+        <span id="dif-save-status" style="font-size:11px;color:var(--text-muted);margin-left:auto"></span>
+      </div>
+      <div class="dif-layout">
+        <div>
+          <div class="dif-panel-title">👤 Alumnado</div>
+          <div class="dif-student-panel" id="dif-student-panel"></div>
+        </div>
+        <div>
+          <div class="dif-panel-title" id="dif-catalog-title">📋 Catálogo de dificultades</div>
+          <input class="dif-search" type="text" placeholder="Buscar dificultad…"
+            oninput="filterDifCatalog(this.value)" id="dif-search-input">
+          <div id="dif-catalog-panel"></div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -928,12 +1122,23 @@ let state = {
     optativas: new Set(),
   },
   comments: {}, // loaded from localStorage
+  dif: {
+    data: {},            // { alumnoName: [{difId, nota, fecha}] }
+    selectedStudent: null,
+    filter: '',
+  },
 };
 
 // Load comments from localStorage
 try {
   const saved = localStorage.getItem('eval_comments');
   if (saved) state.comments = JSON.parse(saved);
+} catch(e) {}
+
+// Load dificultades from localStorage
+try {
+  const savedDif = localStorage.getItem('eval_dificultades');
+  if (savedDif) state.dif.data = JSON.parse(savedDif);
 } catch(e) {}
 
 // ============================================================
@@ -2499,6 +2704,8 @@ function switchTab(name) {
   if (name==='heatmap') renderHeatmap();
   if (name==='graficos') renderCharts();
   if (name==='riesgo') renderRiskTab();
+  if (name==='informe') renderInforme();
+  if (name==='dificultades') renderDificultades();
 }
 
 // ============================================================
@@ -2507,6 +2714,567 @@ function switchTab(name) {
 function changeZoom(delta) { state.zoom = Math.min(150, Math.max(70, state.zoom + delta)); applyZoom(); }
 function resetZoom() { state.zoom = 100; applyZoom(); }
 function applyZoom() { document.getElementById('main-app').style.fontSize = (state.zoom/100)+'rem'; document.getElementById('zoom-label').textContent = state.zoom+'%'; }
+
+// ============================================================
+//  CATÁLOGO DE DIFICULTADES
+// ============================================================
+const DIF_CATALOG = [
+  { id:'aprendizaje', icon:'📚', label:'Dificultades de aprendizaje', color:'#3730a3', items:[
+    { id:'dislexia', nombre:'Dislexia',
+      desc:'Dificultad en el procesamiento fonológico, la lectura y la escritura con independencia del nivel cognitivo.',
+      ayudas:['Proporcionar textos con fuente de fácil lectura (Arial ≥12pt).',
+               'Ampliar el tiempo en pruebas escritas (hasta un 30% más).',
+               'Permitir respuesta oral o grabada como alternativa.',
+               'Evitar la lectura pública sin acuerdo previo.',
+               'No penalizar la ortografía o valorarla de forma diferenciada.'],
+      procedimientos:['Derivar al Departamento de Orientación para valoración.',
+                       'Coordinar con PT/AL si ya hay apoyo activo.',
+                       'Proponer adaptación curricular no significativa si persiste el desfase.',
+                       'Registrar en el expediente las medidas adoptadas.'] },
+    { id:'discalculia', nombre:'Discalculia',
+      desc:'Dificultad específica en el procesamiento numérico, el cálculo y el razonamiento matemático.',
+      ayudas:['Permitir uso de calculadora cuando el objetivo no es el cálculo.',
+               'Proporcionar plantillas con fórmulas o pasos clave.',
+               'Usar representaciones visuales y manipulativas.',
+               'Reducir ejercicios manteniendo la variedad tipológica.'],
+      procedimientos:['Derivar a orientación para evaluación.',
+                       'Adaptar pruebas con más tiempo y apoyos visuales.',
+                       'Coordinar con el tutor/a para seguimiento interdisciplinar.'] },
+    { id:'disgrafia', nombre:'Disgrafía',
+      desc:'Dificultad en la escritura manual: letra ilegible, lenta o con gran esfuerzo.',
+      ayudas:['Admitir trabajos escritos en ordenador o tablet.',
+               'No penalizar la presentación gráfica si el contenido es correcto.',
+               'Permitir grabaciones de audio como sustituto de apuntes.'],
+      procedimientos:['Consultar con orientador/a sobre evaluación oral o digital.',
+                       'Informar al equipo docente para aplicación coherente.'] },
+    { id:'baja_comprension', nombre:'Baja comprensión lectora',
+      desc:'Dificultad para comprender textos de la complejidad esperada para su nivel.',
+      ayudas:['Proporcionar resúmenes o esquemas previos a la lectura.',
+               'Leer enunciados en voz alta o grabarlos en audio.',
+               'Simplificar vocabulario sin reducir el nivel conceptual.',
+               'Usar preguntas de opción múltiple en lugar de desarrollo extenso.'],
+      procedimientos:['Derivar a orientación si hay sospecha de dificultad específica.',
+                       'Proponer programa de lectura guiada con el área de Lengua.'] },
+  ]},
+  { id:'atencion', icon:'🎯', label:'Atención y concentración', color:'#0891b2', items:[
+    { id:'tdah', nombre:'TDAH (diagnosticado)',
+      desc:'Patrón persistente de inatención y/o hiperactividad-impulsividad que interfiere en el funcionamiento académico.',
+      ayudas:['Sentar al alumno/a en primera fila, lejos de distractores.',
+               'Dividir tareas largas en pasos cortos verificables.',
+               'Usar señales visuales discretas para retomar la atención.',
+               'Alternar actividades activas con sedentarias.',
+               'Permitir pequeños descansos de movimiento.',
+               'Usar agendas visuales y recordatorios escritos en pizarra.'],
+      procedimientos:['Solicitar informe médico o psicológico al orientador/a.',
+                       'Aplicar Plan de Actuación Personalizado (PAP).',
+                       'Coordinar con familia estrategias de refuerzo en casa.',
+                       'Valorar tutorización por pares.'] },
+    { id:'distraccion', nombre:'Distracción frecuente (sin diagnóstico)',
+      desc:'Dificultad para mantener la atención durante períodos prolongados sin diagnóstico formal.',
+      ayudas:['Estructurar clases con cambios de actividad cada 10–15 min.',
+               'Hacer preguntas directas y participativas.',
+               'Situar al alumno/a cerca de un compañero/a modelo positivo.'],
+      procedimientos:['Registrar frecuencia y contexto de las distracciones.',
+                       'Comunicar a la familia la observación y acordar estrategias.',
+                       'Derivar a orientación si persiste.'] },
+  ]},
+  { id:'emocional', icon:'💛', label:'Dificultades emocionales y conductuales', color:'#d97706', items:[
+    { id:'ansiedad', nombre:'Ansiedad ante exámenes o rendimiento',
+      desc:'Nivel elevado de estrés que bloquea el rendimiento en situaciones de evaluación.',
+      ayudas:['Avisar con antelación suficiente del contenido exacto.',
+               'Usar evaluación continua reduciendo el peso de un único examen.',
+               'Permitir un examen de práctica sin nota previo.',
+               'Proporcionar técnicas de respiración o pausa inicial.'],
+      procedimientos:['Entrevista individual explorando el origen.',
+                       'Derivar a orientación si interfiere gravemente.',
+                       'Informar al equipo docente para reducir presión coordinada.'] },
+    { id:'baja_autoestima', nombre:'Baja autoestima académica',
+      desc:'Percepción negativa de la propia competencia que reduce la motivación y el esfuerzo.',
+      ayudas:['Destacar logros pequeños y progreso personal.',
+               'Evitar comparaciones públicas.',
+               'Proponer retos alcanzables con reconocimiento del éxito.',
+               'Asignar roles de responsabilidad para reforzar la valía.'],
+      procedimientos:['Entrevista de tutoría con escucha activa.',
+                       'Informar a la familia sobre estrategias de refuerzo positivo.',
+                       'Derivar a orientación si hay indicios de problemática más profunda.'] },
+    { id:'conducta_disruptiva', nombre:'Conducta disruptiva',
+      desc:'Comportamientos que interrumpen la clase: interrupciones frecuentes, conflictos o incumplimiento de normas.',
+      ayudas:['Establecer acuerdos claros y positivos de comportamiento.',
+               'Ignorar conductas leves de búsqueda de atención y reforzar el positivo.',
+               'Usar señales discretas acordadas.',
+               'Ofrecer salida digna ante escaladas de tensión.'],
+      procedimientos:['Entrevista privada con el tutor/a para explorar causas.',
+                       'Reunión del equipo docente para plan de actuación coordinado.',
+                       'Contactar con la familia con propuesta de acción conjunta.',
+                       'Si persiste, activar el protocolo de convivencia del centro.'] },
+    { id:'duelo', nombre:'Duelo o pérdida reciente',
+      desc:'Impacto emocional de la pérdida de un familiar, separación o cambio de vida significativo.',
+      ayudas:['Mostrar comprensión explícita y flexibilizar plazos temporalmente.',
+               'No forzar participación activa en actividades grupales.',
+               'Mantener la rutina del aula como entorno de seguridad.'],
+      procedimientos:['Entrevista de tutoría con mucha sensibilidad.',
+                       'Coordinación con la familia para conocer el estado real.',
+                       'Derivar a orientación o servicios externos si persiste.'] },
+  ]},
+  { id:'social', icon:'🤝', label:'Dificultades sociales y de convivencia', color:'#16a34a', items:[
+    { id:'aislamiento', nombre:'Aislamiento social o exclusión',
+      desc:'El alumno/a no tiene vínculos significativos en el grupo de forma sistemática.',
+      ayudas:['Organizar actividades en pequeño grupo con rol activo.',
+               'Evitar elección libre de parejas; asignar grupos mixtos.',
+               'Buscar un compañero/a de apoyo dentro del grupo.'],
+      procedimientos:['Aplicar sociograma de aula.',
+                       'Reunión del equipo docente para observación coordinada.',
+                       'Entrevista con la familia para comparar contexto externo.',
+                       'Derivar a orientación si hay indicios de acoso.'] },
+    { id:'acoso', nombre:'Posible víctima de acoso escolar',
+      desc:'Indicios de hostigamiento, burla o exclusión sistemática por parte de iguales.',
+      ayudas:['Aumentar supervisión en espacios no formales.',
+               'Crear vías seguras para que el alumno/a comunique situaciones.',
+               'No exponer al alumno/a ante el grupo hasta esclarecer la situación.'],
+      procedimientos:['Activar el protocolo de acoso escolar del centro.',
+                       'Informar inmediatamente a jefatura de estudios.',
+                       'Entrevistas separadas con víctima y posible agresor/a.',
+                       'Contacto urgente con las familias de ambas partes.'] },
+    { id:'trabajo_grupo', nombre:'Dificultad para trabajar en grupo',
+      desc:'No participa, monopoliza o genera conflictos sistemáticamente en actividades cooperativas.',
+      ayudas:['Asignar roles concretos y rotatorios dentro del grupo.',
+               'Empezar con parejas antes de grupos más grandes.',
+               'Enseñar explícitamente normas de trabajo en equipo.'],
+      procedimientos:['Observación sistemática de interacciones en clase.',
+                       'Reunión con la familia para contextualizar el comportamiento.'] },
+  ]},
+  { id:'familiar', icon:'🏠', label:'Factores familiares y contextuales', color:'#9333ea', items:[
+    { id:'absentismo', nombre:'Absentismo escolar',
+      desc:'Faltas de asistencia injustificadas o recurrentes que afectan al seguimiento del curso.',
+      ayudas:['Proporcionar material de recuperación para sesiones perdidas.',
+               'Mantener comunicación regular sobre el impacto del absentismo.',
+               'Acordar plan de puesta al día realista.'],
+      procedimientos:['Registrar y comunicar faltas según protocolo del centro.',
+                       'Entrevista con la familia para identificar causas.',
+                       'Coordinar con servicios sociales si es crónico.',
+                       'Activar protocolo de absentismo si supera el umbral.'] },
+    { id:'contexto_desfavorecido', nombre:'Contexto socioeconómico desfavorecido',
+      desc:'Dificultades materiales del entorno familiar que impactan en el rendimiento.',
+      ayudas:['No exigir materiales costosos sin proporcionar alternativas.',
+               'Facilitar acceso a recursos del centro (biblioteca, ordenadores).',
+               'Reducir deberes que requieren recursos externos.'],
+      procedimientos:['Coordinar con orientación y trabajo social.',
+                       'Informar de ayudas y becas disponibles.',
+                       'Mantener absoluta confidencialidad.'] },
+    { id:'escasa_colaboracion', nombre:'Escasa colaboración familiar',
+      desc:'La familia no responde a comunicaciones ni refuerza las pautas del centro.',
+      ayudas:['Variar canales de comunicación (presencial, teléfono, app).',
+               'Enviar informes breves y claros sin jerga técnica.'],
+      procedimientos:['Registrar todos los intentos de contacto.',
+                       'Escalar a jefatura si la situación afecta al menor.',
+                       'Coordinar con servicios sociales si hay indicios de negligencia.'] },
+  ]},
+  { id:'academico', icon:'📊', label:'Bajo rendimiento académico', color:'#dc2626', items:[
+    { id:'bajo_rendimiento', nombre:'Bajo rendimiento generalizado',
+      desc:'Calificaciones por debajo del aprobado en la mayoría de materias sin causa específica identificada.',
+      ayudas:['Plan de trabajo personalizado con objetivos mínimos claros.',
+               'Revisión de técnicas y hábitos de estudio.',
+               'Apoyo de refuerzo educativo si el centro dispone de él.'],
+      procedimientos:['Junta de evaluación con plan de mejora específico.',
+                       'Entrevista con la familia para acordar estrategias.',
+                       'Derivar a orientación para descartar causas específicas.'] },
+    { id:'falta_motivacion', nombre:'Falta de motivación o desenganche escolar',
+      desc:'Desinterés generalizado por el aprendizaje; el alumno/a no ve el sentido de la escuela.',
+      ayudas:['Conectar contenidos con intereses personales del alumno/a.',
+               'Proporcionar opciones de demostración del aprendizaje más allá del examen.',
+               'Dar responsabilidades y proyectos con impacto real.'],
+      procedimientos:['Entrevista de tutoría explorando expectativas y proyectos de futuro.',
+                       'Contactar con la familia para compartir estrategias.',
+                       'Derivar a orientación para orientación académico-profesional.'] },
+    { id:'malos_habitos', nombre:'Malos hábitos de estudio',
+      desc:'Estudio ineficiente: memorización sin comprensión, procrastinación, falta de planificación.',
+      ayudas:['Proporcionar guías y plantillas de planificación.',
+               'Enseñar técnicas explícitamente: esquemas, mapas, Pomodoro.',
+               'Revisar la agenda y dar retroalimentación.'],
+      procedimientos:['Sesión de tutoría individual sobre organización del estudio.',
+                       'Proponer actividades del bloque de técnicas de estudio.'] },
+  ]},
+];
+
+// ============================================================
+//  INFORME — renderizado completo
+// ============================================================
+function renderInforme() {
+  const wrap = document.getElementById('informe-wrap');
+  if (!wrap) return;
+  const trimSel = document.getElementById('informe-trim')?.value || 'last';
+  const filtroAl = document.getElementById('informe-filtro-alumnos')?.value || 'all';
+  const buscar   = (document.getElementById('informe-buscar')?.value || '').toLowerCase();
+  const td = getTrimData(trimSel);
+  if (!td) { wrap.innerHTML = '<div class="empty-state"><div class="icon">📄</div><p>Carga al menos una evaluación para generar el informe.</p></div>'; return; }
+
+  const trimLabel = trimSel==='last' ? `${getLastTrim()}ª Evaluación` : `${trimSel}ª Evaluación`;
+  const allStudents = td.students;
+  const subjects = td.subjects;
+  const totalS = allStudents.length;
+
+  // Stats globales
+  const avgs = allStudents.map(s => getStudentAvg(s, td, true)).filter(v => v !== null);
+  const classAvg = avgs.length ? (avgs.reduce((a,b)=>a+b,0)/avgs.length) : null;
+  const passCount = allStudents.filter(s => getStudentFails(s) === 0).length;
+  const riskStudents = allStudents.filter(s => {
+    const fails = getStudentFails(s);
+    if (fails >= 3) return true;
+    const loadedTrims = [1,2,3].filter(t=>state.trims[t]);
+    if (loadedTrims.length >= 2) {
+      const prev = state.trims[[...loadedTrims].sort().reverse()[1]];
+      if (prev) {
+        const sp = prev.students.find(x=>x.name===s.name);
+        if (sp) {
+          const ap = getStudentAvg(sp, prev, true);
+          const ac = getStudentAvg(s, td, true);
+          if (ap!==null && ac!==null && (ap-ac) >= state.config.dropAlert) return true;
+        }
+      }
+    }
+    return false;
+  });
+
+  // Filtrar alumnado para cards
+  let shown = [...allStudents];
+  if (filtroAl==='risk') shown = shown.filter(s=>riskStudents.includes(s));
+  if (filtroAl==='fail') shown = shown.filter(s=>getStudentFails(s)>0);
+  if (buscar) shown = shown.filter(s=>s.name.toLowerCase().includes(buscar));
+  shown.sort((a,b)=>a.name.localeCompare(b.name));
+
+  // Análisis por materia
+  const subjectStats = subjects.map(sub => {
+    const grades = allStudents.map(s=>s.grades[sub]).filter(g=>g&&g.type==='grade');
+    const avg = grades.length ? grades.reduce((a,g)=>a+g.value,0)/grades.length : null;
+    const passRate = grades.length ? grades.filter(g=>g.value>=5).length/grades.length*100 : null;
+    const failing = allStudents.filter(s=>{const g=s.grades[sub];return g&&g.type==='grade'&&g.value<5;});
+    return { sub, avg, passRate, failing };
+  }).sort((a,b)=>(a.passRate||100)-(b.passRate||100));
+
+  const fmt = v => v===null ? '—' : v.toFixed(1);
+
+  wrap.innerHTML = `
+    <div class="informe-hero no-print">
+      <h2>📄 Informe de evaluación</h2>
+      <p>Generado el ${new Date().toLocaleDateString('es-ES',{day:'2-digit',month:'long',year:'numeric'})}</p>
+      <div class="informe-meta">
+        <span class="informe-meta-chip">📅 ${trimLabel}</span>
+        <span class="informe-meta-chip">👥 ${totalS} alumnos/as</span>
+        <span class="informe-meta-chip">📊 Media clase: ${fmt(classAvg)}</span>
+        <span class="informe-meta-chip">✅ Aprueban todo: ${passCount} (${totalS?Math.round(passCount/totalS*100):0}%)</span>
+        ${riskStudents.length ? `<span class="informe-meta-chip">🚨 En riesgo: ${riskStudents.length}</span>` : ''}
+      </div>
+    </div>
+
+    <!-- Resumen estadístico -->
+    <div class="informe-section">
+      <div class="informe-section-title">📊 Resultados globales</div>
+      <div class="stats-grid" style="margin-bottom:0">
+        ${_informeStat('Media de clase', fmt(classAvg), classAvg!==null?(classAvg>=7?'var(--green)':classAvg>=5?'var(--yellow)':'var(--red)'):'var(--text-muted)', '')}
+        ${_informeStat('Aprueban todo', `${passCount} / ${totalS}`, 'var(--green)', `${totalS?Math.round(passCount/totalS*100):0}%`)}
+        ${_informeStat('Con suspensos', `${totalS-passCount} / ${totalS}`, totalS-passCount>0?'var(--red)':'var(--green)', '')}
+        ${_informeStat('En riesgo', `${riskStudents.length}`, riskStudents.length>0?'var(--red)':'var(--green)', '≥3 suspensos o caída ≥'+state.config.dropAlert+'pts')}
+        ${_informeStat('Materias cargadas', `${subjects.length}`, 'var(--accent)', '')}
+      </div>
+    </div>
+
+    <!-- Análisis por materia -->
+    <div class="informe-section">
+      <div class="informe-section-title">📚 Análisis por materia — de menor a mayor tasa de aprobados</div>
+      <div class="informe-grid">
+        ${subjectStats.map(ss => {
+          const pr = ss.passRate!==null?Math.round(ss.passRate):null;
+          const color = pr===null?'var(--text-muted)':pr>=80?'var(--green)':pr>=50?'var(--yellow)':'var(--red)';
+          return `
+            <div class="informe-subject-stat">
+              <h4><span class="subject-color-dot" style="background:${getSubjectColor(subjectColorIdx(ss.sub))}"></span>
+                ${getSubjectName(ss.sub)}</h4>
+              <div style="display:flex;gap:18px;margin-bottom:8px">
+                <div><div class="stat-label">Media</div><div style="font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;color:${avgColor(ss.avg)}">${fmt(ss.avg)}</div></div>
+                <div><div class="stat-label">Aprobados</div><div style="font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;color:${color}">${pr!==null?pr+'%':'—'}</div></div>
+                <div><div class="stat-label">Suspensos</div><div style="font-family:'Syne',sans-serif;font-size:1.3rem;font-weight:800;color:${ss.failing.length?'var(--red)':'var(--green)'}">${ss.failing.length}</div></div>
+              </div>
+              <div class="pass-bar"><div class="pass-fill" style="width:${pr||0}%;background:${color}"></div></div>
+              ${ss.failing.length ? `<div style="margin-top:8px;font-size:11px;color:var(--text-muted)">${ss.failing.slice(0,4).map(s=>s.name.split(' ')[0]).join(', ')}${ss.failing.length>4?' y '+(ss.failing.length-4)+' más':''}</div>` : ''}
+            </div>`;
+        }).join('')}
+      </div>
+    </div>
+
+    ${riskStudents.length ? `
+    <div class="informe-section">
+      <div class="informe-section-title">🚨 Alumnado en situación de riesgo</div>
+      <div class="informe-student-grid">
+        ${riskStudents.map(s=>_informeStudentCard(s,td,true)).join('')}
+      </div>
+    </div>` : ''}
+
+    <!-- Fichas individuales -->
+    <div class="informe-section">
+      <div class="informe-section-title">👤 Fichas individuales — ${shown.length} alumno${shown.length!==1?'s':''}</div>
+      ${shown.length===0 ? '<div class="empty-state"><p>Ningún alumno/a coincide con los filtros aplicados.</p></div>' : `
+      <div class="informe-student-grid">
+        ${shown.map(s=>_informeStudentCard(s,td,riskStudents.includes(s))).join('')}
+      </div>`}
+    </div>
+  `;
+}
+
+function _informeStat(label, value, color, sub) {
+  return `<div class="stat-card">
+    <div class="stat-label">${label}</div>
+    <div class="stat-value" style="color:${color}">${value}</div>
+    ${sub?`<div class="stat-sub">${sub}</div>`:''}
+  </div>`;
+}
+
+function _informeStudentCard(s, td, isRisk) {
+  const avg = getStudentAvg(s, td, true);
+  const fails = Object.entries(s.grades).filter(([,g])=>g&&g.type==='grade'&&g.value<5);
+  const difs = state.dif.data[s.name] || [];
+  const initials = s.name.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
+  return `
+    <div class="informe-student-card ${isRisk?'risk':''}">
+      <div class="informe-student-header">
+        <div class="informe-student-avatar">${initials}</div>
+        <div style="flex:1">
+          <div style="font-weight:700;font-size:14px">${s.name}</div>
+          <div style="font-size:12px;color:var(--text-muted);margin-top:2px">
+            Media: <strong style="color:${avgColor(avg)}">${avg!==null?avg.toFixed(1):'—'}</strong>
+            ${fails.length ? `&nbsp;·&nbsp;<span style="color:var(--red);font-weight:700">${fails.length} suspenso${fails.length>1?'s':''}</span>` : '&nbsp;·&nbsp;<span style="color:var(--green)">Todo aprobado</span>'}
+          </div>
+        </div>
+        ${avg!==null?`<div class="avg-badge" style="border-color:${avgColor(avg)};color:${avgColor(avg)}">${avg.toFixed(1)}</div>`:''}
+      </div>
+      ${fails.length ? `
+      <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text-dim);margin-bottom:5px">Materias suspensas</div>
+        <div class="informe-grade-row">
+          ${fails.map(([sub,g])=>`<span class="informe-grade-chip grade-${Math.round(g.value)}">${getSubjectName(sub)}: ${g.value}</span>`).join('')}
+        </div>
+      </div>` : ''}
+      ${difs.length ? `
+      <div style="margin-top:10px;padding-top:8px;border-top:1px solid var(--border)">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text-dim);margin-bottom:5px">Dificultades registradas</div>
+        ${difs.map(d=>{
+          const cat = DIF_CATALOG.find(c=>c.items.find(i=>i.id===d.difId));
+          const item = cat?.items.find(i=>i.id===d.difId);
+          return item ? `<div style="font-size:12px;margin-bottom:3px">🧩 <strong>${item.nombre}</strong>${d.nota?` — <em>${d.nota}</em>`:''}` : '';
+        }).join('')}
+      </div>` : ''}
+    </div>`;
+}
+
+// ============================================================
+//  DIFICULTADES — renderizado del panel
+// ============================================================
+function renderDificultades() {
+  renderDifStudentPanel();
+  renderDifCatalog(state.dif.filter || '');
+}
+
+function renderDifStudentPanel() {
+  const panel = document.getElementById('dif-student-panel');
+  if (!panel) return;
+  const td = state.trims[getLastTrim()];
+  if (!td) {
+    panel.innerHTML = '<div class="dif-empty">Carga una evaluación para ver el alumnado.</div>';
+    return;
+  }
+  const students = [...td.students].sort((a,b)=>a.name.localeCompare(b.name));
+  panel.innerHTML = students.map(s => {
+    const count = (state.dif.data[s.name]||[]).length;
+    const sel = state.dif.selectedStudent === s.name;
+    return `<div class="dif-student-item ${sel?'selected':''}" onclick="selectDifStudent('${s.name.replace(/'/g,"\\'")}')">
+      <span style="flex:1;font-size:13px">${s.name}</span>
+      ${count ? `<span class="dif-count-badge">${count}</span>` : ''}
+    </div>
+    ${sel ? _renderAssignedDifs(s.name) : ''}`;
+  }).join('');
+}
+
+function _renderAssignedDifs(name) {
+  const list = state.dif.data[name] || [];
+  if (!list.length) return `<div class="dif-assigned-panel"><div class="dif-assigned-panel-title">Dificultades asignadas</div><div style="font-size:12px;color:var(--text-muted)">Sin dificultades registradas.</div></div>`;
+  return `<div class="dif-assigned-panel">
+    <div class="dif-assigned-panel-title">Dificultades asignadas (${list.length})</div>
+    ${list.map((entry, idx) => {
+      const cat = DIF_CATALOG.find(c=>c.items.find(i=>i.id===entry.difId));
+      const item = cat?.items.find(i=>i.id===entry.difId);
+      if (!item) return '';
+      return `<div class="dif-assigned-item">
+        <button class="dif-remove-btn" onclick="removeDif('${name.replace(/'/g,"\\'")}',${idx})" title="Eliminar">✕</button>
+        <div class="a-title">${item.nombre}</div>
+        <div class="a-cat">${cat.icon} ${cat.label}</div>
+        ${entry.nota ? `<div class="a-nota">${entry.nota}</div>` : ''}
+        <div class="a-date">Registrado: ${entry.fecha}</div>
+      </div>`;
+    }).join('')}
+  </div>`;
+}
+
+function selectDifStudent(name) {
+  state.dif.selectedStudent = state.dif.selectedStudent === name ? null : name;
+  const title = document.getElementById('dif-catalog-title');
+  if (title) title.textContent = state.dif.selectedStudent ? `📋 Asignar dificultad a: ${state.dif.selectedStudent}` : '📋 Catálogo de dificultades';
+  renderDifStudentPanel();
+  renderDifCatalog(state.dif.filter || '');
+}
+window.selectDifStudent = selectDifStudent;
+
+function renderDifCatalog(filter) {
+  state.dif.filter = filter;
+  const panel = document.getElementById('dif-catalog-panel');
+  if (!panel) return;
+  const q = filter.trim().toLowerCase();
+  const assigned = state.dif.selectedStudent ? (state.dif.data[state.dif.selectedStudent]||[]).map(e=>e.difId) : [];
+
+  let html = '';
+  DIF_CATALOG.forEach(cat => {
+    const items = cat.items.filter(item =>
+      !q || item.nombre.toLowerCase().includes(q) || item.desc.toLowerCase().includes(q) || cat.label.toLowerCase().includes(q)
+    );
+    if (!items.length) return;
+    html += `<div class="dif-cat-block">
+      <div class="dif-cat-header" style="border-left:3px solid ${cat.color}">
+        <span>${cat.icon}</span><span style="color:${cat.color}">${cat.label}</span>
+        <span style="margin-left:auto;font-size:11px;color:var(--text-muted)">${items.length}</span>
+      </div>
+      <div class="dif-cat-body">
+        ${items.map(item => {
+          const isAssigned = assigned.includes(item.id);
+          const detailId = 'dif-detail-'+item.id;
+          const noteId = 'dif-note-'+item.id;
+          return `<div class="dif-card ${isAssigned?'assigned':''}">
+            <div class="dif-card-title">${isAssigned?'✅ ':''}${item.nombre}</div>
+            <div class="dif-card-desc">${item.desc}</div>
+            <button class="dif-expand-btn" onclick="toggleDifDetail('${detailId}',this)">▶ Ver formas de ayuda y procedimientos</button>
+            <div class="dif-detail" id="${detailId}">
+              <h5>💡 Formas de ayuda</h5>
+              <ul>${item.ayudas.map(a=>`<li>${a}</li>`).join('')}</ul>
+              <h5>📋 Procedimientos de actuación</h5>
+              <ul>${item.procedimientos.map(p=>`<li>${p}</li>`).join('')}</ul>
+            </div>
+            ${state.dif.selectedStudent ? `
+            <div class="dif-assign-row">
+              <input class="dif-note-input" id="${noteId}" type="text" placeholder="Observación opcional…" maxlength="120">
+              ${isAssigned
+                ? `<button class="btn btn-danger btn-sm" onclick="removeDifById('${item.id}')">✕ Quitar</button>`
+                : `<button class="btn btn-primary btn-sm" onclick="assignDif('${item.id}','${noteId}')">+ Asignar</button>`}
+            </div>` : `<div style="font-size:11px;color:var(--text-muted);margin-top:8px">Selecciona un alumno/a para asignar esta dificultad.</div>`}
+          </div>`;
+        }).join('')}
+      </div>
+    </div>`;
+  });
+  panel.innerHTML = html || '<div class="dif-empty">No se encontraron dificultades con ese término.</div>';
+}
+
+function toggleDifDetail(id, btn) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.toggle('open');
+  btn.textContent = el.classList.contains('open') ? '▼ Ocultar detalle' : '▶ Ver formas de ayuda y procedimientos';
+}
+window.toggleDifDetail = toggleDifDetail;
+
+function filterDifCatalog(q) { renderDifCatalog(q); }
+window.filterDifCatalog = filterDifCatalog;
+
+function assignDif(difId, noteInputId) {
+  if (!state.dif.selectedStudent) return;
+  const nota = (document.getElementById(noteInputId)?.value || '').trim();
+  if (!state.dif.data[state.dif.selectedStudent]) state.dif.data[state.dif.selectedStudent] = [];
+  if (state.dif.data[state.dif.selectedStudent].find(e=>e.difId===difId)) return;
+  state.dif.data[state.dif.selectedStudent].push({
+    difId, nota, fecha: new Date().toLocaleDateString('es-ES')
+  });
+  saveDifLocal();
+  renderDifStudentPanel();
+  renderDifCatalog(state.dif.filter || '');
+}
+window.assignDif = assignDif;
+
+function removeDif(studentName, idx) {
+  if (!state.dif.data[studentName]) return;
+  state.dif.data[studentName].splice(idx, 1);
+  if (!state.dif.data[studentName].length) delete state.dif.data[studentName];
+  saveDifLocal();
+  renderDifStudentPanel();
+  renderDifCatalog(state.dif.filter || '');
+}
+window.removeDif = removeDif;
+
+function removeDifById(difId) {
+  if (!state.dif.selectedStudent) return;
+  const list = state.dif.data[state.dif.selectedStudent] || [];
+  const idx = list.findIndex(e=>e.difId===difId);
+  if (idx >= 0) removeDif(state.dif.selectedStudent, idx);
+}
+window.removeDifById = removeDifById;
+
+function saveDifLocal() {
+  try {
+    localStorage.setItem('eval_dificultades', JSON.stringify(state.dif.data));
+    const st = document.getElementById('dif-save-status');
+    if (st) { st.textContent = '✓ Guardado automáticamente'; setTimeout(()=>{st.textContent='';},2500); }
+  } catch(e) {}
+}
+
+function exportDifCSV() {
+  const rows = [['Alumno/a','Dificultad ID','Dificultad nombre','Categoría','Observación','Fecha registro']];
+  Object.entries(state.dif.data).forEach(([name, list]) => {
+    list.forEach(entry => {
+      const cat = DIF_CATALOG.find(c=>c.items.find(i=>i.id===entry.difId));
+      const item = cat?.items.find(i=>i.id===entry.difId);
+      rows.push([name, entry.difId, item?.nombre||entry.difId, cat?.label||'', entry.nota||'', entry.fecha||'']);
+    });
+  });
+  const csv = rows.map(r => r.map(v => `"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob = new Blob(['\uFEFF'+csv], {type:'text/csv;charset=utf-8;'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `dificultades_alumnado_${new Date().toISOString().slice(0,10)}.csv`;
+  a.click();
+}
+window.exportDifCSV = exportDifCSV;
+
+function importDifCSV(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  readFileSmartEncoding(file, text => {
+    try {
+      const result = Papa.parse(text, {header:true, skipEmptyLines:true});
+      let imported = 0;
+      result.data.forEach(row => {
+        const name = (row['Alumno/a']||'').trim();
+        const difId = (row['Dificultad ID']||'').trim();
+        const nota = (row['Observación']||'').trim();
+        const fecha = (row['Fecha registro']||new Date().toLocaleDateString('es-ES')).trim();
+        if (!name || !difId) return;
+        if (!state.dif.data[name]) state.dif.data[name] = [];
+        if (!state.dif.data[name].find(e=>e.difId===difId)) {
+          state.dif.data[name].push({difId, nota, fecha});
+          imported++;
+        }
+      });
+      saveDifLocal();
+      renderDifStudentPanel();
+      renderDifCatalog(state.dif.filter||'');
+      alert(`Importados ${imported} registros correctamente.`);
+    } catch(e) { alert('Error al procesar el CSV: '+e.message); }
+  });
+  event.target.value = '';
+}
+window.importDifCSV = importDifCSV;
+
+function clearAllDif() {
+  if (!confirm('¿Eliminar todos los registros de dificultades? Esta acción no se puede deshacer.')) return;
+  state.dif.data = {};
+  state.dif.selectedStudent = null;
+  saveDifLocal();
+  renderDificultades();
+}
+window.clearAllDif = clearAllDif;
 
 // ============================================================
 //  KEYBOARD
