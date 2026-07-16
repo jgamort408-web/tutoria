@@ -5,13 +5,13 @@
   const prefix = "../".repeat(depth);
 
   const navItems = [
-    { key: "inicio",    label: "Inicio",         icon: "house",                href: `${prefix}index.html` },
-    { key: "cursos",    label: "Cursos",          icon: "graduation-cap",       href: `${prefix}cursos/index.html` },
+    { key: "inicio",    label: "Inicio",          icon: "house",                href: `${prefix}index.html` },
+    { key: "cursos",    label: "Ruta 1.º ESO",    icon: "route",                href: `${prefix}cursos/1eso.html` },
     { key: "estudio",   label: "Estudio",         icon: "book-open",            href: `${prefix}estudio/index.html` },
     { key: "emociones", label: "Emociones",       icon: "heart",                href: `${prefix}emociones/index.html` },
-    { key: "8marzo",    label: "8M y ciudadanía", icon: "venus",                href: `${prefix}8marzo/index.html` },
-    { key: "evacuacion",label: "Evacuación",      icon: "triangle-exclamation", href: `${prefix}evacuacion/index.html` },
-    { key: "evaluacion",label: "Evaluación",      icon: "chart-line",           href: `${prefix}evaluacion/index.html` }
+    { key: "8marzo",    label: "Ciudadanía",      icon: "people-group",         href: `${prefix}8marzo/index.html` },
+    { key: "evacuacion",label: "Seguridad",       icon: "shield-halved",        href: `${prefix}evacuacion/index.html` },
+    { key: "evaluacion",label: "Zona docente",    icon: "chart-line",           href: `${prefix}evaluacion/index.html` }
   ];
 
   const themes = {
@@ -34,6 +34,38 @@
     inicio:     "#1e40af"
   };
 
+  const activityGuides = {
+    "estudio/profesiones.html":              ["55 min", "Individual + parejas", "Explorar intereses sin convertirlos en etiquetas", "Papel para anotar dos profesiones y una pregunta"],
+    "estudio/planificar.html":               ["50 min", "Grupo + individual", "Distinguir urgencia, importancia y tiempo real", "Pizarra y horario semanal"],
+    "estudio/planificador.html":             ["45 min", "Individual", "Diseñar una tarde viable con descanso y estudio", "Horario y agenda del alumnado"],
+    "estudio/miestudio.html":                ["35 min", "Individual + diálogo", "Detectar un hábito que ya funciona y uno que mejorar", "Dispositivo por alumno/a o lectura proyectada"],
+    "estudio/herramientas.html":             ["50 min", "Equipos de 3–4", "Elegir la técnica adecuada para cada tarea", "Cuaderno y un texto breve de una materia"],
+    "estudio/laspistasocultas.html":         ["45 min", "Parejas", "Usar títulos, negritas e imágenes antes de leer", "Proyector o un dispositivo por pareja"],
+    "estudio/entendiendolaspreguntas.html":  ["50 min", "Parejas + puesta en común", "Interpretar los verbos de una consigna de examen", "Tres preguntas reales de distintas materias"],
+    "estudio/detectivesdelestudio.html":     ["40 min", "Equipos de 3–4", "Identificar distractores y proponer mejoras concretas", "Pizarra para recoger evidencias"],
+    "emociones/quizsocial.html":             ["50 min", "Grupo en movimiento", "Romper el hielo encontrando afinidades con seguridad", "Espacio para desplazarse y normas de respeto"],
+    "emociones/asisoyyo.html":               ["55 min", "Individual + grupos de 4", "Compartir rasgos personales sin forzar intimidad", "Dispositivo o ficha; opción de no compartir"],
+    "emociones/general.html":                ["10 min", "Presentación docente", "Presentar el itinerario de autorregulación", "Proyector"],
+    "emociones/volcan.html":                 ["40 min", "Grupo + individual", "Reconocer señales previas a la pérdida de control", "Proyector y papel para una estrategia personal"],
+    "emociones/semaforodeira.html":          ["45 min", "Parejas", "Practicar parar, pensar y actuar ante un conflicto", "Tarjetas roja, amarilla y verde opcionales"],
+    "emociones/pausa10seg.html":             ["25 min", "Grupo", "Ensayar una pausa física antes de responder", "Altavoces opcionales y ambiente tranquilo"],
+    "emociones/teatro.html":                 ["50 min", "Equipos de 4", "Comparar consecuencias de respuestas impulsivas y reguladas", "Repartir roles y acordar derecho a pasar"],
+    "emociones/micontrato.html":             ["30 min", "Individual", "Formular un compromiso pequeño, observable y revisable", "Dispositivo; impresión opcional"],
+    "emociones/test.html":                   ["20 min", "Individual y privado", "Iniciar reflexión, nunca diagnosticar ni calificar", "Dispositivo individual y recordatorio de confidencialidad"],
+    "8marzo/origen.html":                    ["45 min", "Grupo + parejas", "Comprender el sentido social e histórico del 8M", "Pizarra para dudas y aprendizajes"],
+    "8marzo/mujeresenlaciencia.html":        ["55 min", "Equipos de 3–4", "Ampliar referentes y analizar la invisibilización", "Un dispositivo por equipo"],
+    "8marzo/demontandomitos.html":           ["50 min", "Equipos + debate", "Argumentar frente a estereotipos con respeto", "Normas de diálogo visibles"],
+    "8marzo/detectivesdellenguaje.html":     ["45 min", "Parejas", "Detectar sesgos y proponer alternativas inclusivas", "Ejemplos cercanos sin señalar a compañeros/as"],
+    "8marzo/micompromiso.html":              ["30 min", "Individual + grupo", "Traducir la reflexión en una acción cotidiana", "Mural o pizarra para compromisos voluntarios"],
+    "evacuacion/normasconvivencia.html":     ["55 min", "Equipos + asamblea", "Acordar pocas normas claras, observables y reparadoras", "Pizarra y sistema de votación"],
+    "evacuacion/normas.html":                ["30 min", "Grupo", "Recordar las conductas esenciales de evacuación", "Protocolo real del centro a la vista"],
+    "evacuacion/ruta.html":                  ["40 min", "Parejas", "Aplicar el protocolo a la ruta real del aula", "Plano y punto de encuentro del centro"],
+    "evacuacion/simulacro.html":             ["35 min", "Grupo", "Tomar decisiones seguras sin generar alarma", "Proyector; aclarar que es una simulación"],
+    "evacuacion/escaperoom.html":            ["50 min", "Equipos de 4", "Comprobar el protocolo mediante retos cooperativos", "Proyector y portavoz por equipo"],
+    "evaluacion/delegadovotacion.html":      ["55 min", "Grupo-clase", "Elegir representación con criterios y voto secreto", "Censo, candidaturas y dispositivo del docente"],
+    "evaluacion/analisisavanzado.html":      ["Uso docente", "Solo profesorado", "Preparar la evaluación sin exponer datos personales", "CSV anonimizado; evitar proyectar información sensible"]
+  };
+
   document.body.dataset.theme = folder.theme;
   document.body.classList.add("site-ready");
 
@@ -42,10 +74,12 @@
   injectBreadcrumbs();
   injectFooter();
   wrapMain();
+  injectActivityGuide();
   autoReveal();
   setupTranslator();
   setupScrollReveal();
   setupMobileMenu();
+  setupGlobalAccessibility();
 
   /* ── Folder detection ───────────────────────────────────── */
   function detectFolder() {
@@ -66,6 +100,12 @@
 
   /* ── Head meta injection ────────────────────────────────── */
   function injectHeadMeta() {
+    if (!document.querySelector('meta[name="description"]')) {
+      const description = document.createElement("meta");
+      description.name = "description";
+      description.content = `${document.title.replace(/\s*[|\-]\s*Tutoría.*$/i, "")} · Recurso didáctico para la tutoría de 1.º de ESO.`;
+      document.head.appendChild(description);
+    }
     if (!document.querySelector('link[rel="icon"]')) {
       const el = document.createElement("link");
       el.rel = "icon"; el.type = "image/svg+xml";
@@ -130,7 +170,12 @@
         </nav>
       </div>
     `;
+    const skipLink = document.createElement("a");
+    skipLink.className = "skip-link";
+    skipLink.href = "#contenido-principal";
+    skipLink.textContent = "Saltar al contenido";
     document.body.prepend(header);
+    document.body.prepend(skipLink);
   }
 
   /* ── Breadcrumbs ────────────────────────────────────────── */
@@ -290,6 +335,74 @@
         document.body.style.overflow = "";
       }
     });
+
+    document.addEventListener("keydown", e => {
+      if (e.key === "Escape" && header.classList.contains("is-open")) {
+        header.classList.remove("is-open");
+        toggle.setAttribute("aria-expanded", "false");
+        document.body.style.overflow = "";
+        toggle.focus();
+      }
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 768 && header.classList.contains("is-open")) {
+        header.classList.remove("is-open");
+        toggle.setAttribute("aria-expanded", "false");
+        document.body.style.overflow = "";
+      }
+    });
+  }
+
+  /* ── Shared session guide for activities ────────────────── */
+  function injectActivityGuide() {
+    const key = pageKey();
+    const guide = activityGuides[key];
+    const main = document.querySelector(".site-main");
+    if (!guide || !main) return;
+
+    document.body.classList.add("is-activity-page");
+    const title = findPageTitle();
+    const isTeacherOnly = key === "evaluacion/analisisavanzado.html";
+    const aside = document.createElement("aside");
+    aside.className = "activity-guide";
+    aside.setAttribute("aria-label", `Ficha didáctica de ${title}`);
+    aside.innerHTML = `
+      <div class="activity-guide__intro">
+        <span class="activity-guide__eyebrow"><i class="fa-solid fa-compass" aria-hidden="true"></i> Ficha de sesión</span>
+        <strong>${title}</strong>
+        <p>${guide[2]}</p>
+      </div>
+      <dl class="activity-guide__facts">
+        <div><dt><i class="fa-regular fa-clock" aria-hidden="true"></i> Tiempo</dt><dd>${guide[0]}</dd></div>
+        <div><dt><i class="fa-solid fa-users" aria-hidden="true"></i> Agrupamiento</dt><dd>${guide[1]}</dd></div>
+        <div><dt><i class="fa-solid fa-box-open" aria-hidden="true"></i> Preparación</dt><dd>${guide[3]}</dd></div>
+      </dl>
+      <div class="activity-guide__actions">
+        <span class="audience-badge ${isTeacherOnly ? "is-private" : ""}"><i class="fa-solid fa-${isTeacherOnly ? "lock" : "chalkboard-user"}" aria-hidden="true"></i>${isTeacherOnly ? "Uso docente · datos sensibles" : "Lista para proyectar"}</span>
+        <a href="${prefix}cursos/1eso.html#modulos">Volver a la ruta de 1.º ESO <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+      </div>`;
+    main.prepend(aside);
+  }
+
+  function pageKey() {
+    const path = window.location.pathname.replace(/\\/g, "/").toLowerCase();
+    const segments = path.split("/").filter(Boolean);
+    return segments.slice(-2).join("/");
+  }
+
+  function setupGlobalAccessibility() {
+    const main = document.querySelector(".site-main");
+    if (main) {
+      main.id = "contenido-principal";
+      if (!main.hasAttribute("tabindex")) main.tabIndex = -1;
+    }
+
+    document.querySelectorAll('a[target="_blank"]').forEach(link => {
+      if (!/\(se abre en una pestaña nueva\)/i.test(link.getAttribute("aria-label") || "")) {
+        link.setAttribute("aria-label", `${link.textContent.trim()} (se abre en una pestaña nueva)`);
+      }
+    });
   }
 
   /* ── Scroll reveal ──────────────────────────────────────── */
@@ -359,6 +472,7 @@
       !child.classList.contains("site-header") &&
       !child.classList.contains("site-breadcrumbs") &&
       !child.classList.contains("site-footer") &&
+      !child.classList.contains("skip-link") &&
       child.tagName !== "SCRIPT"
     );
     nodes.forEach(node => main.appendChild(node));

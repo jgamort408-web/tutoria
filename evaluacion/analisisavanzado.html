@@ -107,13 +107,13 @@ header {
   padding: 40px;
 }
 .upload-hero { text-align: center; max-width: 560px; }
-.upload-hero h2 {
+.upload-hero h1 {
   font-family: 'Syne', sans-serif;
   font-size: 2.6rem; font-weight: 800;
   margin-bottom: 14px;
   line-height: 1.1;
 }
-.upload-hero h2 .accent { color: var(--accent); }
+.upload-hero h1 .accent { color: var(--accent); }
 .upload-hero p { color: var(--text-muted); margin-bottom: 36px; font-size: 15px; line-height: 1.7; }
 
 .upload-cards { display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; margin-top: 32px; }
@@ -677,7 +677,7 @@ tbody tr:last-child { border-bottom: none; }
   .dif-student-panel, .dif-catalog-panel { max-height: 50vh; }
 }
 </style>
-    <link rel="stylesheet" href="../assets/css/site.css">
+    <link rel="stylesheet" href="../assets/css/site.css?v=20260716">
 </head>
 <body>
 
@@ -759,7 +759,7 @@ tbody tr:last-child { border-bottom: none; }
         <input type="number" class="config-input" id="cfg-w3" value="40" min="0" max="100" onchange="updateConfig()">
         <span style="color:var(--text-muted); font-size:12px">%</span>
       </div>
-      <div id="cfg-weight-warn" style="font-size:11px; color:var(--red); margin-top:6px; display:none">âš  Los pesos no suman 100%</div>
+      <div id="cfg-weight-warn" style="font-size:11px; color:var(--red); margin-top:6px; display:none">⚠️ Los pesos no suman 100%</div>
     </div>
 
     <div class="config-section">
@@ -794,7 +794,7 @@ tbody tr:last-child { border-bottom: none; }
 <!-- UPLOAD SECTION -->
 <div id="upload-section">
   <div class="upload-hero">
-    <h2>Panel de<br><span class="accent">Evaluación</span> Académica</h2>
+    <h1>Panel de <br><span class="accent">Evaluación</span> Académica</h1>
     <p>Carga los archivos CSV de cada evaluación para analizar resultados, comparar progresos y preparar la sesión de junta de evaluación.</p>
 
     <div class="upload-cards">
@@ -852,7 +852,7 @@ tbody tr:last-child { border-bottom: none; }
         <div style="display:flex; gap:6px" class="no-print">
           <button class="btn btn-ghost btn-sm" onclick="exportTxt()">📄 TXT</button>
           <button class="btn btn-ghost btn-sm" onclick="exportPDF()">🖨 PDF</button>
-          <button class="btn btn-ghost btn-sm" onclick="exportFailsPDF()">âš  PDF Suspensos</button>
+          <button class="btn btn-ghost btn-sm" onclick="exportFailsPDF()">⚠️ PDF Suspensos</button>
           <button class="btn btn-ghost btn-sm" onclick="saveSession()">💾 Sesión</button>
           <label class="btn btn-ghost btn-sm" style="cursor:pointer">📂 Restaurar <input type="file" accept=".json" onchange="restoreSession(event)" style="display:none"></label>
         </div>
@@ -1425,7 +1425,7 @@ function detectRisk(name) {
   const lastStudent = lastTrim.students.find(x => x.name === name);
   if (lastStudent) {
     const fails = getStudentFails(lastStudent, true);
-    if (fails >= 4) reasons.push(`âš  ${fails} materias suspensas en último trimestre`);
+    if (fails >= 4) reasons.push(`⚠️ ${fails} materias suspensas en último trimestre`);
   }
 
   return reasons;
@@ -1537,7 +1537,7 @@ function renderMainTable() {
   const trimVal = document.getElementById('filter-trim').value;
   const trimData = getTrimData(trimVal);
   if (!trimData) {
-    document.getElementById('main-table-wrap').innerHTML = '<div class="empty-state"><div class="icon">âš ï¸</div><p>No hay datos para este trimestre</p></div>';
+    document.getElementById('main-table-wrap').innerHTML = '<div class="empty-state"><div class="icon">⚠️</div><p>No hay datos para este trimestre</p></div>';
     return;
   }
 
@@ -1622,7 +1622,7 @@ function renderMainTable() {
         <span class="avg-inline" style="background:rgba(0,0,0,0.3); color:${avgCls}">${avgDisp}</span>
         ${wAvg !== null && [1,2,3].filter(t=>state.trims[t]).length > 1 ? `<span style="font-size:10px; color:var(--text-muted); margin-left:4px" title="Media ponderada">⊡${wAvg.toFixed(1)}</span>` : ''}
       </td>
-      <td>${fails > 0 ? `<span class="fail-pill">âš  ${fails}</span>` : '<span class="pass-pill">✓</span>'}</td>
+      <td>${fails > 0 ? `<span class="fail-pill">⚠️ ${fails}</span>` : '<span class="pass-pill">✓</span>'}</td>
       <td>${isRisk ? `<span class="risk-badge" title="${risks.join('\n')}">🚨</span>` : '<span style="color:var(--text-dim)">—</span>'}</td>`;
 
     subjects.forEach(sub => {
@@ -1650,7 +1650,7 @@ function renderHeatmap() {
   const trimVal = document.getElementById('filter-trim-heat').value;
   const trimData = getTrimData(trimVal);
   const wrap = document.getElementById('heatmap-wrap');
-  if (!trimData) { wrap.innerHTML = '<div class="empty-state"><div class="icon">âš ï¸</div><p>No hay datos</p></div>'; return; }
+  if (!trimData) { wrap.innerHTML = '<div class="empty-state"><div class="icon">⚠️</div><p>No hay datos</p></div>'; return; }
 
   const subjects = trimData.subjects;
   let html = `<table class="heatmap-table"><thead><tr><th style="min-width:120px">Alumno/a</th>`;
@@ -1694,7 +1694,7 @@ function renderSubjectCards() {
   const trimVal = document.getElementById('filter-trim-mat').value;
   const trimData = getTrimData(trimVal);
   const wrap = document.getElementById('subject-cards-wrap');
-  if (!trimData) { wrap.innerHTML = '<div class="empty-state"><div class="icon">âš ï¸</div><p>No hay datos</p></div>'; return; }
+  if (!trimData) { wrap.innerHTML = '<div class="empty-state"><div class="icon">⚠️</div><p>No hay datos</p></div>'; return; }
 
   const prevTrimNum = parseInt(trimVal === 'last' ? getLastTrim() : trimVal) - 1;
   const prevTrim = state.trims[prevTrimNum] || null;
@@ -2155,7 +2155,7 @@ function renderStudentModal() {
           <div class="student-name">${escHtml(name)}</div>
           <div class="student-badges">
             ${avg !== null ? `<span class="badge ${avg>=5?'badge-green':'badge-red'}">Media: ${avg.toFixed(2)}</span>` : ''}
-            ${fails > 0 ? `<span class="badge badge-red">âš  ${fails} suspenso${fails>1?'s':''}</span>` : '<span class="badge badge-green">✓ Sin suspensos</span>'}
+            ${fails > 0 ? `<span class="badge badge-red">⚠️ ${fails} suspenso${fails>1?'s':''}</span>` : '<span class="badge badge-green">✓ Sin suspensos</span>'}
             <span class="badge badge-blue ${trend.class}">${trend.icon} ${trend.label}</span>
             <span class="badge badge-purple">${trimData.length} eval.</span>
             ${wAvg !== null ? `<span class="badge badge-cyan">⊡ Pond: ${wAvg.toFixed(2)}</span>` : ''}
@@ -2200,7 +2200,7 @@ function renderStudentModal() {
     <div style="display:flex; gap:8px; align-items:center">
       <span style="font-size:11px; color:var(--text-muted)">${subjectsToShow.length} materia${subjectsToShow.length!==1?'s':''}</span>
       <button class="toggle-btn ${showOnlyFails?'active':''}" onclick="toggleFailsOnly()">
-        <span class="dot"></span>${showOnlyFails ? 'âš  Solo suspensos' : '📚 Todas'}
+        <span class="dot"></span>${showOnlyFails ? '⚠️ Solo suspensos' : '📚 Todas'}
       </button>
     </div>
   </div>`;
@@ -2246,7 +2246,7 @@ function renderStudentModal() {
       html += `<div style="background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:12px; flex:1; min-width:130px; text-align:center">
         <span class="trimestre-badge t${x.trim}" style="margin-bottom:8px; display:inline-block">${x.trim}ª Evaluación</span>
         <div style="font-size:1.5rem; font-weight:800; font-family:'Syne',sans-serif; color:${avgColor(a)}; margin:6px 0">${a !== null ? a.toFixed(1) : '—'}</div>
-        <div style="font-size:12px; color:${f>0?'var(--red)':'var(--green)'}">${f > 0 ? `âš  ${f} susp.` : '✓ Todo aprobado'}</div>
+        <div style="font-size:12px; color:${f>0?'var(--red)':'var(--green)'}">${f > 0 ? `⚠️ ${f} susp.` : '✓ Todo aprobado'}</div>
       </div>`;
     });
     html += '</div>';
@@ -2314,7 +2314,7 @@ function renderSessionCard() {
     <div class="session-name">${escHtml(name)}</div>
     <div class="student-badges" style="margin-bottom:24px">
       ${avg !== null ? `<span class="badge ${avg>=5?'badge-green':'badge-red'}" style="font-size:13px; padding:5px 14px">Media: ${avg.toFixed(2)}</span>` : ''}
-      ${fails > 0 ? `<span class="badge badge-red" style="font-size:13px; padding:5px 14px">âš  ${fails} suspenso${fails>1?'s':''}</span>` : '<span class="badge badge-green" style="font-size:13px; padding:5px 14px">✓ Sin suspensos</span>'}
+      ${fails > 0 ? `<span class="badge badge-red" style="font-size:13px; padding:5px 14px">⚠️ ${fails} suspenso${fails>1?'s':''}</span>` : '<span class="badge badge-green" style="font-size:13px; padding:5px 14px">✓ Sin suspensos</span>'}
       <span class="badge badge-blue ${trend.class}" style="font-size:13px; padding:5px 14px">${trend.icon} ${trend.label}</span>
       ${wAvg !== null ? `<span class="badge badge-cyan" style="font-size:13px; padding:5px 14px">⊡ Ponderada: ${wAvg.toFixed(2)}</span>` : ''}
       ${risks.length ? `<span class="badge badge-red" style="font-size:13px; padding:5px 14px">🚨 En riesgo</span>` : ''}
@@ -2334,7 +2334,7 @@ function renderSessionCard() {
         return `<div style="background:var(--surface2); border:1px solid var(--border); border-radius:10px; padding:14px 20px; text-align:center; min-width:120px">
           <span class="trimestre-badge t${t}">${t}ª Evaluación</span>
           <div style="font-size:2rem; font-weight:800; font-family:'Syne',sans-serif; color:${avgColor(a)}; margin:8px 0">${a?.toFixed(1)??'—'}</div>
-          <div style="font-size:12px; color:${f>0?'var(--red)':'var(--green)'}">${f>0?`âš  ${f} susp.`:'✓ OK'}</div>
+          <div style="font-size:12px; color:${f>0?'var(--red)':'var(--green)'}">${f>0?`⚠️ ${f} susp.`:'✓ OK'}</div>
         </div>`;
       }).join('')}
     </div>
@@ -3328,7 +3328,6 @@ window.loadDemo = function() {
 };
 </script>
 
-    <script src="../assets/js/site.js"></script>
+    <script src="../assets/js/site.js?v=20260716"></script>
 </body>
 </html>
-

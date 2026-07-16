@@ -200,7 +200,7 @@
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1); } }
 
     </style>
-    <link rel="stylesheet" href="../assets/css/site.css">
+    <link rel="stylesheet" href="../assets/css/site.css?v=20260716">
 </head>
 <body>
 
@@ -387,7 +387,7 @@
 
             // 1. Falta de Estudio
             if (counts.study === 0 && !isFull) {
-                feedbacks.push({ icon: 'âš ï¸', text: 'Aún no has planificado tiempo para hacer los deberes o estudiar.', color: '#EAB308' });
+                feedbacks.push({ icon: '⚠️', text: 'Aún no has planificado tiempo para hacer los deberes o estudiar.', color: '#EAB308' });
             } else if (counts.study === 0 && isFull) {
                 feedbacks.push({ icon: '❌', text: '¡Rutina peligrosa! No has puesto nada de estudio. Los suspensos están garantizados.', color: '#DC2626' });
             }
@@ -434,7 +434,7 @@
         }
     </script>
     
-        <script src="../assets/js/site.js"></script>
+    <script src="../assets/js/site.js?v=20260716"></script>
 </body>
 </html>
 

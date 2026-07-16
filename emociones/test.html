@@ -52,7 +52,7 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
     </style>
-    <link rel="stylesheet" href="../assets/css/site.css">
+    <link rel="stylesheet" href="../assets/css/site.css?v=20260716">
 </head>
 <body>
 
@@ -219,14 +219,14 @@
             scoreText.innerText = `Nivel de riesgo: ${totalScore} puntos`;
 
             if (totalScore <= 4) {
-                icon.innerText = "??";
+                icon.innerText = "🧭";
                 title.innerText = "Piloto Experto";
                 title.style.color = "var(--light-green)";
                 box.style.borderColor = "var(--light-green)";
                 box.innerHTML = "<strong>Tienes un excelente dominio de ti mismo.</strong> Sabes que enfadarse es normal, pero no dejas que la ira tome el control del volante. Eres capaz de parar, pensar y actuar con inteligencia. Entrar en el Gimnasio Emocional te servirá para perfeccionar tus técnicas y ayudar a otros compañeros que lo necesiten.";
             } 
             else if (totalScore >= 5 && totalScore <= 10) {
-                icon.innerText = "âš ï¸";
+                icon.innerText = "⚠️";
                 title.innerText = "Motor Sobrecargado";
                 title.style.color = "var(--light-yellow)";
                 box.style.borderColor = "var(--light-yellow)";
@@ -245,7 +245,6 @@
         initQuiz();
     </script>
     
-        <script src="../assets/js/site.js"></script>
+    <script src="../assets/js/site.js?v=20260716"></script>
 </body>
 </html>
-
