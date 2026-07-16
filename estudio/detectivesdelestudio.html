@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -210,7 +210,7 @@
             }
         }
     </style>
-    <link rel="stylesheet" href="../assets/css/site.css?v=20260716">
+    <link rel="stylesheet" href="../assets/css/site.css?v=20260716-3">
 </head>
 <body>
 
@@ -220,7 +220,7 @@
             <span class="badge-detective">Investigación en curso</span>
             <h1 class="main-title">CSI: El rincón de Carlos</h1>
             <p class="context-text">
-                Carlos estudia 1º de ESO y en la primera evaluación ha sacado varios suspensos por sorpresa. Como detectives del estudio, tu misión es leer su rutina y <strong>hacer clic en las 8 frases que son "Delitos de Estudio"</strong> (malos hábitos).
+                Carlos cursa 1.º de ESO y algunos resultados no han sido los esperados. Lee su rutina y <strong>localiza ocho aspectos que podría revisar</strong>. Después, decide qué alternativas son realistas en su contexto.
             </p>
         </div>
 
@@ -232,7 +232,7 @@
             </div>
 
             <div class="analysis-panel" id="analysis-panel">
-                <div class="analysis-title">🚨 ¡Hábito Tóxico Detectado!</div>
+                <div class="analysis-title">🔎 Aspecto para revisar</div>
                 <div class="analysis-text" id="analysis-text"></div>
                 <div class="analysis-solution" id="analysis-solution"></div>
             </div>
@@ -248,7 +248,7 @@
                     Es decir, estudia <span class="clue" onclick="findClue(this, 2)">sin un horario fijo</span>, solo cuando le apetece (que suele ser pocas veces). Cuando está "estudiando", <span class="clue" onclick="findClue(this, 3)">se levanta frecuentemente</span>: unas veces para ver qué hace su padre en el salón, otras para hacer una visita al frigorífico o asomarse a la ventana.
                 </p>
                 <p>
-                    Pero los días inmediatamente anteriores a los exámenes, eso sí, estudia como un bruto, <span class="clue" onclick="findClue(this, 4)">dándose unas palizas monumentales por la noche</span> y <span class="clue" onclick="findClue(this, 5)">tomándose algún café a hurtadillas</span> para no dormirse.
+                    Pero los días inmediatamente anteriores a los exámenes <span class="clue" onclick="findClue(this, 4)">concentra muchas horas de estudio por la noche</span> y <span class="clue" onclick="findClue(this, 5)">toma café para intentar mantenerse despierto</span>.
                 </p>
                 <p>
                     En clase nunca toma notas, así que suele <span class="clue" onclick="findClue(this, 6)">fotocopiar los apuntes de sus compañeros a última hora</span>. Además, siempre dice que <span class="clue" onclick="findClue(this, 7)">hacer esquemas y subrayar es perder el tiempo</span>.
@@ -258,7 +258,7 @@
             <div class="victory-panel" id="victory-panel">
                 <h2>¡Caso Resuelto! 🏆</h2>
                 <p style="font-size: 1.2rem; margin-bottom: 20px;">
-                    Has detectado todos los errores de Carlos. El entorno y la planificación son el 50% de la nota final. Ahora que conoces las trampas del estudio, ¡asegúrate de no caer en ellas en tu propia habitación!
+                    Has detectado ocho aspectos que Carlos podría ajustar. El entorno y la planificación no determinan por sí solos una nota, pero pueden facilitar la concentración, el descanso y la constancia.
                 </p>
             </div>
 
@@ -270,36 +270,36 @@
         // Base de datos de las pistas, por índice.
         const cluesData = [
             {
-                badHabit: "Estudiar en la cama.",
-                solution: "Solución: La silla debe tener respaldo duro y mesa amplia. En la cama, el cerebro se prepara para dormir, no para concentrarse."
+                badHabit: "Una postura que favorece el sueño.",
+                solution: "Alternativa: busca una postura estable y cómoda y una superficie donde escribir. Si no tienes mesa propia, prepara el mejor apoyo disponible."
             },
             {
                 badHabit: "Tener la TV o la música de fondo.",
-                solution: "Solución: Apaga los aparatos. El ruido divide tu atención a la mitad y tardarás el doble en aprenderte la lección."
+                solution: "Alternativa: reduce el sonido que compite con la tarea. Algunas personas usan silencio y otras un fondo sin letra; comprueba con cuál recuerdas y trabajas mejor."
             },
             {
                 badHabit: "No tener un horario fijo.",
-                solution: "Solución: Hay que trabajar todos los días a las mismas horas. Así se crea el hábito y el cuerpo se acostumbra a concentrarse a esa hora."
+                solution: "Alternativa: reserva momentos reconocibles para el trabajo y ajústalos cuando cambien las actividades o la carga de tareas."
             },
             {
                 badHabit: "Levantarse constantemente (distracciones).",
-                solution: "Solución: Prepara en tu mesa todo el material y el agua ANTES de empezar. Estudia sin interrupciones durante 50 minutos y luego descansa 10."
+                solution: "Alternativa: prepara el material antes y prueba bloques de atención de entre 25 y 50 minutos con pausas breves."
             },
             {
                 badHabit: "Atracones la noche de antes.",
-                solution: "Solución: La memoria necesita tiempo para asimilar. Los atracones nocturnos solo generan estrés y se olvidan a los dos días."
+                solution: "Alternativa: distribuye la práctica durante varios días. Repasar y recuperar la información en momentos distintos suele favorecer el recuerdo."
             },
             {
                 badHabit: "Tomar café o robar horas al sueño.",
-                solution: "Solución: Un estudiante de tu edad debe dormir en torno a 8 horas. Lo que no duermes, no lo memorizas. ¡Es ciencia!"
+                solution: "Alternativa: protege el sueño. En la adolescencia se recomiendan normalmente entre 8 y 10 horas; la cafeína por la tarde puede dificultarlo."
             },
             {
                 badHabit: "Fotocopiar los apuntes de otros.",
-                solution: "Solución: Al tomar tus propios apuntes en clase ya estás haciendo el 40% del estudio. Copiar los de otros no sirve para enterarse del tema."
+                solution: "Alternativa: participa en la toma de apuntes y completa pronto lo que falte. Si tienes apoyos específicos, úsalos para comprender y organizar la información."
             },
             {
                 badHabit: "No hacer esquemas ni subrayar.",
-                solution: "Solución: Leer un texto de Ciencias de principio a fin no es estudiar, es leer. Tienes que ser 'activo': busca lo importante y haz tus propios esquemas."
+                solution: "Alternativa: además de leer, intenta recuperar ideas sin mirar, explicarlas, responder preguntas o elaborar una representación propia."
             }
         ];
 
@@ -322,7 +322,7 @@
 
             // Mostrar el feedback
             const data = cluesData[index];
-            analysisText.innerText = "Error: " + data.badHabit;
+            analysisText.innerText = "Pista de mejora: " + data.badHabit;
             analysisSolution.innerText = data.solution;
             
             // Efecto para que se note la actualización si clican muy rápido
@@ -343,6 +343,6 @@
         }
     </script>
     
-    <script src="../assets/js/site.js?v=20260716"></script>
+    <script src="../assets/js/site.js?v=20260716-3"></script>
 </body>
 </html>

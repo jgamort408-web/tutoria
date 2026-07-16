@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -284,7 +284,7 @@
         }
 
     </style>
-    <link rel="stylesheet" href="../assets/css/site.css?v=20260716">
+    <link rel="stylesheet" href="../assets/css/site.css?v=20260716-3">
 </head>
 <body>
 
@@ -303,7 +303,7 @@
             <ul>
                 <li>Objetivo tutorial: detectar rutinas débiles desde el principio del curso.</li>
                 <li>Lectura útil: no importa la etiqueta final, importa localizar uno o dos hábitos que puedan mejorar ya.</li>
-                <li>Continuidad ideal: enlazar después con <a href="planificar.html">El Arte de Planificar</a> y <a href="planificador.html">Diseña tu Tarde Perfecta</a>.</li>
+                <li>Continuidad sugerida: enlazar después con <a href="planificar.html">El Arte de Planificar</a> y <a href="planificador.html">Diseña una tarde posible</a>.</li>
             </ul>
         </section>
 
@@ -317,9 +317,9 @@
         </div>
 
         <div class="result-container" id="result-container">
-            <div class="profile-icon" id="profile-icon">🏆</div>
-            <div class="profile-title" id="profile-title">Estudiante Élite</div>
-            <div class="profile-desc" id="profile-desc">¡Enhorabuena! Tienes unos hábitos geniales.</div>
+            <div class="profile-icon" id="profile-icon">🧭</div>
+            <div class="profile-title" id="profile-title">Tu punto de partida</div>
+            <div class="profile-desc" id="profile-desc">Observa qué hábitos te ayudan y elige uno que quieras probar.</div>
             
             <div class="tips-container" id="tips-container">
                 <div class="tips-title">Tu Plan de Mejora Personalizado:</div>
@@ -342,18 +342,18 @@
     </div>
 
     <script>
-        // Preguntas extraídas del cuestionario oficial y su respuesta "correcta" o ideal
+        // Autochequeo educativo: las respuestas orientan, no etiquetan al alumnado.
         const questions = [
-            { id: 1, text: "¿Estudias siempre en el mismo lugar?", ideal: "SÍ", tip: "Busca un lugar fijo. Estudiar cada día en un sitio distinto desconcentra." },
+            { id: 1, text: "¿Tienes un lugar en el que puedes estudiar con el material preparado?", ideal: "SÍ", tip: "Busca un lugar que puedas preparar con cierta regularidad. Si cambias de sitio, intenta mantener a mano el mismo material básico." },
             { id: 2, text: "¿Dejas para el último día la preparación de los exámenes?", ideal: "NO", tip: "No dejes los exámenes para el último día. Divide el temario en los días previos." },
-            { id: 3, text: "¿Tienes un horario fijo para estudiar todos los días?", ideal: "SÍ", tip: "Crea una rutina. Estudia y haz los deberes todos los días a la misma hora." },
-            { id: 4, text: "¿Estudias en un lugar alejado de ruidos y con la TV/Móvil apagados?", ideal: "SÍ", tip: "Apaga la tele y aleja el móvil. Los ruidos de fondo hacen que tardes el doble en estudiar." },
-            { id: 5, text: "¿Estudias acostado/a en la cama o recostado en el sofá?", ideal: "NO", tip: "¡Sal de la cama! Estudiar tumbado le manda señales a tu cerebro de que es hora de dormir." },
-            { id: 6, text: "¿Preguntas al profesor/a cuando no entiendes algo en clase?", ideal: "SÍ", tip: "No te lleves las dudas a casa. Preguntar en clase te ahorrará horas de frustración." },
-            { id: 7, text: "¿Sueles apuntar siempre las tareas y exámenes en la AGENDA?", ideal: "SÍ", tip: "No te fíes de tu memoria. Apunta absolutamente todo en la agenda." },
-            { id: 8, text: "¿Pides prestados los apuntes para copiarlos porque no los tienes?", ideal: "NO", tip: "Toma tus propios apuntes. Copiar lo de otros te quita autonomía y no te ayuda a memorizar." },
-            { id: 9, text: "¿Haces esquemas o resúmenes de las lecciones que estudias?", ideal: "SÍ", tip: "Haz un estudio activo: subraya, resume y haz esquemas. Leer como un loro no funciona." },
-            { id: 10, text: "¿Duermes unas 8 horas diarias y te acuestas temprano?", ideal: "SÍ", tip: "El sueño es clave. Si no duermes tus 8 horas, lo que estudiaste ayer se borrará de tu mente." }
+            { id: 3, text: "¿Sueles reservar un momento concreto para tareas y estudio?", ideal: "SÍ", tip: "Reserva un momento reconocible y deja margen para adaptarlo cuando cambie la carga de tareas." },
+            { id: 4, text: "¿Puedes reducir las distracciones que más interrumpen tu estudio?", ideal: "SÍ", tip: "Identifica tu principal distracción y prueba una medida concreta: silenciar avisos, preparar auriculares o avisar de que necesitas un rato tranquilo." },
+            { id: 5, text: "¿Estudias acostado/a en la cama o en una postura que te adormece?", ideal: "NO", tip: "Prueba una postura estable y cómoda, con superficie para escribir. Si no dispones de mesa, prepara el mejor apoyo posible." },
+            { id: 6, text: "¿Pides ayuda cuando no entiendes una explicación o una tarea?", ideal: "SÍ", tip: "Anota la duda y busca un momento para preguntar al profesorado, a un compañero/a o a una persona de apoyo." },
+            { id: 7, text: "¿Registras las tareas y fechas en una agenda o sistema que revisas?", ideal: "SÍ", tip: "Elige un único sistema —agenda, calendario o aplicación— y revísalo al salir de clase y antes de empezar la tarde." },
+            { id: 8, text: "¿Dejas sin completar tus apuntes hasta el último momento?", ideal: "NO", tip: "Si te faltan apuntes, complétalos pronto y asegúrate de entenderlos. Usa los apoyos que el profesorado haya previsto para ti." },
+            { id: 9, text: "¿Transformas la información de alguna forma: preguntas, esquema, explicación o práctica?", ideal: "SÍ", tip: "Prueba una estrategia activa adecuada a la materia: recuperar sin mirar, explicar, resolver ejercicios, resumir o hacer un esquema." },
+            { id: 10, text: "¿Sueles dormir entre 8 y 10 horas y mantener horarios de sueño regulares?", ideal: "SÍ", tip: "En la adolescencia se recomiendan normalmente entre 8 y 10 horas de sueño. Si dormir resulta difícil de forma habitual, coméntalo con una persona adulta." }
         ];
 
         // Estado de respuestas del usuario
@@ -437,20 +437,20 @@
 
             // Asignar perfil según puntuación
             if (score >= 8) {
-                pIcon.innerText = "🚀";
-                pTitle.innerText = "Estudiante Élite";
+                pIcon.innerText = "🧰";
+                pTitle.innerText = "Varios hábitos te ayudan";
                 pTitle.style.color = "var(--primary)";
-                pDesc.innerText = `¡Puntuación: ${score}/10! Tienes unos hábitos de estudio geniales. Si mantienes esta rutina, la ESO será un paseo para ti.`;
+                pDesc.innerText = `${score} de 10 hábitos ya aparecen en tu rutina. Elige uno para consolidar y recuerda que las necesidades cambian según la materia y la semana.`;
             } else if (score >= 5) {
                 pIcon.innerText = "🌱";
-                pTitle.innerText = "Estudiante Promesa";
+                pTitle.innerText = "Una base para ajustar";
                 pTitle.style.color = "var(--accent-hover)";
-                pDesc.innerText = `¡Puntuación: ${score}/10! Estás en el buen camino, pero tienes algunos despistes que te roban tiempo y energía.`;
+                pDesc.innerText = `${score} de 10 hábitos aparecen en tu rutina. Escoge un cambio pequeño y comprueba durante una semana si te resulta útil.`;
             } else {
-                pIcon.innerText = "🎢";
-                pTitle.innerText = "Estudiante Kamikaze";
-                pTitle.style.color = "#DC2626"; // Rojo alerta
-                pDesc.innerText = `¡Puntuación: ${score}/10! ¡Alerta! Estás estudiando en modo supervivencia. Necesitas aplicar los siguientes consejos cuanto antes para no agobiarte.`;
+                pIcon.innerText = "🧭";
+                pTitle.innerText = "Elige un primer cambio";
+                pTitle.style.color = "#B45309"; // Ámbar orientativo, sin etiquetar el resultado como fallo
+                pDesc.innerText = `${score} de 10 hábitos aparecen ahora. No es una etiqueta: empieza por el consejo más fácil y pide ayuda para adaptarlo a tu situación.`;
             }
 
             // Mostrar consejos personalizados
@@ -485,7 +485,7 @@
 
     </script>
     
-    <script src="../assets/js/site.js?v=20260716"></script>
+    <script src="../assets/js/site.js?v=20260716-3"></script>
 </body>
 </html>
 

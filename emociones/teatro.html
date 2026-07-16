@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -58,15 +58,15 @@
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1); } }
 
     </style>
-    <link rel="stylesheet" href="../assets/css/site.css?v=20260716">
+    <link rel="stylesheet" href="../assets/css/site.css?v=20260716-3">
 </head>
 <body>
 
     <div class="main-container">
         <div class="header">
             <h1>Teatro de Decisiones</h1>
-            <p class="subtitle">Cada vez que alguien te provoca, te está poniendo a prueba. Eres tú quien decide si le regalas tu poder o si mantienes el control. Analiza las consecuencias.</p>
-            <div class="mantra-badge">👉 Parar no es perder — es elegir.</div>
+            <p class="subtitle">Compara distintas respuestas ante conflictos cotidianos. Regularse no significa aguantar en silencio: significa protegerte y expresarte sin aumentar el daño.</p>
+            <div class="mantra-badge">Pausa · respuesta asertiva · apoyo si hace falta</div>
         </div>
 
         <div class="theater-stage">
@@ -106,13 +106,13 @@
                     "Te ponen un parte disciplinario y tus padres te castigan sin móvil el fin de semana."
                 ],
                 control: [
-                    "Haces la pausa de 10 segundos. Respiras hondo y aprietas los puños, pero no haces nada.",
-                    "Le miras fijamente, niegas con la cabeza y sigues caminando hacia tu grupo.",
-                    "Él se queda buscando pelea, pero al no hacerle caso, queda en ridículo delante de todos.",
-                    "Un profesor que lo ha visto todo le llama la atención a él por su actitud."
+                    "Haces una pausa, respiras y das un paso para recuperar espacio.",
+                    "Dices con firmeza: 'No me empujes. No me ha hecho gracia'.",
+                    "Te acercas a tu grupo o a una zona en la que te sientes seguro/a.",
+                    "Si se repite o hay amenaza, se lo comunicas a una persona adulta del centro."
                 ],
-                conclusionRed: "❌ Él se ha reído y tú te has llevado un parte y te has quedado sin móvil. Le has regalado el poder de arruinarte la tarde. TÚ PIERDES.",
-                conclusionGreen: "✅ Has mantenido el control. Él se ha llevado la bronca y tú conservas tu libertad y tu móvil. TÚ GANAS."
+                conclusionRed: "Esta respuesta aumenta el conflicto y puede causar daño. La responsabilidad del empujón inicial sigue siendo de la otra persona, pero devolverlo no te protege.",
+                conclusionGreen: "Esta respuesta combina regulación, un límite claro y búsqueda de apoyo. Puedes adaptarla si la situación no es segura."
             },
             {
                 text: "Estás jugando un partido en el patio. El árbitro (un alumno) pita una falta en tu contra que es totalmente injusta.",
@@ -124,12 +124,12 @@
                 ],
                 control: [
                     "Te da mucha rabia. Aprietas los dientes, pero te alejas de la jugada.",
-                    "Respiras hondo y te dices a ti mismo: 'Solo es un patio, no pasa nada'.",
-                    "Vuelves a tu posición en el campo y sigues jugando a tope.",
-                    "Marcas un golazo dos minutos después y tu equipo lo celebra contigo."
+                    "Respiras y te alejas unos pasos de la jugada.",
+                    "Dices: 'No estoy de acuerdo, pero respeto la decisión'.",
+                    "Vuelves a tu posición y sigues jugando con tu equipo."
                 ],
-                conclusionRed: "❌ Por una falta tonta, te has quedado sin jugar y te has enfadado con tus amigos. TÚ PIERDES.",
-                conclusionGreen: "✅ Tragaste tu rabia un segundo y pudiste seguir disfrutando de tu recreo y tus amigos. TÚ GANAS."
+                conclusionRed: "Gritar y lanzar el balón desplaza el problema hacia tus compañeros y hace más difícil reparar el desacuerdo.",
+                conclusionGreen: "Puedes expresar desacuerdo y, al mismo tiempo, cuidar las normas del juego y la relación con el equipo."
             },
             {
                 text: "El profesor te llama la atención en clase por hablar, pero en realidad era el compañero de atrás quien estaba hablando.",
@@ -140,13 +140,13 @@
                     "Te expulsa de clase y te manda a Jefatura con una nota roja."
                 ],
                 control: [
-                    "Te muerdes la lengua aunque te parezca súper injusto.",
-                    "Dices en tono normal: 'Perdone profe, pero yo no estaba hablando'.",
-                    "El profe te pide que te calles igualmente, y tú asientes y sigues copiando.",
-                    "Al final de la clase te acercas a hablarlo con él tranquilamente y él te da la razón."
+                    "Haces una pausa para no responder desde el enfado.",
+                    "Dices en tono respetuoso: 'No estaba hablando. ¿Podemos aclararlo después?'.",
+                    "Anotas lo ocurrido y continúas con la tarea para no escalar la situación.",
+                    "Al final de la clase lo explicas; si no se resuelve, pides apoyo a tu tutor/a."
                 ],
-                conclusionRed: "❌ Tenías razón, pero al perder las formas, perdiste la razón y te llevaste un castigo. TÚ PIERDES.",
-                conclusionGreen: "✅ Mantuviste la calma, evitaste el parte y al final demostraste que eras inocente. TÚ GANAS."
+                conclusionRed: "Tener razón no justifica gritar, pero una corrección injusta tampoco debe ignorarse. Conviene buscar otro momento y un canal adecuado.",
+                conclusionGreen: "La respuesta asertiva permite defender tu punto de vista sin aumentar el conflicto y deja abierta la posibilidad de pedir apoyo."
             }
         ];
 
@@ -219,7 +219,7 @@
         function finishTraining() {
             sceneCounter.innerText = "ENTRENAMIENTO COMPLETADO";
             sceneCounter.style.color = "var(--light-green)";
-            sceneText.innerText = "Has entendido perfectamente cómo funciona tu cerebro. Tú tienes el poder de elegir el resultado de tus problemas.";
+            sceneText.innerText = "Has comparado distintas respuestas. El siguiente paso es elegir una frase asertiva y una persona de apoyo para practicar fuera de la pantalla.";
             decisionPanel.style.display = 'none';
             consequencesContainer.innerHTML = '';
             conclusionBox.style.display = 'none';
@@ -232,6 +232,6 @@
     </script>
 
     
-    <script src="../assets/js/site.js?v=20260716"></script>
+    <script src="../assets/js/site.js?v=20260716-3"></script>
 </body>
 </html>

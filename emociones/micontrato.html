@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Contrato - Gimnasio Emocional</title>
+    <title>Mi plan de regulación - Tutoría 1.º ESO</title>
     <style>
         :root {
             --bg-dark: #111827; --text-light: #F9FAFB; --volcano-rock: #374151;
@@ -62,81 +62,82 @@
         @keyframes slideUp { 0% { opacity: 0; transform: translateY(30px); } 100% { opacity: 1; transform: translateY(0); } }
 
     </style>
-    <link rel="stylesheet" href="../assets/css/site.css?v=20260716">
+    <link rel="stylesheet" href="../assets/css/site.css?v=20260716-3">
 </head>
 <body>
 
     <div class="main-container">
         <div class="header">
-            <h1>Contrato de Autocontrol</h1>
-            <p class="subtitle">Prometer que te vas a portar bien no sirve de nada. Necesitas un plan exacto de cómo vas a reaccionar. Configura tu fórmula personal y sella tu compromiso.</p>
+            <h1>Mi plan de regulación</h1>
+            <p class="subtitle">Anticipar una situación, reconocer señales y elegir apoyos puede ayudarte a responder con más seguridad. Prepara un plan flexible que puedas revisar con una persona adulta de confianza.</p>
             <div class="mantra-badge">👉 Parar no es perder — es elegir.</div>
         </div>
 
         <div class="form-panel" id="form-panel">
             <div class="form-group">
-                <label class="form-label">1. ¿Cuál es tu punto débil?</label>
-                <div class="form-desc">Elige la situación exacta en la que sueles perder el control:</div>
+                <label class="form-label">1. ¿Qué situación quieres preparar?</label>
+                <div class="form-desc">Elige una situación en la que te cuesta responder como te gustaría:</div>
                 <select class="form-select" id="input-trigger">
                     <option value="" disabled selected>-- Selecciona una situación --</option>
                     <option value="un compañero me insulta o se ríe de mí">Un compañero me insulta o se ríe de mí</option>
-                    <option value="un profesor me llama la atención injustamente">Un profesor me llama la atención injustamente</option>
+                    <option value="una corrección de un adulto me parece injusta">Una corrección de un adulto me parece injusta</option>
                     <option value="pierdo en un juego o partido en el patio">Pierdo en un juego o partido en el patio</option>
                     <option value="alguien me quita o toca mis cosas">Alguien me quita o toca mis cosas</option>
-                    <option value="mis padres me castigan o me quitan el móvil">Mis padres me castigan o me quitan el móvil</option>
+                    <option value="en casa me ponen un límite con el que no estoy de acuerdo">En casa me ponen un límite con el que no estoy de acuerdo</option>
                 </select>
             </div>
 
             <div class="form-group">
                 <label class="form-label">2. ¿Cómo avisa tu cuerpo?</label>
-                <div class="form-desc">¿Qué sientes justo antes de explotar? (Fase Amarilla):</div>
+                <div class="form-desc">¿Qué señal sueles notar cuando aumenta tu activación? Las señales varían de una persona a otra.</div>
                 <select class="form-select" id="input-signal">
                     <option value="" disabled selected>-- Selecciona tu señal física --</option>
                     <option value="aprieto los puños y los dientes">Aprieto los puños y los dientes</option>
-                    <option value="mi corazón late súper rápido">Mi corazón late súper rápido (taquicardia)</option>
+                    <option value="noto el corazón más rápido">Noto el corazón más rápido</option>
                     <option value="siento mucho calor y mi respiración se acelera">Siento mucho calor y mi respiración se acelera</option>
                     <option value="siento un nudo de nervios en el estómago">Siento un nudo de nervios en el estómago</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label class="form-label">3. ¿Cuál será tu escudo protector?</label>
-                <div class="form-desc">¿Qué vas a hacer inmediatamente para frenar?</div>
+                <label class="form-label">3. ¿Qué estrategia probarás?</label>
+                <div class="form-desc">Elige una respuesta segura. Si no funciona o hay riesgo, pide ayuda a una persona adulta.</div>
                 <select class="form-select" id="input-strategy">
                     <option value="" disabled selected>-- Selecciona tu estrategia --</option>
                     <option value="hacer una pausa, cerrar los ojos y respirar 5 veces">Hacer una pausa, cerrar los ojos y respirar 5 veces</option>
                     <option value="darme la vuelta, alejarme de allí y contar hasta 10">Darme la vuelta, alejarme de allí y contar hasta 10</option>
-                    <option value="ignorar la provocación y decírselo a un profesor">Ignorar la provocación y decírselo a un profesor</option>
-                    <option value="morderme la lengua y pedir espacio para calmarme">Morderme la lengua y pedir espacio para calmarme</option>
+                    <option value="no entrar en la provocación y pedir apoyo al profesorado">No entrar en la provocación y pedir apoyo al profesorado</option>
+                    <option value="decir que necesito espacio y explicar el límite con calma">Decir que necesito espacio y explicar el límite con calma</option>
                 </select>
             </div>
 
             <div class="form-group">
-                <label class="form-label">4. ¿Quién asume este compromiso?</label>
-                <input type="text" class="form-input" id="input-name" placeholder="Escribe tu nombre y primer apellido..." autocomplete="off">
+                <label class="form-label">4. Nombre o iniciales (opcional)</label>
+                <div class="form-desc">No escribas datos personales si la actividad se va a proyectar o compartir.</div>
+                <input type="text" class="form-input" id="input-name" placeholder="Nombre, iniciales o alias..." autocomplete="off">
             </div>
 
-            <button class="btn-sign" onclick="generateContract()">Firmar Compromiso ➔</button>
-            <div id="form-error" style="color: #FCA5A5; text-align: center; margin-top: 15px; display: none; font-weight: bold;">⚠️ Por favor, rellena todos los campos antes de firmar.</div>
+            <button class="btn-sign" onclick="generateContract()">Crear mi plan ➔</button>
+            <div id="form-error" style="color: #FCA5A5; text-align: center; margin-top: 15px; display: none; font-weight: bold;">Selecciona una situación, una señal y una estrategia.</div>
         </div>
 
         <div class="contract-panel" id="contract-panel">
             <div class="contract-header">
                 <div class="contract-logo">🤝</div>
-                <div class="contract-title">Acuerdo Personal de Autocontrol</div>
+                <div class="contract-title">Plan personal de regulación</div>
             </div>
             
             <div class="contract-body">
-                Yo, <span class="contract-fill" id="out-name">________</span>, alumno/a de 1º de ESO, entiendo que sentir enfado es natural, pero que la agresividad es una elección.<br><br>
-                Por ello, me comprometo oficialmente a que la próxima vez que <span class="contract-fill" id="out-trigger">________</span>, y note que mi cuerpo me avisa porque <span class="contract-fill" id="out-signal">________</span>...<br><br>
-                <strong>No me dejaré llevar por la impulsividad.</strong> En su lugar, aplicaré mi estrategia de <span class="contract-fill" id="out-strategy">________</span> para proteger mi expediente, mi libertad y demostrar que yo tengo el control de mi vida.
+                Yo, <span class="contract-fill" id="out-name">________</span>, reconozco que sentir enfado es natural y que puedo practicar formas seguras de responder.<br><br>
+                Cuando <span class="contract-fill" id="out-trigger">________</span> y note que <span class="contract-fill" id="out-signal">________</span>, probaré <span class="contract-fill" id="out-strategy">________</span>.<br><br>
+                Si la situación continúa, me siento en peligro o la estrategia no es suficiente, pediré apoyo a una persona adulta de confianza. Revisaré este plan después para adaptarlo a lo que necesite.
             </div>
 
             <div class="contract-footer">
                 <div class="seal">⚖️</div>
                 <div class="signature-box">
                     <div class="signature-line" id="out-signature"></div>
-                    <div style="font-weight: bold; text-transform: uppercase;">Firma del Alumno/a</div>
+                    <div style="font-weight: bold; text-transform: uppercase;">Nombre, iniciales o alias</div>
                     <div style="font-size: 0.9rem; color: #6B7280; margin-top: 5px;">"Parar no es perder — es elegir"</div>
                 </div>
             </div>
@@ -155,11 +156,11 @@
             const trigger = document.getElementById('input-trigger').value;
             const signal = document.getElementById('input-signal').value;
             const strategy = document.getElementById('input-strategy').value;
-            const name = document.getElementById('input-name').value.trim();
+            const name = document.getElementById('input-name').value.trim() || 'Sin nombre';
             const errorMsg = document.getElementById('form-error');
 
             // Validar
-            if (!trigger || !signal || !strategy || !name) {
+            if (!trigger || !signal || !strategy) {
                 errorMsg.style.display = 'block';
                 return;
             }
@@ -190,6 +191,6 @@
     </script>
 
     
-    <script src="../assets/js/site.js?v=20260716"></script>
+    <script src="../assets/js/site.js?v=20260716-3"></script>
 </body>
 </html>
