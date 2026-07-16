@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protocolo de Evacuación - Escape Room</title>
+    <title>Decisiones durante una evacuación - Tutoría 1.º ESO</title>
     <style>
         :root {
             --primary: #B91C1C; /* Rojo Carmesí */
@@ -198,16 +198,16 @@
         }
 
     </style>
-    <link rel="stylesheet" href="../assets/css/site.css?v=20260716">
+    <link rel="stylesheet" href="../assets/css/site.css?v=20260716-3">
 </head>
 <body>
 
     <div class="main-container">
         
         <div class="header-section">
-            <h1>Escape Room: La Evacuación</h1>
+            <h1>Decisiones durante una evacuación</h1>
             <p class="context-text">
-                Acaba de sonar la alarma de 5 toques. Estás dentro del instituto y debes tomar las decisiones correctas para salir a salvo. Un paso en falso y quedarás atrapado. ¡Suerte!
+                Practica una secuencia de decisiones sin prisa. Antes de empezar, recuerda que en una situación real debes seguir el Plan de Autoprotección del centro y las indicaciones del personal responsable.
             </p>
         </div>
 
@@ -222,17 +222,17 @@
             </div>
 
             <div class="result-screen" id="game-over-container">
-                <div class="result-icon">☠️</div>
-                <div class="result-title" style="color: var(--primary);">Misión Fallida</div>
+                <div class="result-icon">🔎</div>
+                <div class="result-title" style="color: var(--primary);">Revisa esta decisión</div>
                 <div class="result-desc" id="game-over-text"></div>
                 <button class="btn-action btn-retry" onclick="startGame()">Volver a intentar</button>
             </div>
 
             <div class="result-screen" id="victory-container">
                 <div class="result-icon">🏆</div>
-                <div class="result-title" style="color: var(--accent);">¡A Salvo!</div>
+                <div class="result-title" style="color: var(--accent);">Secuencia completada</div>
                 <div class="result-desc">
-                    Has demostrado tener la cabeza fría. Seguiste las normas: mochilas en la mesa, silencio, cerrar puertas, no correr y no volver atrás. Eres un experto/a en emergencias.
+                    Has identificado varias pautas habituales: dejar los objetos, escuchar, mantener el grupo, no correr y no volver atrás. Contrasta ahora esta secuencia con la ruta y el protocolo específicos de tu centro.
                 </div>
             </div>
 
@@ -241,7 +241,7 @@
     </div>
 
     <script>
-        // Nodos de la historia (Escape Room)
+        // Nodos de la actividad de decisiones
         const storyNodes = {
             start: {
                 level: "Fase 1: El Aula",
@@ -253,7 +253,7 @@
             },
             node_2: {
                 level: "Fase 2: La Puerta",
-                text: "Bien hecho. Al ponerla en la mesa evitas que alguien tropiece si se llena la clase de humo. Te colocas el último en la fila. Salís al pasillo en silencio siguiendo al profesor.",
+                text: "Al ponerla en la mesa despejas el recorrido. Te colocas en la fila y salís siguiendo las indicaciones del profesorado.",
                 choices: [
                     { text: "Como soy el último, me aseguro de CERRAR la puerta de la clase al salir.", next: "node_3" },
                     { text: "Salgo corriendo para alcanzar al profesor y dejo la puerta abierta.", next: "fail_puerta" }
@@ -261,7 +261,7 @@
             },
             node_3: {
                 level: "Fase 3: Las Escaleras",
-                text: "¡Perfecto! Cerrar la puerta evita que el humo se extienda. Llegáis a las escaleras, pero hay otra clase bajando muy despacio.",
+                text: "Cerrar la puerta, si así lo establece el protocolo y puedes hacerlo sin retrasarte, ayuda a limitar la propagación de humo. Llegáis a las escaleras y hay otro grupo descendiendo.",
                 choices: [
                     { text: "Les pedimos paso y los adelantamos por la izquierda para salir antes.", next: "fail_escaleras" },
                     { text: "Mantenemos nuestra fila pegada a la pared y bajamos a su ritmo.", next: "node_4" }
@@ -269,41 +269,41 @@
             },
             node_4: {
                 level: "Fase 4: El Olvido",
-                text: "Buena decisión, adelantar causa avalanchas. Ya estáis casi en la salida, pero de repente recuerdas que te has dejado las llaves de casa en tu mesa.",
+                text: "Mantener el orden reduce tropiezos y bloqueos. Ya estáis cerca de la salida, pero recuerdas que has dejado las llaves en tu mesa.",
                 choices: [
                     { text: "Me doy la vuelta y subo corriendo. Solo tardaré 10 segundos.", next: "fail_volver" },
-                    { text: "Lo material no importa. Sigo hacia el punto de encuentro.", next: "node_5" }
+                    { text: "No vuelvo atrás. Sigo hacia el punto de encuentro.", next: "node_5" }
                 ]
             },
             node_5: {
                 level: "Fase 5: El Punto de Encuentro",
                 text: "Llegáis a las pistas exteriores. Hay mucho ruido y otras clases se están reuniendo. El profesor empieza a contaros.",
                 choices: [
-                    { text: "Me quedo en mi fila en absoluto silencio hasta que el profe termine de contar y avise al Jefe de Emergencia.", next: "victory" },
+                    { text: "Permanezco con mi grupo y facilito el recuento, atento a las indicaciones.", next: "victory" },
                     { text: "Aprovecho para ir a buscar a mi mejor amigo que está en otra clase para ver si está bien.", next: "fail_patio" }
                 ]
             },
 
-            // PANTALLAS DE GAME OVER
+            // Retroalimentación para revisar cada decisión
             fail_mochila: {
                 type: "game_over",
-                text: "Has cogido la mochila. Al salir al pasillo te has enganchado con la puerta y has provocado un tapón. El protocolo prohíbe llevar objetos personales."
+                text: "Recoger la mochila retrasa la salida y puede dificultar el paso. La opción más segura es dejar los objetos, apartar del recorrido lo que indique el protocolo y unirse al grupo."
             },
             fail_puerta: {
                 type: "game_over",
-                text: "Has dejado la puerta abierta y además has corrido. Correr provoca caídas, y dejar la puerta abierta hace que el posible fuego y humo se extiendan rápidamente por el instituto."
+                text: "Correr aumenta el riesgo de tropiezos. Sal con el grupo y, si el protocolo del centro lo indica y puedes hacerlo sin demorarte, cierra la puerta al abandonar el aula."
             },
             fail_escaleras: {
                 type: "game_over",
-                text: "Al intentar adelantar a la otra clase en las escaleras, alguien ha tropezado. Habéis provocado una avalancha humana y habéis bloqueado la salida."
+                text: "Adelantar en una escalera puede romper el orden y provocar tropiezos. Mantén la fila y sigue el ritmo y las indicaciones del personal responsable."
             },
             fail_volver: {
                 type: "game_over",
-                text: "¡Nunca se vuelve atrás! Al intentar subir las escaleras a contracorriente, has chocado con la multitud que bajaba y has quedado atrapado."
+                text: "Volver atrás interfiere con el flujo de salida. Continúa hasta el punto de encuentro y comunica después qué objeto has dejado."
             },
             fail_patio: {
                 type: "game_over",
-                text: "Al irte a buscar a tu amigo, tu profesor ha notado que faltabas en el recuento. Han pensado que estabas atrapado en el edificio y los bomberos han tenido que entrar a buscarte arriesgando su vida."
+                text: "Separarte del grupo impide que el recuento sea fiable. Permanece en tu punto de encuentro y comunica al profesorado cualquier preocupación sobre otra persona."
             }
         };
 
@@ -372,7 +372,7 @@
 
     </script>
     
-    <script src="../assets/js/site.js?v=20260716"></script>
+    <script src="../assets/js/site.js?v=20260716-3"></script>
 </body>
 </html>
 

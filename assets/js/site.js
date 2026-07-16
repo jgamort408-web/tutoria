@@ -50,7 +50,7 @@
     "emociones/semaforodeira.html":          ["45 min", "Parejas", "Practicar parar, pensar y actuar ante un conflicto", "Tarjetas roja, amarilla y verde opcionales"],
     "emociones/pausa10seg.html":             ["25 min", "Grupo", "Ensayar una pausa física antes de responder", "Altavoces opcionales y ambiente tranquilo"],
     "emociones/teatro.html":                 ["50 min", "Equipos de 4", "Comparar consecuencias de respuestas impulsivas y reguladas", "Repartir roles y acordar derecho a pasar"],
-    "emociones/micontrato.html":             ["30 min", "Individual", "Formular un compromiso pequeño, observable y revisable", "Dispositivo; impresión opcional"],
+    "emociones/micontrato.html":             ["30 min", "Individual y revisable con un adulto", "Preparar señales, estrategias y petición de apoyo", "Dispositivo; impresión opcional y sin datos personales"],
     "emociones/test.html":                   ["20 min", "Individual y privado", "Iniciar reflexión, nunca diagnosticar ni calificar", "Dispositivo individual y recordatorio de confidencialidad"],
     "8marzo/origen.html":                    ["45 min", "Grupo + parejas", "Comprender el sentido social e histórico del 8M", "Pizarra para dudas y aprendizajes"],
     "8marzo/mujeresenlaciencia.html":        ["55 min", "Equipos de 3–4", "Ampliar referentes y analizar la invisibilización", "Un dispositivo por equipo"],
@@ -61,7 +61,7 @@
     "evacuacion/normas.html":                ["30 min", "Grupo", "Recordar las conductas esenciales de evacuación", "Protocolo real del centro a la vista"],
     "evacuacion/ruta.html":                  ["40 min", "Parejas", "Aplicar el protocolo a la ruta real del aula", "Plano y punto de encuentro del centro"],
     "evacuacion/simulacro.html":             ["35 min", "Grupo", "Tomar decisiones seguras sin generar alarma", "Proyector; aclarar que es una simulación"],
-    "evacuacion/escaperoom.html":            ["50 min", "Equipos de 4", "Comprobar el protocolo mediante retos cooperativos", "Proyector y portavoz por equipo"],
+    "evacuacion/escaperoom.html":            ["30 min", "Parejas o grupo-clase", "Contrastar decisiones con el protocolo real del centro", "Proyector y Plan de Autoprotección del centro"],
     "evaluacion/delegadovotacion.html":      ["55 min", "Grupo-clase", "Elegir representación con criterios y voto secreto", "Censo, candidaturas y dispositivo del docente"],
     "evaluacion/analisisavanzado.html":      ["Uso docente", "Solo profesorado", "Preparar la evaluación sin exponer datos personales", "CSV anonimizado; evitar proyectar información sensible"]
   };
@@ -80,6 +80,7 @@
   setupScrollReveal();
   setupMobileMenu();
   setupGlobalAccessibility();
+  enhanceActivityControls();
 
   /* ── Folder detection ───────────────────────────────────── */
   function detectFolder() {
@@ -405,6 +406,45 @@
     });
   }
 
+  /* ── Keyboard and status support for legacy activities ─── */
+  function enhanceActivityControls() {
+    if (!document.body.classList.contains("is-activity-page")) return;
+
+    document.querySelectorAll("button:not([type])").forEach(button => {
+      button.type = "button";
+    });
+
+    const labelsById = {
+      "light-red": "Activar fase roja: activación muy alta",
+      "light-yellow": "Activar fase amarilla: detectar señales",
+      "light-green": "Activar fase verde: calma y conexión"
+    };
+
+    document.querySelectorAll(
+      "[onclick]:not(button):not(a):not(input):not(select):not(textarea)"
+    ).forEach(control => {
+      control.setAttribute("role", "button");
+      if (!control.hasAttribute("tabindex")) control.tabIndex = 0;
+      if (!control.hasAttribute("aria-label")) {
+        const visibleLabel = control.textContent.replace(/\s+/g, " ").trim();
+        const label = labelsById[control.id] || control.title || visibleLabel;
+        if (label) control.setAttribute("aria-label", label.slice(0, 140));
+      }
+      control.addEventListener("keydown", event => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          control.click();
+        }
+      });
+    });
+
+    document.querySelectorAll(
+      "[id*='feedback'], [class*='feedback'], [id*='result'], [class*='result'], #conclusion"
+    ).forEach(status => {
+      if (!status.hasAttribute("aria-live")) status.setAttribute("aria-live", "polite");
+    });
+  }
+
   /* ── Scroll reveal ──────────────────────────────────────── */
   function setupScrollReveal() {
     const els = document.querySelectorAll("[data-reveal]");
@@ -430,20 +470,6 @@
 
   /* ── Translator ─────────────────────────────────────────── */
   function setupTranslator() {
-    document.addEventListener("click", event => {
-      const button = event.target.closest("[data-lang]");
-      if (!button) return;
-      setLanguage(button.dataset.lang);
-    });
-
-    if (!document.querySelector('script[data-google-translate="true"]')) {
-      const script = document.createElement("script");
-      script.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-      script.async = true;
-      script.dataset.googleTranslate = "true";
-      document.body.appendChild(script);
-    }
-
     window.googleTranslateElementInit = function () {
       if (!window.google || !window.google.translate) return;
       const container = document.getElementById("google_translate_element");
@@ -454,9 +480,41 @@
       );
       container.dataset.ready = "true";
     };
+
+    document.addEventListener("click", event => {
+      const button = event.target.closest("[data-lang]");
+      if (!button) return;
+      setLanguage(button.dataset.lang);
+    });
+
+    let selectedLanguage = baseLanguage;
+    try {
+      selectedLanguage = localStorage.getItem("tutoria-language") || baseLanguage;
+    } catch (_) {
+      selectedLanguage = baseLanguage;
+    }
+
+    // El servicio externo solo se carga cuando el usuario ha pedido una traducción.
+    // Esto evita bloquear la carga normal y reduce avisos de terceros innecesarios.
+    if (selectedLanguage !== baseLanguage) loadGoogleTranslator();
+  }
+
+  function loadGoogleTranslator() {
+    if (!document.querySelector('script[data-google-translate="true"]')) {
+      const script = document.createElement("script");
+      script.src = "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+      script.async = true;
+      script.dataset.googleTranslate = "true";
+      document.body.appendChild(script);
+    }
   }
 
   function setLanguage(lang) {
+    try {
+      localStorage.setItem("tutoria-language", lang);
+    } catch (_) {
+      // La cookie mantiene la selección si el almacenamiento local está desactivado.
+    }
     const value = `/${baseLanguage}/${lang}`;
     document.cookie = `googtrans=${value};path=/;max-age=31536000`;
     document.cookie = `googtrans=${value};path=/;domain=${window.location.hostname};max-age=31536000`;

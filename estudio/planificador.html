@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -200,16 +200,16 @@
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1); } }
 
     </style>
-    <link rel="stylesheet" href="../assets/css/site.css?v=20260716">
+    <link rel="stylesheet" href="../assets/css/site.css?v=20260716-3">
 </head>
 <body>
 
     <div class="main-container">
         
         <div class="header-section">
-            <h1 class="main-title">Diseña tu Tarde Perfecta</h1>
+            <h1 class="main-title">Diseña una tarde posible</h1>
             <p class="context-text">
-                Toca cada hueco del horario para añadir una actividad. Tu objetivo es crear una rutina equilibrada. Nuestro "Asistente Virtual" analizará tu horario y te avisará si te estás pasando de ocio o si estudias demasiado tarde.
+                Toca cada hueco para ensayar una rutina que incluya responsabilidades, descanso y tiempo personal. El asistente ofrece pistas para revisarla, no una valoración de cómo debería ser tu vida fuera del aula.
             </p>
         </div>
 
@@ -280,8 +280,8 @@
             <h2>Ideas para el cierre de la sesión</h2>
             <ul>
                 <li>Pedir al grupo que escriba una mejora concreta para aplicar esa misma semana.</li>
-                <li>Comparar qué pasa cuando el estudio empieza a las 16:00 frente a cuando se deja para las 21:00.</li>
-                <li>Recordar que el móvil, la tele y las pausas largas son los saboteadores más frecuentes en 1.º ESO.</li>
+                <li>Comparar cómo cambia la propuesta al mover el estudio, respetando horarios familiares, extraescolares y necesidades personales.</li>
+                <li>Distinguir entre descanso elegido y distracciones que dificultan cumplir el propio plan, sin culpabilizar el uso de pantallas.</li>
             </ul>
         </section>
 
@@ -389,32 +389,32 @@
             if (counts.study === 0 && !isFull) {
                 feedbacks.push({ icon: '⚠️', text: 'Aún no has planificado tiempo para hacer los deberes o estudiar.', color: '#EAB308' });
             } else if (counts.study === 0 && isFull) {
-                feedbacks.push({ icon: '❌', text: '¡Rutina peligrosa! No has puesto nada de estudio. Los suspensos están garantizados.', color: '#DC2626' });
+                feedbacks.push({ icon: '🧩', text: 'La tarde está completa, pero falta reservar un bloque para tareas o estudio. Revisa qué actividad puedes acortar o mover.', color: '#DC2626' });
             }
 
             // 2. Exceso de Estudio
             if (counts.study >= 4) {
-                feedbacks.push({ icon: '🤯', text: '¡Demasiado estudio! Nadie aguanta tantas horas seguidas. Necesitas descansar el cerebro.', color: '#DC2626' });
+                feedbacks.push({ icon: '⏸️', text: 'Has añadido muchas horas de estudio. Comprueba que incluyes pausas, cena y descanso; quizá puedas repartir parte en otro día.', color: '#DC2626' });
             }
 
             // 3. Exceso de Pantallas
             if (counts.leisure >= 3) {
-                feedbacks.push({ icon: '📱', text: 'Muchas horas de pantallas te quitarán el sueño por la noche y te restan tiempo de estudio.', color: '#DC2626' });
+                feedbacks.push({ icon: '📱', text: 'Has reservado bastante tiempo de pantalla. Valora cómo influye en el sueño y si deja espacio para otras actividades que también disfrutas.', color: '#DC2626' });
             }
 
             // 4. Empezar a buena hora (Recomendación del PDF)
             if (schedule[0] === 'study' || schedule[1] === 'study') {
-                feedbacks.push({ icon: '✅', text: '¡Genial! Empezar a estudiar a las 16:00 o 17:00 es lo mejor porque estás menos cansado.', color: '#16A34A' });
+                feedbacks.push({ icon: '✅', text: 'Has situado el estudio al principio de la tarde. Puede funcionar si antes has comido, descansado un poco y ese horario encaja con tu familia.', color: '#16A34A' });
             }
 
             // 5. Estudiar tarde
             if (schedule[4] === 'study' || schedule[5] === 'study') {
-                feedbacks.push({ icon: '🥱', text: 'Estudiar a partir de las 20:00 o 21:00 es muy poco eficaz. A esa hora el cerebro ya está agotado.', color: '#EAB308' });
+                feedbacks.push({ icon: '🥱', text: 'Has colocado estudio al final de la tarde. Comprueba si a esa hora mantienes la atención y si afecta a la cena o al sueño.', color: '#EAB308' });
             }
 
-            // 6. Equilibrio (La rutina perfecta)
+            // 6. Equilibrio orientativo
             if (isFull && counts.study >= 1 && counts.study <= 3 && counts.leisure <= 2 && (counts.sport > 0 || counts.leisure > 0) && (schedule[4] !== 'study' && schedule[5] !== 'study')) {
-                feedbacks.push({ icon: '🏆', text: '¡TARDE PERFECTA! Tienes un equilibrio ideal entre obligaciones y tiempo libre. Así se triunfa en la ESO.', color: '#16A34A' });
+                feedbacks.push({ icon: '⚖️', text: 'La propuesta parece equilibrada. Pruébala durante varios días y ajústala según la carga de tareas, tu energía y tus responsabilidades.', color: '#16A34A' });
             }
 
             // Mostrar feedback
@@ -434,7 +434,7 @@
         }
     </script>
     
-    <script src="../assets/js/site.js?v=20260716"></script>
+    <script src="../assets/js/site.js?v=20260716-3"></script>
 </body>
 </html>
 

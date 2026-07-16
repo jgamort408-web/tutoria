@@ -976,8 +976,8 @@ body::before {
 /* ─── Hamburger button ───────────────────────────────────── */
 .site-nav-toggle {
   display: none;
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   flex-shrink: 0;
   flex-direction: column;
   align-items: center;
@@ -1344,6 +1344,80 @@ body::before {
   color: #9f1239;
   background: #fff1f2;
   border-color: #fecdd3;
+}
+
+/* The original activities centered their root container from `body`.
+   Once wrapped by the shared main element, they need an explicit frame. */
+.is-activity-page .site-main {
+  width: 100%;
+  padding-bottom: 24px;
+}
+
+.is-activity-page .site-main > :not(.activity-guide) {
+  margin-right: auto !important;
+  margin-left: auto !important;
+}
+
+.is-activity-page .site-main > :is(
+  .main-container,
+  .container,
+  .app-container,
+  .game-container,
+  .dashboard-container,
+  .wrapper
+) {
+  width: min(100%, var(--site-max));
+}
+
+.is-activity-page :where(button, [role="button"], input, select, textarea) {
+  min-height: 44px;
+}
+
+.is-activity-page :where(button, [role="button"]) {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.is-activity-page [role="button"] {
+  cursor: pointer;
+}
+
+.is-activity-page :where(button, [role="button"]):focus-visible {
+  outline: 3px solid #60a5fa !important;
+  outline-offset: 4px !important;
+}
+
+.is-activity-page button:disabled,
+.is-activity-page [aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
+.is-activity-page :where(.feedback-panel, .feedback-box, .result-container, .conclusion-box) {
+  scroll-margin-top: 120px;
+}
+
+.is-activity-page .header h1,
+.is-activity-page .main-title {
+  text-wrap: balance;
+}
+
+.is-activity-page :where(.subtitle, .context-text, .intro-text) {
+  text-wrap: pretty;
+}
+
+@media (max-width: 768px) {
+  .is-activity-page .site-main > :is(
+    .main-container,
+    .container,
+    .app-container,
+    .game-container,
+    .dashboard-container,
+    .wrapper
+  ) {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
 }
 
 /* Practical teaching blocks used by the 1.º ESO route. */

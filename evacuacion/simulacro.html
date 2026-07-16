@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -195,16 +195,16 @@
         }
 
     </style>
-    <link rel="stylesheet" href="../assets/css/site.css?v=20260716">
+    <link rel="stylesheet" href="../assets/css/site.css?v=20260716-3">
 </head>
 <body>
 
     <div class="main-container">
         
         <div class="header-section">
-            <h1>Simulacro a Contrarreloj</h1>
+            <h1>Simulacro de Decisiones</h1>
             <p class="context-text">
-                En una emergencia real, los nervios nos pueden traicionar. Lee la situación, piensa rápido y elige la mejor decisión. Un solo error puede poner en peligro a todo tu grupo.
+                Practica decisiones seguras sin prisa. Esta actividad prepara la conversación, pero siempre prevalecen el Plan de Autoprotección del centro y las instrucciones del personal responsable.
             </p>
         </div>
 
@@ -238,8 +238,8 @@
                     { text: "A) La recojo rápido y me la pongo en la espalda.", correct: false },
                     { text: "B) La pongo encima de mi mesa y la dejo ahí.", correct: true }
                 ],
-                feedbackCorrect: "¡Perfecto! El protocolo dice claramente que NO se recogen objetos personales. Las mochilas van encima de la mesa (no en el suelo) para evitar que tropecemos si la visibilidad es mala.",
-                feedbackIncorrect: "¡ERROR GRAVE! Demorarte en recoger cosas te pone en peligro. Además, llevar mochilas puede atascar las puertas y pasillos. Tu vida vale más que un móvil."
+                feedbackCorrect: "Acción segura. No se recogen objetos personales. Si el protocolo del centro lo indica, las mochilas se dejan sobre la mesa para mantener libre el paso.",
+                feedbackIncorrect: "Revisa esta decisión. Recoger objetos retrasa la salida y puede dificultar el paso. Déjalos y sigue las indicaciones del personal responsable."
             },
             {
                 tag: "En el baño",
@@ -248,8 +248,8 @@
                     { text: "A) Voy corriendo a buscar a mi clase (1º ESO) para ir con mi tutor.", correct: false },
                     { text: "B) Me uno a esa clase de 2º y aviso a su profesor/a de que estoy ahí.", correct: true }
                 ],
-                feedbackCorrect: "¡Gran decisión! El protocolo exige que te incorpores 'al grupo más cercano'. Si vas a buscar a tu clase puedes cruzarte con otros grupos y crear el caos. En el patio ya buscarás a tu profe.",
-                feedbackIncorrect: "¡PELIGRO! Nunca debes deambular solo por el instituto en una emergencia ni ir a contracorriente. Debes unirte al primer profesor o grupo que veas."
+                feedbackCorrect: "Acción segura. Incorpórate al grupo más cercano y avisa a su profesor/a. En el punto de encuentro podrán comunicar dónde estás.",
+                feedbackIncorrect: "Revisa esta decisión. Buscar a tu clase puede llevarte a ir a contracorriente. Sigue al grupo más cercano y avisa a la persona adulta responsable."
             },
             {
                 tag: "En la Escalera",
@@ -258,8 +258,8 @@
                     { text: "A) Mantenemos nuestra fila detrás de ellos, a su ritmo, sin adelantar.", correct: true },
                     { text: "B) Los adelantamos por la izquierda todos juntos para salir rápido.", correct: false }
                 ],
-                feedbackCorrect: "¡Excelente! La norma dice: 'Permanecerán siempre unidos sin disgregarse ni adelantar a otros'. Adelantar en una escalera puede provocar caídas múltiples y avalanchas.",
-                feedbackIncorrect: "¡CUIDADO! Adelantar a otra clase en unas escaleras puede provocar una avalancha, caídas y un bloqueo total de la salida. Siempre hay que mantener la fila a su ritmo."
+                feedbackCorrect: "Acción segura. El grupo permanece unido y mantiene el ritmo indicado, sin adelantar en la escalera.",
+                feedbackIncorrect: "Revisa esta decisión. Adelantar en una escalera aumenta el riesgo de tropiezos y bloqueos. Mantén la fila y el ritmo del grupo anterior."
             },
             {
                 tag: "Saliendo del Aula",
@@ -269,7 +269,7 @@
                     { text: "B) Cierro la puerta del aula detrás de mí.", correct: true }
                 ],
                 feedbackCorrect: "¡Bien hecho! Cerrar la puerta del aula (¡sin echar la llave!) evita que, si hay un incendio, el humo se extienda por los pasillos o entre más oxígeno en la clase.",
-                feedbackIncorrect: "¡Te has saltado un paso! El protocolo especifica que el último alumno debe cerrar la puerta del aula. Esto es vital para frenar la expansión del humo o del fuego."
+                feedbackIncorrect: "Revisa este paso. Si así lo establece el protocolo del centro, la última persona cierra la puerta sin echar la llave y se incorpora a la fila."
             },
             {
                 tag: "El Olvido",
@@ -278,8 +278,8 @@
                     { text: "A) Vuelvo rápidamente a clase a por él antes de que bajemos las escaleras.", correct: false },
                     { text: "B) Me aguanto el frío y sigo en la fila. Ya me prestarán algo fuera.", correct: true }
                 ],
-                feedbackCorrect: "¡Supervivencia al 100%! La norma más estricta es: 'En ningún caso ningún alumno ni alumna deberá volver atrás'. Si vas a contracorriente puedes chocar y caer.",
-                feedbackIncorrect: "¡DECISIÓN FATAL! Las normas dicen: 'En ningún caso se deberá volver atrás'. Ir en dirección contraria a cientos de personas que intentan salir es la causa de los peores accidentes."
+                feedbackCorrect: "Acción segura. No se vuelve atrás para recoger pertenencias; continúa con el grupo hasta el punto de encuentro.",
+                feedbackIncorrect: "Revisa esta decisión. Volver atrás rompe el sentido de la evacuación y puede crear cruces. Continúa con la fila y comunica después lo que has dejado."
             }
         ];
 
@@ -354,7 +354,7 @@
                 
                 feedbackBox.style.backgroundColor = 'rgba(220, 38, 38, 0.1)';
                 feedbackTitle.style.color = 'var(--accent-fail)';
-                feedbackTitle.innerText = '❌ PELIGRO';
+                feedbackTitle.innerText = '↩️ REVISA LA DECISIÓN';
                 feedbackText.innerText = q.feedbackIncorrect;
             }
             
@@ -380,21 +380,21 @@
             
             let message = "";
             if (score === questions.length) {
-                message = "¡Perfecto! Tienes unos reflejos excelentes y conoces las normas. Eres una garantía de seguridad para tu clase.";
+                message = "Has identificado todas las acciones seguras. Repásalas también sobre la ruta real de tu aula.";
                 quizPanel.style.borderColor = 'var(--accent)';
                 eLight.style.backgroundColor = 'var(--accent)';
             } else if (score >= 3) {
-                message = "Bien hecho, pero cuidado. Has cometido algunos errores que en la vida real podrían causar problemas. Repasa las reglas de oro.";
+                message = "Has identificado varias acciones seguras. Repasa las situaciones que generan dudas antes del simulacro del centro.";
             } else {
-                message = "¡Alerta! Necesitas repasar urgentemente el protocolo. Una evacuación requiere conocer las normas al milímetro para no ponerte en peligro a ti ni a los demás.";
+                message = "Conviene revisar el protocolo con el tutor o tutora y recorrer la ruta real del aula antes de repetir la actividad.";
             }
 
-            qText.innerText = `Has sobrevivido tomando ${score} decisiones seguras de ${questions.length}.`;
+            qText.innerText = `Has identificado ${score} decisiones seguras de ${questions.length}.`;
             optionsContainer.style.display = 'none';
             
             feedbackBox.style.backgroundColor = 'rgba(255,255,255,0.1)';
             feedbackTitle.style.color = 'var(--white)';
-            feedbackTitle.innerText = 'EVALUACIÓN DEL TUTOR/A:';
+            feedbackTitle.innerText = 'SIGUIENTE PASO:';
             feedbackText.innerText = message;
             
             nextBtn.style.display = 'none';
@@ -405,7 +405,7 @@
         loadQuestion();
     </script>
     
-    <script src="../assets/js/site.js?v=20260716"></script>
+    <script src="../assets/js/site.js?v=20260716-3"></script>
 </body>
 </html>
 

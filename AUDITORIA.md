@@ -72,3 +72,21 @@ La plataforma se orienta prioritariamente a la tutoría de 1.º de ESO. Debe per
 - Sustituir progresivamente manejadores `onclick` por eventos JavaScript separados y añadir pruebas automatizadas de cada actividad.
 - Incorporar una política de conservación y borrado para cualquier dato académico utilizado en el panel docente.
 - Realizar una auditoría WCAG manual con lector de pantalla y navegación exclusiva por teclado antes de una publicación institucional definitiva.
+
+## Segunda revisión: actividades interactivas
+
+Tras probar las actividades dentro de la plantilla común se identificó una regresión de maquetación: varias actividades conservaban el centrado en `body`, pero el script compartido había trasladado su contenedor a `.site-main`. Por eso bloques como el Semáforo del enfado quedaban alineados a la izquierda.
+
+Cambios aplicados:
+
+- Centrado y ancho coherente de los contenedores principales en todas las actividades, con adaptación específica a móvil.
+- Objetivos táctiles de al menos 44 px, foco visible, estados desactivados y resultados anunciados mediante regiones `aria-live`.
+- Conversión automática de controles heredados con `onclick` en elementos utilizables con teclado; sustitución manual por botones semánticos en el Semáforo.
+- Semáforo reconstruido con niveles de activación, señales corporales no universales y una pauta de cuatro pasos: parar, regular, expresar y pedir apoyo.
+- Pausa sin cuenta atrás ni penalización; respiración guiada presentada como una opción, no como una prueba que se aprueba o suspende.
+- Autochequeo emocional no diagnóstico, privado y con indicaciones claras para solicitar ayuda.
+- Teatro de decisiones y plan personal reformulados con límites asertivos, reparación y apoyo adulto, sin amenazas sobre castigos, expediente o pérdida de libertad.
+- Actividades de estudio revisadas para eliminar porcentajes inventados, recetas rígidas y promesas de resultados; las recomendaciones se presentan como estrategias que deben probarse y adaptarse.
+- Simulaciones de evacuación desdramatizadas y vinculadas siempre al Plan de Autoprotección real del centro.
+- Casos de igualdad revisados para evitar absolutos lingüísticos y una atribución biográfica errónea en un ejemplo ficticio.
+- Carga del servicio de traducción aplazada hasta que el usuario solicita otro idioma, mejorando rendimiento y privacidad en la navegación normal.

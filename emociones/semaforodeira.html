@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -27,8 +27,9 @@
         @media (min-width: 768px) { .simulator-layout { flex-direction: row; justify-content: space-around; padding: 40px; align-items: flex-start; } }
 
         /* --- EL SEMÁFORO --- */
-        .traffic-light-container { background-color: #1F2937; padding: 20px; border-radius: 40px; border: 4px solid #4B5563; display: flex; flex-direction: column; gap: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .light { width: 80px; height: 80px; border-radius: 50%; background-color: #374151; cursor: pointer; transition: all 0.3s; box-shadow: inset 0 5px 10px rgba(0,0,0,0.5); border: 2px solid #111827; }
+        .traffic-light-container { background-color: #1F2937; padding: 20px; border-radius: 40px; border: 4px solid #4B5563; display: flex; flex-direction: column; align-items: center; gap: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .light { width: 80px; height: 80px; min-height: 80px; padding: 0; border-radius: 50%; background-color: #374151; cursor: pointer; transition: all 0.3s; box-shadow: inset 0 5px 10px rgba(0,0,0,0.5); border: 2px solid #111827; }
+        .light:hover { transform: scale(1.06); border-color: #D1D5DB; }
         
         .light.active-red { background-color: var(--light-red); box-shadow: 0 0 30px var(--light-red), inset 0 -5px 15px rgba(255,255,255,0.4); border-color: #FCA5A5; }
         .light.active-yellow { background-color: var(--light-yellow); box-shadow: 0 0 30px var(--light-yellow), inset 0 -5px 15px rgba(255,255,255,0.4); border-color: #FEF08A; }
@@ -47,7 +48,7 @@
         .sil-leg-r { position: absolute; top: 170px; left: 79px; width: 26px; height: 90px; background-color: #4B5563; border-radius: 10px; }
 
         /* Puntos de calor (Hotspots) */
-        .hotspot { position: absolute; width: 24px; height: 24px; background-color: var(--light-yellow); border-radius: 50%; transform: translate(-50%, -50%); cursor: pointer; display: none; z-index: 10; box-shadow: 0 0 10px var(--light-yellow); animation: pulse 1.5s infinite; border: 3px solid #B45309; }
+        .hotspot { position: absolute; width: 32px; height: 32px; min-height: 32px; padding: 0; background-color: var(--light-yellow); border-radius: 50%; transform: translate(-50%, -50%); cursor: pointer; display: none; z-index: 10; box-shadow: 0 0 10px var(--light-yellow); animation: pulse 1.5s infinite; border: 3px solid #B45309; }
         @keyframes pulse { 0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.8; } 50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.8; } }
 
         /* --- FEEDBACK PANEL --- */
@@ -55,24 +56,34 @@
         .feedback-title { font-size: 1.3rem; font-weight: bold; margin-bottom: 5px; text-transform: uppercase; }
         .feedback-desc { font-size: 1.05rem; color: #D1D5DB; }
 
+        .regulation-plan { margin-top: 24px; padding: 26px; color: #111827; background: white; border: 1px solid #E5E7EB; border-radius: 16px; box-shadow: 0 10px 26px rgba(15,23,42,.08); }
+        .regulation-plan h2 { margin-bottom: 8px; font-size: 1.35rem; color: #92400E; }
+        .regulation-plan > p { margin-bottom: 18px; color: #4B5563; }
+        .plan-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+        .plan-step { padding: 16px; background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 12px; }
+        .plan-step strong { display: block; margin-bottom: 4px; color: #78350F; }
+        .plan-step span { color: #4B5563; font-size: .92rem; }
+        @media (max-width: 720px) { .plan-grid { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 430px) { .plan-grid { grid-template-columns: 1fr; } }
+
     </style>
-    <link rel="stylesheet" href="../assets/css/site.css?v=20260716">
+    <link rel="stylesheet" href="../assets/css/site.css?v=20260716-3">
 </head>
 <body>
 
     <div class="main-container">
         <div class="header">
             <h1>El Semáforo de la Ira</h1>
-            <p class="subtitle">Aprende a leer las señales de tu propio cuerpo. Si detectas que estás en amarillo, tendrás tiempo de frenar antes del choque.</p>
-            <div class="mantra-badge">👉 Parar no es perder — es elegir.</div>
+            <p class="subtitle">Explora tres niveles de activación y reconoce señales que pueden avisarte de que necesitas una pausa. Cada persona puede sentirlas de forma distinta.</p>
+            <div class="mantra-badge">Parar · respirar · nombrar · elegir</div>
         </div>
 
         <div class="simulator-layout">
             
             <div class="traffic-light-container">
-                <div class="light" id="light-red" onclick="setLight('red')"></div>
-                <div class="light" id="light-yellow" onclick="setLight('yellow')"></div>
-                <div class="light" id="light-green" onclick="setLight('green')"></div>
+                <button class="light" id="light-red" aria-label="Fase roja: activación muy alta" aria-pressed="false" onclick="setLight('red')"></button>
+                <button class="light" id="light-yellow" aria-label="Fase amarilla: detectar señales" aria-pressed="false" onclick="setLight('yellow')"></button>
+                <button class="light" id="light-green" aria-label="Fase verde: calma y conexión" aria-pressed="false" onclick="setLight('green')"></button>
             </div>
 
             <div class="scanner-container">
@@ -89,10 +100,26 @@
                     <div class="sil-leg-l"></div>
                     <div class="sil-leg-r"></div>
                     
-                    <div class="hotspot" style="top: 25px; left: 75px;" onclick="showSymptom('head')"></div> <div class="hotspot" style="top: 90px; left: 75px;" onclick="showSymptom('chest')"></div> <div class="hotspot" style="top: 140px; left: 75px;" onclick="showSymptom('stomach')"></div> <div class="hotspot" style="top: 145px; left: 20px;" onclick="showSymptom('hands')"></div> <div class="hotspot" style="top: 145px; left: 130px;" onclick="showSymptom('hands')"></div> </div>
+                    <button class="hotspot" aria-label="Explorar señales en cabeza y mandíbula" style="top: 25px; left: 75px;" onclick="showSymptom('head')"></button>
+                    <button class="hotspot" aria-label="Explorar señales en pecho y respiración" style="top: 90px; left: 75px;" onclick="showSymptom('chest')"></button>
+                    <button class="hotspot" aria-label="Explorar señales en el estómago" style="top: 140px; left: 75px;" onclick="showSymptom('stomach')"></button>
+                    <button class="hotspot" aria-label="Explorar señales en la mano izquierda" style="top: 145px; left: 20px;" onclick="showSymptom('hands')"></button>
+                    <button class="hotspot" aria-label="Explorar señales en la mano derecha" style="top: 145px; left: 130px;" onclick="showSymptom('hands')"></button>
+                </div>
             </div>
 
         </div>
+
+        <section class="regulation-plan" aria-labelledby="plan-title">
+            <h2 id="plan-title">Qué hacer cuando aparece el amarillo</h2>
+            <p>Reconocer la señal no basta: practica una secuencia corta que puedas recordar fuera de esta pantalla.</p>
+            <div class="plan-grid">
+                <div class="plan-step"><strong>1 · Para</strong><span>Deja espacio y evita responder en caliente.</span></div>
+                <div class="plan-step"><strong>2 · Regula</strong><span>Respira despacio, bebe agua o muévete a un lugar tranquilo.</span></div>
+                <div class="plan-step"><strong>3 · Exprésate</strong><span>Explica qué ha pasado con un tono firme y respetuoso.</span></div>
+                <div class="plan-step"><strong>4 · Pide apoyo</strong><span>Busca a una persona adulta si hay amenaza, acoso o no puedes mantenerte a salvo.</span></div>
+            </div>
+        </section>
     </div>
 
     <script>
@@ -106,12 +133,12 @@
         const fbDesc = document.querySelector('.feedback-desc');
         const fbPanel = document.getElementById('main-feedback');
 
-        // Datos de síntomas físicos
+        // Ejemplos orientativos: no todas las personas sienten lo mismo.
         const symptoms = {
-            head: { title: "Mandíbula y Cabeza", desc: "Aprietas los dientes sin darte cuenta. Tensión en el cuello y la frente. La sangre sube a la cabeza." },
-            chest: { title: "Pecho y Respiración", desc: "El corazón te late muy rápido (taquicardia). Respiras de forma corta y acelerada buscando oxígeno." },
-            stomach: { title: "Estómago", desc: "Sientes un 'nudo' en la boca del estómago, nervios o incluso náuseas. Tu digestión se paraliza." },
-            hands: { title: "Manos y Brazos", desc: "Aprietas los puños. Sientes calor, sudor o temblor en las manos porque tus músculos se tensan para 'pelear'." }
+            head: { title: "Mandíbula y cabeza", desc: "Quizá notes la mandíbula apretada o tensión en el cuello y la frente." },
+            chest: { title: "Pecho y respiración", desc: "Tal vez el corazón lata más rápido o la respiración se vuelva corta y acelerada." },
+            stomach: { title: "Estómago", desc: "Algunas personas notan un nudo, mariposas o malestar en la zona del estómago." },
+            hands: { title: "Manos y brazos", desc: "Puedes notar calor, sudor, temblor o tensión en manos y brazos." }
         };
 
         function setLight(color) {
@@ -119,6 +146,7 @@
             lightRed.className = 'light';
             lightYellow.className = 'light';
             lightGreen.className = 'light';
+            [lightRed, lightYellow, lightGreen].forEach(light => light.setAttribute('aria-pressed', 'false'));
             
             // Ocultar hotspots
             hotspots.forEach(h => h.style.display = 'none');
@@ -127,24 +155,27 @@
 
             if (color === 'green') {
                 lightGreen.classList.add('active-green');
+                lightGreen.setAttribute('aria-pressed', 'true');
                 fbTitle.innerText = "🟢 FASE VERDE: CALMA";
                 fbTitle.style.color = "var(--light-green)";
-                fbDesc.innerText = "Respiras normal. Tu cerebro racional está al mando. Eres capaz de dialogar y pensar en las consecuencias.";
+                fbDesc.innerText = "Tu cuerpo está relativamente tranquilo. Es un buen momento para escuchar, dialogar y buscar soluciones.";
             } 
             else if (color === 'yellow') {
                 lightYellow.classList.add('active-yellow');
+                lightYellow.setAttribute('aria-pressed', 'true');
                 silhouette.classList.add('active');
                 hotspots.forEach(h => h.style.display = 'block'); // Mostrar sensores
                 fbTitle.innerText = "🟡 FASE AMARILLA: ALERTA";
                 fbTitle.style.color = "var(--light-yellow)";
-                fbDesc.innerText = "Tu cuerpo segrega adrenalina. ¡Aún estás a tiempo de frenar! TOCA LOS PUNTOS DE LA SILUETA para ver las señales de peligro.";
+                fbDesc.innerText = "Tu activación está subiendo. Explora la silueta para conocer posibles señales y elige una estrategia de pausa.";
                 fbPanel.style.borderColor = "var(--light-yellow)";
             } 
             else if (color === 'red') {
                 lightRed.classList.add('active-red');
-                fbTitle.innerText = "🔴 FASE ROJA: EXPLOSIÓN";
+                lightRed.setAttribute('aria-pressed', 'true');
+                fbTitle.innerText = "🔴 FASE ROJA: ACTIVACIÓN MUY ALTA";
                 fbTitle.style.color = "var(--light-red)";
-                fbDesc.innerText = "Has perdido el control. Gritas, insultas o rompes cosas. Tu cerebro ya no piensa, solo reacciona. Ahora tú eres el problema.";
+                fbDesc.innerText = "Pensar con claridad puede resultar más difícil. Prioriza la seguridad: aléjate de la situación, regula el cuerpo y pide apoyo si lo necesitas.";
                 fbPanel.style.borderColor = "var(--light-red)";
             }
         }
@@ -162,6 +193,6 @@
     </script>
 
     
-    <script src="../assets/js/site.js?v=20260716"></script>
+    <script src="../assets/js/site.js?v=20260716-3"></script>
 </body>
 </html>

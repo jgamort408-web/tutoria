@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -137,14 +137,14 @@
         }
 
     </style>
-    <link rel="stylesheet" href="../assets/css/site.css?v=20260716">
+    <link rel="stylesheet" href="../assets/css/site.css?v=20260716-3">
 </head>
 <body>
 
     <div class="main-container">
         <div class="header">
             <h1>El Volcán Emocional</h1>
-            <p class="subtitle">La ira nunca aparece de golpe. Son las pequeñas cosas del día a día las que llenan el vaso. Si aprendes a detectar la presión, podrás vaciarla antes de explotar.</p>
+            <p class="subtitle">El enfado es una emoción normal. A veces su intensidad aumenta con varias situaciones seguidas. Reconocerlo pronto ayuda a elegir una respuesta segura.</p>
             <div class="mantra-badge">👉 Parar no es perder — es elegir.</div>
         </div>
 
@@ -176,7 +176,7 @@
         </div>
 
         <div class="feedback-box" id="feedback">
-            Pulsa las causas de la izquierda para ver cómo se acumula la ira en tu interior.
+            Pulsa distintas situaciones para observar cómo puede aumentar la activación. Después prueba estrategias de regulación.
         </div>
 
     </div>
@@ -213,10 +213,10 @@
                 toggleMagmaBtns(false);
             } else if (pressure === 100) {
                 gauge.style.color = "var(--magma-red)";
-                gauge.innerText = "¡ERUPCIÓN!";
+                gauge.innerText = "MUY ALTA";
                 volcanoCont.classList.add('shaking');
                 simLayout.classList.add('erupting');
-                feedback.innerHTML = "💥 <strong>¡HAS PERDIDO EL CONTROL!</strong> Cuando explotas, dejas de pensar con claridad. Ahora solo tú sufres las consecuencias. Usa las válvulas de escape para enfriarte.";
+                feedback.innerHTML = "🔴 <strong>ACTIVACIÓN MUY ALTA.</strong> Pensar con claridad puede resultar más difícil. Prioriza alejarte de la situación, regular el cuerpo y pedir apoyo si lo necesitas.";
                 feedback.style.color = "var(--magma-red)";
                 toggleMagmaBtns(true); // Bloquear botones de añadir presión
                 btnReset.style.display = 'flex';
@@ -226,14 +226,14 @@
         function addPressure(amount, message) {
             if (pressure === 100) return;
             pressure += amount;
-            feedback.innerHTML = `🔥 ${message}. <em>La presión interior sube...</em>`;
+            feedback.innerHTML = `🔥 ${message}. <em>La activación aumenta...</em>`;
             feedback.style.color = "var(--magma-orange)";
             updateVolcano();
         }
 
         function coolDown(amount, message) {
             if (pressure === 0) {
-                feedback.innerHTML = "Estás en calma. No hay presión que soltar.";
+                feedback.innerHTML = "Estás en calma. Puedes practicar igualmente una estrategia para recordarla cuando la necesites.";
                 feedback.style.color = "var(--cool-blue)";
                 return;
             }
@@ -260,6 +260,6 @@
     
 
     
-    <script src="../assets/js/site.js?v=20260716"></script>
+    <script src="../assets/js/site.js?v=20260716-3"></script>
 </body>
 </html>

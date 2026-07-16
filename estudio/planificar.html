@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -318,7 +318,7 @@
         }
 
     </style>
-    <link rel="stylesheet" href="../assets/css/site.css?v=20260716">
+    <link rel="stylesheet" href="../assets/css/site.css?v=20260716-3">
 </head>
 <body>
 
@@ -327,7 +327,7 @@
         <div class="header-section">
             <h1 class="main-title">El Arte de Planificar</h1>
             <p class="context-text">
-                El problema no es que estudies poco, el problema es que gestionas mal tu tiempo. Aprender a organizar tus tardes te permitirá aprobar los exámenes <strong>y tener tiempo libre de sobra</strong>. 
+                Organizar el tiempo no garantiza una nota, pero ayuda a repartir el esfuerzo, descansar y llegar a las tareas con menos agobio. El objetivo es construir una rutina <strong>realista para ti</strong>.
             </p>
         </div>
 
@@ -337,21 +337,21 @@
             <ul>
                 <li>Objetivo tutorial: comprender que estudiar bien depende más de la organización que de “echar horas”.</li>
                 <li>Mensaje clave: empezar pronto, repartir el esfuerzo y proteger el tiempo de estudio de distracciones.</li>
-                <li>Cierre sugerido: terminar la sesión enlazando con <a href="planificador.html">Diseña tu Tarde Perfecta</a> para convertir las ideas en una rutina real.</li>
+                <li>Cierre sugerido: terminar la sesión enlazando con <a href="planificador.html">Diseña una tarde posible</a> para convertir las ideas en una rutina real.</li>
             </ul>
         </section>
 
-        <h2 class="section-title">Mitos vs. Realidad del Tiempo</h2>
+        <h2 class="section-title">Ideas frecuentes sobre el tiempo</h2>
         <p style="text-align: center; margin-bottom: 30px; color: var(--text-light);">
-            Toca las tarjetas para desmontar las excusas más típicas del estudiante.
+            Toca las tarjetas para comparar cada idea con una alternativa más útil y flexible.
         </p>
 
         <div class="myths-grid" id="myths-grid">
             </div>
 
-        <h2 class="section-title">El Juez de las Rutinas</h2>
+        <h2 class="section-title">Analiza estas rutinas</h2>
         <p style="text-align: center; margin-bottom: 30px; color: var(--text-light);">
-            Lee la tarde de estos tres estudiantes y decide si lo están haciendo BIEN o MAL.
+            Lee cada caso y decide si la rutina parece sostenible o necesita algún ajuste.
         </p>
 
         <div class="routine-container" id="routine-container">
@@ -374,19 +374,19 @@
         const myths = [
             {
                 mito: '"Lo mejor es darme una buena paliza de estudio el día antes del examen."',
-                realidad: 'Tu cerebro necesita días para asimilar. Si estudias el día antes, vomitas la información en el examen y a los dos días se te ha olvidado todo.'
+                realidad: 'Repartir el repaso durante varios días suele ayudar a comprender y recordar mejor. El día anterior puede reservarse para revisar dudas y descansar.'
             },
             {
                 mito: '"Cuantas más horas seguidas esté sentado en la silla, más aprenderé."',
-                realidad: 'Nadie aguanta 3 horas seguidas concentrado. Lo ideal es estudiar 50 minutos y descansar 10 minutos. ¡Las pausas son obligatorias!'
+                realidad: 'La atención disminuye con el tiempo. Prueba bloques de 25 a 50 minutos y pausas breves; ajusta la duración a la tarea y a cómo te concentras.'
             },
             {
                 mito: '"En mis descansos me tumbo a ver la TV o jugar a la consola 30 minutos."',
-                realidad: '¡Error! Los descansos deben ser cortos (10-15 min). Si superas los 30 minutos de pausa, tu nivel de concentración caerá en picado.'
+                realidad: 'Una pausa breve suele facilitar la vuelta. Si una pantalla hace difícil retomar, prueba a moverte, beber agua o preparar el material siguiente.'
             },
             {
                 mito: '"Si estudio mucho y hago los deberes, me quedaré sin tiempo para vivir."',
-                realidad: 'Todo lo contrario. Si tienes un horario fijo y evitas distraerte con el móvil, terminarás tan rápido que te sobrará tiempo libre cada día.'
+                realidad: 'Planificar ayuda a proteger también el descanso y el ocio. Habrá días distintos: una rutina útil deja margen para imprevistos y permite reajustar.'
             }
         ];
 
@@ -397,21 +397,21 @@
                 avatar: "👦",
                 text: "Llego del instituto, como rápido y me tumbo a ver la televisión y usar el móvil hasta las 19:30. Como ya es tarde, me pongo a hacer los deberes a toda prisa porque estoy cansado y quiero cenar.",
                 isGood: false,
-                explanation: "¡Muy mal planificado! El horario ideal es descansar un rato tras comer y empezar hacia las 16:00 o 17:00 h. Dejarlo para última hora asegura que el cansancio no te deje rendir."
+                explanation: "Necesita ajustes. Conviene decidir de antemano cuándo termina el descanso y empezar las tareas antes de acumular cansancio. La hora concreta dependerá de sus horarios y necesidades."
             },
             {
                 id: 2,
                 avatar: "👧",
                 text: "El profe ha puesto un examen de Naturales para dentro de dos semanas. Lo anoto en mi agenda y decido leerme un punto del tema (20 minutos) cada tarde desde hoy.",
                 isGood: true,
-                explanation: "¡Perfecto! Esta es la técnica de los estudiantes Élite. Repartir el esfuerzo hace que no se acumule al final, no te agobias y el día antes solo tienes que repasar."
+                explanation: "Es una estrategia útil: anota la fecha y reparte una tarea grande en pasos pequeños. También debería reservar tiempo para practicar y revisar dudas."
             },
             {
                 id: 3,
                 avatar: "🧑",
                 text: "Empiezo a hacer los ejercicios de Matemáticas. A los 20 minutos vibra mi móvil, me asomo 'solo un segundo' a responder a un amigo, veo un vídeo de TikTok y al final vuelvo al cuaderno 40 minutos después.",
                 isGood: false,
-                explanation: "¡Peligro de distracción! Has roto tu ritmo de trabajo por completo. El móvil debe estar en otra habitación o en silencio. Una tarea de 30 minutos te va a acabar costando 2 horas."
+                explanation: "Necesita un ajuste frente a la distracción. Puede silenciar el móvil, dejarlo fuera de alcance o acordar revisarlo al terminar un bloque de trabajo."
             }
         ];
 
@@ -423,12 +423,12 @@
             card.innerHTML = `
                 <div class="card-inner">
                     <div class="card-front">
-                        <div class="myth-label">❌ MITO</div>
+                        <div class="myth-label">IDEA FRECUENTE</div>
                         <div class="myth-text">${m.mito}</div>
-                        <div class="flip-hint">Toca para ver la verdad</div>
+                        <div class="flip-hint">Toca para ver otra opción</div>
                     </div>
                     <div class="card-back">
-                        <div class="reality-label">✅ REALIDAD</div>
+                        <div class="reality-label">ALTERNATIVA ÚTIL</div>
                         <div class="reality-text">${m.realidad}</div>
                     </div>
                 </div>
@@ -448,8 +448,8 @@
                     <div class="case-text">"${c.text}"</div>
                 </div>
                 <div class="judgment-buttons" id="buttons-${c.id}">
-                    <button class="btn-judge btn-bad" onclick="judgeCase(${c.id}, false, ${c.isGood})">👎 MAL</button>
-                    <button class="btn-judge btn-good" onclick="judgeCase(${c.id}, true, ${c.isGood})">👍 BIEN</button>
+                    <button class="btn-judge btn-bad" onclick="judgeCase(${c.id}, false, ${c.isGood})">Necesita ajustes</button>
+                    <button class="btn-judge btn-good" onclick="judgeCase(${c.id}, true, ${c.isGood})">Parece sostenible</button>
                 </div>
                 <div class="case-feedback" id="feedback-${c.id}"></div>
             `;
@@ -466,10 +466,10 @@
 
             if (userChoice === correctChoice) {
                 fbDiv.className = 'case-feedback feedback-correct';
-                fbDiv.innerHTML = `<strong>¡Acertaste como Juez!</strong> ${caseData.explanation}`;
+                fbDiv.innerHTML = `<strong>Buena observación.</strong> ${caseData.explanation}`;
             } else {
                 fbDiv.className = 'case-feedback feedback-incorrect';
-                fbDiv.innerHTML = `<strong>¡Veredicto equivocado!</strong> ${caseData.explanation}`;
+                fbDiv.innerHTML = `<strong>Revisa tu decisión.</strong> ${caseData.explanation}`;
             }
 
             fbDiv.style.display = 'block';
@@ -478,7 +478,7 @@
 
     </script>
     
-    <script src="../assets/js/site.js?v=20260716"></script>
+    <script src="../assets/js/site.js?v=20260716-3"></script>
 </body>
 </html>
 
