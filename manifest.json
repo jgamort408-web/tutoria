@@ -1,7 +1,7 @@
 {
-  "name": "Tutoría Activa",
-  "short_name": "Tutoría",
-  "description": "Plataforma de tutoría activa para ESO: actividades interactivas, bloques temáticos e itinerarios por curso con diseño unificado.",
+  "name": "Tutoría Activa · 1.º ESO",
+  "short_name": "Tutoría 1.º",
+  "description": "Programa anual y actividades interactivas para la tutoría de 1.º de ESO.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
