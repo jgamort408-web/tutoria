@@ -7,7 +7,7 @@
     <title>Absentismo y seguimiento | Tutoría Activa</title>
     <meta name="description" content="Herramienta local para el seguimiento docente de asistencia y actuaciones, con importación CSV y alertas preventivas.">
     <link rel="stylesheet" href="../assets/css/site.css?v=20260716-3">
-    <link rel="stylesheet" href="../assets/css/absentismo.css?v=20260717">
+    <link rel="stylesheet" href="../assets/css/absentismo.css?v=20260717-2">
 </head>
 <body>
     <div class="attendance-app">
@@ -22,9 +22,12 @@
                 <button class="attendance-btn attendance-btn--primary" id="toolbar-import" type="button"><i class="fa-solid fa-file-import" aria-hidden="true"></i> Importar CSV</button>
                 <button class="attendance-btn" id="toolbar-demo" type="button"><i class="fa-solid fa-flask" aria-hidden="true"></i> Datos de ejemplo</button>
                 <button class="attendance-btn" id="toolbar-save" type="button"><i class="fa-solid fa-download" aria-hidden="true"></i> Guardar sesión</button>
+                <button class="attendance-btn" id="toolbar-save-folder" type="button"><i class="fa-solid fa-folder-tree" aria-hidden="true"></i> Guardar en carpeta</button>
                 <button class="attendance-btn" id="toolbar-load" type="button"><i class="fa-solid fa-upload" aria-hidden="true"></i> Cargar sesión</button>
             </div>
             <div class="attendance-toolbar__group">
+                <button class="attendance-btn" id="toolbar-theme" type="button" aria-pressed="false"><i class="fa-solid fa-moon" aria-hidden="true"></i> Tema oscuro</button>
+                <button class="attendance-btn" id="toolbar-presentation" type="button" aria-pressed="false"><i class="fa-solid fa-display" aria-hidden="true"></i> Presentación</button>
                 <button class="attendance-btn" id="toolbar-anonymize" type="button" aria-pressed="false"><i class="fa-solid fa-user-secret" aria-hidden="true"></i> Anonimizar</button>
                 <button class="attendance-btn" id="toolbar-print" type="button"><i class="fa-solid fa-print" aria-hidden="true"></i> Imprimir</button>
                 <button class="attendance-btn attendance-btn--danger" id="toolbar-reset" type="button"><i class="fa-solid fa-trash-can" aria-hidden="true"></i> Nueva sesión</button>
@@ -32,7 +35,22 @@
         </div>
 
         <input id="csv-file" type="file" accept=".csv,text/csv" hidden>
+        <input id="folder-files" type="file" accept=".csv,text/csv" webkitdirectory multiple hidden>
         <input id="session-file" type="file" accept=".json,application/json" hidden>
+
+        <nav class="attendance-module-nav" aria-label="Módulos de absentismo">
+            <a href="#import-panel"><i class="fa-solid fa-gauge-high" aria-hidden="true"></i> Panel</a>
+            <a href="#student-panel"><i class="fa-solid fa-users" aria-hidden="true"></i> Alumnado</a>
+            <a href="#alert-panel"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> Alertas</a>
+            <a href="#executive-panel"><i class="fa-solid fa-building-columns" aria-hidden="true"></i> Jefatura</a>
+            <a href="#calendar-panel"><i class="fa-regular fa-calendar-days" aria-hidden="true"></i> Calendario</a>
+            <a href="#monthly-panel"><i class="fa-solid fa-chart-column" aria-hidden="true"></i> Análisis</a>
+            <a href="#derivation-panel"><i class="fa-solid fa-arrow-up-right-dots" aria-hidden="true"></i> Derivaciones</a>
+            <a href="#report-panel"><i class="fa-solid fa-file-lines" aria-hidden="true"></i> Informes</a>
+            <a href="#template-panel"><i class="fa-solid fa-message" aria-hidden="true"></i> Plantillas</a>
+            <a href="#settings-panel"><i class="fa-solid fa-gear" aria-hidden="true"></i> Configuración</a>
+            <a href="#guide-panel"><i class="fa-solid fa-circle-question" aria-hidden="true"></i> Guía</a>
+        </nav>
 
         <aside class="attendance-privacy">
             <i class="fa-solid fa-lock" aria-hidden="true"></i>
@@ -45,7 +63,16 @@
                     <div class="attendance-dropzone__icon"><i class="fa-solid fa-folder-open" aria-hidden="true"></i></div>
                     <h2>Importar registros de asistencia</h2>
                     <p>Arrastra un CSV o selecciónalo desde tu equipo. Puedes cargar varios archivos: los registros nuevos se añaden a la sesión actual y los duplicados exactos se omiten.</p>
-                    <button class="attendance-btn attendance-btn--primary" id="choose-csv" type="button">Seleccionar CSV</button>
+                    <div class="attendance-inline-actions">
+                        <button class="attendance-btn attendance-btn--primary" id="choose-csv" type="button">Seleccionar CSV</button>
+                        <button class="attendance-btn" id="paste-csv" type="button"><i class="fa-regular fa-clipboard" aria-hidden="true"></i> Pegar datos</button>
+                        <button class="attendance-btn" id="choose-folder" type="button"><i class="fa-solid fa-folder-open" aria-hidden="true"></i> Carpeta data</button>
+                        <button class="attendance-btn" id="reload-folder" type="button" disabled><i class="fa-solid fa-rotate" aria-hidden="true"></i> Recargar carpeta</button>
+                    </div>
+                    <div class="attendance-import-options">
+                        <div class="attendance-field"><label for="csv-encoding">Codificación</label><select id="csv-encoding"><option value="auto">Autodetectar</option><option value="utf-8">UTF-8</option><option value="windows-1252">Windows-1252 (Séneca)</option><option value="iso-8859-1">ISO-8859-1</option></select></div>
+                        <span id="folder-status">No hay carpeta seleccionada. En navegadores compatibles puede recordarse localmente y siempre requiere permiso de lectura.</span>
+                    </div>
                     <div class="attendance-format"><strong>Columnas mínimas:</strong> Alumno/a, Grupo y Fecha. Opcionales: Justificada, Horas o Sesiones y Observación. Se admiten separadores coma, punto y coma o tabulación.</div>
                 </div>
             </div>
@@ -57,6 +84,7 @@
             <article class="attendance-stat"><span class="attendance-stat__label">Sin alerta</span><strong class="attendance-stat__value" id="stat-clear">0</strong><span class="attendance-stat__help">nivel preventivo 0</span></article>
             <article class="attendance-stat"><span class="attendance-stat__label">Seguimiento</span><strong class="attendance-stat__value" id="stat-follow">0</strong><span class="attendance-stat__help">niveles 1 y 2</span></article>
             <article class="attendance-stat"><span class="attendance-stat__label">Atención prioritaria</span><strong class="attendance-stat__value" id="stat-priority">0</strong><span class="attendance-stat__help">niveles 3 y 4</span></article>
+            <article class="attendance-stat"><span class="attendance-stat__label">Absentismo</span><strong class="attendance-stat__value" id="stat-absolute">0</strong><span class="attendance-stat__help">nivel preventivo 4</span></article>
             <article class="attendance-stat"><span class="attendance-stat__label">Justificadas</span><strong class="attendance-stat__value" id="stat-justified">0</strong><span class="attendance-stat__help">horas o sesiones</span></article>
             <article class="attendance-stat"><span class="attendance-stat__label">Sin justificar</span><strong class="attendance-stat__value" id="stat-unjustified">0</strong><span class="attendance-stat__help">horas o sesiones</span></article>
             <article class="attendance-stat"><span class="attendance-stat__label">Grupos</span><strong class="attendance-stat__value" id="stat-groups">0</strong><span class="attendance-stat__help">representados</span></article>
@@ -66,7 +94,14 @@
         <section class="attendance-panel" id="student-panel">
             <div class="attendance-section-heading">
                 <div><h2>Seguimiento del alumnado</h2><p id="student-count">No hay datos cargados.</p></div>
-                <button class="attendance-btn" id="export-visible" type="button"><i class="fa-solid fa-file-csv" aria-hidden="true"></i> Exportar vista</button>
+                <div class="attendance-inline-actions">
+                    <div class="attendance-segmented" aria-label="Vista del listado">
+                        <button type="button" data-list-view="summary" aria-pressed="true">Resumen</button>
+                        <button type="button" data-list-view="detail" aria-pressed="false">Detalle</button>
+                        <button type="button" data-list-view="cards" aria-pressed="false">Tarjetas</button>
+                    </div>
+                    <button class="attendance-btn" id="export-visible" type="button"><i class="fa-solid fa-file-csv" aria-hidden="true"></i> Exportar vista</button>
+                </div>
             </div>
 
             <div class="attendance-filters">
@@ -76,16 +111,25 @@
                 <div class="attendance-field"><label for="filter-level">Nivel preventivo</label><select id="filter-level"><option value="">Todos los niveles</option><option value="0">Nivel 0</option><option value="1">Nivel 1</option><option value="2">Nivel 2</option><option value="3">Nivel 3</option><option value="4">Nivel 4</option></select></div>
             </div>
 
+            <div class="attendance-bulk" id="bulk-toolbar" hidden>
+                <strong><span id="selected-count">0</span> seleccionados</strong>
+                <button class="attendance-btn" id="bulk-action" type="button"><i class="fa-solid fa-bolt" aria-hidden="true"></i> Acción a todos</button>
+                <button class="attendance-btn" id="bulk-message" type="button"><i class="fa-solid fa-envelope" aria-hidden="true"></i> Mensaje</button>
+                <button class="attendance-btn" id="bulk-report" type="button"><i class="fa-solid fa-file-pdf" aria-hidden="true"></i> Informe conjunto</button>
+                <button class="attendance-btn" id="bulk-clear" type="button">Deseleccionar</button>
+            </div>
+
             <div class="attendance-table-wrap">
                 <table class="attendance-table">
-                    <thead><tr><th>Alumno/a</th><th>Grupo</th><th>Justificadas</th><th>Sin justificar</th><th>Máximo mensual</th><th>Nivel</th><th>Seguimiento</th></tr></thead>
-                    <tbody id="student-rows"><tr><td colspan="7" class="attendance-empty">Importa un CSV o utiliza los datos de ejemplo.</td></tr></tbody>
+                    <thead><tr><th class="attendance-select-cell"><input id="select-all-students" type="checkbox" aria-label="Seleccionar todo el alumnado visible"></th><th>Alumno/a</th><th>Grupo</th><th>Justificadas</th><th>Sin justificar</th><th>Máximo mensual</th><th>Nivel</th><th>Seguimiento</th></tr></thead>
+                    <tbody id="student-rows"><tr><td colspan="8" class="attendance-empty">Importa un CSV o utiliza los datos de ejemplo.</td></tr></tbody>
                 </table>
             </div>
+            <div class="attendance-card-list" id="student-cards" hidden></div>
         </section>
 
         <div class="attendance-grid-2">
-            <section class="attendance-panel">
+            <section class="attendance-panel" id="alert-panel">
                 <div class="attendance-section-heading"><div><h2>Alertas preventivas</h2><p>Casos con nivel 2, 3 o 4 según el máximo mensual.</p></div></div>
                 <div class="attendance-alert-list" id="alert-list"><div class="attendance-empty">Sin alertas calculadas.</div></div>
             </section>
@@ -102,6 +146,83 @@
                 <p class="attendance-source">La Orden de 19 de septiembre de 2005 considera absentismo en ESO 25 horas de clase sin justificar en un mes, sin impedir una actuación inmediata cuando exista riesgo educativo. Los niveles 0–4 de esta pantalla son bandas preventivas internas, no categorías legales. Consulta la <a href="https://www.juntadeandalucia.es/boja/2005/202/1" target="_blank" rel="noopener noreferrer">normativa oficial</a> y el protocolo vigente de tu centro o municipio.</p>
             </section>
         </div>
+
+        <section class="attendance-panel" id="executive-panel">
+            <div class="attendance-section-heading">
+                <div><span class="attendance-section-kicker">Solo lectura</span><h2>Panel de Jefatura de Estudios</h2><p>Vista ejecutiva y comparativa del absentismo entre grupos.</p></div>
+                <div class="attendance-inline-actions"><button class="attendance-btn" id="executive-report" type="button"><i class="fa-solid fa-file-pdf" aria-hidden="true"></i> Informe de dirección</button><button class="attendance-btn" id="group-comparison-report" type="button">Comparativa imprimible</button></div>
+            </div>
+            <div class="attendance-executive" id="executive-summary"></div>
+            <div class="attendance-table-wrap"><table class="attendance-table"><thead><tr><th>Grupo</th><th>Alumnado</th><th>Sin justificar</th><th>Niveles 2–4</th><th>Actuaciones</th><th>Tendencia</th></tr></thead><tbody id="group-rows"><tr><td colspan="6" class="attendance-empty">Sin datos para comparar.</td></tr></tbody></table></div>
+        </section>
+
+        <div class="attendance-grid-2">
+            <section class="attendance-panel" id="calendar-panel">
+                <div class="attendance-section-heading"><div><h2>Calendario global de asistencia</h2><p>Mapa de calor de ausencias sin justificar por día.</p></div><div class="attendance-field"><label for="calendar-month">Mes</label><select id="calendar-month"><option value="">Selecciona un mes</option></select></div></div>
+                <div class="attendance-calendar-legend"><span>Menos</span><i data-intensity="1"></i><i data-intensity="2"></i><i data-intensity="3"></i><i data-intensity="4"></i><span>Más ausencias</span></div>
+                <div class="attendance-calendar" id="global-calendar"><div class="attendance-empty">Carga datos para generar el calendario.</div></div>
+            </section>
+            <section class="attendance-panel" id="statistics-panel">
+                <div class="attendance-section-heading"><div><h2>Estadísticas generales</h2><p>Distribución por nivel y peso relativo por grupo.</p></div></div>
+                <div class="attendance-chart" id="level-chart"></div>
+                <div class="attendance-chart" id="group-chart"></div>
+            </section>
+        </div>
+
+        <section class="attendance-panel" id="monthly-panel">
+            <div class="attendance-section-heading"><div><h2>Análisis por mes</h2><p>Compara evolución, casos nuevos y escaladas de nivel.</p></div><div class="attendance-field"><label for="analysis-month">Mes analizado</label><select id="analysis-month"><option value="">Selecciona un mes</option></select></div></div>
+            <div class="attendance-month-analysis" id="monthly-analysis"><div class="attendance-empty">Selecciona un mes con registros.</div></div>
+            <div class="attendance-inline-actions attendance-panel-actions"><button class="attendance-btn" data-report-kind="monthly" type="button">Informe mensual</button><button class="attendance-btn" data-report-kind="comparison" type="button">Tabla comparativa</button><button class="attendance-btn" data-report-kind="minutes" type="button">Acta de reunión</button></div>
+        </section>
+
+        <section class="attendance-panel" id="derivation-panel">
+            <div class="attendance-section-heading"><div><h2>Seguimiento de derivaciones</h2><p>Registro interno de coordinación con Servicios Sociales u otros servicios institucionales.</p></div><div class="attendance-inline-actions"><button class="attendance-btn attendance-btn--primary" id="new-derivation" type="button"><i class="fa-solid fa-plus" aria-hidden="true"></i> Nueva derivación</button><button class="attendance-btn" id="derivation-report" type="button">Resumen imprimible</button></div></div>
+            <div class="attendance-table-wrap"><table class="attendance-table"><thead><tr><th>Alumno/a</th><th>Fecha</th><th>Destino</th><th>Estado</th><th>Motivo profesional</th><th>Acción</th></tr></thead><tbody id="derivation-rows"><tr><td colspan="6" class="attendance-empty">No hay derivaciones registradas.</td></tr></tbody></table></div>
+        </section>
+
+        <section class="attendance-panel" id="report-panel">
+            <div class="attendance-section-heading"><div><h2>Informes por grupos y cursos</h2><p>Prepara vistas imprimibles que pueden guardarse como PDF desde el navegador.</p></div></div>
+            <div class="attendance-report-builder">
+                <div class="attendance-field"><label for="report-period">Periodo</label><select id="report-period"><option value="all">Curso completo</option></select></div>
+                <fieldset><legend>Grupos a incluir</legend><div id="report-groups" class="attendance-check-grid"><span class="attendance-empty">Sin grupos disponibles.</span></div></fieldset>
+                <fieldset><legend>Contenido</legend><div class="attendance-check-grid"><label><input type="checkbox" name="report-content" value="metrics" checked> Métricas resumen</label><label><input type="checkbox" name="report-content" value="students" checked> Tabla de alumnado</label><label><input type="checkbox" name="report-content" value="monthly" checked> Desglose mensual</label><label><input type="checkbox" name="report-content" value="actions"> Últimas actuaciones</label><label><input type="checkbox" name="report-content" value="protocol"> Recomendación de protocolo</label></div></fieldset>
+            </div>
+            <div class="attendance-inline-actions attendance-panel-actions"><button class="attendance-btn" id="individual-group-reports" type="button">Informes individuales</button><button class="attendance-btn attendance-btn--primary" id="combined-group-report" type="button">Informe combinado</button></div>
+        </section>
+
+        <div class="attendance-grid-2">
+            <section class="attendance-panel" id="template-panel">
+                <div class="attendance-section-heading"><div><h2>Plantillas de mensajes</h2><p>Personalizables y guardadas dentro del archivo de sesión.</p></div></div>
+                <div class="attendance-field"><label for="template-family">Contacto inicial con la familia</label><textarea id="template-family" maxlength="1000"></textarea></div>
+                <div class="attendance-field"><label for="template-followup">Seguimiento</label><textarea id="template-followup" maxlength="1000"></textarea></div>
+                <div class="attendance-field"><label for="template-commitment">Compromiso de asistencia</label><textarea id="template-commitment" maxlength="1000"></textarea></div>
+                <button class="attendance-btn attendance-btn--primary" id="save-templates" type="button">Guardar plantillas en la sesión</button>
+            </section>
+            <section class="attendance-panel" id="settings-panel">
+                <div class="attendance-section-heading"><div><h2>Configuración</h2><p>Adapta el curso, la unidad de medida y las bandas preventivas internas.</p></div></div>
+                <div class="attendance-filters">
+                    <div class="attendance-field"><label for="setting-course">Curso escolar</label><input id="setting-course" type="text" maxlength="20" placeholder="2026/2027"></div>
+                    <div class="attendance-field"><label for="setting-unit">Unidad</label><select id="setting-unit"><option value="horas o sesiones">Horas o sesiones</option><option value="sesiones">Sesiones</option><option value="horas">Horas</option><option value="días">Días</option></select></div>
+                    <div class="attendance-field"><label for="setting-threshold-1">Nivel 1 desde</label><input id="setting-threshold-1" type="number" min="1" max="100" step="1"></div>
+                    <div class="attendance-field"><label for="setting-threshold-2">Nivel 2 desde</label><input id="setting-threshold-2" type="number" min="2" max="100" step="1"></div>
+                    <div class="attendance-field"><label for="setting-threshold-3">Nivel 3 desde</label><input id="setting-threshold-3" type="number" min="3" max="100" step="1"></div>
+                    <div class="attendance-field"><label for="setting-threshold-4">Nivel 4 desde</label><input id="setting-threshold-4" type="number" min="4" max="100" step="1"></div>
+                </div>
+                <button class="attendance-btn attendance-btn--primary" id="save-settings" type="button">Aplicar configuración</button>
+                <p class="attendance-source">Modificar estas bandas no altera la normativa ni el protocolo oficial: solo cambia la priorización visual de esta sesión.</p>
+            </section>
+        </div>
+
+        <section class="attendance-panel" id="guide-panel">
+            <div class="attendance-section-heading"><div><h2>Guía de uso</h2><p>Recorrido breve para trabajar con seguridad y criterio profesional.</p></div></div>
+            <div class="attendance-guide-grid">
+                <details open><summary>1. Preparar e importar</summary><p>Exporta únicamente las columnas necesarias, comprueba la codificación y revisa la vista previa antes de confirmar. Los archivos permanecen en el dispositivo.</p></details>
+                <details><summary>2. Interpretar niveles</summary><p>Las bandas sirven para priorizar. Contrasta siempre cada caso con el registro oficial, la evolución, las justificaciones y el contexto educativo.</p></details>
+                <details><summary>3. Documentar actuaciones</summary><p>Registra hechos, acuerdos, apoyos y próximos pasos. Evita diagnósticos, valoraciones personales o información familiar innecesaria.</p></details>
+                <details><summary>4. Reuniones e informes</summary><p>Anonimiza al proyectar. Las vistas imprimibles pueden guardarse como PDF; custódialas solo en ubicaciones profesionales autorizadas.</p></details>
+                <details><summary>5. Cerrar la sesión</summary><p>Guarda el archivo de sesión si necesitas continuar, cierra las vistas impresas y usa “Nueva sesión” en equipos compartidos.</p></details>
+            </div>
+        </section>
     </div>
 
     <dialog class="attendance-dialog" id="student-dialog">
@@ -110,22 +231,32 @@
             <button class="attendance-btn attendance-dialog__close" id="dialog-close" type="button" aria-label="Cerrar ficha"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
         </div>
         <div class="attendance-dialog__body">
-            <div id="dialog-summary"></div>
-            <div class="attendance-months" id="dialog-months"></div>
-            <h3>Actuaciones registradas</h3>
-            <div class="attendance-action-list" id="dialog-actions"></div>
-            <form id="action-form">
-                <div class="attendance-filters">
-                    <div class="attendance-field"><label for="action-type">Tipo</label><select id="action-type"><option>Contacto con la familia</option><option>Entrevista tutorial</option><option>Coordinación con jefatura</option><option>Coordinación con orientación</option><option>Revisión del plan de apoyo</option><option>Valoración de derivación institucional</option></select></div>
-                    <div class="attendance-field"><label for="action-date">Fecha</label><input id="action-date" type="date" required></div>
-                    <div class="attendance-field" style="grid-column: span 2"><label for="action-note">Nota profesional breve</label><textarea id="action-note" maxlength="500" placeholder="Acuerdo, apoyo ofrecido o próximo paso. Evita información clínica o familiar innecesaria."></textarea></div>
-                </div>
-                <button class="attendance-btn attendance-btn--primary" type="submit">Guardar actuación</button>
-            </form>
+            <div class="attendance-dialog-tools"><button class="attendance-btn" id="family-meeting" type="button"><i class="fa-solid fa-people-roof" aria-hidden="true"></i> Reunión familiar</button><button class="attendance-btn" id="student-message" type="button">Generar mensaje</button><button class="attendance-btn" id="student-commitment" type="button">Compromiso</button><button class="attendance-btn" id="student-ss-report" type="button">Informe SS</button><button class="attendance-btn" id="student-report" type="button">Informe individual</button></div>
+            <div class="attendance-dialog-tabs" role="tablist" aria-label="Apartados de la ficha"><button role="tab" aria-selected="true" data-student-tab="summary" type="button">Resumen</button><button role="tab" aria-selected="false" data-student-tab="timeline" type="button">Línea de tiempo</button><button role="tab" aria-selected="false" data-student-tab="calendar" type="button">Calendario</button><button role="tab" aria-selected="false" data-student-tab="evolution" type="button">Evolución</button><button role="tab" aria-selected="false" data-student-tab="actions" type="button">Actuaciones</button><button role="tab" aria-selected="false" data-student-tab="contacts" type="button">Contactos</button><button role="tab" aria-selected="false" data-student-tab="protocol" type="button">Protocolo</button><button role="tab" aria-selected="false" data-student-tab="history" type="button">Historial</button><button role="tab" aria-selected="false" data-student-tab="message" type="button">Mensaje</button><button role="tab" aria-selected="false" data-student-tab="records" type="button">Editar faltas</button></div>
+            <section data-student-panel="summary"><div id="dialog-summary"></div><div class="attendance-months" id="dialog-months"></div></section>
+            <section data-student-panel="timeline" hidden><h3>Línea de tiempo conjunta</h3><div id="dialog-timeline" class="attendance-action-list"></div></section>
+            <section data-student-panel="calendar" hidden><h3>Calendario individual</h3><div id="dialog-student-calendar" class="attendance-calendar"></div></section>
+            <section data-student-panel="evolution" hidden><h3>Evolución mensual</h3><div id="dialog-evolution" class="attendance-chart"></div></section>
+            <section data-student-panel="actions" hidden><h3>Actuaciones registradas</h3><div class="attendance-action-list" id="dialog-actions"></div><form id="action-form"><div class="attendance-filters"><div class="attendance-field"><label for="action-type">Tipo</label><select id="action-type"><option>Contacto con la familia</option><option>Entrevista tutorial</option><option>Coordinación con jefatura</option><option>Coordinación con orientación</option><option>Revisión del plan de apoyo</option><option>Valoración de derivación institucional</option></select></div><div class="attendance-field"><label for="action-date">Fecha</label><input id="action-date" type="date" required></div><div class="attendance-field attendance-span-2"><label for="action-note">Nota profesional breve</label><textarea id="action-note" maxlength="500" placeholder="Acuerdo, apoyo ofrecido o próximo paso. Evita información clínica o familiar innecesaria."></textarea></div></div><button class="attendance-btn attendance-btn--primary" type="submit">Guardar actuación</button></form></section>
+            <section data-student-panel="contacts" hidden><h3>Contactos con la familia</h3><div id="dialog-contacts" class="attendance-action-list"></div><form id="contact-form"><div class="attendance-filters"><div class="attendance-field"><label for="contact-channel">Canal</label><select id="contact-channel"><option>Teléfono</option><option>Correo institucional</option><option>iPasen</option><option>Reunión presencial</option><option>Otro canal institucional</option></select></div><div class="attendance-field"><label for="contact-date">Fecha</label><input id="contact-date" type="date" required></div><div class="attendance-field attendance-span-2"><label for="contact-result">Resultado o acuerdo</label><textarea id="contact-result" maxlength="500" required></textarea></div></div><button class="attendance-btn attendance-btn--primary" type="submit">Guardar contacto</button></form></section>
+            <section data-student-panel="protocol" hidden><h3>Progreso del protocolo</h3><div id="dialog-protocol" class="attendance-protocol-checks"></div></section>
+            <section data-student-panel="history" hidden><h3>Historial consolidado</h3><div id="dialog-history" class="attendance-action-list"></div></section>
+            <section data-student-panel="message" hidden><h3>Mensaje profesional</h3><div class="attendance-field"><label for="generated-message">Texto generado desde las plantillas</label><textarea id="generated-message" rows="8"></textarea></div><button class="attendance-btn" id="copy-message" type="button">Copiar mensaje</button></section>
+            <section data-student-panel="records" hidden><h3>Registros de asistencia</h3><p class="attendance-source">Los cambios afectan solo a esta sesión local. Corrige también el dato en el sistema oficial del centro.</p><div id="dialog-records" class="attendance-record-list"></div></section>
         </div>
     </dialog>
 
-    <script src="../assets/js/absentismo.js?v=20260717"></script>
+    <dialog class="attendance-dialog attendance-dialog--compact" id="paste-dialog"><div class="attendance-dialog__header"><div><h2>Pegar datos CSV</h2><p>Pega filas con encabezados antes de previsualizar.</p></div><button class="attendance-btn attendance-dialog__close" data-close-dialog="paste-dialog" type="button" aria-label="Cerrar"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></div><div class="attendance-dialog__body"><div class="attendance-field"><label for="paste-content">Contenido CSV</label><textarea id="paste-content" rows="12" placeholder="Alumno/a;Grupo;Fecha;Justificada;Horas"></textarea></div><button class="attendance-btn attendance-btn--primary" id="preview-paste" type="button">Previsualizar</button></div></dialog>
+
+    <dialog class="attendance-dialog attendance-dialog--compact" id="import-dialog"><div class="attendance-dialog__header"><div><h2>Vista previa de importación</h2><p id="import-preview-summary"></p></div><button class="attendance-btn attendance-dialog__close" data-close-dialog="import-dialog" type="button" aria-label="Cerrar"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></div><div class="attendance-dialog__body"><div id="import-preview"></div><div class="attendance-inline-actions"><button class="attendance-btn" data-close-dialog="import-dialog" type="button">Cancelar</button><button class="attendance-btn attendance-btn--primary" id="confirm-import" type="button">Confirmar importación</button></div></div></dialog>
+
+    <dialog class="attendance-dialog attendance-dialog--compact" id="derivation-dialog"><div class="attendance-dialog__header"><div><h2>Nueva derivación</h2><p>Documenta únicamente información necesaria para la coordinación institucional.</p></div><button class="attendance-btn attendance-dialog__close" data-close-dialog="derivation-dialog" type="button" aria-label="Cerrar"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></div><div class="attendance-dialog__body"><form id="derivation-form"><div class="attendance-filters"><div class="attendance-field"><label for="derivation-student">Alumno/a</label><select id="derivation-student" required></select></div><div class="attendance-field"><label for="derivation-date">Fecha</label><input id="derivation-date" type="date" required></div><div class="attendance-field"><label for="derivation-destination">Destino</label><select id="derivation-destination"><option>Servicios Sociales Comunitarios</option><option>Equipo Técnico de Absentismo</option><option>Comisión Municipal</option><option>Otro servicio institucional</option></select></div><div class="attendance-field"><label for="derivation-status">Estado</label><select id="derivation-status"><option>Preparación</option><option>Enviada</option><option>En seguimiento</option><option>Cerrada</option></select></div><div class="attendance-field attendance-span-2"><label for="derivation-reason">Motivo profesional y medidas previas</label><textarea id="derivation-reason" maxlength="800" required></textarea></div></div><button class="attendance-btn attendance-btn--primary" type="submit">Guardar derivación</button></form></div></dialog>
+
+    <dialog class="attendance-dialog" id="report-dialog"><div class="attendance-dialog__header"><div><h2 id="report-title">Vista imprimible</h2><p>Revisa el contenido antes de imprimir o guardar como PDF.</p></div><button class="attendance-btn attendance-dialog__close" data-close-dialog="report-dialog" type="button" aria-label="Cerrar"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button></div><div class="attendance-dialog__body"><div class="attendance-print-report" id="report-content"></div><div class="attendance-field" id="meeting-note-field" hidden><label for="meeting-note">Notas de la reunión</label><textarea id="meeting-note" maxlength="1000" rows="5"></textarea></div><div class="attendance-inline-actions"><button class="attendance-btn" id="save-meeting-action" type="button" hidden>Guardar como actuación</button><button class="attendance-btn attendance-btn--primary" id="print-report" type="button"><i class="fa-solid fa-print" aria-hidden="true"></i> Imprimir / guardar PDF</button></div></div></dialog>
+
+    <dialog class="attendance-dialog attendance-dialog--compact" id="welcome-dialog"><div class="attendance-dialog__header"><div><h2>Bienvenido/a al seguimiento de absentismo</h2><p>Configura una sesión segura en tres decisiones.</p></div></div><div class="attendance-dialog__body"><div class="attendance-guide-grid"><article class="attendance-mini-stat"><strong>1</strong><span>Elige curso y unidad de medida.</span></article><article class="attendance-mini-stat"><strong>2</strong><span>Importa solo los datos imprescindibles y revisa la vista previa.</span></article><article class="attendance-mini-stat"><strong>3</strong><span>Activa anonimización o presentación antes de compartir pantalla.</span></article></div><p class="attendance-source">Esta bienvenida solo se recuerda durante la pestaña actual y no almacena datos del alumnado.</p><div class="attendance-inline-actions"><button class="attendance-btn" id="welcome-skip" type="button">Saltar configuración</button><button class="attendance-btn attendance-btn--primary" id="welcome-settings" type="button">Revisar configuración</button></div></div></dialog>
+
+    <script src="../assets/js/absentismo.js?v=20260717-2"></script>
     <script src="../assets/js/site.js?v=20260717"></script>
 </body>
 </html>
