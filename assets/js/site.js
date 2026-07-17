@@ -63,7 +63,8 @@
     "evacuacion/simulacro.html":             ["35 min", "Grupo", "Tomar decisiones seguras sin generar alarma", "Proyector; aclarar que es una simulación"],
     "evacuacion/escaperoom.html":            ["30 min", "Parejas o grupo-clase", "Contrastar decisiones con el protocolo real del centro", "Proyector y Plan de Autoprotección del centro"],
     "evaluacion/delegadovotacion.html":      ["55 min", "Grupo-clase", "Elegir representación con criterios y voto secreto", "Censo, candidaturas y dispositivo del docente"],
-    "evaluacion/analisisavanzado.html":      ["Uso docente", "Solo profesorado", "Preparar la evaluación sin exponer datos personales", "CSV anonimizado; evitar proyectar información sensible"]
+    "evaluacion/analisisavanzado.html":      ["Uso docente", "Solo profesorado", "Preparar la evaluación sin exponer datos personales", "CSV anonimizado; evitar proyectar información sensible"],
+    "evaluacion/absentismo.html":            ["Uso docente", "Solo profesorado", "Revisar patrones de asistencia y documentar actuaciones", "CSV con los datos imprescindibles; evitar proyectar información sensible"]
   };
 
   document.body.dataset.theme = folder.theme;
@@ -110,7 +111,7 @@
     if (!document.querySelector('link[rel="icon"]')) {
       const el = document.createElement("link");
       el.rel = "icon"; el.type = "image/svg+xml";
-      el.href = `${prefix}assets/icons/icon.svg`;
+      el.href = `${prefix}assets/icons/favicon.svg?v=20260717-2`;
       document.head.prepend(el);
     }
     if (!document.querySelector('link[rel="apple-touch-icon"]')) {
@@ -364,7 +365,10 @@
 
     document.body.classList.add("is-activity-page");
     const title = findPageTitle();
-    const isTeacherOnly = key === "evaluacion/analisisavanzado.html";
+    const isTeacherOnly = [
+      "evaluacion/analisisavanzado.html",
+      "evaluacion/absentismo.html"
+    ].includes(key);
     const aside = document.createElement("aside");
     aside.className = "activity-guide";
     aside.setAttribute("aria-label", `Ficha didáctica de ${title}`);
