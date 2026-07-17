@@ -343,44 +343,6 @@
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
   @media (max-width: 768px) { header { padding: 12px 14px; } .container { padding: 14px; } header h1 { font-size: 1.1rem; } }
 </style>
-<link rel="stylesheet" href="../assets/css/site.css?v=20260716-3">
-<style id="advanced-evaluation-integration">
-  /* La navegación común envuelve la aplicación sin modificar sus herramientas. */
-  .site-main > header,
-  .site-main > footer { width: 100%; }
-  .site-main > header { top: 96px; }
-
-  @media (max-width: 768px) {
-    .modal-overlay { padding: 10px; }
-    .modal { padding: 22px 16px; border-radius: 14px; }
-    .modal-close { top: 10px; right: 10px; }
-    .student-header { padding-right: 38px; flex-wrap: wrap; }
-    .student-name { font-size: 1.55rem; }
-    .student-nav { align-items: stretch; }
-    .student-nav .nav-select { order: -1; flex-basis: 100%; max-width: none; }
-    #student-modal-content { overflow-x: hidden; }
-    #student-modal-content > div[style*="grid-template-columns:1fr 1fr"],
-    .pres-content > div[style*="grid-template-columns:1fr 1fr"] {
-      grid-template-columns: minmax(0, 1fr) !important;
-    }
-    .radar-wrap {
-      min-width: 0;
-      padding-inline: 0;
-      overflow: hidden;
-      flex-direction: column;
-      align-items: center;
-    }
-    .radar-wrap svg,
-    #presentation-mode svg { max-width: 100%; height: auto; }
-    .evolution-grid { grid-template-columns: minmax(0, 1fr); }
-
-    #presentation-mode { padding: 16px 12px; }
-    .pres-nav { flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
-    .pres-nav > div:nth-child(2) { order: -1; flex-basis: 100%; }
-    .pres-nav > div:last-child { margin-left: auto; flex-wrap: wrap; justify-content: flex-end; }
-    .pres-big-name { font-size: 2rem; }
-  }
-</style>
 </head>
 <body>
 
@@ -2839,6 +2801,5 @@ window.loadDemo=function(){
 <!-- TUTORIAL MODAL -->
 <div class="modal-overlay" id="tutorial-modal"><div class="modal" style="max-width:760px" id="tutorial-modal-content"></div></div>
 
-<script src="../assets/js/site.js?v=20260716-3"></script>
 </body>
 </html>
